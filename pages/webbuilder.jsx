@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect, useContext } from "react";
 import Language from "../components/form/Language";
 import axios from "axios";
@@ -26,7 +25,7 @@ import { toast } from "react-toastify";
 import LoaderButton from "../components/utility/LoaderButton";
 import useLoader from "../hooks/useLoader";
 import Modal from "./adminlogin/Modal";
-import { Menu, X } from 'lucide-react';
+import { Menu, X } from "lucide-react";
 import Image from "next/image";
 import { ResumeContext } from "../components/context/ResumeContext";
 import ResumeLoader from "../components/ResumeLoader/Loader";
@@ -52,7 +51,17 @@ export default function WebBuilder() {
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
   const [userId, setUserId] = useState(0);
   const templateRef = useRef(null);
-  const {resumeData, setResumeData, setHeaderColor, setBgColor, setSelectedFont, selectedFont, backgroundColorss, headerColor,setResumeStrength} = useContext(ResumeContext)
+  const {
+    resumeData,
+    setResumeData,
+    setHeaderColor,
+    setBgColor,
+    setSelectedFont,
+    selectedFont,
+    backgroundColorss,
+    headerColor,
+    setResumeStrength,
+  } = useContext(ResumeContext);
 
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
@@ -62,33 +71,43 @@ export default function WebBuilder() {
   useEffect(() => {
     const fetchResumeData = async () => {
       const { id } = router.query;
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
 
       if (id && token) {
         try {
-          const response = await axios.get(`https://api.sentryspot.co.uk/api/jobseeker/resume-list/${id}`, {
-            headers: {
-              Authorization: token,
-            },
-          });
+          const response = await axios.get(
+            `https://api.sentryspot.co.uk/api/jobseeker/resume-list/${id}`,
+            {
+              headers: {
+                Authorization: token,
+              },
+            }
+          );
 
-          if (response.data.status === 'success') {
+          if (response.data.status === "success") {
             const { data } = response.data;
             // console.log(data,"rnd");
-            const parsedData = (data.ai_resume_parse_data);
-            
+            const parsedData = data.ai_resume_parse_data;
+
             setResumeData(parsedData.templateData);
-            setResumeStrength(data.resume_strenght_details)
-            
+            setResumeStrength(data.resume_strenght_details);
+
             if (parsedData.templateData.templateDetails) {
-              setBgColor(parsedData.templateData.templateDetails.backgroundColor || '');
-              setHeaderColor(parsedData.templateData.templateDetails.backgroundColor || '');
-              setSelectedTemplate(parsedData.templateData.templateDetails.templateId || 'template1');
+              setBgColor(
+                parsedData.templateData.templateDetails.backgroundColor || ""
+              );
+              setHeaderColor(
+                parsedData.templateData.templateDetails.backgroundColor || ""
+              );
+              setSelectedTemplate(
+                parsedData.templateData.templateDetails.templateId ||
+                  "template1"
+              );
             }
           }
         } catch (error) {
-          console.error('Error fetching resume data:', error);
-          toast.error('Failed to fetch resume data');
+          console.error("Error fetching resume data:", error);
+          toast.error("Failed to fetch resume data");
         }
       }
     };
@@ -128,7 +147,7 @@ export default function WebBuilder() {
   };
 
   const handleNext = () => {
-    handleFinish(false)
+    handleFinish(false);
     if (currentSection === sections.length - 1) {
       setIsFinished(true);
     } else {
@@ -141,7 +160,7 @@ export default function WebBuilder() {
   };
 
   const handleSectionClick = (index) => {
-    handleFinish(false)
+    handleFinish(false);
     setCurrentSection(index);
     setIsMobileMenuOpen(false);
   };
@@ -151,20 +170,18 @@ export default function WebBuilder() {
   };
 
   const nextSection = () => {
-    handleFinish(false)
+    handleFinish(false);
     if (currentSection < sections.length - 1) {
       handleSectionClick(currentSection + 1);
     }
   };
 
   const prevSection = () => {
-    handleFinish(false)
+    handleFinish(false);
     if (currentSection > 0) {
       handleSectionClick(currentSection - 1);
     }
   };
-
-
 
   const [showModal, setShowModal] = useState(false);
 
@@ -172,38 +189,38 @@ export default function WebBuilder() {
   const handleShowModal = () => setShowModal(true);
 
   const downloadAsPDF = async () => {
-    handleFinish()
+    handleFinish();
     if (!templateRef.current) {
       toast.error("Template reference not found");
       return;
     }
-  
+
     try {
       const htmlContent = templateRef.current.innerHTML;
-  
+
       const fullContent = `
         <style>
           @import url('https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css');
         </style>
         ${htmlContent}
       `;
-  
+
       const response = await axios.post(
-        'https://api.sentryspot.co.uk/api/jobseeker/generate-pdf1',
+        "https://api.sentryspot.co.uk/api/jobseeker/generate-pdf1",
         { html: fullContent },
         {
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
             Authorization: token,
           },
         }
       );
-  
-      downloadPDF()
+
+      downloadPDF();
     } catch (error) {
-      console.error('PDF generation error:', error);
+      console.error("PDF generation error:", error);
       toast.error(
-        error.response?.data?.message || 'Failed to generate and open PDF'
+        error.response?.data?.message || "Failed to generate and open PDF"
       );
     }
   };
@@ -215,21 +232,22 @@ export default function WebBuilder() {
       const payload = {
         amount,
         ResumeId: resumeId,
-        Token: token || ''
+        Token: token || "",
       };
 
       const response = await axios.post(
-        'https://api.sentryspot.co.uk/api/jobseeker/paypal/create-payment',
+        "https://api.sentryspot.co.uk/api/jobseeker/paypal/create-payment",
         payload,
         {
           headers: {
-             Authorization:token,
-            'Content-Type': 'application/json' }
+            Authorization: token,
+            "Content-Type": "application/json",
+          },
         }
       );
 
       const data = response.data;
-      console.log(data,"data");
+      console.log(data, "data");
       if (data && data.data) {
         const orderId = data.order_id;
         localStorage.setItem("orderid", orderId);
@@ -241,10 +259,10 @@ export default function WebBuilder() {
         }
       }
     } catch (error) {
-      console.error('Payment Error:', error);
+      console.error("Payment Error:", error);
     }
   };
- 
+
   useEffect(() => {
     if (PayerID) {
       verifyPayment();
@@ -298,18 +316,20 @@ export default function WebBuilder() {
           responseType: "blob",
         }
       );
-  
-      const url = window.URL.createObjectURL(new Blob([response.data], { type: "application/pdf" }));
+
+      const url = window.URL.createObjectURL(
+        new Blob([response.data], { type: "application/pdf" })
+      );
       const link = document.createElement("a");
       link.href = url;
-  
+
       link.setAttribute("download", `resume.pdf`);
       document.body.appendChild(link);
       link.click();
-  
+
       document.body.removeChild(link);
       window.URL.revokeObjectURL(url);
-  
+
       toast.success("PDF downloaded successfully!");
     } catch (error) {
       console.error("PDF Download Error:", error);
@@ -319,7 +339,7 @@ export default function WebBuilder() {
 
   const handleFinish = async (showToast = true) => {
     if (!resumeData) return;
-  
+
     const templateData = {
       templateData: {
         name: resumeData.name || "",
@@ -332,6 +352,7 @@ export default function WebBuilder() {
           resumeData.socialMedia?.map((media) => ({
             socialMedia: media.platform || "",
             link: media.link || "",
+            socialMedia: media.socialMedia || "",
           })) || [],
         summary: resumeData.summary || "",
         education:
@@ -340,6 +361,7 @@ export default function WebBuilder() {
             degree: edu.degree || "",
             startYear: edu.startYear || "",
             endYear: edu.endYear || "",
+            location: edu.location || "",
           })) || [],
         workExperience:
           resumeData.workExperience?.map((exp) => ({
@@ -351,6 +373,7 @@ export default function WebBuilder() {
               : [exp.KeyAchievements || ""],
             startYear: exp.startYear || "",
             endYear: exp.endYear || "",
+            location: exp.location,
           })) || [],
         projects:
           resumeData.projects?.map((project) => ({
@@ -379,20 +402,20 @@ export default function WebBuilder() {
         },
       },
     };
-  
+
     const htmlContent = templateRef?.current?.innerHTML;
     if (!htmlContent) {
       toast.error("Error: Template content is missing.");
       return;
     }
-  
+
     const resumeHtml = `
       <style>
         @import url('https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css');
       </style>
       ${htmlContent}
     `;
-  
+
     try {
       const id = router.query.id || resumeId;
       if (!id) {
@@ -400,7 +423,7 @@ export default function WebBuilder() {
         toast.error("Error: Resume ID is missing.");
         return;
       }
-  
+
       const url = `https://api.sentryspot.co.uk/api/jobseeker/resume-update/${id}`;
       const response = await axios.put(
         url,
@@ -412,7 +435,7 @@ export default function WebBuilder() {
           },
         }
       );
-  
+
       if (response.data.code === 200 || response.data.status === "success") {
         setIsSaved(true);
         if (showToast) {
@@ -426,7 +449,6 @@ export default function WebBuilder() {
       console.error("Error updating resume:", error);
     }
   };
-  
 
   const handleBackToEditor = () => {
     setIsFinished(false);
@@ -572,8 +594,9 @@ export default function WebBuilder() {
             </div>
 
             <div className="flex flex-col md:flex-row flex-grow p-4">
-              <div className="w-[40%] "
-               style={{ backgroundColor: "#323159f5" }}
+              <div
+                className="w-[40%] "
+                style={{ backgroundColor: "#323159f5" }}
               >
                 <main className="w-full mx-auto md:p-4">
                   <form>{sections[currentSection].component}</form>
@@ -582,7 +605,10 @@ export default function WebBuilder() {
 
               <aside className="w-[60%] min-h-screen border-l bg-gray-50">
                 <div className="sticky top-20 p-4">
-                  <Preview ref={templateRef} selectedTemplate={selectedTemplate} />
+                  <Preview
+                    ref={templateRef}
+                    selectedTemplate={selectedTemplate}
+                  />
                 </div>
               </aside>
             </div>
@@ -624,13 +650,12 @@ export default function WebBuilder() {
                 >
                   Pay & Download
                 </button>
-               
+
                 <button
                   onClick={handleBackToEditor}
                   className="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors"
                 >
-                 
-                 Edit Resume
+                  Edit Resume
                 </button>
               </div>
             </div>
@@ -644,7 +669,3 @@ export default function WebBuilder() {
     </>
   );
 }
-
-
-
-

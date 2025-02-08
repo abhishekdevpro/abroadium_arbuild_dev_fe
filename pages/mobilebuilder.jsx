@@ -1,4 +1,3 @@
-
 // import React, { useState, useRef, useEffect, useContext } from "react";
 // import Language from "../components/form/Language";
 // import axios from "axios";
@@ -19,7 +18,6 @@
 // import Preview from "../components/preview/Preview";
 // import TemplateSelector from "../components/preview/TemplateSelector";
 
-
 // import { useRouter } from "next/router";
 // import Sidebar from "./dashboard/Sidebar";
 // import { toast } from "react-toastify";
@@ -35,16 +33,14 @@
 // // import logo from "./builderImages/logo.jpg";
 // // import applepay from "./builderImages/apple-pay.png";
 
-
 // const Print = dynamic(() => import("../components/utility/WinPrint"), {
 //   ssr: false,
 // });
 
 // export default function MobileBuilder() {
-  
- 
+
 //   const [currentSection, setCurrentSection] = useState(0);
-  
+
 //   const [selectedTemplate, setSelectedTemplate] = useState("template1");
 //   const [isFinished, setIsFinished] = useState(false);
 
@@ -88,10 +84,10 @@
 //           if (response.data.status === 'success') {
 //             const { data } = response.data;
 //             const parsedData = (data.ai_resume_parse_data);
-            
+
 //             // Update state with fetched data
 //             setResumeData(parsedData.templateData);
-            
+
 //             // Set background color and template
 //             if (parsedData.templateData.templateDetails) {
 //               setBgColor(parsedData.templateData.templateDetails.backgroundColor || '');
@@ -208,10 +204,6 @@
 //     { label: "Certifications", component: <Certification /> },
 //   ];
 
-  
-
-  
-
 //   const handleNext = () => {
 //     if (currentSection === sections.length - 1) {
 //       localStorage.setItem("tempResumeData", JSON.stringify(resumeData));
@@ -260,8 +252,6 @@
 //     setSelectedFont(e.target.value);
 //   };
 
- 
- 
 //   const downloadAsPDF = async () => {
 //     const amount = 49; // Fixed price
 
@@ -302,17 +292,17 @@
 //       // Handle error (show error message to user)
 //     }
 //   };
- 
+
 //   // const downloadAsPDF = async () => {
 //   //   if (!templateRef.current) {
 //   //     toast.error("Template reference not found");
 //   //     return;
 //   //   }
-  
+
 //   //   try {
 //   //     // Get the HTML content from the template
 //   //     const htmlContent = templateRef.current.innerHTML;
-  
+
 //   //     // Generate the full HTML for the PDF
 //   //     const fullContent = `
 //   //       <style>
@@ -320,7 +310,7 @@
 //   //       </style>
 //   //       ${htmlContent}
 //   //     `;
-  
+
 //   //     // API call to generate the PDF
 //   //     const response = await axios.post(
 //   //       'https://api.sentryspot.co.uk/api/jobseeker/generate-pdf1',
@@ -332,19 +322,19 @@
 //   //         },
 //   //       }
 //   //     );
-  
+
 //   //     // Check if the file path was returned
 //   //     const filePath = response.data.data?.file_path;
 //   //     if (!filePath) {
 //   //       throw new Error('PDF file path not received');
 //   //     }
-  
+
 //   //     // Construct the URL
 //   //     const downloadUrl = `https://api.resumeintellect.com${filePath}`;
-  
+
 //   //     // Open the URL in a new tab
 //   //     window.open(downloadUrl, '_blank');
-  
+
 //   //     toast.success('PDF generated and opened in a new tab!');
 //   //   } catch (error) {
 //   //     console.error('PDF generation error:', error);
@@ -596,11 +586,9 @@
 //       />
 
 //       <div className=" w-full bg-gray-50">
-      
 
 //         {!isFinished ? (
 //           <div className=" bg-gray-50 flex flex-col">
-            
 
 //             <div className="flex flex-col md:flex-row flex-grow ">
 //               <button
@@ -622,17 +610,17 @@
 //               )}
 
 //               <aside
-//                 className={`fixed md:static left-0 top-0 h-full z-10 transform 
+//                 className={`fixed md:static left-0 top-0 h-full z-10 transform
 //                                 ${
 //                                   isMobileSidebarOpen
 //                                     ? "translate-x-0"
 //                                     : "-translate-x-full"
-//                                 } 
-//                                 md:translate-x-0 transition-transform duration-300 ease-in-out 
+//                                 }
+//                                 md:translate-x-0 transition-transform duration-300 ease-in-out
 //                                 w-64 bg-gray-100 border-r`}
 //               >
-//                 <div 
-                  
+//                 <div
+
 //                 className="sticky top-20 p-4 overflow-y-auto h-full">
 //                   <div className="mt-12 md:mt-0">
 //                     <Sidebar />
@@ -669,7 +657,7 @@
 //                     <option value="Roboto">Roboto</option>
 //                     <option value="Poppins">Poppins</option>
 //                   </select>
-         
+
 // <TemplateSelector   selectedTemplate={selectedTemplate}
 //                       setSelectedTemplate={setSelectedTemplate}/>
 
@@ -677,16 +665,15 @@
 //            <div className=" ">
 //           <Preview ref={templateRef} selectedTemplate={selectedTemplate} />
 //           </div>
-         
+
 //           <div className="flex items-center justify-center gap-4 p-2 fixed bottom-0 left-0 right-0 bg-white shadow-lg ">
-         
-          
+
 //               <LoaderButton
 //                 isLoading={isLoading}
 //                 onClick={handleFinish}
 //                 className=" text-white px-4 py-2 rounded-lg bottom-btns"
 //               >
-              
+
 //               Save
 //               </LoaderButton>
 
@@ -827,8 +814,7 @@
 //               </button>
 //             </div>
 //           </>
-          
-          
+
 //         )}
 //       </div>
 //     </>
@@ -856,7 +842,7 @@ import Sidebar from "./dashboard/Sidebar";
 import { toast } from "react-toastify";
 import LoaderButton from "../components/utility/LoaderButton";
 import useLoader from "../hooks/useLoader";
-import { Menu, X } from 'lucide-react';
+import { Menu, X } from "lucide-react";
 import Image from "next/image";
 import { ResumeContext } from "../components/context/ResumeContext";
 
@@ -878,7 +864,16 @@ export default function MobileBuilder() {
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
   const [userId, setUserId] = useState(0);
   const templateRef = useRef(null);
-  const {resumeData, setResumeData, setHeaderColor, setBgColor, setSelectedFont, selectedFont, backgroundColorss, headerColor} = useContext(ResumeContext);
+  const {
+    resumeData,
+    setResumeData,
+    setHeaderColor,
+    setBgColor,
+    setSelectedFont,
+    selectedFont,
+    backgroundColorss,
+    headerColor,
+  } = useContext(ResumeContext);
   const [showModal, setShowModal] = useState(false);
 
   const handleCloseModal = () => setShowModal(false);
@@ -891,31 +886,41 @@ export default function MobileBuilder() {
   useEffect(() => {
     const fetchResumeData = async () => {
       const { id } = router.query;
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
 
       if (id && token) {
         try {
-          const response = await axios.get(`https://api.sentryspot.co.uk/api/jobseeker/resume-list/${id}`, {
-            headers: {
-              Authorization: token,
-            },
-          });
+          const response = await axios.get(
+            `https://api.sentryspot.co.uk/api/jobseeker/resume-list/${id}`,
+            {
+              headers: {
+                Authorization: token,
+              },
+            }
+          );
 
-          if (response.data.status === 'success') {
+          if (response.data.status === "success") {
             const { data } = response.data;
-            const parsedData = (data.ai_resume_parse_data);
-            
+            const parsedData = data.ai_resume_parse_data;
+
             setResumeData(parsedData.templateData);
-            
+
             if (parsedData.templateData.templateDetails) {
-              setBgColor(parsedData.templateData.templateDetails.backgroundColor || '');
-              setHeaderColor(parsedData.templateData.templateDetails.backgroundColor);
-              setSelectedTemplate(parsedData.templateData.templateDetails.templateId || 'template1');
+              setBgColor(
+                parsedData.templateData.templateDetails.backgroundColor || ""
+              );
+              setHeaderColor(
+                parsedData.templateData.templateDetails.backgroundColor
+              );
+              setSelectedTemplate(
+                parsedData.templateData.templateDetails.templateId ||
+                  "template1"
+              );
             }
           }
         } catch (error) {
-          console.error('Error fetching resume data:', error);
-          toast.error('Failed to fetch resume data');
+          console.error("Error fetching resume data:", error);
+          toast.error("Failed to fetch resume data");
         }
       }
     };
@@ -1013,38 +1018,38 @@ export default function MobileBuilder() {
   //   }
   // };
   const downloadAsPDF = async () => {
-    handleFinish()
+    handleFinish();
     if (!templateRef.current) {
       toast.error("Template reference not found");
       return;
     }
-  
+
     try {
       const htmlContent = templateRef.current.innerHTML;
-  
+
       const fullContent = `
         <style>
           @import url('https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css');
         </style>
         ${htmlContent}
       `;
-  
+
       const response = await axios.post(
-        'https://api.sentryspot.co.uk/api/jobseeker/generate-pdf1',
+        "https://api.sentryspot.co.uk/api/jobseeker/generate-pdf1",
         { html: fullContent },
         {
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
             Authorization: token,
           },
         }
       );
-  
-      downloadPDF()
+
+      downloadPDF();
     } catch (error) {
-      console.error('PDF generation error:', error);
+      console.error("PDF generation error:", error);
       toast.error(
-        error.response?.data?.message || 'Failed to generate and open PDF'
+        error.response?.data?.message || "Failed to generate and open PDF"
       );
     }
   };
@@ -1059,18 +1064,20 @@ export default function MobileBuilder() {
           responseType: "blob",
         }
       );
-  
-      const url = window.URL.createObjectURL(new Blob([response.data], { type: "application/pdf" }));
+
+      const url = window.URL.createObjectURL(
+        new Blob([response.data], { type: "application/pdf" })
+      );
       const link = document.createElement("a");
       link.href = url;
-  
+
       link.setAttribute("download", `resume.pdf`);
       document.body.appendChild(link);
       link.click();
-  
+
       document.body.removeChild(link);
       window.URL.revokeObjectURL(url);
-  
+
       toast.success("PDF downloaded successfully!");
     } catch (error) {
       console.error("PDF Download Error:", error);
@@ -1132,7 +1139,7 @@ export default function MobileBuilder() {
         profilePicture: resumeData.profilePicture || "",
         socialMedia:
           resumeData.socialMedia?.map((media) => ({
-            socialMedia: media.platform || "",
+            socialMedia: media.socialMedia || "",
             link: media.link || "",
           })) || [],
         summary: resumeData.summary || "",
@@ -1142,6 +1149,7 @@ export default function MobileBuilder() {
             degree: edu.degree || "",
             startYear: edu.startYear || "",
             endYear: edu.endYear || "",
+            location: edu.location || "",
           })) || [],
         workExperience:
           resumeData.workExperience?.map((exp) => ({
@@ -1153,6 +1161,7 @@ export default function MobileBuilder() {
               : [exp.keyAchievements || ""],
             startYear: exp.startYear || "",
             endYear: exp.endYear || "",
+            location: exp.location || "",
           })) || [],
         projects:
           resumeData.projects?.map((project) => ({
@@ -1323,20 +1332,21 @@ export default function MobileBuilder() {
                   </div>
                 </div>
               </aside>
-               <div className="flex justify-start "
-                 style={{ backgroundColor: "#323159f5" }}
-               >
-              <main className="flex-1 max-w-2xl mx-auto md:p-4">
-                <form>{sections[currentSection].component}</form>
-              </main>
-               </div>
+              <div
+                className="flex justify-start "
+                style={{ backgroundColor: "#323159f5" }}
+              >
+                <main className="flex-1 max-w-2xl mx-auto md:p-4">
+                  <form>{sections[currentSection].component}</form>
+                </main>
+              </div>
             </div>
 
             <MobileNavigation />
           </div>
         ) : (
           <>
-             <div className="flex items-center absolute justify-center flex-wrap top-20 left-0 right-0 bg-white shadow-lg">
+            <div className="flex items-center absolute justify-center flex-wrap top-20 left-0 right-0 bg-white shadow-lg">
               <ColorPickers
                 selectmultiplecolor={backgroundColorss}
                 onChange={setBgColor}
@@ -1357,31 +1367,31 @@ export default function MobileBuilder() {
                 setSelectedTemplate={setSelectedTemplate}
               />
             </div>
-           <div className=" ">
-          <Preview ref={templateRef} selectedTemplate={selectedTemplate} />
-          </div>
-         
-          <div className="flex items-center justify-center gap-4 p-2 fixed bottom-0 left-0 right-0 bg-white shadow-lg ">
+            <div className=" ">
+              <Preview ref={templateRef} selectedTemplate={selectedTemplate} />
+            </div>
+
+            <div className="flex items-center justify-center gap-4 p-2 fixed bottom-0 left-0 right-0 bg-white shadow-lg ">
               <LoaderButton
                 isLoading={isLoading}
                 onClick={handleFinish}
                 className=" text-white px-4 py-2 rounded-lg bottom-btns"
               >
-              Save
+                Save
               </LoaderButton>
 
               <button
                 onClick={downloadAsPDF}
                 className=" bg-yellow-500 text-black px-4 py-2 rounded-lg bottom-btns"
               >
-             Download
+                Download
               </button>
-             
+
               <button
                 onClick={handleBackToEditor}
                 className="bg-blue-950 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors bottom-btns"
               >
-           Edit Resume
+                Edit Resume
               </button>
             </div>
           </>
@@ -1390,4 +1400,3 @@ export default function MobileBuilder() {
     </>
   );
 }
-
