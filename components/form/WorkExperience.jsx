@@ -369,7 +369,7 @@ const WorkExperience = () => {
   const handleAutoFixDescription = async (index, content) => {
     if (!content || !content.position) {
       toast.error("Job Title is required");
-      return;
+      // return;
     }
   
     setLoadingStates((prev) => ({
@@ -454,13 +454,37 @@ const WorkExperience = () => {
       }));
     }
   };
- 
+  const handleToggleFresher = (e) => {
+    e.preventDefault();
+    setResumeData(prevData => ({
+      ...prevData,
+      is_fresher: !prevData.is_fresher,
+      workExperience: prevData.workExperience
+    }));
+  };
+
 
   return (
     <div className="flex-col gap-3 w-full mt-10 px-10">
       <h2 className="input-title text-white text-3xl mb-6">Work Experience</h2>
+      <div className="flex items-center space-x-2 mb-4">
+        <label className="text-lg text-white font-medium">Are you a Fresher?</label>
+        <button
+          className={`w-14 h-7 flex items-center rounded-full p-1 transition ${
+            resumeData.is_fresher ? "bg-green-500" : "bg-gray-400"
+          }`}
+          onClick={handleToggleFresher}
+        >
+          <div
+            className={`w-6 h-6 bg-white rounded-full shadow-md transform transition ${
+              resumeData.is_fresher ? "translate-x-7" : "translate-x-0"
+            }`}
+          />
+        </button>
+      </div>
+      
 
-      {resumeData.workExperience.map((experience, index) => (
+      {!resumeData.is_fresher && resumeData.workExperience.map((experience, index) => (
         <div key={index} className="mb-6 rounded-lg overflow-hidden">
           <div
             className="flex justify-between items-center p-4 cursor-pointer bg-white"

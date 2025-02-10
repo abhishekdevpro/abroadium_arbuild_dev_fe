@@ -345,6 +345,7 @@ export default function WebBuilder() {
         name: resumeData.name || "",
         position: resumeData.position || "",
         contactInformation: resumeData.contactInformation || "",
+        phone_code:resumeData.phone_code || "",
         email: resumeData.email || "",
         address: resumeData.address || "",
         profilePicture: resumeData.profilePicture || "",
@@ -355,6 +356,7 @@ export default function WebBuilder() {
             socialMedia: media.socialMedia || "",
           })) || [],
         summary: resumeData.summary || "",
+        is_fresher:resumeData.is_fresher || "",
         education:
           resumeData.education?.map((edu) => ({
             school: edu.school || "",

@@ -1,7 +1,3 @@
-
-
-
-
 // import React, { useContext, useState } from "react";
 // import axios from "axios";
 // import dynamic from "next/dynamic";
@@ -138,10 +134,10 @@
 //         </div>
 
 //         {error && <div className="text-red-500 text-sm mb-2">{error}</div>}
-        
+
 //         {/* Suggestions Tooltip */}
 //         {showSuggestions && hasErrors() && (
-     
+
 //           <div className="absolute z-50 left-8 mt-10 w-80 bg-white rounded-lg shadow-xl transform transition-all duration-200 ease-in-out border border-gray-700">
 //           <div className="p-4 border-b border-gray-700">
 //             <div className="flex items-center justify-between">
@@ -262,7 +258,8 @@ import { useRouter } from "next/router";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 const Summary = () => {
-  const { resumeData, setResumeData, resumeStrength, setResumeStrength } = useContext(ResumeContext);
+  const { resumeData, setResumeData, resumeStrength, setResumeStrength } =
+    useContext(ResumeContext);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [summaries, setSummaries] = useState([]);
@@ -272,10 +269,12 @@ const Summary = () => {
   const [isAutoFixLoading, setIsAutoFixLoading] = useState(false);
   const router = useRouter();
   const { improve } = router.query;
-console.log(resumeData,">>>>");
+  // console.log(resumeStrength.personal_summery_strenght.summery, ">>>>");
   const hasErrors = () => {
-    return resumeStrength?.personal_summery_strenght?.suggestions !== null ||
-           resumeStrength?.personal_summery_strenght?.summery !== null;
+    return (
+      resumeStrength?.personal_summery_strenght?.suggestions !== null ||
+      resumeStrength?.personal_summery_strenght?.summery !== null
+    );
   };
 
   const getSuggestions = () => {
@@ -291,9 +290,9 @@ console.log(resumeData,">>>>");
 
   const handleAutoFix = async () => {
     if (!resumeData.summary) return;
-  
+
     setIsAutoFixLoading(true);
-  
+
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(
@@ -308,31 +307,31 @@ console.log(resumeData,">>>>");
             key: "summary",
             keyword: "auto improve",
             content: resumeData.summary,
-            job_title:resumeData.position,
+            job_title: resumeData.position,
           }),
         }
       );
-  
+
       if (response.ok) {
         const data = await response.json();
-        
+
         if (data.data.resume_analysis) {
           const updatedSummary = data.data.resume_analysis.professional_summary;
-  
+
           if (updatedSummary) {
             setResumeData({
               ...resumeData,
-              summary: updatedSummary
+              summary: updatedSummary,
             });
-            
+
             // Clear errors
             if (resumeStrength?.personal_summery_strenght) {
               const updatedStrength = {
                 ...resumeStrength,
                 personal_summery_strenght: {
                   suggestions: null,
-                  summery: null
-                }
+                  summery: null,
+                },
               };
               setResumeStrength(updatedStrength);
             }
@@ -446,7 +445,7 @@ console.log(resumeData,">>>>");
         </div>
 
         {error && <div className="text-red-500 text-sm mb-2">{error}</div>}
-        
+
         {/* Suggestions Tooltip */}
         {showSuggestions && hasErrors() && (
           <div className="absolute z-50 left-8 mt-10 w-80 bg-white rounded-lg shadow-xl transform transition-all duration-200 ease-in-out border border-gray-700">
@@ -454,7 +453,9 @@ console.log(resumeData,">>>>");
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-2">
                   <AlertCircle className="w-5 h-5 text-red-400" />
-                  <span className="font-medium text-black">Summary Suggestions</span>
+                  <span className="font-medium text-black">
+                    Summary Suggestions
+                  </span>
                 </div>
                 <div className="flex items-center space-x-2">
                   <button
@@ -465,7 +466,7 @@ console.log(resumeData,">>>>");
                     {isAutoFixLoading ? (
                       <Loader2 className="w-4 h-4 animate-spin" />
                     ) : (
-                      'Auto Fix'
+                      "Auto Fix"
                     )}
                   </button>
                   <button
@@ -478,12 +479,20 @@ console.log(resumeData,">>>>");
               </div>
             </div>
             <div className="p-4">
-              {getSuggestions().map((msg, i) => (
+              {/* {getSuggestions().map((msg, i) => (
                 <div key={i} className="flex items-start space-x-3 mb-3 last:mb-0">
                   <div className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-red-400 mt-2"></div>
                   <p className="text-black text-sm">{msg}</p>
                 </div>
-              ))}
+              ))} */}
+              <ul className="space-y-3">
+                {resumeStrength.personal_summery_strenght.summery.map((msg, i) => (
+                  <li key={i} className="flex items-start space-x-3">
+                    <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-red-400 mt-2"></span>
+                    <p className="text-black text-sm">{msg}</p>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         )}
