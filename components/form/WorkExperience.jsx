@@ -459,7 +459,7 @@ const WorkExperience = () => {
     setResumeData(prevData => ({
       ...prevData,
       is_fresher: !prevData.is_fresher,
-      workExperience: !prevData.is_fresher ? [] : prevData.workExperience
+      workExperience: prevData.workExperience
     }));
   };
 
