@@ -356,7 +356,7 @@ export default function WebBuilder() {
             socialMedia: media.socialMedia || "",
           })) || [],
         summary: resumeData.summary || "",
-        is_fresher:resumeData.is_fresher || "",
+        is_fresher:resumeData.is_fresher || false,
         education:
           resumeData.education?.map((edu) => ({
             school: edu.school || "",
