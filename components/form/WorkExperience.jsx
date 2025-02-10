@@ -6,11 +6,15 @@ import axios from "axios";
 import dynamic from "next/dynamic";
 import "react-quill/dist/quill.snow.css";
 import { useRouter } from "next/router";
+import { toast } from "react-toastify";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 const WorkExperience = () => {
-  const { resumeData, setResumeData, resumeStrength } =
+        
+          const { resumeData, setResumeData, resumeStrength , 
+            setResumeStrength,
+          } =
     useContext(ResumeContext);
   const [activeTooltip, setActiveTooltip] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -362,6 +366,95 @@ const WorkExperience = () => {
       return newExpanded;
     });
   };
+  const handleAutoFixDescription = async (index, content) => {
+    if (!content || !content.position) {
+      toast.error("Job Title is required");
+      return;
+    }
+  
+    setLoadingStates((prev) => ({
+      ...prev,
+      [`description_${index}`]: true,
+    }));
+  
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        toast.error("Authentication token is missing");
+        return;
+      }
+  
+      const response = await fetch(
+        "https://api.sentryspot.co.uk/api/jobseeker/ai-expsummery",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `${token}`,
+          },
+          body: JSON.stringify({
+            key: "experience description",
+            keyword: "auto improve",
+            content: content.description || "",
+            company_name: content.company || "",
+            job_title: content.position,
+            location: content.location || "",
+          }),
+        }
+      );
+  
+      if (!response.ok) {
+        throw new Error(`API request failed with status ${response.status}`);
+      }
+  
+      const data = await response.json();
+      const updatedDescription = data?.data?.resume_analysis?.professional_summary;
+  
+      if (updatedDescription) {
+        // Update the actual work experience data
+        const newWorkExperience = [...resumeData.workExperience];
+        newWorkExperience[index] = {
+          ...newWorkExperience[index],
+          description: updatedDescription,
+        };
+        setResumeData({
+          ...resumeData,
+          workExperience: newWorkExperience,
+        });
+  
+        // Clear the error state for this field
+        if (resumeStrength?.work_experience_strenght) {
+          const newWorkExperienceStrength = [...resumeStrength.work_experience_strenght];
+          if (newWorkExperienceStrength[index]) {
+            newWorkExperienceStrength[index] = {
+              ...newWorkExperienceStrength[index],
+              descriptionDetails: [], // Clear the errors
+            };
+          }
+          setResumeStrength({
+            ...resumeStrength,
+            work_experience_strenght: newWorkExperienceStrength,
+          });
+        }
+  
+        // Close the tooltip
+        setActiveTooltip(null);
+        
+        toast.success("Description updated successfully");
+      } else {
+        toast.error("Failed to auto-fix description");
+      }
+    } catch (error) {
+      console.error(`Error auto-fixing experience description at index ${index}:`, error);
+      toast.error("An error occurred while processing your request");
+    } finally {
+      setLoadingStates((prev) => ({
+        ...prev,
+        [`description_${index}`]: false,
+      }));
+    }
+  };
+ 
 
   return (
     <div className="flex-col gap-3 w-full mt-10 px-10">
@@ -714,6 +807,20 @@ const WorkExperience = () => {
                             Description Suggestions
                           </span>
                         </div>
+                        <button
+                          onClick={() =>
+                            handleAutoFixDescription(
+                              index,
+                              experience
+                            )
+                          }
+                          className="px-3 py-1 text-sm font-medium text-white bg-blue-600 rounded-md shadow hover:bg-blue-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                          disabled={loadingStates[`description_${index}`]}
+                        >
+                          {loadingStates[`description_${index}`]
+                            ? "Fixing..."
+                            : "Auto Fix"}
+                        </button>
                         <button
                           onClick={() => setActiveTooltip(null)}
                           className="text-black transition-colors"
