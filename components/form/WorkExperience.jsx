@@ -11,10 +11,7 @@ import { toast } from "react-toastify";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 const WorkExperience = () => {
-        
-          const { resumeData, setResumeData, resumeStrength , 
-            setResumeStrength,
-          } =
+  const { resumeData, setResumeData, resumeStrength, setResumeStrength } =
     useContext(ResumeContext);
   const [activeTooltip, setActiveTooltip] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -366,24 +363,21 @@ const WorkExperience = () => {
       return newExpanded;
     });
   };
-  const handleAutoFixDescription = async (index, content) => {
-    if (!content || !content.position) {
-      toast.error("Job Title is required");
-      // return;
-    }
-  
+  const handleAutoFixDescription = async (e, index, content) => {
+    e.preventDefault();
+    e.stopPropagation();
     setLoadingStates((prev) => ({
       ...prev,
       [`description_${index}`]: true,
     }));
-  
+
     try {
       const token = localStorage.getItem("token");
       if (!token) {
         toast.error("Authentication token is missing");
         return;
       }
-  
+
       const response = await fetch(
         "https://api.sentryspot.co.uk/api/jobseeker/ai-expsummery",
         {
@@ -402,14 +396,15 @@ const WorkExperience = () => {
           }),
         }
       );
-  
+
       if (!response.ok) {
         throw new Error(`API request failed with status ${response.status}`);
       }
-  
+
       const data = await response.json();
-      const updatedDescription = data?.data?.resume_analysis?.professional_summary;
-  
+      const updatedDescription =
+        data?.data?.resume_analysis?.professional_summary;
+
       if (updatedDescription) {
         // Update the actual work experience data
         const newWorkExperience = [...resumeData.workExperience];
@@ -421,10 +416,12 @@ const WorkExperience = () => {
           ...resumeData,
           workExperience: newWorkExperience,
         });
-  
+
         // Clear the error state for this field
         if (resumeStrength?.work_experience_strenght) {
-          const newWorkExperienceStrength = [...resumeStrength.work_experience_strenght];
+          const newWorkExperienceStrength = [
+            ...resumeStrength.work_experience_strenght,
+          ];
           if (newWorkExperienceStrength[index]) {
             newWorkExperienceStrength[index] = {
               ...newWorkExperienceStrength[index],
@@ -436,16 +433,19 @@ const WorkExperience = () => {
             work_experience_strenght: newWorkExperienceStrength,
           });
         }
-  
+
         // Close the tooltip
         setActiveTooltip(null);
-        
+
         toast.success("Description updated successfully");
       } else {
         toast.error("Failed to auto-fix description");
       }
     } catch (error) {
-      console.error(`Error auto-fixing experience description at index ${index}:`, error);
+      console.error(
+        `Error auto-fixing experience description at index ${index}:`,
+        error
+      );
       toast.error("An error occurred while processing your request");
     } finally {
       setLoadingStates((prev) => ({
@@ -456,19 +456,20 @@ const WorkExperience = () => {
   };
   const handleToggleFresher = (e) => {
     e.preventDefault();
-    setResumeData(prevData => ({
+    setResumeData((prevData) => ({
       ...prevData,
       is_fresher: !prevData.is_fresher,
-      workExperience: prevData.workExperience
+      workExperience: prevData.workExperience,
     }));
   };
-
 
   return (
     <div className="flex-col gap-3 w-full mt-10 px-10">
       <h2 className="input-title text-white text-3xl mb-6">Work Experience</h2>
       <div className="flex items-center space-x-2 mb-4">
-        <label className="text-lg text-white font-medium">Are you a Fresher?</label>
+        <label className="text-lg text-white font-medium">
+          Are you a Fresher?
+        </label>
         <button
           className={`w-14 h-7 flex items-center rounded-full p-1 transition ${
             resumeData.is_fresher ? "bg-green-500" : "bg-gray-400"
@@ -482,21 +483,21 @@ const WorkExperience = () => {
           />
         </button>
       </div>
-      
 
-      {!resumeData.is_fresher && resumeData.workExperience.map((experience, index) => (
-        <div key={index} className="mb-6 rounded-lg overflow-hidden">
-          <div
-            className="flex justify-between items-center p-4 cursor-pointer bg-white"
-            onClick={() => toggleExperience(index)}
-          >
-            <h3 className="text-black text-xl font-semibold">
-              {experience.position ||
-                experience.company ||
-                `Work Experience ${index + 1}`}
-            </h3>
-            <div className="flex items-center">
-              {/* <button
+      {!resumeData.is_fresher &&
+        resumeData.workExperience.map((experience, index) => (
+          <div key={index} className="mb-6 rounded-lg overflow-hidden">
+            <div
+              className="flex justify-between items-center p-4 cursor-pointer bg-white"
+              onClick={() => toggleExperience(index)}
+            >
+              <h3 className="text-black text-xl font-semibold">
+                {experience.position ||
+                  experience.company ||
+                  `Work Experience ${index + 1}`}
+              </h3>
+              <div className="flex items-center">
+                {/* <button
                 onClick={(e) => {
                   e.stopPropagation()
                   removeWorkExperience(index)
@@ -505,450 +506,472 @@ const WorkExperience = () => {
               >
                 <Trash2 className="w-5 h-5" />
               </button> */}
-              {expandedExperiences[index] ? (
-                <ChevronUp className="w-6 h-6 text-black" />
-              ) : (
-                <ChevronDown className="w-6 h-6 text-black" />
-              )}
+                {expandedExperiences[index] ? (
+                  <ChevronUp className="w-6 h-6 text-black" />
+                ) : (
+                  <ChevronDown className="w-6 h-6 text-black" />
+                )}
+              </div>
             </div>
-          </div>
 
-          {expandedExperiences[index] && (
-            <div className="p-4 bg-white">
-              <div className="relative mb-4">
-                <label className="text-black">Company Name</label>
-                <input
-                  type="text"
-                  placeholder="Company"
-                  name="company"
-                  className={`w-full other-input border ${
-                    improve && hasErrors(index, "company")
-                      ? "border-red-500"
-                      : "border-black"
-                  }`}
-                  value={experience.company}
-                  onChange={(e) => handleWorkExperience(e, index)}
-                />
-                {showCompanyDropdown && companySuggestions.length > 0 && (
-                  <div className="absolute z-50 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg">
-                    {companySuggestions.map((company, i) => (
-                      <div
-                        key={i}
-                        className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
-                        onClick={() => handleCompanySelect(company.name, index)}
-                      >
-                        {company.name}
-                      </div>
-                    ))}
-                  </div>
-                )}
-                {improve && hasErrors(index, "company") && (
-                  <button
-                    type="button"
-                    className="absolute right-2 top-1/2 -translate-y-1/2 text-red-500 hover:text-red-600 transition-colors"
-                    onClick={() =>
-                      setActiveTooltip(
-                        activeTooltip === `company-${index}`
-                          ? null
-                          : `company-${index}`
-                      )
-                    }
-                  >
-                    <AlertCircle className="w-5 h-5" />
-                  </button>
-                )}
-                {activeTooltip === `company-${index}` && (
-                  <div className="absolute z-50 right-0 mt-2 w-80 bg-white rounded-lg shadow-xl transform transition-all duration-200 ease-in-out border border-gray-700">
-                    <div className="p-4 border-b border-gray-700">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-2">
-                          <AlertCircle className="w-5 h-5 text-red-400" />
-                          <span className="font-medium text-black">
-                            Company Suggestions
-                          </span>
-                        </div>
-                        <button
-                          onClick={() => setActiveTooltip(null)}
-                          className="text-black transition-colors"
-                        >
-                          <X className="w-5 h-5" />
-                        </button>
-                      </div>
-                    </div>
-                    <div className="p-4">
-                      {getErrorMessages(index, "company").map((msg, i) => (
+            {expandedExperiences[index] && (
+              <div className="p-4 bg-white">
+                <div className="relative mb-4">
+                  <label className="text-black">Company Name</label>
+                  <input
+                    type="text"
+                    placeholder="Company"
+                    name="company"
+                    className={`w-full other-input border ${
+                      improve && hasErrors(index, "company")
+                        ? "border-red-500"
+                        : "border-black"
+                    }`}
+                    value={experience.company}
+                    onChange={(e) => handleWorkExperience(e, index)}
+                  />
+                  {showCompanyDropdown && companySuggestions.length > 0 && (
+                    <div className="absolute z-50 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg">
+                      {companySuggestions.map((company, i) => (
                         <div
                           key={i}
-                          className="flex items-start space-x-3 mb-3 last:mb-0"
-                        >
-                          <div className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-red-400 mt-2"></div>
-                          <p className="text-black text-sm">{msg}</p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              <div className="relative mb-4">
-                <label className="text-black">Job Title</label>
-                <input
-                  type="text"
-                  placeholder="Position"
-                  name="position"
-                  className={`w-full other-input border ${
-                    improve && hasErrors(index, "position")
-                      ? "border-red-500"
-                      : "border-black"
-                  }`}
-                  value={experience.position}
-                  onChange={(e) => handleWorkExperience(e, index)}
-                />
-                {showJobTitleDropdown && jobTitleSuggestions.length > 0 && (
-                  <div className="absolute z-50 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg">
-                    {jobTitleSuggestions.map((jobTitle, i) => (
-                      <div
-                        key={i}
-                        className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
-                        onClick={() =>
-                          handleJobTitleSelect(jobTitle.name, index)
-                        }
-                      >
-                        {jobTitle.name}
-                      </div>
-                    ))}
-                  </div>
-                )}
-                {improve && hasErrors(index, "position") && (
-                  <button
-                    type="button"
-                    className="absolute right-2 top-1/2 -translate-y-1/2 text-red-500 hover:text-red-600 transition-colors"
-                    onClick={() =>
-                      setActiveTooltip(
-                        activeTooltip === `position-${index}`
-                          ? null
-                          : `position-${index}`
-                      )
-                    }
-                  >
-                    <AlertCircle className="w-5 h-5" />
-                  </button>
-                )}
-                {activeTooltip === `position-${index}` && (
-                  <div className="absolute z-50 right-0 mt-2 w-80 bg-white rounded-lg shadow-xl transform transition-all duration-200 ease-in-out border border-gray-700">
-                    <div className="p-4 border-b border-gray-700">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-2">
-                          <AlertCircle className="w-5 h-5 text-red-400" />
-                          <span className="font-medium text-black">
-                            Position Suggestions
-                          </span>
-                        </div>
-                        <button
-                          onClick={() => setActiveTooltip(null)}
-                          className="text-black transition-colors"
-                        >
-                          <X className="w-5 h-5" />
-                        </button>
-                      </div>
-                    </div>
-                    <div className="p-4">
-                      {getErrorMessages(index, "position").map((msg, i) => (
-                        <div
-                          key={i}
-                          className="flex items-start space-x-3 mb-3 last:mb-0"
-                        >
-                          <div className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-red-400 mt-2"></div>
-                          <p className="text-black text-sm">{msg}</p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              <div className="mb-4">
-                <label className="text-black">Start Date</label>
-                <input
-                  type="date"
-                  name="startYear"
-                  className={`w-full other-input border ${
-                    improve && hasErrors(index, "startYear")
-                      ? "border-red-500"
-                      : "border-black"
-                  }`}
-                  value={experience.startYear}
-                  onChange={(e) => handleWorkExperience(e, index)}
-                />
-              </div>
-
-              <div className="mb-4">
-                <label className="text-black">End Date</label>
-                <input
-                  type="date"
-                  name="endYear"
-                  className={`w-full other-input border ${
-                    improve && hasErrors(index, "endYear")
-                      ? "border-red-500"
-                      : "border-black"
-                  }`}
-                  value={experience.endYear}
-                  onChange={(e) => handleWorkExperience(e, index)}
-                />
-              </div>
-
-              <div className="relative mb-4">
-                <label className="mt-2 text-black">Location</label>
-                <input
-                  type="text"
-                  placeholder="Location"
-                  name="location"
-                  className={`w-full other-input border ${
-                    improve && hasErrors(index, "location")
-                      ? "border-red-500"
-                      : "border-black"
-                  }`}
-                  value={experience.location}
-                  onChange={(e) => handleWorkExperience(e, index)}
-                />
-                {isLoading.location && (
-                  <div className="absolute right-3 top-1/2 transform translate-y-1">
-                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-gray-900"></div>
-                  </div>
-                )}
-                {showLocationDropdown && locationSuggestions.length > 0 && (
-                  <div className="absolute z-50 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg">
-                    {locationSuggestions.map((location, i) => (
-                      <div
-                        key={i}
-                        className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
-                        onClick={() => handleLocationSelect(location, index)}
-                      >
-                        {location}
-                      </div>
-                    ))}
-                  </div>
-                )}
-                {improve && hasErrors(index, "location") && (
-                  <button
-                    type="button"
-                    className="absolute right-2 top-1/2 translate-y-1 text-red-500 hover:text-red-600 transition-colors"
-                    onClick={() =>
-                      setActiveTooltip(
-                        activeTooltip === `location-${index}`
-                          ? null
-                          : `location-${index}`
-                      )
-                    }
-                  >
-                    <AlertCircle className="w-5 h-5" />
-                  </button>
-                )}
-                {activeTooltip === `location-${index}` && (
-                  <div className="absolute z-50 right-0 mt-2 w-80 bg-white rounded-lg shadow-xl transform transition-all duration-200 ease-in-out border border-gray-700">
-                    <div className="p-4 border-b border-gray-700">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-2">
-                          <AlertCircle className="w-5 h-5 text-red-400" />
-                          <span className="font-medium text-black">
-                            Location Suggestions
-                          </span>
-                        </div>
-                        <button
-                          onClick={() => setActiveTooltip(null)}
-                          className="text-black transition-colors"
-                        >
-                          <X className="w-5 h-5" />
-                        </button>
-                      </div>
-                    </div>
-                    <div className="p-4">
-                      {getErrorMessages(index, "location").map((msg, i) => (
-                        <div
-                          key={i}
-                          className="flex items-start space-x-3 mb-3 last:mb-0"
-                        >
-                          <div className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-red-400 mt-2"></div>
-                          <p className="text-black text-sm">{msg}</p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              <div className="relative mb-4">
-                <div className="flex justify-between mb-2">
-                  <label className="text-black">Description</label>
-
-                  <button
-                    type="button"
-                    className="border bg-black text-white px-3 rounded-3xl"
-                    onClick={() => handleAIAssistDescription(index)}
-                    disabled={loadingStates[`description_${index}`]} // Check loading state per button
-                  >
-                    {loadingStates[`description_${index}`]
-                      ? "Loading..."
-                      : "+ Smart Assist"}
-                  </button>
-                </div>
-                <ReactQuill
-                  placeholder="Description"
-                  value={experience.description}
-                  onChange={(value) => handleDescriptionChange(value, index)}
-                  className={`bg-white rounded-md ${
-                    improve && hasErrors(index, "descriptionDetails")
-                      ? "border-red-500"
-                      : "border-black"
-                  }`}
-                  theme="snow"
-                  modules={{
-                    toolbar: [["bold", "italic", "underline"], ["clean"]],
-                  }}
-                />
-                {improve && hasErrors(index, "descriptionDetails") && (
-                  <button
-                    type="button"
-                    className="absolute right-2 top-8 text-red-500 hover:text-red-600 transition-colors"
-                    onClick={() =>
-                      setActiveTooltip(
-                        activeTooltip === `description-${index}`
-                          ? null
-                          : `description-${index}`
-                      )
-                    }
-                  >
-                    <AlertCircle className="w-5 h-5" />
-                  </button>
-                )}
-                {activeTooltip === `description-${index}` && (
-                  <div className="absolute z-50 right-0 mt-2 w-80 bg-white rounded-lg shadow-xl transform transition-all duration-200 ease-in-out border border-gray-700">
-                    <div className="p-4 border-b border-gray-700">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-2">
-                          <AlertCircle className="w-5 h-5 text-red-400" />
-                          <span className="font-medium text-black">
-                            Description Suggestions
-                          </span>
-                        </div>
-                        <button
+                          className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
                           onClick={() =>
-                            handleAutoFixDescription(
-                              index,
-                              experience
-                            )
+                            handleCompanySelect(company.name, index)
                           }
+                        >
+                          {company.name}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  {improve && hasErrors(index, "company") && (
+                    <button
+                      type="button"
+                      className="absolute right-2 top-1/2 -translate-y-1/2 text-red-500 hover:text-red-600 transition-colors"
+                      onClick={() =>
+                        setActiveTooltip(
+                          activeTooltip === `company-${index}`
+                            ? null
+                            : `company-${index}`
+                        )
+                      }
+                    >
+                      <AlertCircle className="w-5 h-5" />
+                    </button>
+                  )}
+                  {activeTooltip === `company-${index}` && (
+                    <div className="absolute z-50 right-0 mt-2 w-80 bg-white rounded-lg shadow-xl transform transition-all duration-200 ease-in-out border border-gray-700">
+                      <div className="p-4 border-b border-gray-700">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center space-x-2">
+                            <AlertCircle className="w-5 h-5 text-red-400" />
+                            <span className="font-medium text-black">
+                              Company Suggestions
+                            </span>
+                          </div>
+                          <button
+                            onClick={() => setActiveTooltip(null)}
+                            className="text-black transition-colors"
+                          >
+                            <X className="w-5 h-5" />
+                          </button>
+                        </div>
+                      </div>
+                      <div className="p-4">
+                        {getErrorMessages(index, "company").map((msg, i) => (
+                          <div
+                            key={i}
+                            className="flex items-start space-x-3 mb-3 last:mb-0"
+                          >
+                            <div className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-red-400 mt-2"></div>
+                            <p className="text-black text-sm">{msg}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                <div className="relative mb-4">
+                  <label className="text-black">Job Title</label>
+                  <input
+                    type="text"
+                    placeholder="Position"
+                    name="position"
+                    className={`w-full other-input border ${
+                      improve && hasErrors(index, "position")
+                        ? "border-red-500"
+                        : "border-black"
+                    }`}
+                    value={experience.position}
+                    onChange={(e) => handleWorkExperience(e, index)}
+                  />
+                  {showJobTitleDropdown && jobTitleSuggestions.length > 0 && (
+                    <div className="absolute z-50 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg">
+                      {jobTitleSuggestions.map((jobTitle, i) => (
+                        <div
+                          key={i}
+                          className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                          onClick={() =>
+                            handleJobTitleSelect(jobTitle.name, index)
+                          }
+                        >
+                          {jobTitle.name}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  {improve && hasErrors(index, "position") && (
+                    <button
+                      type="button"
+                      className="absolute right-2 top-1/2 -translate-y-1/2 text-red-500 hover:text-red-600 transition-colors"
+                      onClick={() =>
+                        setActiveTooltip(
+                          activeTooltip === `position-${index}`
+                            ? null
+                            : `position-${index}`
+                        )
+                      }
+                    >
+                      <AlertCircle className="w-5 h-5" />
+                    </button>
+                  )}
+                  {activeTooltip === `position-${index}` && (
+                    <div className="absolute z-50 right-0 mt-2 w-80 bg-white rounded-lg shadow-xl transform transition-all duration-200 ease-in-out border border-gray-700">
+                      <div className="p-4 border-b border-gray-700">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center space-x-2">
+                            <AlertCircle className="w-5 h-5 text-red-400" />
+                            <span className="font-medium text-black">
+                              Position Suggestions
+                            </span>
+                          </div>
+                          <button
+                            onClick={() => setActiveTooltip(null)}
+                            className="text-black transition-colors"
+                          >
+                            <X className="w-5 h-5" />
+                          </button>
+                        </div>
+                      </div>
+                      <div className="p-4">
+                        {getErrorMessages(index, "position").map((msg, i) => (
+                          <div
+                            key={i}
+                            className="flex items-start space-x-3 mb-3 last:mb-0"
+                          >
+                            <div className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-red-400 mt-2"></div>
+                            <p className="text-black text-sm">{msg}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                <div className="mb-4">
+                  <label className="text-black">Start Date</label>
+                  <input
+                    type="date"
+                    name="startYear"
+                    className={`w-full other-input border ${
+                      improve && hasErrors(index, "startYear")
+                        ? "border-red-500"
+                        : "border-black"
+                    }`}
+                    value={experience.startYear}
+                    onChange={(e) => handleWorkExperience(e, index)}
+                  />
+                </div>
+
+                <div className="mb-4">
+                  <label className="text-black">End Date</label>
+                  <input
+                    type="date"
+                    name="endYear"
+                    className={`w-full other-input border ${
+                      improve && hasErrors(index, "endYear")
+                        ? "border-red-500"
+                        : "border-black"
+                    }`}
+                    value={experience.endYear}
+                    onChange={(e) => handleWorkExperience(e, index)}
+                  />
+                </div>
+
+                <div className="relative mb-4">
+                  <label className="mt-2 text-black">Location</label>
+                  <input
+                    type="text"
+                    placeholder="Location"
+                    name="location"
+                    className={`w-full other-input border ${
+                      improve && hasErrors(index, "location")
+                        ? "border-red-500"
+                        : "border-black"
+                    }`}
+                    value={experience.location}
+                    onChange={(e) => handleWorkExperience(e, index)}
+                  />
+                  {isLoading.location && (
+                    <div className="absolute right-3 top-1/2 transform translate-y-1">
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-gray-900"></div>
+                    </div>
+                  )}
+                  {showLocationDropdown && locationSuggestions.length > 0 && (
+                    <div className="absolute z-50 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg">
+                      {locationSuggestions.map((location, i) => (
+                        <div
+                          key={i}
+                          className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                          onClick={() => handleLocationSelect(location, index)}
+                        >
+                          {location}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  {improve && hasErrors(index, "location") && (
+                    <button
+                      type="button"
+                      className="absolute right-2 top-1/2 translate-y-1 text-red-500 hover:text-red-600 transition-colors"
+                      onClick={() =>
+                        setActiveTooltip(
+                          activeTooltip === `location-${index}`
+                            ? null
+                            : `location-${index}`
+                        )
+                      }
+                    >
+                      <AlertCircle className="w-5 h-5" />
+                    </button>
+                  )}
+                  {activeTooltip === `location-${index}` && (
+                    <div className="absolute z-50 right-0 mt-2 w-80 bg-white rounded-lg shadow-xl transform transition-all duration-200 ease-in-out border border-gray-700">
+                      <div className="p-4 border-b border-gray-700">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center space-x-2">
+                            <AlertCircle className="w-5 h-5 text-red-400" />
+                            <span className="font-medium text-black">
+                              Location Suggestions
+                            </span>
+                          </div>
+                          <button
+                            onClick={() => setActiveTooltip(null)}
+                            className="text-black transition-colors"
+                          >
+                            <X className="w-5 h-5" />
+                          </button>
+                        </div>
+                      </div>
+                      <div className="p-4">
+                        {getErrorMessages(index, "location").map((msg, i) => (
+                          <div
+                            key={i}
+                            className="flex items-start space-x-3 mb-3 last:mb-0"
+                          >
+                            <div className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-red-400 mt-2"></div>
+                            <p className="text-black text-sm">{msg}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                <div className="relative mb-4">
+                  <div className="flex justify-between mb-2">
+                    <label className="text-black">Description</label>
+
+                    <button
+                      type="button"
+                      className="border bg-black text-white px-3 rounded-3xl"
+                      onClick={() => handleAIAssistDescription(index)}
+                      disabled={loadingStates[`description_${index}`]} // Check loading state per button
+                    >
+                      {loadingStates[`description_${index}`]
+                        ? "Loading..."
+                        : "+ Smart Assist"}
+                    </button>
+                  </div>
+                  <ReactQuill
+                    placeholder="Description"
+                    value={experience.description}
+                    onChange={(value) => handleDescriptionChange(value, index)}
+                    className={`bg-white rounded-md ${
+                      improve && hasErrors(index, "descriptionDetails")
+                        ? "border-red-500"
+                        : "border-black"
+                    }`}
+                    theme="snow"
+                    modules={{
+                      toolbar: [["bold", "italic", "underline"], ["clean"]],
+                    }}
+                  />
+                  {improve && hasErrors(index, "descriptionDetails") && (
+                    <button
+                      type="button"
+                      className="absolute right-2 top-8 text-red-500 hover:text-red-600 transition-colors"
+                      onClick={() =>
+                        setActiveTooltip(
+                          activeTooltip === `description-${index}`
+                            ? null
+                            : `description-${index}`
+                        )
+                      }
+                    >
+                      <AlertCircle className="w-5 h-5" />
+                    </button>
+                  )}
+                  {activeTooltip === `description-${index}` && (
+                    <div className="absolute z-50 right-0 mt-2 w-80 bg-white rounded-lg shadow-xl transform transition-all duration-200 ease-in-out border border-gray-700">
+                      <div className="p-4 border-b border-gray-700">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center space-x-2">
+                            <AlertCircle className="w-5 h-5 text-red-400" />
+                            <span className="font-medium text-black">
+                              Description Suggestions
+                            </span>
+                          </div>
+                          {/* <button
+                         onClick={() => {
+                          if (experience?.position) {
+                            handleAutoFixDescription(e,index, experience);
+                          } else {
+                            toast.error("Job Title is required");
+                          }
+                        }}
                           className="px-3 py-1 text-sm font-medium text-white bg-blue-600 rounded-md shadow hover:bg-blue-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                           disabled={loadingStates[`description_${index}`]}
                         >
                           {loadingStates[`description_${index}`]
                             ? "Fixing..."
                             : "Auto Fix"}
-                        </button>
-                        <button
-                          onClick={() => setActiveTooltip(null)}
-                          className="text-black transition-colors"
-                        >
-                          <X className="w-5 h-5" />
-                        </button>
-                      </div>
-                    </div>
-                    <div className="p-4">
-                      {getErrorMessages(index, "descriptionDetails").map(
-                        (msg, i) => (
-                          <div
-                            key={i}
-                            className="flex items-start space-x-3 mb-3 last:mb-0"
+                        </button> */}
+                          <button
+                            onClick={() =>
+                              handleAutoFixDescription(index, experience)
+                            }
+                            onMouseDown={() => {
+                              if (!experience?.position) {
+                                toast.error("Job Title is required");
+                              }
+                            }}
+                            className="px-3 py-1 text-sm font-medium text-white bg-blue-600 rounded-md shadow hover:bg-blue-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                            disabled={
+                              loadingStates[`description_${index}`] ||
+                              !experience?.position
+                            }
                           >
-                            <div className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-red-400 mt-2"></div>
-                            <p className="text-black text-sm">{msg}</p>
-                          </div>
-                        )
-                      )}
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              <div className="relative mb-4">
-                <div className="flex justify-between mb-2">
-                  <label className="text-black">Key Achievements</label>
-                  <button
-                    type="button"
-                    className="border bg-black text-white px-3 rounded-3xl"
-                    onClick={() => handleAIAssistKey(index)}
-                    disabled={loadingStates[`key_${index}`]} // Check loading state per button
-                  >
-                    {loadingStates[`key_${index}`]
-                      ? "Loading..."
-                      : "+ Key Assist"}
-                  </button>
-                </div>
-                <textarea
-                  placeholder="Key Achievements (one per line)"
-                  name="KeyAchievements"
-                  className={`w-full other-input border ${
-                    improve && hasErrors(index, "KeyAchievements")
-                      ? "border-red-500"
-                      : "border-black"
-                  }`}
-                  value={experience.KeyAchievements.join("\n")}
-                  onChange={(e) => handleWorkExperience(e, index)}
-                  rows={4}
-                />
-                {improve && hasErrors(index, "KeyAchievements") && (
-                  <button
-                    type="button"
-                    className="absolute right-2 top-8 text-red-500 hover:text-red-600 transition-colors"
-                    onClick={() =>
-                      setActiveTooltip(
-                        activeTooltip === `achievements-${index}`
-                          ? null
-                          : `achievements-${index}`
-                      )
-                    }
-                  >
-                    <AlertCircle className="w-5 h-5" />
-                  </button>
-                )}
-                {activeTooltip === `achievements-${index}` && (
-                  <div className="absolute z-50 right-0 mt-2 w-80 bg-white rounded-lg shadow-xl transform transition-all duration-200 ease-in-out border border-gray-700">
-                    <div className="p-4 border-b border-gray-700">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-2">
-                          <AlertCircle className="w-5 h-5 text-red-400" />
-                          <span className="font-medium text-black">
-                            Achievement Suggestions
-                          </span>
+                            {loadingStates[`description_${index}`]
+                              ? "Fixing..."
+                              : "Auto Fix"}
+                          </button>
+                          <button
+                            onClick={() => setActiveTooltip(null)}
+                            className="text-black transition-colors"
+                          >
+                            <X className="w-5 h-5" />
+                          </button>
                         </div>
-                        <button
-                          onClick={() => setActiveTooltip(null)}
-                          className="text-black transition-colors"
-                        >
-                          <X className="w-5 h-5" />
-                        </button>
+                      </div>
+                      <div className="p-4">
+                        {getErrorMessages(index, "descriptionDetails").map(
+                          (msg, i) => (
+                            <div
+                              key={i}
+                              className="flex items-start space-x-3 mb-3 last:mb-0"
+                            >
+                              <div className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-red-400 mt-2"></div>
+                              <p className="text-black text-sm">{msg}</p>
+                            </div>
+                          )
+                        )}
                       </div>
                     </div>
-                    <div className="p-4">
-                      {getErrorMessages(index, "KeyAchievements").map(
-                        (msg, i) => (
-                          <div
-                            key={i}
-                            className="flex items-start space-x-3 mb-3 last:mb-0"
-                          >
-                            <div className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-red-400 mt-2"></div>
-                            <p className="text-black text-sm">{msg}</p>
-                          </div>
-                        )
-                      )}
-                    </div>
+                  )}
+                </div>
+
+                <div className="relative mb-4">
+                  <div className="flex justify-between mb-2">
+                    <label className="text-black">Key Achievements</label>
+                    <button
+                      type="button"
+                      className="border bg-black text-white px-3 rounded-3xl"
+                      onClick={() => handleAIAssistKey(index)}
+                      disabled={loadingStates[`key_${index}`]} // Check loading state per button
+                    >
+                      {loadingStates[`key_${index}`]
+                        ? "Loading..."
+                        : "+ Key Assist"}
+                    </button>
                   </div>
-                )}
+                  <textarea
+                    placeholder="Key Achievements (one per line)"
+                    name="KeyAchievements"
+                    className={`w-full other-input border ${
+                      improve && hasErrors(index, "KeyAchievements")
+                        ? "border-red-500"
+                        : "border-black"
+                    }`}
+                    value={experience.KeyAchievements.join("\n")}
+                    onChange={(e) => handleWorkExperience(e, index)}
+                    rows={4}
+                  />
+                  {improve && hasErrors(index, "KeyAchievements") && (
+                    <button
+                      type="button"
+                      className="absolute right-2 top-8 text-red-500 hover:text-red-600 transition-colors"
+                      onClick={() =>
+                        setActiveTooltip(
+                          activeTooltip === `achievements-${index}`
+                            ? null
+                            : `achievements-${index}`
+                        )
+                      }
+                    >
+                      <AlertCircle className="w-5 h-5" />
+                    </button>
+                  )}
+                  {activeTooltip === `achievements-${index}` && (
+                    <div className="absolute z-50 right-0 mt-2 w-80 bg-white rounded-lg shadow-xl transform transition-all duration-200 ease-in-out border border-gray-700">
+                      <div className="p-4 border-b border-gray-700">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center space-x-2">
+                            <AlertCircle className="w-5 h-5 text-red-400" />
+                            <span className="font-medium text-black">
+                              Achievement Suggestions
+                            </span>
+                          </div>
+                          <button
+                            onClick={() => setActiveTooltip(null)}
+                            className="text-black transition-colors"
+                          >
+                            <X className="w-5 h-5" />
+                          </button>
+                        </div>
+                      </div>
+                      <div className="p-4">
+                        {getErrorMessages(index, "KeyAchievements").map(
+                          (msg, i) => (
+                            <div
+                              key={i}
+                              className="flex items-start space-x-3 mb-3 last:mb-0"
+                            >
+                              <div className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-red-400 mt-2"></div>
+                              <p className="text-black text-sm">{msg}</p>
+                            </div>
+                          )
+                        )}
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
-          )}
-        </div>
-      ))}
+            )}
+          </div>
+        ))}
 
       <FormButton
         size={resumeData.workExperience.length}
