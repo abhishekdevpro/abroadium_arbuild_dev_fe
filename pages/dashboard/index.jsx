@@ -166,7 +166,7 @@ export default function DashboardPage() {
   };
   const handleMyDashboard = () => {
     setTimeout(() => {
-      router.push("/dashboard");
+      router.push("https://airesume.abroadium.com/dashboard");
     }, 2000);
   };
   return (
