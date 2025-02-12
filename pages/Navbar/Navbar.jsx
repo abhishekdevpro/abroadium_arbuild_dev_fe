@@ -217,7 +217,7 @@
 //                       href="/dashboard"
 //                       className="block px-4 py-2 hover:bg-gray-200"
 //                       onClick={() => setIsDropdownOpen(false)}
-//                     > 
+//                     >
 //                       Dashboard
 //                     </Link> */}
 //                     <Link
@@ -354,7 +354,7 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { Bell, LayoutDashboard, LogOut, User } from "lucide-react";
+import { Bell, LayoutDashboard, LogOut, User, Settings } from "lucide-react";
 import axios from "axios";
 import AbroadiumId from "./AbroadiumId";
 import { BsDash } from "react-icons/bs";
@@ -390,7 +390,10 @@ const Navbar = () => {
       localStorage.removeItem("token");
       router.push("https://airesume.abroadium.com/login");
     } catch (error) {
-      console.error("Error during logout:", error.response?.data || error.message);
+      console.error(
+        "Error during logout:",
+        error.response?.data || error.message
+      );
       // Still remove token and redirect even if logout API fails
       localStorage.removeItem("token");
       router.push("https://airesume.abroadium.com/login");
@@ -430,7 +433,7 @@ const Navbar = () => {
               },
             }
           );
-          
+
           if (response.data.status === "success") {
             setIsApiSuccess(true);
             setUser(response.data.data.personal_details);
@@ -459,7 +462,10 @@ const Navbar = () => {
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 
   return (
-    <nav className="bg-black border-b border-gray-200" style={{ backgroundColor: "#4C3957" }}>
+    <nav
+      className="bg-black border-b border-gray-200"
+      style={{ backgroundColor: "#4C3957" }}
+    >
       <div className="mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex-shrink-0 flex items-center">
@@ -472,16 +478,28 @@ const Navbar = () => {
             </Link>
           </div>
           <div className="hidden md:flex justify-center items-center space-x-4">
-            <Link href="/dashboard" className="text-white px-3 py-2 rounded-md text-lg font-semibold">
+            <Link
+              href="/dashboard"
+              className="text-white px-3 py-2 rounded-md text-lg font-semibold"
+            >
               Dashboard
             </Link>
-            <Link href="/dashboard/resumelist" className="text-white px-3 py-2 rounded-md text-lg font-semibold">
+            <Link
+              href="/dashboard/resumelist"
+              className="text-white px-3 py-2 rounded-md text-lg font-semibold"
+            >
               My Resumes
             </Link>
-            <Link href="/dashboard/cvletterlist" className="text-white px-3 py-2 rounded-md text-lg font-semibold">
+            <Link
+              href="/dashboard/cvletterlist"
+              className="text-white px-3 py-2 rounded-md text-lg font-semibold"
+            >
               CoverLetter
             </Link>
-            <Link href="https://abroadium-arbuild-fe.vercel.app/job-list" className="text-white px-3 py-2 rounded-md text-lg font-semibold">
+            <Link
+              href="https://abroadium-arbuild-fe.vercel.app/job-list"
+              className="text-white px-3 py-2 rounded-md text-lg font-semibold"
+            >
               Jobs
             </Link>
             <Link
@@ -518,6 +536,16 @@ const Navbar = () => {
                         Dashboard
                       </span>
                     </Link>
+                    <Link
+                      href="/settings"
+                      className="flex items-center px-4 py-3 hover:bg-gray-100 transition-colors duration-200 group"
+                      onClick={() => setIsDropdownOpen(false)}
+                    >
+                      <Settings className="mr-3 w-5 h-5 text-gray-500 group-hover:text-orange-500" />
+                      <span className="text-gray-800 group-hover:text-orange-500">
+                        Settings
+                      </span>
+                    </Link>
                     <button
                       onClick={() => {
                         handleLogout();
@@ -535,10 +563,16 @@ const Navbar = () => {
               </div>
             ) : (
               <>
-                <Link href="/login2" className="text-white px-4 py-2 text-md font-semibold border-2 rounded-xl">
+                <Link
+                  href="/login2"
+                  className="text-white px-4 py-2 text-md font-semibold border-2 rounded-xl"
+                >
                   Log in
                 </Link>
-                <Link href="/signup" className="text-white px-4 py-2 text-md font-semibold border-2 rounded-xl">
+                <Link
+                  href="/signup"
+                  className="text-white px-4 py-2 text-md font-semibold border-2 rounded-xl"
+                >
                   Sign up
                 </Link>
               </>
