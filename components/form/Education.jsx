@@ -1,4 +1,3 @@
-
 import { ResumeContext } from "../context/ResumeContext";
 import FormButton from "./FormButton";
 import React, { useContext, useState } from "react";
@@ -6,7 +5,8 @@ import { AlertCircle, X, Loader2 } from "lucide-react";
 import { useRouter } from "next/router";
 
 const Education = () => {
-  const { resumeData, setResumeData, resumeStrength } = useContext(ResumeContext);
+  const { resumeData, setResumeData, resumeStrength } =
+    useContext(ResumeContext);
   const [activeTooltip, setActiveTooltip] = useState(null);
   const [universitySuggestions, setUniversitySuggestions] = useState([]);
   const [showUniversityDropdown, setShowUniversityDropdown] = useState(false);
@@ -16,7 +16,7 @@ const Education = () => {
   const [showLocationDropdown, setShowLocationDropdown] = useState(false);
   const [isLoading, setIsLoading] = useState({
     university: false,
-    location: false
+    location: false,
   });
   const router = useRouter();
   const { improve } = router.query;
@@ -27,13 +27,13 @@ const Education = () => {
     newEducation[index][name] = value;
     setResumeData({ ...resumeData, education: newEducation });
 
-    if (name === 'school') {
+    if (name === "school") {
       fetchUniversities(value, index);
     }
-    if(name== 'degree'){
-      fetchDegrees(value,index)
+    if (name == "degree") {
+      fetchDegrees(value, index);
     }
-    if (name === 'location') {
+    if (name === "location") {
       fetchLocations(value);
     }
   };
@@ -44,54 +44,59 @@ const Education = () => {
       return;
     }
 
-    setIsLoading(prev => ({ ...prev, university: true }));
+    setIsLoading((prev) => ({ ...prev, university: true }));
     try {
       const response = await fetch(
-        `https://api.sentryspot.co.uk/api/jobseeker/university-lists?university_keyword=${encodeURIComponent(keyword)}`
+        `https://api.sentryspot.co.uk/api/jobseeker/university-lists?university_keyword=${encodeURIComponent(
+          keyword
+        )}`
       );
       if (response.ok) {
         const data = await response.json();
-        setUniversitySuggestions(data.data.map(item => item.name));
+        setUniversitySuggestions(data.data.map((item) => item.name));
         setShowUniversityDropdown(true);
       }
     } catch (error) {
       console.error("Error fetching universities:", error);
     }
-    setIsLoading(prev => ({ ...prev, university: false }));
+    setIsLoading((prev) => ({ ...prev, university: false }));
   };
   const fetchDegrees = async (keyword, index) => {
     if (!keyword || keyword.length < 1) {
       setDegreeSuggestions([]);
       return;
     }
-  
-    setIsLoading(prev => ({ ...prev, degree: true }));
+
+    setIsLoading((prev) => ({ ...prev, degree: true }));
     try {
       const response = await fetch(
-        `https://api.sentryspot.co.uk/api/jobseeker/degree?degree_keyword=${encodeURIComponent(keyword)}`
+        `https://api.sentryspot.co.uk/api/jobseeker/degree?degree_keyword=${encodeURIComponent(
+          keyword
+        )}`
       );
       if (response.ok) {
         const data = await response.json();
-        setDegreeSuggestions(data.data.map(item => item.name));
+        setDegreeSuggestions(data.data.map((item) => item.name));
         setShowDegreeDropdown(true);
       }
     } catch (error) {
       console.error("Error fetching degrees:", error);
     }
-    setIsLoading(prev => ({ ...prev, degree: false }));
+    setIsLoading((prev) => ({ ...prev, degree: false }));
   };
-  
 
   const fetchLocations = async (keyword) => {
     if (!keyword || keyword.length < 1) {
       setLocationSuggestions([]);
       return;
     }
-    
-    setIsLoading(prev => ({ ...prev, location: true }));
+
+    setIsLoading((prev) => ({ ...prev, location: true }));
     try {
       const response = await fetch(
-        `https://api.sentryspot.co.uk/api/jobseeker/locations?locations=${encodeURIComponent(keyword)}`
+        `https://api.sentryspot.co.uk/api/jobseeker/locations?locations=${encodeURIComponent(
+          keyword
+        )}`
       );
       if (response.ok) {
         const data = await response.json();
@@ -102,7 +107,7 @@ const Education = () => {
     } catch (error) {
       console.error("Error fetching locations:", error);
     }
-    setIsLoading(prev => ({ ...prev, location: false }));
+    setIsLoading((prev) => ({ ...prev, location: false }));
   };
 
   const selectUniversity = (value, index) => {
@@ -120,8 +125,18 @@ const Education = () => {
   };
 
   const months = [
-    "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
   ];
 
   const years = Array.from(
@@ -187,22 +202,24 @@ const Education = () => {
     const handleClickOutside = () => {
       setShowUniversityDropdown(false);
       setShowLocationDropdown(false);
-      setShowDegreeDropdown(false)
+      setShowDegreeDropdown(false);
     };
 
-    document.addEventListener('click', handleClickOutside);
-    return () => document.removeEventListener('click', handleClickOutside);
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
   }, []);
 
   const renderTooltip = (index, field, title) => {
     if (activeTooltip === `${field}-${index}`) {
       return (
-        <div className="absolute z-50 right-0 mt-2 w-80 bg-white rounded-lg shadow-xl transform transition-all duration-200 ease-in-out border border-gray-700">
+        <div className="absolute z-50 right-0 w-80 bg-white rounded-lg shadow-xl transform transition-all duration-200 ease-in-out border border-gray-700">
           <div className="p-4 border-b border-gray-700">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2">
                 <AlertCircle className="w-5 h-5 text-red-400" />
-                <span className="font-medium text-black">{title || 'Suggestions'}</span>
+                <span className="font-medium text-black">
+                  {title || "Suggestions"}
+                </span>
               </div>
               <button
                 onClick={() => setActiveTooltip(null)}
@@ -214,7 +231,10 @@ const Education = () => {
           </div>
           <div className="p-4">
             {getErrorMessage(index, field)?.map((msg, i) => (
-              <div key={i} className="flex items-start space-x-3 mb-3 last:mb-0">
+              <div
+                key={i}
+                className="flex items-start space-x-3 mb-3 last:mb-0"
+              >
                 <div className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-red-400 mt-2"></div>
                 <p className="text-black text-sm">{msg}</p>
               </div>
@@ -238,7 +258,7 @@ const Education = () => {
                 placeholder="School"
                 name="school"
                 className={`w-full other-input border ${
-                  hasErrors(index, 'school') ? 'border-red-500' : 'border-black'
+                  hasErrors(index, "school") ? "border-red-500" : "border-black"
                 }`}
                 value={education.school}
                 onChange={(e) => handleEducation(e, index)}
@@ -249,11 +269,17 @@ const Education = () => {
                   <Loader2 className="w-5 h-5 animate-spin text-gray-400" />
                 </div>
               )}
-              {improve && hasErrors(index, 'school') && (
+              {improve && hasErrors(index, "school") && (
                 <button
                   type="button"
                   className="absolute right-2 top-1/2 -translate-y-1/2 text-red-500 hover:text-red-600 transition-colors"
-                  onClick={() => setActiveTooltip(activeTooltip === `school-${index}` ? null : `school-${index}`)}
+                  onClick={() =>
+                    setActiveTooltip(
+                      activeTooltip === `school-${index}`
+                        ? null
+                        : `school-${index}`
+                    )
+                  }
                 >
                   <AlertCircle className="w-5 h-5" />
                 </button>
@@ -274,7 +300,7 @@ const Education = () => {
               </div>
             )}
 
-            {renderTooltip(index, 'school', 'School Suggestions')}
+            {renderTooltip(index, "school", "School Suggestions")}
           </div>
 
           {/* <div className="relative mb-4">
@@ -300,59 +326,69 @@ const Education = () => {
             {renderTooltip(index, 'degree', 'Degree Suggestions')}
           </div> */}
           <div className="relative mb-4">
-  <input
-    type="text"
-    placeholder="Degree"
-    name="degree"
-    className={`w-full other-input border ${
-      improve && hasErrors(index, "degree") ? "border-red-500" : "border-black"
-    }`}
-    value={education.degree}
-    onChange={(e) => {
-      handleEducation(e, index);
-      fetchDegrees(e.target.value, index);
-    }}
-    onFocus={() => setShowDegreeDropdown(true)}
-    onBlur={() => setTimeout(() => setShowDegreeDropdown(false), 200)}
-  />
-  {improve && hasErrors(index, "degree") && (
-    <button
-      type="button"
-      className="absolute right-2 top-1/2 -translate-y-1/2 text-red-500 hover:text-red-600 transition-colors"
-      onClick={() =>
-        setActiveTooltip(activeTooltip === `degree-${index}` ? null : `degree-${index}`)
-      }
-    >
-      <AlertCircle className="w-5 h-5" />
-    </button>
-  )}
-  {renderTooltip(index, "degree", "Degree Suggestions")}
+            <input
+              type="text"
+              placeholder="Degree"
+              name="degree"
+              className={`w-full other-input border ${
+                improve && hasErrors(index, "degree")
+                  ? "border-red-500"
+                  : "border-black"
+              }`}
+              value={education.degree}
+              onChange={(e) => {
+                handleEducation(e, index);
+                fetchDegrees(e.target.value, index);
+              }}
+              onFocus={() => setShowDegreeDropdown(true)}
+              onBlur={() => setTimeout(() => setShowDegreeDropdown(false), 200)}
+            />
+            {improve && hasErrors(index, "degree") && (
+              <button
+                type="button"
+                className="absolute right-2 top-1/2 -translate-y-1/2 text-red-500 hover:text-red-600 transition-colors"
+                onClick={() =>
+                  setActiveTooltip(
+                    activeTooltip === `degree-${index}`
+                      ? null
+                      : `degree-${index}`
+                  )
+                }
+              >
+                <AlertCircle className="w-5 h-5" />
+              </button>
+            )}
+            {renderTooltip(index, "degree", "Degree Suggestions")}
 
-  {showDegreeDropdown && degreeSuggestions.length > 0 && (
-    <ul className="absolute z-10 w-full bg-white border border-gray-300 rounded-md mt-1 shadow-lg">
-      {degreeSuggestions.map((degree, i) => (
-        <li
-          key={i}
-          className="px-3 py-2 cursor-pointer hover:bg-gray-200"
-          onMouseDown={() => {
-            handleEducation({ target: { name: "degree", value: degree } }, index);
-            setShowDegreeDropdown(false);
-          }}
-        >
-          {degree}
-        </li>
-      ))}
-    </ul>
-  )}
-</div>
-
+            {showDegreeDropdown && degreeSuggestions.length > 0 && (
+              <ul className="absolute z-10 w-full bg-white border border-gray-300 rounded-md  shadow-lg">
+                {degreeSuggestions.map((degree, i) => (
+                  <li
+                    key={i}
+                    className="px-3 py-2 cursor-pointer hover:bg-gray-200"
+                    onMouseDown={() => {
+                      handleEducation(
+                        { target: { name: "degree", value: degree } },
+                        index
+                      );
+                      setShowDegreeDropdown(false);
+                    }}
+                  >
+                    {degree}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
 
           <div className="">
             <label className="text-white">Start Date</label>
             <div className="flex-wrap-gap-2">
               <select
                 className={`border other-input flex-1 ${
-                  improve && hasErrors(index, 'startYear') ? 'border-red-500' : 'border-black'
+                  improve && hasErrors(index, "startYear")
+                    ? "border-red-500"
+                    : "border-black"
                 }`}
                 value={(education.startYear || "Aug,2020").split(",")[0]}
                 onChange={(e) => handleMonthChange(e, index, "startYear")}
@@ -366,7 +402,9 @@ const Education = () => {
               </select>
               <select
                 className={`other-input border flex-1 ${
-                  improve && hasErrors(index, 'startYear') ? 'border-red-500' : 'border-black'
+                  improve && hasErrors(index, "startYear")
+                    ? "border-red-500"
+                    : "border-black"
                 }`}
                 value={(education.startYear || "Aug,2020").split(",")[1]}
                 onChange={(e) => handleYearChange(e, index, "startYear")}
@@ -384,7 +422,9 @@ const Education = () => {
             <div className="flex-wrap-gap-2">
               <select
                 className={`other-input border flex-1 ${
-                  improve && hasErrors(index, 'endYear') ? 'border-red-500' : 'border-black'
+                  improve && hasErrors(index, "endYear")
+                    ? "border-red-500"
+                    : "border-black"
                 }`}
                 value={(education.endYear || "Jul,2024").split(",")[0]}
                 onChange={(e) => handleMonthChange(e, index, "endYear")}
@@ -398,7 +438,9 @@ const Education = () => {
               </select>
               <select
                 className={`other-input border flex-1 ${
-                  improve && hasErrors(index, 'endYear') ? 'border-red-500' : 'border-black'
+                  improve && hasErrors(index, "endYear")
+                    ? "border-red-500"
+                    : "border-black"
                 }`}
                 value={(education.endYear || "Jul,2024").split(",")[1]}
                 onChange={(e) => handleYearChange(e, index, "endYear")}
@@ -421,7 +463,9 @@ const Education = () => {
                 placeholder="Location"
                 name="location"
                 className={`w-full other-input border ${
-                  improve && hasErrors(index, 'location') ? 'border-red-500' : 'border-black'
+                  improve && hasErrors(index, "location")
+                    ? "border-red-500"
+                    : "border-black"
                 }`}
                 value={education.location}
                 onChange={(e) => handleEducation(e, index)}
@@ -432,42 +476,48 @@ const Education = () => {
                   <Loader2 className="w-5 h-5 animate-spin text-gray-400" />
                 </div>
               )}
-              {improve && hasErrors(index, 'location') && (
+              {improve && hasErrors(index, "location") && (
                 <button
                   type="button"
                   className="absolute right-2 top-1/2 -translate-y-1/2 text-red-500 hover:text-red-600 transition-colors"
-                  onClick={() => setActiveTooltip(activeTooltip === `location-${index}` ? null : `location-${index}`)}
-                  >
-                    <AlertCircle className="w-5 h-5" />
-                  </button>
-                )}
-              </div>
-  
-              {showLocationDropdown && locationSuggestions.length > 0 && (
-                <div className="absolute z-50 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-y-auto">
-                  {locationSuggestions.map((location, i) => (
-                    <div
-                      key={i}
-                      className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-black"
-                      onClick={() => selectLocation(location, index)}
-                    >
-                      {location}
-                    </div>
-                  ))}
-                </div>
+                  onClick={() =>
+                    setActiveTooltip(
+                      activeTooltip === `location-${index}`
+                        ? null
+                        : `location-${index}`
+                    )
+                  }
+                >
+                  <AlertCircle className="w-5 h-5" />
+                </button>
               )}
-  
-              {renderTooltip(index, 'location', 'Location Suggestions')}
             </div>
+
+            {showLocationDropdown && locationSuggestions.length > 0 && (
+              <div className="absolute z-50 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-y-auto">
+                {locationSuggestions.map((location, i) => (
+                  <div
+                    key={i}
+                    className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-black"
+                    onClick={() => selectLocation(location, index)}
+                  >
+                    {location}
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {renderTooltip(index, "location", "Location Suggestions")}
           </div>
-        ))}
-        <FormButton
-          size={resumeData.education.length}
-          add={addEducation}
-          remove={removeEducation}
-        />
-      </div>
-    );
-  };
-  
-  export default Education;
+        </div>
+      ))}
+      <FormButton
+        size={resumeData.education.length}
+        add={addEducation}
+        remove={removeEducation}
+      />
+    </div>
+  );
+};
+
+export default Education;

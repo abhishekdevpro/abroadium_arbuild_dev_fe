@@ -812,7 +812,7 @@ const WorkExperience = () => {
                   {improve && hasErrors(index, "descriptionDetails") && (
                     <button
                       type="button"
-                      className="absolute right-2 top-8 text-red-500 hover:text-red-600 transition-colors"
+                      className="absolute right-2 top-12 text-red-500 hover:text-red-600 transition-colors"
                       onClick={() =>
                         setActiveTooltip(
                           activeTooltip === `description-${index}`
@@ -825,7 +825,7 @@ const WorkExperience = () => {
                     </button>
                   )}
                   {activeTooltip === `description-${index}` && (
-                    <div className="absolute z-50 right-0 mt-2 w-80 bg-white rounded-lg shadow-xl transform transition-all duration-200 ease-in-out border border-gray-700">
+                    <div className="absolute z-50 right-0 top-[50px] w-80 bg-white rounded-lg shadow-xl transform transition-all duration-200 ease-in-out border border-gray-700">
                       <div className="p-4 border-b border-gray-700">
                         <div className="flex items-center justify-between">
                           <div className="flex items-center space-x-2">

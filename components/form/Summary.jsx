@@ -486,12 +486,14 @@ const Summary = () => {
                 </div>
               ))} */}
               <ul className="space-y-3">
-                {resumeStrength.personal_summery_strenght.summery.map((msg, i) => (
-                  <li key={i} className="flex items-start space-x-3">
-                    <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-red-400 mt-2"></span>
-                    <p className="text-black text-sm">{msg}</p>
-                  </li>
-                ))}
+                {resumeStrength.personal_summery_strenght.summery.map(
+                  (msg, i) => (
+                    <li key={i} className="flex items-start space-x-3">
+                      <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-red-400 mt-2"></span>
+                      <p className="text-black text-sm">{msg}</p>
+                    </li>
+                  )
+                )}
               </ul>
             </div>
           </div>
