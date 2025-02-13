@@ -145,7 +145,7 @@
 // //   const handleAutoFix = async (field, content, onAutoFix) => {
 // //     e.preventDefault()
 // //     if (!content) return;
-  
+
 // //     setIsLoading((prev) => ({ ...prev, [field]: true })); // Set loading state
 // //     try {
 // //       const endpoint = field === "name" ? "/ai-username" : "/ai-jobtitle";
@@ -163,7 +163,7 @@
 // //           }),
 // //         }
 // //       );
-  
+
 // //       if (response.ok) {
 // //         const data = await response.json();
 // //         if (data.autoFixedContent) {
@@ -173,10 +173,9 @@
 // //     } catch (error) {
 // //       console.error(`Error auto-fixing ${field}:`, error);
 // //     }
-  
+
 // //     setIsLoading((prev) => ({ ...prev, [field]: false })); // Reset loading state
 // //   };
-  
 
 // //   return (
 // //     <div className="flex flex-col gap-3 w-full items-center md:mt-10 p-4 md:px-10">
@@ -280,7 +279,7 @@
 // //                         </span>
 // //                       </div>
 // //                       {(field === "name" || field === "position") && (
-// //                         <button 
+// //                         <button
 // //                         onClick={() => handleAutoFix(e,field, resumeData[field], (updatedValue) => {
 // //                           handleChange({ target: { name: field, value: updatedValue } });
 // //                         })}
@@ -288,7 +287,7 @@
 // //                       >
 // //                         Auto Fix
 // //                       </button>
-                      
+
 // //                       )}
 
 // //                       <button
@@ -321,7 +320,6 @@
 // // };
 
 // // export default PersonalInformation;
-
 
 // // import React, { useContext, useState, useEffect } from "react";
 // // import { ResumeContext } from "../context/ResumeContext";
@@ -404,13 +402,11 @@
 // //     setIsLoading((prev) => ({ ...prev, location: false }));
 // //   };
 
-
-
 // //   // const handleAutoFix = async (field, content) => {
 // //   //   if (!content) return;
 
 // //   //   setIsLoading(prev => ({ ...prev, autoFix: true }));
-    
+
 // //   //   try {
 // //   //     const endpoint = field === "name" ? "/ai-username" : "/ai-jobtitle";
 // //   //     const response = await fetch(
@@ -450,13 +446,13 @@
 // //   // };
 // //   // const handleAutoFix = async (field, content) => {
 // //   //   if (!content) return;
-  
+
 // //   //   setIsLoading(prev => ({ ...prev, autoFix: true }));
-  
+
 // //   //   try {
 // //   //     const endpoint = field === "name" ? "/ai-username" : "/ai-jobtitle";
 // //   //     const token = localStorage.getItem("token"); // Retrieve the token from localStorage or wherever it's stored
-  
+
 // //   //     const response = await fetch(
 // //   //       `https://api.sentryspot.co.uk/api/jobseeker${endpoint}`,
 // //   //       {
@@ -472,7 +468,7 @@
 // //   //         }),
 // //   //       }
 // //   //     );
-  
+
 // //   //     if (response.ok) {
 // //   //       const data = await response.json();
 // //   //       if (data.autoFixedContent) {
@@ -496,13 +492,13 @@
 
 // //   const handleAutoFix = async (field, content) => {
 // //     if (!content) return;
-  
+
 // //     setIsLoading(prev => ({ ...prev, autoFix: true }));
-  
+
 // //     try {
 // //       const endpoint = field === "name" ? "/ai-username" : "/ai-jobtitle";
 // //       const token = localStorage.getItem("token"); // Retrieve the token
-  
+
 // //       const response = await fetch(
 // //         `https://api.sentryspot.co.uk/api/jobseeker${endpoint}`,
 // //         {
@@ -518,14 +514,14 @@
 // //           }),
 // //         }
 // //       );
-  
+
 // //       if (response.ok) {
 // //         const data = await response.json();
 // //         console.log(data.data.resume_analysis,"<<");
-        
+
 // //         if (data.data.resume_analysis) {
 // //           const updatedValue = field == "name" ? data.data.resume_analysis.user_name : data.data.resume_analysis.job_title;
-  
+
 // //           if (updatedValue) {
 // //             // Update the resume data with the auto-fixed content
 // //             const event = {
@@ -545,8 +541,7 @@
 // //       setIsLoading(prev => ({ ...prev, autoFix: false }));
 // //     }
 // //   };
-  
-  
+
 // //   const handleInputChange = (e) => {
 // //     const { name, value } = e.target;
 // //     handleChange(e);
@@ -815,13 +810,13 @@
 
 //   const handleAutoFix = async (field, content) => {
 //     if (!content) return;
-  
+
 //     setIsLoading((prev) => ({ ...prev, autoFix: true }));
-  
+
 //     try {
 //       let endpoint = "";
 //       let key = "";
-  
+
 //       if (field === "name") {
 //         endpoint = "/ai-username";
 //         key = "user name";
@@ -832,9 +827,9 @@
 //         endpoint = "/ai-contact";
 //         key = "contact information";
 //       }
-  
+
 //       const token = localStorage.getItem("token");
-  
+
 //       const response = await fetch(
 //         `https://api.sentryspot.co.uk/api/jobseeker${endpoint}`,
 //         {
@@ -850,13 +845,13 @@
 //           }),
 //         }
 //       );
-  
+
 //       if (response.ok) {
 //         const data = await response.json();
-  
+
 //         if (data.data.resume_analysis) {
 //           let updatedValue = null;
-  
+
 //           if (field === "name") {
 //             updatedValue = data.data.resume_analysis.user_name;
 //           } else if (field === "position") {
@@ -864,7 +859,7 @@
 //           } else if (field === "contactInformation") {
 //             updatedValue = data.data.resume_analysis.contact;
 //           }
-  
+
 //           if (updatedValue) {
 //             const event = {
 //               target: {
@@ -874,7 +869,7 @@
 //             };
 //             handleChange(event);
 //             setActiveTooltip(null);
-  
+
 //             // Clear errors for this field
 //             if (resumeStrength?.personal_info_strenght) {
 //               const updatedStrength = {
@@ -895,8 +890,7 @@
 //       setIsLoading((prev) => ({ ...prev, autoFix: false }));
 //     }
 //   };
-  
-  
+
 //   const handleInputChange = (e) => {
 //     const { name, value } = e.target;
 //     handleChange(e);
@@ -1110,10 +1104,11 @@ const PersonalInformation = () => {
     jobTitle: false,
     location: false,
     autoFix: false,
-    countryCodes: false
+    countryCodes: false,
   });
 
-  const dummyImage = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlie4MsQ9pJSSKY7DoEpxn3uBAq-rT7in1sA&s";
+  const dummyImage =
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlie4MsQ9pJSSKY7DoEpxn3uBAq-rT7in1sA&s";
 
   useEffect(() => {
     const fetchCountryCodes = async () => {
@@ -1124,7 +1119,7 @@ const PersonalInformation = () => {
         );
         if (response.ok) {
           const data = await response.json();
-          const sortedCountries = data.data.sort((a, b) => 
+          const sortedCountries = data.data.sort((a, b) =>
             a.name.localeCompare(b.name)
           );
           setCountryCodes(sortedCountries);
@@ -1190,13 +1185,13 @@ const PersonalInformation = () => {
 
   const handleAutoFix = async (field, content) => {
     if (!content) return;
-  
+
     setIsLoading((prev) => ({ ...prev, autoFix: true }));
-  
+
     try {
       let endpoint = "";
       let key = "";
-  
+
       if (field === "name") {
         endpoint = "/ai-username";
         key = "user name";
@@ -1207,9 +1202,9 @@ const PersonalInformation = () => {
         endpoint = "/ai-contact";
         key = "contact information";
       }
-  
+
       const token = localStorage.getItem("token");
-  
+
       const response = await fetch(
         `https://api.sentryspot.co.uk/api/jobseeker${endpoint}`,
         {
@@ -1225,13 +1220,13 @@ const PersonalInformation = () => {
           }),
         }
       );
-  
+
       if (response.ok) {
         const data = await response.json();
-  
+
         if (data.data.resume_analysis) {
           let updatedValue = null;
-  
+
           if (field === "name") {
             updatedValue = data.data.resume_analysis.user_name;
           } else if (field === "position") {
@@ -1239,7 +1234,7 @@ const PersonalInformation = () => {
           } else if (field === "contactInformation") {
             updatedValue = data.data.resume_analysis.contact;
           }
-  
+
           if (updatedValue) {
             const event = {
               target: {
@@ -1249,7 +1244,7 @@ const PersonalInformation = () => {
             };
             handleChange(event);
             setActiveTooltip(null);
-  
+
             // Clear errors for this field
             if (resumeStrength?.personal_info_strenght) {
               const updatedStrength = {
@@ -1284,15 +1279,15 @@ const PersonalInformation = () => {
 
   const handleContactChange = (e) => {
     const { value } = e.target;
-    
+
     // Update the contact information with the selected country code
     const updatedContact = {
       target: {
-        name: 'contactInformation',
-        value: `${selectedCountryCode} ${value.replace(/^(\+\d+\s*)?/, '')}`
-      }
+        name: "contactInformation",
+        value: `${selectedCountryCode} ${value.replace(/^(\+\d+\s*)?/, "")}`,
+      },
     };
-    
+
     handleChange(updatedContact);
   };
 
@@ -1311,18 +1306,21 @@ const PersonalInformation = () => {
   const selectCountryCode = (country) => {
     const newCountryCode = `+${country.phonecode}`;
     setSelectedCountryCode(newCountryCode);
-    
+
     // Update contact information with new country code
     if (resumeData.contactInformation) {
       const updatedContact = {
         target: {
-          name: 'contactInformation',
-          value: `${newCountryCode} ${resumeData.contactInformation.replace(/^(\+\d+\s*)?/, '')}`
-        }
+          name: "contactInformation",
+          value: `${newCountryCode} ${resumeData.contactInformation.replace(
+            /^(\+\d+\s*)?/,
+            ""
+          )}`,
+        },
       };
       handleChange(updatedContact);
     }
-    
+
     setShowCountryCodeDropdown(false);
   };
 
@@ -1348,10 +1346,25 @@ const PersonalInformation = () => {
 
   const formFields = [
     { field: "name", placeholder: "Full Name", type: "text" },
-    { field: "position", placeholder: "Job Title", type: "text", hasSuggestions: true },
-    { field: "contactInformation", placeholder: "Contact Number", type: "tel", hasCountryCode: true },
+    {
+      field: "position",
+      placeholder: "Job Title",
+      type: "text",
+      hasSuggestions: true,
+    },
+    {
+      field: "contactInformation",
+      placeholder: "Contact Number",
+      type: "tel",
+      hasCountryCode: true,
+    },
     { field: "email", placeholder: "Email", type: "email" },
-    { field: "address", placeholder: "Address", type: "text", hasSuggestions: true },
+    {
+      field: "address",
+      placeholder: "Address",
+      type: "text",
+      hasSuggestions: true,
+    },
   ];
 
   return (
@@ -1377,99 +1390,122 @@ const PersonalInformation = () => {
         </div>
 
         <div className="flex flex-col gap-4 w-full max-w-xl">
-          {formFields.map(({ field, placeholder, type, hasSuggestions, hasCountryCode }) => (
-            <div
-              key={field}
-              className="relative group"
-              onClick={(e) => e.stopPropagation()}
-            >
-              {hasCountryCode && (
-                <div className="relative">
-                  <div className="flex items-center">
-                    <div 
-                      className="absolute left-2 z-10 flex items-center cursor-pointer"
-                      onClick={() => setShowCountryCodeDropdown(!showCountryCodeDropdown)}
-                    >
-                      <span className="text-gray-700 mr-1">{selectedCountryCode}</span>
-                      <ChevronDown className="w-4 h-4 text-gray-500" />
-                    </div>
-                    
-                    {showCountryCodeDropdown && (
-                      <div className="absolute top-full left-0 mt-1 w-64 max-h-60 overflow-y-auto bg-white border border-gray-300 rounded-md shadow-lg z-50">
-                        {countryCodes.map((country) => (
-                          <div
-                            key={country.id}
-                            className="px-4 py-2 hover:bg-gray-100 cursor-pointer flex justify-between"
-                            onClick={() => selectCountryCode(country)}
-                          >
-                            <span>{country.name}</span>
-                            <span>+{country.phonecode}</span>
-                          </div>
-                        ))}
+          {formFields.map(
+            ({ field, placeholder, type, hasSuggestions, hasCountryCode }) => (
+              <div
+                key={field}
+                className="relative group"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {hasCountryCode && (
+                  <div className="relative">
+                    <div className="flex items-center">
+                      <div
+                        className="absolute left-2 z-10 flex items-center cursor-pointer"
+                        onClick={() =>
+                          setShowCountryCodeDropdown(!showCountryCodeDropdown)
+                        }
+                      >
+                        <span className="text-gray-700 mr-1">
+                          {selectedCountryCode}
+                        </span>
+                        <ChevronDown className="w-4 h-4 text-gray-500" />
                       </div>
-                    )}
 
-                    <input
-                      type={type}
-                      placeholder={placeholder}
-                      name={field}
-                      className={`w-full p-2 pl-16 border rounded-md outline-none transition-colors
+                      {showCountryCodeDropdown && (
+                        <div className="absolute top-full left-0 mt-1 w-64 max-h-60 overflow-y-auto bg-white border border-gray-300 rounded-md shadow-lg z-50">
+                          {countryCodes.map((country) => (
+                            <div
+                              key={country.id}
+                              className="px-4 py-2 hover:bg-gray-100 cursor-pointer flex justify-between"
+                              onClick={() => selectCountryCode(country)}
+                            >
+                              <span>{country.name}</span>
+                              <span>+{country.phonecode}</span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+
+                      <input
+                        type={type}
+                        placeholder={placeholder}
+                        name={field}
+                        className={`w-full p-2 pl-16 border rounded-md outline-none transition-colors
                         ${
                           improve && hasErrors(field)
                             ? "border-red-500 focus:border-red-600"
                             : "border-gray-300 focus:border-blue-500"
                         }`}
-                      value={resumeData[field] ? resumeData[field].replace(/^(\+\d+\s*)?/, '') : ''}
-                      onChange={field === 'contactInformation' ? handleContactChange : handleInputChange}
-                    />
+                        value={
+                          resumeData[field]
+                            ? resumeData[field].replace(/^(\+\d+\s*)?/, "")
+                            : ""
+                        }
+                        onChange={
+                          field === "contactInformation"
+                            ? handleContactChange
+                            : handleInputChange
+                        }
+                      />
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
 
-              {!hasCountryCode && (
-                <div className="flex items-center relative">
-                  <input
-                    type={type}
-                    placeholder={placeholder}
-                    name={field}
-                    className={`w-full p-2 border rounded-md outline-none transition-colors
+                {!hasCountryCode && (
+                  <div className="flex items-center relative">
+                    <input
+                      type={type}
+                      placeholder={placeholder}
+                      name={field}
+                      className={`w-full p-2 border rounded-md outline-none transition-colors
                       ${
                         improve && hasErrors(field)
                           ? "border-red-500 focus:border-red-600"
                           : "border-gray-300 focus:border-blue-500"
                       }`}
-                    value={resumeData[field] || ""}
-                    onChange={handleInputChange}
-                    onFocus={() => {
-                      if (field === "position") setShowJobTitleDropdown(true);
-                      if (field === "address") setShowLocationDropdown(true);
-                    }}
-                  />
-                  {improve && hasErrors(field) && (
-                    <button
-                      type="button"
-                      className="absolute right-2 text-red-500 hover:text-red-600 transition-colors"
-                      onClick={() => setActiveTooltip(activeTooltip === field ? null : field)}
-                      aria-label="Show suggestions"
-                    >
-                      <AlertCircle className="w-5 h-5" />
-                    </button>
-                  )}
-                  {hasSuggestions && isLoading[field === "position" ? "jobTitle" : "location"] && (
-                    <div className="absolute right-2">
-                      <Loader2 className="w-5 h-5 animate-spin text-gray-400" />
-                    </div>
-                  )}
-                </div>
-              )}
+                      value={resumeData[field] || ""}
+                      onChange={handleInputChange}
+                      onFocus={() => {
+                        if (field === "position") setShowJobTitleDropdown(true);
+                        if (field === "address") setShowLocationDropdown(true);
+                      }}
+                    />
+                    {improve && hasErrors(field) && (
+                      <button
+                        type="button"
+                        className="absolute right-2 text-red-500 hover:text-red-600 transition-colors"
+                        onClick={() =>
+                          setActiveTooltip(
+                            activeTooltip === field ? null : field
+                          )
+                        }
+                        aria-label="Show suggestions"
+                      >
+                        <AlertCircle className="w-5 h-5" />
+                      </button>
+                    )}
+                    {hasSuggestions &&
+                      isLoading[
+                        field === "position" ? "jobTitle" : "location"
+                      ] && (
+                        <div className="absolute right-2">
+                          <Loader2 className="w-5 h-5 animate-spin text-gray-400" />
+                        </div>
+                      )}
+                  </div>
+                )}
 
-              {hasSuggestions &&
-                (field === "position"
-                  ? showJobTitleDropdown && jobTitleSuggestions.length > 0
-                  : showLocationDropdown && locationSuggestions.length > 0) && (
-                  <div className="absolute z-50 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-y-auto">
-                    {(field === "position" ? jobTitleSuggestions : locationSuggestions).map(
-                      (suggestion, index) => (
+                {hasSuggestions &&
+                  (field === "position"
+                    ? showJobTitleDropdown && jobTitleSuggestions.length > 0
+                    : showLocationDropdown &&
+                      locationSuggestions.length > 0) && (
+                    <div className="absolute z-50 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-y-auto">
+                      {(field === "position"
+                        ? jobTitleSuggestions
+                        : locationSuggestions
+                      ).map((suggestion, index) => (
                         <div
                           key={index}
                           className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-black"
@@ -1477,54 +1513,63 @@ const PersonalInformation = () => {
                         >
                           {suggestion}
                         </div>
-                      )
-                    )}
-                  </div>
-                )}
+                      ))}
+                    </div>
+                  )}
 
-              {activeTooltip === field && hasErrors(field) && (
-                <div className="absolute z-50 left-8 mt-10 w-80 bg-white rounded-lg shadow-xl transform transition-all duration-200 ease-in-out border border-gray-700">
-                  <div className="p-4 border-b border-gray-700">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-2">
-                        <AlertCircle className="w-5 h-5 text-red-400" />
-                        <span className="font-medium text-black">Suggestions</span>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        {(field === "name" || field === "position" || field === "contactInformation") && (
+                {activeTooltip === field && hasErrors(field) && (
+                  <div className="absolute z-50 left-8  w-80 bg-white rounded-lg shadow-xl transform transition-all duration-200 ease-in-out border border-gray-700">
+                    <div className="p-4 border-b border-gray-700">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center space-x-2">
+                          <AlertCircle className="w-5 h-5 text-red-400" />
+                          <span className="font-medium text-black">
+                            Suggestions
+                          </span>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          {(field === "name" ||
+                            field === "position" ||
+                            field === "contactInformation") && (
+                            <button
+                              onClick={() =>
+                                handleAutoFix(field, resumeData[field])
+                              }
+                              disabled={isLoading.autoFix}
+                              className="px-3 py-1 text-sm font-medium text-white bg-blue-600 rounded-md shadow hover:bg-blue-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                            >
+                              {isLoading.autoFix ? (
+                                <Loader2 className="w-4 h-4 animate-spin" />
+                              ) : (
+                                "Auto Fix"
+                              )}
+                            </button>
+                          )}
                           <button
-                            onClick={() => handleAutoFix(field, resumeData[field])}
-                            disabled={isLoading.autoFix}
-                            className="px-3 py-1 text-sm font-medium text-white bg-blue-600 rounded-md shadow hover:bg-blue-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                            onClick={() => setActiveTooltip(null)}
+                            className="text-black transition-colors"
                           >
-                            {isLoading.autoFix ? (
-                              <Loader2 className="w-4 h-4 animate-spin" />
-                            ) : (
-                              'Auto Fix'
-                            )}
+                            <X className="w-5 h-5" />
                           </button>
-                        )}
-                        <button
-                          onClick={() => setActiveTooltip(null)}
-                          className="text-black transition-colors"
-                        >
-                          <X className="w-5 h-5" />
-                        </button>
+                        </div>
                       </div>
                     </div>
+                    <div className="p-4">
+                      {getSuggestions(field).map((msg, i) => (
+                        <div
+                          key={i}
+                          className="flex items-start space-x-3 mb-3 last:mb-0"
+                        >
+                          <div className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-red-400 mt-2"></div>
+                          <p className="text-black text-sm">{msg}</p>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                  <div className="p-4">
-                    {getSuggestions(field).map((msg, i) => (
-                      <div key={i} className="flex items-start space-x-3 mb-3 last:mb-0">
-                        <div className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-red-400 mt-2"></div>
-                        <p className="text-black text-sm">{msg}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
-          ))}
+                )}
+              </div>
+            )
+          )}
         </div>
       </div>
     </div>
