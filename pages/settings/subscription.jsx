@@ -31,7 +31,9 @@ export default function Subscription() {
                   <p className="mt-2 text-gray-700">Contact us at:</p>
                   <ul className="list-disc ml-5 text-gray-700">
                     <li>📞 855-695-3235</li>
-                    <li>📧 customersupport@Abroadium.com</li>
+                    <li className="text-[15px]">
+                      📧 customersupport@Abroadium.com
+                    </li>
                   </ul>
                 </div>
 
