@@ -175,15 +175,17 @@
 
 // export default Language;
 
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import FormButton from "./FormButton";
 import { ResumeContext } from "../context/ResumeContext";
-
+import { useRouter } from "next/router";
+import { ChevronDown, ChevronUp, AlertCircle, X } from "lucide-react";
 const Language = () => {
-  const { resumeData, setResumeData } = useContext(ResumeContext);
+  const { resumeData, setResumeData, resumeStrength } =
+    useContext(ResumeContext);
   const skillType = "languages";
   const title = "Languages";
-  
+
   const languageOptions = [
     "English",
     "Spanish",
@@ -206,9 +208,10 @@ const Language = () => {
     "Good ",
     "Basic Knowledge",
     "Just Starting",
-   
   ];
-
+  const router = useRouter();
+  const { improve } = router.query;
+  const [activeTooltip, setActiveTooltip] = useState(null);
   const handleSkills = (e, index, field) => {
     const newSkills = [...resumeData[skillType]];
     newSkills[index] = { ...newSkills[index], [field]: e.target.value };
@@ -230,7 +233,20 @@ const Language = () => {
     newSkills.pop();
     setResumeData({ ...resumeData, [skillType]: newSkills });
   };
-
+  const hasErrors = (index, field) => {
+    const workStrength = resumeStrength?.languages_strenght?.[index];
+    return (
+      workStrength &&
+      Array.isArray(workStrength[field]) &&
+      workStrength[field].length > 0
+    );
+  };
+  const getErrorMessages = (index, field) => {
+    const workStrength = resumeStrength?.languages_strenght?.[index];
+    return workStrength && Array.isArray(workStrength[field])
+      ? workStrength[field]
+      : [];
+  };
   return (
     <div className="flex-col-gap-3 w-full mt-10 px-10">
       <h2 className="input-title text-white text-3xl">{title}</h2>
@@ -242,23 +258,76 @@ const Language = () => {
         resumeData[skillType].map((skill, index) => (
           <div key={index} className="flex justify-between gap-2 mb-4">
             <div className="w-1/2">
-              <label className="block text-sm font-medium text-white">
-                {index === 0 ? "First Language" : "Language"}
-              </label>
-              <select
-                className="w-full other-input border border-black mb-2"
-                value={skill.language}
-                onChange={(e) => handleSkills(e, index, "language")}
-              >
-                <option value="" disabled>
-                  Select Language
-                </option>
-                {languageOptions.map((lang, i) => (
-                  <option key={i} value={lang}>
-                    {lang}
+              <div className="relative mb-2">
+                <label className="block text-sm font-medium text-white">
+                  {index === 0 ? "First Language" : "Language"}
+                </label>
+                <select
+                  // className="w-full other-input border border-black mb-2"
+                  className={`w-full other-input border  ${
+                    improve && hasErrors(index, "language")
+                      ? "border-red-500"
+                      : "border-black"
+                  }`}
+                  value={skill.language}
+                  onChange={(e) => handleSkills(e, index, "language")}
+                >
+                  <option value="" disabled>
+                    Select Language
                   </option>
-                ))}
-              </select>
+                  {languageOptions.map((lang, i) => (
+                    <option key={i} value={lang}>
+                      {lang}
+                    </option>
+                  ))}
+                </select>
+                {improve && hasErrors(index, "language") && (
+                  <button
+                    type="button"
+                    className="absolute right-2 top-1/2 -translate-y-1/2 text-red-500 hover:text-red-600 transition-colors"
+                    onClick={() =>
+                      setActiveTooltip(
+                        activeTooltip === `language-${index}`
+                          ? null
+                          : `language-${index}`
+                      )
+                    }
+                  >
+                    <AlertCircle className="w-5 h-5" />
+                  </button>
+                )}
+                {activeTooltip === `language-${index}` && (
+                  <div className="absolute z-50 right-0 mt-2 w-80 bg-white rounded-lg shadow-xl transform transition-all duration-200 ease-in-out border border-gray-700">
+                    <div className="p-4 border-b border-gray-700">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center space-x-2">
+                          <AlertCircle className="w-5 h-5 text-red-400" />
+                          <span className="font-medium text-black">
+                            Language Suggestion
+                          </span>
+                        </div>
+                        <button
+                          onClick={() => setActiveTooltip(null)}
+                          className="text-black transition-colors"
+                        >
+                          <X className="w-5 h-5" />
+                        </button>
+                      </div>
+                    </div>
+                    <div className="p-4">
+                      {getErrorMessages(index, "language").map((msg, i) => (
+                        <div
+                          key={i}
+                          className="flex items-start space-x-3 mb-3 last:mb-0"
+                        >
+                          <div className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-red-400 mt-2"></div>
+                          <p className="text-black text-sm">{msg}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
             <div className="w-1/2">
               <label className="block text-sm font-medium text-white">
@@ -300,5 +369,3 @@ const Language = () => {
 };
 
 export default Language;
-
-

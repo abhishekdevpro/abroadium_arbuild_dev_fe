@@ -108,6 +108,11 @@ const ResumeStrength = ({ score, strength, resumeId }) => {
         score: data.personal_score,
       },
       {
+        name: "Social Links",
+        completed: data.is_social,
+        score: data.social_score,
+      },
+      {
         name: "Personal Summary",
         completed: data.is_personal_summery,
         score: data.personal_summery_score,
@@ -123,9 +128,24 @@ const ResumeStrength = ({ score, strength, resumeId }) => {
         score: data.work_history_score,
       },
       {
+        name: "projects",
+        completed: data.is_project,
+        score: data.project_score,
+      },
+      {
         name: "Skills",
         completed: data.is_skills,
         score: data.skills_score,
+      },
+      {
+        name: "languages",
+        completed: data.is_languages,
+        score: data.languages_score,
+      },
+      {
+        name: "Certification",
+        completed: data.is_certifications,
+        score: data.certifications_score,
       },
     ];
   };
