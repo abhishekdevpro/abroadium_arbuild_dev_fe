@@ -38,6 +38,7 @@ export default function WebBuilder() {
   const [formClose, setFormClose] = useState(false);
   const [currentSection, setCurrentSection] = useState(0);
   const [selectedTemplate, setSelectedTemplate] = useState("template1");
+  const [selectedPdfType, setSelectedPdfType] = useState('1'); 
   const [isFinished, setIsFinished] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -207,7 +208,7 @@ export default function WebBuilder() {
 
       const response = await axios.post(
         "https://api.sentryspot.co.uk/api/jobseeker/generate-pdf1",
-        { html: fullContent },
+        { html: fullContent,pdf_type: selectedPdfType},
         {
           headers: {
             "Content-Type": "application/json",
@@ -494,7 +495,7 @@ export default function WebBuilder() {
 
     fetchData();
   }, []);
-
+  // console.log(selectedTemplate,selectedPdfType);
   return (
     <>
       <Meta
@@ -547,6 +548,8 @@ export default function WebBuilder() {
                     <TemplateSelector
                       selectedTemplate={selectedTemplate}
                       setSelectedTemplate={setSelectedTemplate}
+                      setSelectedPdfType={setSelectedPdfType}
+                  selectedPdfType={selectedPdfType}
                     />
                   </div>
                 </div>
@@ -637,6 +640,8 @@ export default function WebBuilder() {
                 <TemplateSelector
                   selectedTemplate={selectedTemplate}
                   setSelectedTemplate={setSelectedTemplate}
+                  setSelectedPdfType={setSelectedPdfType}
+                  selectedPdfType={selectedPdfType}
                 />
               </div>
               <div className="flex gap-4">
