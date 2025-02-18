@@ -45,7 +45,7 @@ const WorkExperience = ({ resumeData, headerColor,className = "",
                   }`}
                 >
                   <div className="flex flex-row justify-between space-y-1">
-                    <p  className={`${itemClassNames.company || ""}`}>{item.company}</p>
+                    <p  className="font-semibold">{item.company}</p>
                     <DateRangeExperience
                       startYear={item.startYear}
                       endYear={item.endYear}
@@ -55,8 +55,8 @@ const WorkExperience = ({ resumeData, headerColor,className = "",
                   </div>
                 
                   <div className="flex flex-row justify-between space-y-1">
-                                    <p  className={``}>{item.position}</p>
-                                    <p className={``}>{item.location}</p>
+                                    <p style={{fontWeight:600}}  className="text-gray-700">{item.position}</p>
+                                    <p style={{fontWeight:600}}  className="text-gray-700" >{item.location}</p>
                                   </div>
                   {/* <p
                     className=" hover:outline-dashed hover:outline-2 hover:outline-gray-400"

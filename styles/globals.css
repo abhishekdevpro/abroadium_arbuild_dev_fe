@@ -202,19 +202,29 @@ body {
 /*  */
 
 .preview {
-  width: 794px; /* Adjust for A4 */
-  /* height: 1123px; */
-  overflow: auto;
-  transform: scale(1);
-  overflow-y: hidden;
+  
+  width: 100%; 
+  height: 100%;
+  overflow: hidden; /* Prevent unwanted scrolling */
+  transform: scale(0.98); /* Keep it at 1 to avoid distortion */
+  
+  /* border: 1px solid; */
 }
+
 .a4-wrapper {
-  width: 794px; /* Adjust for A4 */
-  /* height: 1123px; */
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding: 0;
+  width: 794px; /* A4 width */
+  /* height: 1123px;  */
   margin: auto;
-  transform: scale(1); /* Slightly scale down */
-  /* transform-origin: top left; */
+  /* transform: scale(0.98); */
+  /* border: 2px solid blue; */
+  display: flex; /* Helps maintain layout */
+  justify-content: center;
+  align-items: center;
 }
+
 
 @media (max-width: 768px) {
   .preview {

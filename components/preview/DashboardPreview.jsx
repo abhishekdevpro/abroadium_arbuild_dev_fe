@@ -42,7 +42,7 @@ import React, { useContext,  forwardRef } from "react";
   
   const DashboardPreview = forwardRef(({ selectedTemplate }, ref) => {
     const { resumeData, setResumeData, selectedFont } = useContext(ResumeContext);
-    console.log(resumeData, ">>>previewdashboard")
+    // console.log(resumeData, ">>>previewdashboard")
   
    
   
