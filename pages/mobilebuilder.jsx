@@ -865,6 +865,7 @@ export default function MobileBuilder() {
   const [userId, setUserId] = useState(0);
   const templateRef = useRef(null);
   const {
+    setResumeStrength,
     resumeData,
     setResumeData,
     setHeaderColor,
@@ -902,7 +903,7 @@ export default function MobileBuilder() {
           if (response.data.status === "success") {
             const { data } = response.data;
             const parsedData = data.ai_resume_parse_data;
-
+            setResumeStrength(data.resume_strenght_details);
             setResumeData(parsedData.templateData);
 
             if (parsedData.templateData.templateDetails) {

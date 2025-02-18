@@ -976,6 +976,7 @@ const WorkExperience = () => {
       <FormButton
         size={resumeData.workExperience.length}
         add={addWorkExperience}
+        remove={removeWorkExperience}
       />
 
       {/* {showPopup && (
