@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Sidebar from "./Sidebar";
 import Navbar from "../Navbar/Navbar";
+import Link from "next/link";
 
 export default function Subscription() {
   const [status, setStatus] = useState("Inactive");
@@ -70,12 +71,14 @@ export default function Subscription() {
                     Status:{" "}
                     <span className="font-medium text-gray-900">{status}</span>
                   </p>
-                  <button
-                    className="mt-3 md:mt-0 text-blue-600 font-medium underline"
-                    onClick={() => setStatus("Active")}
-                  >
-                    Subscribe
-                  </button>
+                  <Link href="/payment">
+                    <button
+                      className="mt-3 md:mt-0 text-blue-600 font-medium underline"
+                      // onClick={() => setStatus("Active")}
+                    >
+                      Subscribe
+                    </button>
+                  </Link>
                 </div>
 
                 <p className="mt-4 text-gray-700">

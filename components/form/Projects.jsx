@@ -543,14 +543,14 @@ const Projects = () => {
                               handleAutoFixDescription(projectIndex, project)
                             }
                             onMouseDown={() => {
-                              if (!project?.title) {
+                              if (!project?.name) {
                                 toast.error("Title is required");
                               }
                             }}
                             className="px-3 py-1 text-sm font-medium text-white bg-blue-600 rounded-md shadow hover:bg-blue-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                             disabled={
                               loadingStates[`description_${projectIndex}`] ||
-                              !project?.title
+                              !project?.name
                             }
                           >
                             {loadingStates[`description_${projectIndex}`]
