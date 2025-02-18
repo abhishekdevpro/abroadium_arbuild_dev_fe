@@ -946,11 +946,12 @@ export default function MobileBuilder() {
     { label: "Education", component: <Education /> },
     { label: "Experience", component: <WorkExperience /> },
     { label: "Projects", component: <Projects /> },
+
     {
       label: "Skills",
       component: Array.isArray(resumeData?.skills) ? (
         resumeData.skills.map((skill, index) => (
-          <Skill title={skill.title} key={index} />
+          <Skill title={skill.title} currentSkillIndex={index} key={index} />
         ))
       ) : (
         <p>No skills available</p>

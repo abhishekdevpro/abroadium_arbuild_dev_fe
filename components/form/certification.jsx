@@ -24,11 +24,23 @@ const Certification = () => {
     });
   };
 
+  // const removeSkill = (index) => {
+  //   const newSkills = [...resumeData[skillType]];
+  //   newSkills.splice(-1, 1);
+  //   setResumeData({ ...resumeData, [skillType]: newSkills });
+  // };
   const removeSkill = (index) => {
-    const newSkills = [...resumeData[skillType]];
-    newSkills.splice(-1, 1);
-    setResumeData({ ...resumeData, [skillType]: newSkills });
+    if (resumeData[skillType].length > 1) {
+      // Prevent deletion if only one field exists
+      const newSkills = [...resumeData[skillType]];
+      newSkills.splice(index, 1); // Remove the field at the specified index
+      setResumeData({ ...resumeData, [skillType]: newSkills });
+    } else {
+      // Optional: You can show a message or alert that at least one field is required.
+      alert("At least one certification is required.");
+    }
   };
+
   const hasErrors = (index, field) => {
     const workStrength = resumeStrength?.certifications_strenght?.[index];
     return (
@@ -54,34 +66,36 @@ const Certification = () => {
               placeholder={title}
               name={title}
               className={`w-full other-input border  ${
-                improve && hasErrors(index, "skill")
+                improve && hasErrors(index, "certifications")
                   ? "border-red-500"
                   : "border-black"
               }`}
               value={skill}
               onChange={(e) => handleSkills(e, index, skillType)}
             />
-            {improve && hasErrors(index, "skill") && (
+            {improve && hasErrors(index, "certifications") && (
               <button
                 type="button"
                 className="absolute right-2 top-1/2 -translate-y-1/2 text-red-500 hover:text-red-600 transition-colors"
                 onClick={() =>
                   setActiveTooltip(
-                    activeTooltip === `skill-${index}` ? null : `skill-${index}`
+                    activeTooltip === `certifications-${index}`
+                      ? null
+                      : `certifications-${index}`
                   )
                 }
               >
                 <AlertCircle className="w-5 h-5" />
               </button>
             )}
-            {activeTooltip === `skill-${index}` && (
+            {activeTooltip === `certifications-${index}` && (
               <div className="absolute z-50 right-0 mt-2 w-80 bg-white rounded-lg shadow-xl transform transition-all duration-200 ease-in-out border border-gray-700">
                 <div className="p-4 border-b border-gray-700">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-2">
                       <AlertCircle className="w-5 h-5 text-red-400" />
                       <span className="font-medium text-black">
-                        Skill Suggestion
+                        Certifications Suggestion
                       </span>
                     </div>
                     <button
@@ -93,7 +107,7 @@ const Certification = () => {
                   </div>
                 </div>
                 <div className="p-4">
-                  {getErrorMessages(index, "skill").map((msg, i) => (
+                  {getErrorMessages(index, "certifications").map((msg, i) => (
                     <div
                       key={i}
                       className="flex items-start space-x-3 mb-3 last:mb-0"

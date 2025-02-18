@@ -132,7 +132,7 @@ export default function WebBuilder() {
       label: "Skills",
       component: Array.isArray(resumeData?.skills) ? (
         resumeData.skills.map((skill, index) => (
-          <Skill title={skill.title} key={index} />
+          <Skill title={skill.title} currentSkillIndex={index} key={index} />
         ))
       ) : (
         <p>No skills available</p>
@@ -345,7 +345,7 @@ export default function WebBuilder() {
         name: resumeData.name || "",
         position: resumeData.position || "",
         contactInformation: resumeData.contactInformation || "",
-        phone_code:resumeData.phone_code || "",
+        phone_code: resumeData.phone_code || "",
         email: resumeData.email || "",
         address: resumeData.address || "",
         profilePicture: resumeData.profilePicture || "",
@@ -356,7 +356,7 @@ export default function WebBuilder() {
             socialMedia: media.socialMedia || "",
           })) || [],
         summary: resumeData.summary || "",
-        is_fresher:resumeData.is_fresher || false,
+        is_fresher: resumeData.is_fresher || false,
         education:
           resumeData.education?.map((edu) => ({
             school: edu.school || "",

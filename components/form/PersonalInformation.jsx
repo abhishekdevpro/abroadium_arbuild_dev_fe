@@ -1277,19 +1277,19 @@ const PersonalInformation = () => {
     }
   };
 
-  const handleContactChange = (e) => {
-    const { value } = e.target;
+  // const handleContactChange = (e) => {
+  //   const { value } = e.target;
 
-    // Update the contact information with the selected country code
-    const updatedContact = {
-      target: {
-        name: "contactInformation",
-        value: `${selectedCountryCode} ${value.replace(/^(\+\d+\s*)?/, "")}`,
-      },
-    };
+  //   // Update the contact information with the selected country code
+  //   const updatedContact = {
+  //     target: {
+  //       name: "contactInformation",
+  //       value: `${selectedCountryCode} ${value.replace(/^(\+\d+\s*)?/, "")}`,
+  //     },
+  //   };
 
-    handleChange(updatedContact);
-  };
+  //   handleChange(updatedContact);
+  // };
 
   const selectSuggestion = (field, value) => {
     const event = {
@@ -1324,10 +1324,10 @@ const PersonalInformation = () => {
     setShowCountryCodeDropdown(false);
   };
 
-  const hasErrors = (field) => {
-    const strengthInfo = resumeStrength?.personal_info_strenght?.[field];
-    return Array.isArray(strengthInfo) && strengthInfo.length > 0;
-  };
+  // const hasErrors = (field) => {
+  //   const strengthInfo = resumeStrength?.personal_info_strenght?.[field];
+  //   return Array.isArray(strengthInfo) && strengthInfo.length > 0;
+  // };
 
   const getSuggestions = (field) => {
     return resumeStrength?.personal_info_strenght?.[field] || [];
@@ -1366,6 +1366,48 @@ const PersonalInformation = () => {
       hasSuggestions: true,
     },
   ];
+  // const hasErrors = (field) => {
+  //   const strengthInfo = resumeStrength?.personal_info_strenght?.[field];
+  //   return Array.isArray(strengthInfo) && strengthInfo.length > 0;
+  // };
+  const hasErrors = (field) => {
+    const strengthInfo = resumeStrength?.personal_info_strenght?.[field];
+
+    // Special check for contact information to ensure it's validated correctly
+    if (field === "contactInformation") {
+      const contactValue = resumeData[field];
+      console.log("Contact Value: ", contactValue); // Debugging line
+
+      const isValidContact = /^(\+\d{1,3}\s?)?\(?\d+\)?[\d\s\-]+$/.test(
+        contactValue
+      );
+      console.log("Is Valid Contact: ", isValidContact); // Debugging line
+
+      if (contactValue && !isValidContact) {
+        return true; // Invalid phone number format
+      }
+      return false; // Valid phone number
+    }
+
+    return Array.isArray(strengthInfo) && strengthInfo.length > 0;
+  };
+  const handleContactChange = (e) => {
+    const { value } = e.target;
+    const fullContactValue = `${selectedCountryCode} ${value.replace(
+      /^(\+\d+\s*)?/,
+      ""
+    )}`;
+
+    console.log("Updated Contact Value: ", fullContactValue); // Debugging line
+
+    const updatedContact = {
+      target: {
+        name: "contactInformation",
+        value: fullContactValue,
+      },
+    };
+    handleChange(updatedContact);
+  };
 
   return (
     <div className="flex flex-col gap-3 w-full items-center md:mt-10 p-4 md:px-10">
@@ -1397,104 +1439,131 @@ const PersonalInformation = () => {
                 className="relative group"
                 onClick={(e) => e.stopPropagation()}
               >
-                {hasCountryCode && (
-                  <div className="relative">
-                    <div className="flex items-center">
-                      <div
-                        className="absolute left-2 z-10 flex items-center cursor-pointer"
-                        onClick={() =>
-                          setShowCountryCodeDropdown(!showCountryCodeDropdown)
-                        }
-                      >
-                        <span className="text-gray-700 mr-1">
-                          {selectedCountryCode}
-                        </span>
-                        <ChevronDown className="w-4 h-4 text-gray-500" />
-                      </div>
+                <div className="flex items-center relative">
+                  {/* If field has a country code (for contact number) */}
 
-                      {showCountryCodeDropdown && (
-                        <div className="absolute top-full left-0 mt-1 w-64 max-h-60 overflow-y-auto bg-white border border-gray-300 rounded-md shadow-lg z-50">
-                          {countryCodes.map((country) => (
-                            <div
-                              key={country.id}
-                              className="px-4 py-2 hover:bg-gray-100 cursor-pointer flex justify-between"
-                              onClick={() => selectCountryCode(country)}
-                            >
-                              <span>{country.name}</span>
-                              <span>+{country.phonecode}</span>
-                            </div>
-                          ))}
+                  {hasCountryCode && (
+                    <div className="relative w-full">
+                      <div className="flex items-center">
+                        {/* Country Code Selector */}
+                        <div
+                          className="absolute left-2 z-10 flex items-center cursor-pointer"
+                          onClick={() =>
+                            setShowCountryCodeDropdown(!showCountryCodeDropdown)
+                          }
+                        >
+                          <span className="text-gray-700 mr-1">
+                            {selectedCountryCode}
+                          </span>
+                          <ChevronDown className="w-4 h-4 text-gray-500" />
                         </div>
-                      )}
 
+                        {/* Input Field for Contact Information */}
+                        {showCountryCodeDropdown && (
+                          <div className="absolute top-full left-0 mt-1 w-64 max-h-60 overflow-y-auto bg-white border border-gray-300 rounded-md shadow-lg z-50">
+                            {countryCodes.map((country) => (
+                              <div
+                                key={country.id}
+                                className="px-4 py-2 hover:bg-gray-100 cursor-pointer flex justify-between"
+                                onClick={() => selectCountryCode(country)}
+                              >
+                                <span>{country.name}</span>
+                                <span>+{country.phonecode}</span>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                        <input
+                          type={type}
+                          placeholder={placeholder}
+                          name={field}
+                          className={`w-full p-2 pl-16 border rounded-md outline-none transition-colors ${
+                            improve && hasErrors(field)
+                              ? "border-red-500 focus:border-red-600"
+                              : "border-gray-300 focus:border-blue-500"
+                          }`}
+                          value={
+                            resumeData[field]
+                              ? resumeData[field].replace(/^(\+\d+\s*)?/, "")
+                              : ""
+                          }
+                          onChange={
+                            field === "contactInformation"
+                              ? handleContactChange
+                              : handleInputChange
+                          }
+                        />
+
+                        {/* Error Icon for Contact Information */}
+                        {improve && hasErrors(field) && (
+                          <button
+                            type="button"
+                            className="absolute right-2 mt-2 text-red-500 hover:text-red-600 transition-colors"
+                            onClick={() =>
+                              setActiveTooltip(
+                                activeTooltip === field ? null : field
+                              )
+                            }
+                            aria-label="Show suggestions"
+                          >
+                            <AlertCircle className="w-5 h-5" />
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* If field does NOT have a country code */}
+                  {!hasCountryCode && (
+                    <div className="relative w-full">
+                      {/* Input Field */}
                       <input
                         type={type}
                         placeholder={placeholder}
                         name={field}
-                        className={`w-full p-2 pl-16 border rounded-md outline-none transition-colors
-                        ${
+                        className={`w-full p-2 border rounded-md outline-none transition-colors ${
                           improve && hasErrors(field)
                             ? "border-red-500 focus:border-red-600"
                             : "border-gray-300 focus:border-blue-500"
                         }`}
-                        value={
-                          resumeData[field]
-                            ? resumeData[field].replace(/^(\+\d+\s*)?/, "")
-                            : ""
-                        }
-                        onChange={
-                          field === "contactInformation"
-                            ? handleContactChange
-                            : handleInputChange
-                        }
+                        value={resumeData[field] || ""}
+                        onChange={handleInputChange}
+                        onFocus={() => {
+                          if (field === "position")
+                            setShowJobTitleDropdown(true);
+                          if (field === "address")
+                            setShowLocationDropdown(true);
+                        }}
                       />
-                    </div>
-                  </div>
-                )}
 
-                {!hasCountryCode && (
-                  <div className="flex items-center relative">
-                    <input
-                      type={type}
-                      placeholder={placeholder}
-                      name={field}
-                      className={`w-full p-2 border rounded-md outline-none transition-colors
-                      ${
-                        improve && hasErrors(field)
-                          ? "border-red-500 focus:border-red-600"
-                          : "border-gray-300 focus:border-blue-500"
-                      }`}
-                      value={resumeData[field] || ""}
-                      onChange={handleInputChange}
-                      onFocus={() => {
-                        if (field === "position") setShowJobTitleDropdown(true);
-                        if (field === "address") setShowLocationDropdown(true);
-                      }}
-                    />
-                    {improve && hasErrors(field) && (
-                      <button
-                        type="button"
-                        className="absolute right-2 text-red-500 hover:text-red-600 transition-colors"
-                        onClick={() =>
-                          setActiveTooltip(
-                            activeTooltip === field ? null : field
-                          )
-                        }
-                        aria-label="Show suggestions"
-                      >
-                        <AlertCircle className="w-5 h-5" />
-                      </button>
-                    )}
-                    {hasSuggestions &&
-                      isLoading[
-                        field === "position" ? "jobTitle" : "location"
-                      ] && (
-                        <div className="absolute right-2">
-                          <Loader2 className="w-5 h-5 animate-spin text-gray-400" />
-                        </div>
+                      {/* Error Icon for Other Fields */}
+                      {improve && hasErrors(field) && (
+                        <button
+                          type="button"
+                          className="absolute right-2 mt-2 text-red-500 hover:text-red-600 transition-colors"
+                          onClick={() =>
+                            setActiveTooltip(
+                              activeTooltip === field ? null : field
+                            )
+                          }
+                          aria-label="Show suggestions"
+                        >
+                          <AlertCircle className="w-5 h-5" />
+                        </button>
                       )}
-                  </div>
-                )}
+
+                      {/* Loading Indicator for Job Title & Address Suggestions */}
+                      {hasSuggestions &&
+                        isLoading[
+                          field === "position" ? "jobTitle" : "location"
+                        ] && (
+                          <div className="absolute right-8">
+                            <Loader2 className="w-5 h-5 animate-spin text-gray-400" />
+                          </div>
+                        )}
+                    </div>
+                  )}
+                </div>
 
                 {hasSuggestions &&
                   (field === "position"
