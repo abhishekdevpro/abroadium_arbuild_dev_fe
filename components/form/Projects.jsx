@@ -101,46 +101,46 @@ const Projects = () => {
     );
   };
 
-  const handleAIAssistDescription = async (projectIndex) => {
-    setLoadingStates((prev) => ({
-      ...prev,
-      [`description_${projectIndex}`]: true,
-    }));
-    setError("");
+  // const handleAIAssistDescription = async (projectIndex) => {
+  //   setLoadingStates((prev) => ({
+  //     ...prev,
+  //     [`description_${projectIndex}`]: true,
+  //   }));
+  //   setError("");
 
-    try {
-      const response = await axios.post(
-        "https://api.sentryspot.co.uk/api/jobseeker/ai-resume-project-summery-data",
-        {
-          key: "professional_experience",
-          keyword:
-            "Generate multiple professional summaries and descriptions for professional experience",
-          content:
-            resumeData.projects[index].description || "Project description",
-          company_name: resumeData.projects[index].name || "N/A",
-          job_title: resumeData.projects[index].title || "Project",
-          link: resumeData.projects[index].link || "N/A",
-        },
-        {
-          headers: {
-            Authorization: token,
-          },
-        }
-      );
+  //   try {
+  //     const response = await axios.post(
+  //       "https://api.sentryspot.co.uk/api/jobseeker/ai-resume-project-summery-data",
+  //       {
+  //         key: "professional_experience",
+  //         keyword:
+  //           "Generate multiple professional summaries and descriptions for professional experience",
+  //         content:
+  //           resumeData.projects[index].description || "Project description",
+  //         company_name: resumeData.projects[index].name || "N/A",
+  //         job_title: resumeData.projects[index].title || "Project",
+  //         link: resumeData.projects[index].link || "N/A",
+  //       },
+  //       {
+  //         headers: {
+  //           Authorization: token,
+  //         },
+  //       }
+  //     );
 
-      setDescriptions(response.data.data.resume_analysis.project_summaries);
-      setPopupIndex(index);
-      setPopupType("description");
-      setShowPopup(true);
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoadingStates((prev) => ({
-        ...prev,
-        [`description_${index}`]: false,
-      }));
-    }
-  };
+  //     setDescriptions(response.data.data.resume_analysis.project_summaries);
+  //     setPopupIndex(index);
+  //     setPopupType("description");
+  //     setShowPopup(true);
+  //   } catch (err) {
+  //     setError(err.message);
+  //   } finally {
+  //     setLoadingStates((prev) => ({
+  //       ...prev,
+  //       [`description_${index}`]: false,
+  //     }));
+  //   }
+  // };
 
   const handleAIAssistKey = async (index) => {
     setLoadingStates((prev) => ({
@@ -316,7 +316,47 @@ const Projects = () => {
       ? workStrength[field]
       : [];
   };
+  const handleAIAssistDescription = async (projectIndex) => {
+    setLoadingStates((prev) => ({
+      ...prev,
+      [`description_${projectIndex}`]: true,
+    }));
+    setError("");
 
+    try {
+      const response = await axios.post(
+        "https://api.sentryspot.co.uk/api/jobseeker/ai-resume-project-summery-data",
+        {
+          key: "professional_experience",
+          keyword:
+            "Generate multiple professional summaries and descriptions for professional experience",
+          content:
+            resumeData.projects[projectIndex].description ||
+            "Project description",
+          company_name: resumeData.projects[projectIndex].name || "N/A",
+          job_title: resumeData.projects[projectIndex].title || "Project",
+          link: resumeData.projects[projectIndex].link || "N/A",
+        },
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+
+      setDescriptions(response.data.data.resume_analysis.project_summaries);
+      setPopupIndex(projectIndex);
+      setPopupType("description");
+      setShowPopup(true);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoadingStates((prev) => ({
+        ...prev,
+        [`description_${projectIndex}`]: false,
+      }));
+    }
+  };
   return (
     <div className="flex-col-gap-3 w-full mt-10 px-10">
       <h2 className="input-title text-white text-3xl">Projects</h2>
