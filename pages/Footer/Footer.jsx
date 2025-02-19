@@ -37,7 +37,7 @@ const Footer = () => {
 
     return (
       <>
-        <ToastContainer />
+        {/* <ToastContainer /> */}
         <footer className="bg-black text-white py-8" id="footerbg">
           <div className="container mx-auto flex flex-col gap-7 justify-between px-6">
             <div className="flex flex-wrap justify-between px-2 md:px-[65px]">

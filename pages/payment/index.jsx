@@ -9,15 +9,16 @@ export default function Payment() {
   return (
     <>
       <Navbar />
-      <div className="p-6 max-w-5xl w-full mx-auto font-sans">
+      <div className="p-6 max-w-6xl w-full mx-auto font-sans">
         {/* Intro Section */}
-        <div className="bg-blue-100 p-4 rounded-lg text-center">
+        <div className="bg-orange-100 p-4 rounded-lg text-center">
           <h2 className="text-lg md:text-xl font-semibold">
-            ✨ Cast a wider net – 10x your job applications
+            ✨ Expand your reach and multiply your job opportunities tenfold!
           </h2>
           <p className="text-gray-600 text-sm md:text-base">
-            Our AI-powered platform scours millions of jobs to continuously find
-            and apply to relevant job openings until you’re hired.
+            Our AI-powered platform scans millions of job listings to deliver
+            the most relevant openings, while our ATS-optimized resumes, crafted
+            by industry experts, help you secure your dream job faster.
           </p>
         </div>
 
@@ -40,12 +41,18 @@ export default function Payment() {
                 selected={selectedPlan === "annual"}
                 onClick={() => setSelectedPlan("annual")}
               />
+              <PlanCard
+                title="Starting"
+                price="₹2499 /Resume"
+                selected={selectedPlan === "pro"}
+                onClick={() => setSelectedPlan("pro")}
+              />
             </div>
 
             {/* Subscription Features */}
             <div className="border p-6 mt-6 rounded-lg bg-gray-100">
               <ul className="list-disc pl-6 text-gray-700 space-y-2 text-sm md:text-base">
-                {selectedPlan === "trial" ? (
+                {/* {selectedPlan === "trial" ? (
                   <>
                     <li>Use our AI Enabled suggestions.</li>
                     <li>Create optimized resumes.</li>
@@ -63,6 +70,36 @@ export default function Payment() {
                     <li>Download fully formatted Resume.</li>
                     <li>Final Delivery 1 week.</li>
                   </>
+                )} */}
+                {selectedPlan === "trial" ? (
+                  <>
+                    <li>Use our AI Enabled suggestions.</li>
+                    <li>Create optimized resumes.</li>
+                    <li>Unlimited resume edits.</li>
+                    <li>Live Resume scores.</li>
+                    <li>Change & save resume as PDF.</li>
+                    <li>Download fully formatted Resume.</li>
+                  </>
+                ) : selectedPlan === "annual" ? (
+                  <>
+                    <li>Create optimized resumes.</li>
+                    <li>Receive resume in PDF and DOCX.</li>
+                    <li>Cover letter included.</li>
+                    <li>3 revisions included.</li>
+                    <li>Download fully formatted Resume.</li>
+                    <li>Final delivery within 1 week.</li>
+                  </>
+                ) : (
+                  // Pro Plan
+                  <>
+                    <li>Create optimized resumes.</li>
+                    <li>Receive resume in PDF and DOCX.</li>
+                    <li>Cover letter included.</li>
+                    <li>3 revisions included.</li>
+                    <li>Download fully formatted Resume.</li>
+                    <li>Final delivery within 1 week.</li>
+                    <li>One-on-one discussion with the Career Advisor.</li>
+                  </>
                 )}
               </ul>
             </div>
@@ -76,49 +113,54 @@ export default function Payment() {
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <Feature
-                  icon={<CheckCircle className="text-green-500" />}
-                  title="Automate your job search"
-                  description="We continuously scan millions of openings to find your top matches."
+                  icon={<CheckCircle className="text-purple-900" />}
+                  title="AI-Powered Job Matching"
+                  description="Get real-time job recommendations tailored to your skills and experience."
                 />
                 <Feature
-                  icon={<RefreshCw className="text-green-500" />}
-                  title="10x your job applications"
-                  description="Submit 10x as many applications with less effort than one manual application."
+                  icon={<RefreshCw className="text-purple-900" />}
+                  title="ATS-Optimized Resumes"
+                  description="Professionally crafted resumes designed by experts to pass Applicant Tracking Systems (ATS). "
                 />
                 <Feature
-                  icon={<Bell className="text-green-500" />}
-                  title="Wake up to your best matches"
-                  description="Start each day with a list of roles matched to your skills and preferences."
+                  icon={<Bell className="text-purple-900" />}
+                  title="Instant Job Alerts "
+                  description="Stay ahead with real-time notifications about new job openings that match your profile."
                 />
                 <Feature
-                  icon={<Clock className="text-green-500" />}
-                  title="Save valuable hours every week"
-                  description="Reclaim your time by letting our AI handle the grunt work of job searching."
+                  icon={<Clock className="text-purple-900" />}
+                  title="Expert Resume Assistance"
+                  description="Get personalized resume reviews and improvements from industry professionals."
                 />
                 <Feature
-                  icon={<DollarSign className="text-green-500" />}
-                  title="Money-back guarantee"
-                  description="If you are unhappy for any reason during the trial, just let us know - we’ll refund your money."
+                  icon={<DollarSign className="text-purple-900" />}
+                  title="Career Community & Networking"
+                  description="Connect with industry peers, mentors, and recruiters to enhance your career opportunities."
                 />
                 <Feature
-                  icon={<CheckCircle className="text-green-500" />}
-                  title="24/7 customer support"
-                  description="Get assistance anytime with our award-winning customer care service."
+                  icon={<CheckCircle className="text-purple-900" />}
+                  title="One-Click Applications"
+                  description="Apply faster and more efficiently with seamless, single-click job applications."
                 />
               </div>
               <div className=" mt-6">
-                <Link href="/payment/plans">
-                  <button className="w-full bg-blue-600 text-white text-lg font-semibold py-3 rounded-lg hover:bg-blue-700">
+                <Link href={`/payment/plans/?selectedPlan=${selectedPlan}`}>
+                  <button className="w-full bg-orange-600 text-white text-lg font-semibold py-3 rounded-xl hover:bg-orange-700">
                     Next
                   </button>
                 </Link>
                 <p className="text-gray-600 text-center mt-4">
-                  <strong>Got questions?</strong> Contact our 24/7 customer
-                  support.
+                  <strong>Got questions?</strong> Contact our customer support.
                 </p>
                 <p className="text-gray-600 text-center">
-                  You may cancel by email, online, or by calling us toll-free at
-                  855-695-3235.
+                  You may cancel via email at{" "}
+                  <a
+                    href="mailto:customersupport@Abroadium.com"
+                    className="text-blue-500 underline"
+                  >
+                    customersupport@Abroadium.com
+                  </a>
+                  .
                 </p>
               </div>
             </div>
@@ -135,14 +177,14 @@ export default function Payment() {
 function PlanCard({ title, price, selected, onClick }) {
   return (
     <button
-      className={`p-4 border rounded-lg w-full md:w-48 text-center ${
-        selected ? "border-blue-500 bg-blue-100" : "bg-white"
+      className={`p-4 border rounded-lg w-full md:w-32 text-center ${
+        selected ? "border-orange-500 bg-orange-100" : "bg-white"
       }`}
       onClick={onClick}
     >
       <input type="checkbox" checked={selected} readOnly />
-      <p className="text-lg font-semibold">{title}</p>
-      <p className="text-2xl font-bold">{price}</p>
+      <p className=" font-semibold">{title}</p>
+      <p className="text-md font-bold">{price}</p>
     </button>
   );
 }

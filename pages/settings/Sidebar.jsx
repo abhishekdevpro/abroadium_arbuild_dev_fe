@@ -14,7 +14,7 @@ const Sidebar = () => {
   const getLinkClassName = (path) => {
     return router.pathname === path
       ? "flex items-center p-2 bg-violet-900 border-b-2 rounded font-semibold text-white"
-      : "flex items-center p-2 hover:bg-violet-900 border-b-2 rounded font-semibold";
+      : "flex items-center p-2 hover:bg-purple-900 hover:text-white border-b-2 rounded font-semibold";
   };
 
   return (
@@ -54,7 +54,7 @@ const Sidebar = () => {
           <li>
             <Link
               href="/settings/account"
-              className="flex items-center p-2 bg-blue-900 border-b-2 border-black font-semibold text-white"
+              className="flex items-center p-2 bg-purple-900 border-b-2 border-black font-semibold text-white rounded-xl"
               onClick={toggleSidebar}
             >
               <User className="mr-2" size={20} />
@@ -64,7 +64,7 @@ const Sidebar = () => {
           <li>
             <Link
               href="/settings/notification"
-              className={getLinkClassName("/settings/notification")}
+              className={`rounded-xl ${getLinkClassName("/settings/notification")}`}
               onClick={toggleSidebar}
             >
               <Bell className="mr-2" size={20} />
@@ -74,7 +74,7 @@ const Sidebar = () => {
           <li>
             <Link
               href="/settings/subscription"
-              className={getLinkClassName("/settings/subscription")}
+              className={`rounded-xl ${getLinkClassName("/settings/subscription")}`}
               onClick={toggleSidebar}
             >
               <CreditCard className="mr-2" size={20} />
