@@ -125,6 +125,7 @@ function PrivacyPolicy() {
         data practices, please contact us at: Email
         [career@Abroadium.ca](mailto:career@Abroadium.ca)
       </div>
+      
     </>
   );
 }
