@@ -4,9 +4,10 @@
 
 import Link from "next/link";
 import Navbar from "../Navbar/Navbar";
-import { PLAN_DATA } from "./PlanData";
+
 import { CheckCircle, Lock } from "lucide-react";
 import { useRouter } from "next/router";
+import { PLAN_DATA } from "../../components/Data/PlanData";
 // export default function PaymentPage() {
 //   return (
 //     <>

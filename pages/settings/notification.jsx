@@ -192,7 +192,7 @@ export default function Notification() {
               <div className="mb-6">
                 <h4 className="font-semibold">Product notifications</h4>
                 <p className="text-gray-600 text-sm mb-4">
-                Stay ahead in your job search with Abroadium Resume Builder! Get notified about new job matches and applications requiring your attention, ensuring you're among the first to apply and increasing your chances of landing your dream job.
+                Stay ahead in your job search with Abroadium Resume Builder! Get notified about new job matches and applications requiring your attention, ensuring you are among the first to apply and increasing your chances of landing your dream job.
                 </p>
 
                 {/* Email Notification Toggle */}
