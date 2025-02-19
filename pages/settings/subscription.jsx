@@ -1,10 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
 import Navbar from "../Navbar/Navbar";
 import Link from "next/link";
 
 export default function Subscription() {
   const [status, setStatus] = useState("Inactive");
+  const [accountId,setAccountId] = useState()
+ useEffect(()=>{
+  setAccountId(localStorage.getItem("ID"))
+ },[])
 
   return (
     <>
@@ -31,7 +35,7 @@ export default function Subscription() {
                   </p>
                   <p className="mt-2 text-gray-700">Contact us at:</p>
                   <ul className="list-disc ml-5 text-gray-700">
-                    <li>📞 855-695-3235</li>
+                    {/* <li>📞 855-695-3235</li> */}
                     <li className="text-[15px]">
                       📧 customersupport@Abroadium.com
                     </li>
@@ -43,12 +47,12 @@ export default function Subscription() {
 
                 <div className="w-full md:w-1/2 mt-4 md:mt-0">
                   <p className="font-semibold text-gray-800">
-                    Available 7 days a week:
+                    Available  days a week:
                   </p>
                   <ul className="list-disc ml-5 text-gray-700">
-                    <li>Monday-Friday: 8 AM - 8 PM (CST)</li>
-                    <li>Saturday: 8 AM - 5 PM (CST)</li>
-                    <li>Sunday: 10 AM - 6 PM (CST)</li>
+                    <li>Monday-Friday: 8 AM - 8 PM (IST)</li>
+                    <li>Saturday: 8 AM - 5 PM (IST)</li>
+                    {/* <li>Sunday: 10 AM - 6 PM (IST)</li> */}
                   </ul>
                 </div>
               </div>
@@ -57,7 +61,7 @@ export default function Subscription() {
               <div className="py-4 border-b border-gray-300">
                 <p className="font-semibold text-gray-900">
                   Account ID:{" "}
-                  <span className="text-gray-600 font-medium">618744350</span>
+                  <span className="text-gray-600 font-medium">{accountId || 618744350}</span>
                 </p>
               </div>
 

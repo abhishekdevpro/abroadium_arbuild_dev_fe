@@ -44,7 +44,8 @@ const Account = () => {
 
   if (loading) return <p className="text-center text-gray-500">Loading...</p>;
   if (error) return <p className="text-center text-red-500">{error}</p>;
-
+//  console.log(userData,"///");
+localStorage.setItem("ID",userData.account_id)
   return (
     <>
       <Navbar />
@@ -78,38 +79,18 @@ const Account = () => {
                     </button> */}
                   </div>
                 </div>
-                {/* <div className="flex justify-between items-center">
-                  <span className="text-gray-600">Password</span>
+                <div className="flex justify-between items-center border-b pb-2">
+                  <span className="text-gray-600">Contact</span>
                   <div className="flex items-center space-x-2">
                     <span className="text-gray-900">
-                      {" "}
-                      {userData?.password || "******"}
+                      {userData?.phone || "N/A"}
                     </span>
-                    <button className="text-blue-600 text-sm font-semibold">
+                    {/* <button className="text-blue-600 text-sm font-semibold">
                       Change
-                    </button>
+                    </button> */}
                   </div>
-                </div> */}
-                {/* <div className="flex justify-between border-b pb-2">
-                  <span className="text-gray-600">Full Name</span>
-                  <span className="text-gray-900">
-                    {userData?.first_name || ""} {userData?.last_name || ""}
-                  </span>
                 </div>
-                <div className="flex justify-between border-b pb-2">
-                  <span className="text-gray-600">Phone</span>
-                  <span className="text-gray-900">
-                    {userData?.phone || "N/A"}
-                  </span>
-                </div>
-                <div className="flex justify-between border-b pb-2">
-                  <span className="text-gray-600">Profile Picture</span>
-                  <img
-                    src={userData?.photo || "/default-avatar.png"}
-                    alt="Profile"
-                    className="w-12 h-12 rounded-full border"
-                  />
-                </div> */}
+               
               </div>
             </div>
           </div>
