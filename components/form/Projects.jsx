@@ -8,6 +8,7 @@ import { ChevronDown, ChevronUp, AlertCircle, X } from "lucide-react";
 import axios from "axios";
 import FormButton from "./FormButton";
 import { useRouter } from "next/router";
+import { toast } from "react-toastify";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 const Projects = () => {
@@ -159,7 +160,7 @@ const Projects = () => {
           content:
             resumeData.projects[index].description || "Project description",
           company_name: resumeData.projects[index].name || "N/A",
-          job_title: resumeData.projects[index].title || "Project",
+          job_title: resumeData.projects[index].po || "Project",
           link: resumeData.projects[index].link || "N/A",
         },
         {
@@ -221,8 +222,11 @@ const Projects = () => {
     );
   };
   const handleAutoFixDescription = async (e, projectIndex, content) => {
-    e.preventDefault();
-    e.stopPropagation();
+    if (e) {
+      e.preventDefault(); // Stops the form submission (only needed if inside a form)
+      e.stopPropagation(); // Prevents event bubbling
+    }
+
     setLoadingStates((prev) => ({
       ...prev,
       [`description_${projectIndex}`]: true,
@@ -246,10 +250,9 @@ const Projects = () => {
           body: JSON.stringify({
             key: "project description",
             keyword: "auto improve",
-            content: content.description || "",
-
+            content: resumeData.position || "",
             company_name: content.name || "",
-            job_title: content.title || "",
+            job_title: resumeData.position || "",
             link: content.link || "",
           }),
         }
@@ -260,48 +263,36 @@ const Projects = () => {
       }
 
       const data = await response.json();
-      const updatedDescription =
-        data?.data?.resume_analysis?.professional_summary;
+      const updatedDescription = data?.data?.resume_analysis?.project_summary;
 
       if (updatedDescription) {
-        // Update the actual work experience data
-        const newProjects = [...resumeData.projects];
-        newProjects[projectIndex] = {
-          ...newProjects[projectIndex],
-          description: updatedDescription,
-        };
-        setResumeData({
-          ...resumeData,
-          projects: newProjects,
-        });
+        setResumeData((prev) => ({
+          ...prev,
+          projects: prev.projects.map((proj, i) =>
+            i === projectIndex
+              ? { ...proj, description: updatedDescription }
+              : proj
+          ),
+        }));
 
-        // Clear the error state for this field
-        if (resumeStrength?.project_strenght) {
-          const newProjectsStrength = [...resumeStrength.project_strenght];
-          if (newProjectsStrength[projectIndex]) {
-            newProjectsStrength[projectIndex] = {
-              ...newProjectsStrength[projectIndex],
-              description: [], // Clear the errors
-            };
-          }
-          setResumeStrength({
-            ...resumeStrength,
-            project_strenght: newProjectsStrength,
-          });
-        }
+        setResumeStrength((prev) => ({
+          ...prev,
+          project_strenght: prev.project_strenght.map((strength, i) =>
+            i === projectIndex ? { ...strength, description: [] } : strength
+          ),
+        }));
 
-        // Close the tooltip
         setActiveTooltip(null);
-
         toast.success("Description updated successfully");
       } else {
         toast.error("Failed to auto-fix description");
       }
     } catch (error) {
       console.error(
-        `Error auto-fixing experience description at index ${projectIndex}:`,
+        `Error auto-fixing project description at index ${projectIndex}:`,
         error
       );
+      console.log(resumeData.position, ">>>>>position");
       toast.error("An error occurred while processing your request");
     } finally {
       setLoadingStates((prev) => ({
@@ -310,6 +301,7 @@ const Projects = () => {
       }));
     }
   };
+
   const getErrorMessages = (index, field) => {
     const workStrength = resumeStrength?.project_strenght?.[index];
     return workStrength && Array.isArray(workStrength[field])
@@ -330,11 +322,9 @@ const Projects = () => {
           key: "professional_experience",
           keyword:
             "Generate multiple professional summaries and descriptions for professional experience",
-          content:
-            resumeData.projects[projectIndex].description ||
-            "Project description",
+          content: resumeData?.position || "Project description",
           company_name: resumeData.projects[projectIndex].name || "N/A",
-          job_title: resumeData.projects[projectIndex].title || "Project",
+          job_title: resumeData?.position || "Project",
           link: resumeData.projects[projectIndex].link || "N/A",
         },
         {
@@ -579,8 +569,9 @@ const Projects = () => {
                           </div>
 
                           <button
-                            onClick={() =>
-                              handleAutoFixDescription(projectIndex, project)
+                            type="button" // Prevent form submission if inside a form
+                            onClick={(e) =>
+                              handleAutoFixDescription(e, projectIndex, project)
                             }
                             onMouseDown={() => {
                               if (!project?.name) {
@@ -597,6 +588,7 @@ const Projects = () => {
                               ? "Fixing..."
                               : "Auto Fix"}
                           </button>
+
                           <button
                             onClick={() => setActiveTooltip(null)}
                             className="text-black transition-colors"
