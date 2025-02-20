@@ -40,7 +40,40 @@ const WorkExperience = () => {
   const token = localStorage.getItem("token");
   const router = useRouter();
   const { improve } = router.query;
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
 
+  const years = Array.from(
+    { length: 50 },
+    (_, i) => new Date().getFullYear() - i
+  );
+  const handleMonthChange = (e, index, field) => {
+    const newWorkExperience = [...resumeData.workExperience];
+    const currentDate = newWorkExperience[index][field] || "Jan,2024";
+    const [_, year] = currentDate.split(",");
+    newWorkExperience[index][field] = `${e.target.value},${year || ""}`;
+    setResumeData({ ...resumeData, workExperience: newWorkExperience });
+  };
+
+  const handleYearChange = (e, index, field) => {
+    const newWorkExperience = [...resumeData.workExperience];
+    const currentDate = newWorkExperience[index][field] || "Jan,2024";
+    const [month, _] = currentDate.split(",");
+    newWorkExperience[index][field] = `${month || ""},${e.target.value}`;
+    setResumeData({ ...resumeData, workExperience: newWorkExperience });
+  };
   const handleWorkExperience = (e, index) => {
     const { name, value } = e.target;
     const newWorkExperience = [...resumeData.workExperience];
@@ -363,9 +396,11 @@ const WorkExperience = () => {
       return newExpanded;
     });
   };
+
   const handleAutoFixDescription = async (e, index, content) => {
-    e.preventDefault();
-    e.stopPropagation();
+    e.preventDefault(); // Stops form submission (only needed if inside a form)
+    e.stopPropagation(); // Stops event bubbling
+
     setLoadingStates((prev) => ({
       ...prev,
       [`description_${index}`]: true,
@@ -406,33 +441,22 @@ const WorkExperience = () => {
         data?.data?.resume_analysis?.professional_summary;
 
       if (updatedDescription) {
-        // Update the actual work experience data
-        const newWorkExperience = [...resumeData.workExperience];
-        newWorkExperience[index] = {
-          ...newWorkExperience[index],
-          description: updatedDescription,
-        };
-        setResumeData({
-          ...resumeData,
-          workExperience: newWorkExperience,
-        });
+        // Update work experience description
+        setResumeData((prev) => ({
+          ...prev,
+          workExperience: prev.workExperience.map((exp, i) =>
+            i === index ? { ...exp, description: updatedDescription } : exp
+          ),
+        }));
 
-        // Clear the error state for this field
-        if (resumeStrength?.work_experience_strenght) {
-          const newWorkExperienceStrength = [
-            ...resumeStrength.work_experience_strenght,
-          ];
-          if (newWorkExperienceStrength[index]) {
-            newWorkExperienceStrength[index] = {
-              ...newWorkExperienceStrength[index],
-              descriptionDetails: [], // Clear the errors
-            };
-          }
-          setResumeStrength({
-            ...resumeStrength,
-            work_experience_strenght: newWorkExperienceStrength,
-          });
-        }
+        // Clear any errors in resumeStrength
+        setResumeStrength((prev) => ({
+          ...prev,
+          work_experience_strenght: prev.work_experience_strenght.map(
+            (strength, i) =>
+              i === index ? { ...strength, descriptionDetails: [] } : strength
+          ),
+        }));
 
         // Close the tooltip
         setActiveTooltip(null);
@@ -454,6 +478,7 @@ const WorkExperience = () => {
       }));
     }
   };
+
   const handleToggleFresher = (e) => {
     e.preventDefault();
     setResumeData((prevData) => ({
@@ -669,7 +694,7 @@ const WorkExperience = () => {
                     </div>
                   )}
                 </div>
-
+                {/* 
                 <div className="mb-4">
                   <label className="text-black">Start Date</label>
                   <input
@@ -698,8 +723,76 @@ const WorkExperience = () => {
                     value={experience.endYear}
                     onChange={(e) => handleWorkExperience(e, index)}
                   />
-                </div>
+                </div> */}
+                <div className="">
+                  <label className="text-black">Start Date</label>
+                  <div className="flex-wrap-gap-2">
+                    <select
+                      className={`other-input border flex-1 ${
+                        improve && hasErrors(index, "startYear")
+                          ? "border-red-500"
+                          : "border-black"
+                      }`}
+                      value={(experience.startYear || "Jan,2024").split(",")[0]}
+                      onChange={(e) => handleMonthChange(e, index, "startYear")}
+                    >
+                      {months.map((month, idx) => (
+                        <option key={idx} value={month}>
+                          {month}
+                        </option>
+                      ))}
+                    </select>
+                    <select
+                      className={`other-input border flex-1 ${
+                        improve && hasErrors(index, "startYear")
+                          ? "border-red-500"
+                          : "border-black"
+                      }`}
+                      value={(experience.startYear || "Jan,2024").split(",")[1]}
+                      onChange={(e) => handleYearChange(e, index, "startYear")}
+                    >
+                      {years.map((year, idx) => (
+                        <option key={idx} value={year}>
+                          {year}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
 
+                  <label className="text-black">End Date</label>
+                  <div className="flex-wrap-gap-2">
+                    <select
+                      className={`other-input border flex-1 ${
+                        improve && hasErrors(index, "endYear")
+                          ? "border-red-500"
+                          : "border-black"
+                      }`}
+                      value={(experience.endYear || "Dec,2024").split(",")[0]}
+                      onChange={(e) => handleMonthChange(e, index, "endYear")}
+                    >
+                      {months.map((month, idx) => (
+                        <option key={idx} value={month}>
+                          {month}
+                        </option>
+                      ))}
+                    </select>
+                    <select
+                      className={`other-input border flex-1 ${
+                        improve && hasErrors(index, "endYear")
+                          ? "border-red-500"
+                          : "border-black"
+                      }`}
+                      value={(experience.endYear || "Dec,2024").split(",")[1]}
+                      onChange={(e) => handleYearChange(e, index, "endYear")}
+                    >
+                      {years.map((year, idx) => (
+                        <option key={idx} value={year}>
+                          {year}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
                 <div className="relative mb-4">
                   <label className="mt-2 text-black">Location</label>
                   <input
@@ -787,7 +880,13 @@ const WorkExperience = () => {
                     <button
                       type="button"
                       className="border bg-black text-white px-3 rounded-3xl"
-                      onClick={() => handleAIAssistDescription(index)}
+                      onClick={() => {
+                        if (experience?.position) {
+                          handleAIAssistDescription(index, experience);
+                        } else {
+                          toast.error("Job Title is required");
+                        }
+                      }}
                       disabled={loadingStates[`description_${index}`]} // Check loading state per button
                     >
                       {loadingStates[`description_${index}`]
@@ -834,22 +933,8 @@ const WorkExperience = () => {
                               Description Suggestions
                             </span>
                           </div>
+
                           {/* <button
-                         onClick={() => {
-                          if (experience?.position) {
-                            handleAutoFixDescription(e,index, experience);
-                          } else {
-                            toast.error("Job Title is required");
-                          }
-                        }}
-                          className="px-3 py-1 text-sm font-medium text-white bg-blue-600 rounded-md shadow hover:bg-blue-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-                          disabled={loadingStates[`description_${index}`]}
-                        >
-                          {loadingStates[`description_${index}`]
-                            ? "Fixing..."
-                            : "Auto Fix"}
-                        </button> */}
-                          <button
                             onClick={() =>
                               handleAutoFixDescription(index, experience)
                             }
@@ -867,7 +952,28 @@ const WorkExperience = () => {
                             {loadingStates[`description_${index}`]
                               ? "Fixing..."
                               : "Auto Fix"}
+                          </button> */}
+                          <button
+                            type="button" // Ensure it's NOT a submit button
+                            onClick={(e) =>
+                              handleAutoFixDescription(e, index, experience)
+                            }
+                            onMouseDown={() => {
+                              if (!experience?.position) {
+                                toast.error("Job Title is required");
+                              }
+                            }}
+                            className="px-3 py-1 text-sm font-medium text-white bg-blue-600 rounded-md shadow hover:bg-blue-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                            disabled={
+                              loadingStates[`description_${index}`] ||
+                              !experience?.position
+                            }
+                          >
+                            {loadingStates[`description_${index}`]
+                              ? "Fixing..."
+                              : "Auto Fix"}
                           </button>
+
                           <button
                             onClick={() => setActiveTooltip(null)}
                             className="text-black transition-colors"
@@ -899,7 +1005,14 @@ const WorkExperience = () => {
                     <button
                       type="button"
                       className="border bg-black text-white px-3 rounded-3xl"
-                      onClick={() => handleAIAssistKey(index)}
+                      // onClick={() => handleAIAssistKey(index)}
+                      onClick={() => {
+                        if (experience?.position) {
+                          handleAIAssistKey(index, experience);
+                        } else {
+                          toast.error("Job Title is required");
+                        }
+                      }}
                       disabled={loadingStates[`key_${index}`]} // Check loading state per button
                     >
                       {loadingStates[`key_${index}`]
@@ -935,7 +1048,7 @@ const WorkExperience = () => {
                     </button>
                   )}
                   {activeTooltip === `achievements-${index}` && (
-                    <div className="absolute z-50 right-0 mt-2 w-80 bg-white rounded-lg shadow-xl transform transition-all duration-200 ease-in-out border border-gray-700">
+                    <div className="absolute z-50 top-30px right-0 mt-2 w-80 bg-white rounded-lg shadow-xl transform transition-all duration-200 ease-in-out border border-gray-700">
                       <div className="p-4 border-b border-gray-700">
                         <div className="flex items-center justify-between">
                           <div className="flex items-center space-x-2">
@@ -979,38 +1092,6 @@ const WorkExperience = () => {
         remove={removeWorkExperience}
       />
 
-      {/* {showPopup && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-white p-6 rounded-lg w-[90%] max-w-lg">
-            <h3 className="text-xl font-bold mb-4">Select Key Achievements</h3>
-            <div className="space-y-3 max-h-96 overflow-y-auto">
-              {summaries.map((summary, index) => (
-                <div key={index} className="flex items-start gap-3">
-                  <input
-                    type="checkbox"
-                    checked={selectedSummaries.includes(summary)}
-                    onChange={() => handleKeyAchievementselect(summary)}
-                    className="mt-1"
-                  />
-                  <p className="text-gray-800">{summary}</p>
-                </div>
-              ))}
-            </div>
-            <button
-              onClick={(e) => handleSaveSelectedAchievements(popupIndex, e)}
-              className="mt-4 bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-600"
-            >
-              Save Selected Achievements
-            </button>
-            <button
-              onClick={() => setShowPopup(false)}
-              className="mt-2 ml-2 bg-gray-400 text-black px-4 py-2 rounded hover:bg-gray-300"
-            >
-              Close
-            </button>
-          </div>
-        </div>
-      )} */}
       {showPopup && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
           <div className="bg-white p-6 rounded-lg w-[90%] max-w-lg">
@@ -1025,16 +1106,24 @@ const WorkExperience = () => {
                 : keyAchievements
               ).map((item, index) => (
                 <div key={index} className="flex items-start gap-3">
-                  <input
-                    type="checkbox"
-                    checked={
-                      popupType === "description"
-                        ? selectedDescriptions.includes(item)
-                        : selectedKeyAchievements.includes(item)
-                    }
-                    onChange={() => handleSummarySelect(item)}
-                    className="mt-1"
-                  />
+                  {/* Radio for description (Single Select) */}
+                  {popupType === "description" ? (
+                    <input
+                      type="radio"
+                      name="description" // Ensures only one can be selected
+                      checked={selectedDescriptions.includes(item)}
+                      onChange={() => setSelectedDescriptions([item])} // Only one selection
+                      className="mt-1"
+                    />
+                  ) : (
+                    // Checkbox for key achievements (Multi Select)
+                    <input
+                      type="checkbox"
+                      checked={selectedKeyAchievements.includes(item)}
+                      onChange={() => handleSummarySelect(item)}
+                      className="mt-1"
+                    />
+                  )}
                   <p className="text-gray-800">{item}</p>
                 </div>
               ))}

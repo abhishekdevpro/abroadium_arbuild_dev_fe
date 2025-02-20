@@ -1277,20 +1277,6 @@ const PersonalInformation = () => {
     }
   };
 
-  // const handleContactChange = (e) => {
-  //   const { value } = e.target;
-
-  //   // Update the contact information with the selected country code
-  //   const updatedContact = {
-  //     target: {
-  //       name: "contactInformation",
-  //       value: `${selectedCountryCode} ${value.replace(/^(\+\d+\s*)?/, "")}`,
-  //     },
-  //   };
-
-  //   handleChange(updatedContact);
-  // };
-
   const selectSuggestion = (field, value) => {
     const event = {
       target: { name: field, value },
@@ -1370,27 +1356,53 @@ const PersonalInformation = () => {
   //   const strengthInfo = resumeStrength?.personal_info_strenght?.[field];
   //   return Array.isArray(strengthInfo) && strengthInfo.length > 0;
   // };
+  // const hasErrors = (field) => {
+  //   const strengthInfo = resumeStrength?.personal_info_strenght?.[field];
+
+  //   // Special check for contact information to ensure it's validated correctly
+  //   if (field === "contactInformation") {
+  //     const contactValue = resumeData[field];
+  //     console.log("Contact Value: ", contactValue); // Debugging line
+
+  //     const isValidContact = /^(\+\d{1,3}\s?)?\(?\d+\)?[\d\s\-]+$/.test(
+  //       contactValue
+  //     );
+  //     console.log("Is Valid Contact: ", isValidContact); // Debugging line
+
+  //     if (contactValue && !isValidContact) {
+  //       return true; // Invalid phone number format
+  //     }
+  //     return false; // Valid phone number
+  //   }
+
+  //   return Array.isArray(strengthInfo) && strengthInfo.length > 0;
+  // };
   const hasErrors = (field) => {
     const strengthInfo = resumeStrength?.personal_info_strenght?.[field];
+    const fieldValue = resumeData[field]?.trim(); // Trim to check for empty values
 
-    // Special check for contact information to ensure it's validated correctly
+    // 1️⃣ Check for empty values (show error if missing)
+    if (!fieldValue) return true;
+
+    // 2️⃣ Special validation for contact information
     if (field === "contactInformation") {
-      const contactValue = resumeData[field];
-      console.log("Contact Value: ", contactValue); // Debugging line
+      console.log("Contact Value: ", fieldValue); // Debugging
 
       const isValidContact = /^(\+\d{1,3}\s?)?\(?\d+\)?[\d\s\-]+$/.test(
-        contactValue
+        fieldValue
       );
-      console.log("Is Valid Contact: ", isValidContact); // Debugging line
 
-      if (contactValue && !isValidContact) {
+      console.log("Is Valid Contact: ", isValidContact); // Debugging
+
+      if (!isValidContact) {
         return true; // Invalid phone number format
       }
-      return false; // Valid phone number
     }
 
+    // 3️⃣ Check for API errors in `resumeStrength`
     return Array.isArray(strengthInfo) && strengthInfo.length > 0;
   };
+
   const handleContactChange = (e) => {
     const { value } = e.target;
     const fullContactValue = `${selectedCountryCode} ${value.replace(
@@ -1596,6 +1608,7 @@ const PersonalInformation = () => {
                             Suggestions
                           </span>
                         </div>
+
                         <div className="flex items-center space-x-2">
                           {(field === "name" ||
                             field === "position" ||
@@ -1604,7 +1617,9 @@ const PersonalInformation = () => {
                               onClick={() =>
                                 handleAutoFix(field, resumeData[field])
                               }
-                              disabled={isLoading.autoFix}
+                              disabled={
+                                isLoading.autoFix || !resumeData[field]?.trim()
+                              } // ✅ Disable when empty
                               className="px-3 py-1 text-sm font-medium text-white bg-blue-600 rounded-md shadow hover:bg-blue-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                               {isLoading.autoFix ? (

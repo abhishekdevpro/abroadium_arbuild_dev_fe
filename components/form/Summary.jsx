@@ -254,7 +254,7 @@ import "react-quill/dist/quill.snow.css";
 import { ResumeContext } from "../context/ResumeContext";
 import { AlertCircle, Loader, Loader2, X } from "lucide-react";
 import { useRouter } from "next/router";
-
+import { toast } from "react-toastify";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 const Summary = () => {
@@ -430,7 +430,13 @@ const Summary = () => {
                 ? "bg-gray-400 text-white cursor-not-allowed"
                 : "bg-black text-white hover:bg-gray-800"
             }`}
-            onClick={handleAIAssist}
+            onClick={() => {
+              if (resumeData?.position) {
+                handleAIAssist();
+              } else {
+                toast.error("Job Title is required in Detail Information");
+              }
+            }}
             disabled={loading}
           >
             {loading ? (
