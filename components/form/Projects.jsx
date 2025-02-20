@@ -718,43 +718,8 @@ const Projects = () => {
         add={addProjects}
         remove={removeProjects}
       />
-      {showPopup && (
-        // <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-        //   <div className="bg-white p-6 rounded-lg w-[90%] max-w-lg">
-        //     <h3 className="text-xl font-bold mb-4">
-        //       {popupType === "description" ? "Select Description" : "Select Key Achievements"}
-        //     </h3>
-        //     <div className="space-y-3 max-h-96 overflow-y-auto">
-        //       {(popupType === "description" ? descriptions : keyAchievements).map((item, index) => (
-        //         <div key={index} className="flex items-start gap-3">
-        //           <input
-        //             type="checkbox"
-        //             checked={
-        //               popupType === "description"
-        //                 ? selectedDescriptions.includes(item)
-        //                 : selectedKeyAchievements.includes(item)
-        //             }
-        //             onChange={() => handleSummarySelect(item)}
-        //             className="mt-1"
-        //           />
-        //           <p className="text-gray-800">{item}</p>
-        //         </div>
-        //       ))}
-        //     </div>
-        //     <button
-        //       onClick={(e) => handleSaveSelectedSummary(popupIndex, e)}
-        //       className="mt-4 bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-600"
-        //     >
-        //       Save Selection
-        //     </button>
-        //     <button
-        //       onClick={() => setShowPopup(false)}
-        //       className="mt-2 ml-2 bg-gray-400 text-black px-4 py-2 rounded hover:bg-gray-300"
-        //     >
-        //       Close
-        //     </button>
-        //   </div>
-        // </div>
+      {/* {showPopup && (
+      
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
           <div className="bg-white p-6 rounded-lg w-[90%] max-w-lg">
             <h3 className="text-xl font-bold mb-4">
@@ -768,6 +733,23 @@ const Projects = () => {
                 : keyAchievements
               ).map((item, index) => (
                 <div key={index} className="flex items-start gap-3">
+                    {popupType === "description" ? (
+                    <input
+                      type="radio"
+                      name="description" // Ensures only one can be selected
+                      checked={selectedDescriptions.includes(item)}
+                      onChange={() => setSelectedDescriptions([item])} // Only one selection
+                      className="mt-1"
+                    />
+                  ) : (
+                    // Checkbox for key achievements (Multi Select)
+                    <input
+                      type="checkbox"
+                      checked={selectedKeyAchievements.includes(item)}
+                      onChange={() => handleSummarySelect(item)}
+                      className="mt-1"
+                    />
+                  )}
                   <input
                     type="checkbox"
                     checked={
@@ -796,6 +778,57 @@ const Projects = () => {
                 Close
               </button>
             </div>
+          </div>
+        </div>
+      )} */}
+      {showPopup && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+          <div className="bg-white p-6 rounded-lg w-[90%] max-w-lg">
+            <h3 className="text-xl font-bold mb-4">
+              {popupType === "description"
+                ? "Select Description"
+                : "Select Key Achievements"}
+            </h3>
+            <div className="space-y-3 max-h-96 overflow-y-auto">
+              {(popupType === "description"
+                ? descriptions
+                : keyAchievements
+              ).map((item, index) => (
+                <div key={index} className="flex items-start gap-3">
+                  {/* Radio for description (Single Select) */}
+                  {popupType === "description" ? (
+                    <input
+                      type="radio"
+                      name="description" // Ensures only one can be selected
+                      checked={selectedDescriptions.includes(item)}
+                      onChange={() => setSelectedDescriptions([item])} // Only one selection
+                      className="mt-1"
+                    />
+                  ) : (
+                    // Checkbox for key achievements (Multi Select)
+                    <input
+                      type="checkbox"
+                      checked={selectedKeyAchievements.includes(item)}
+                      onChange={() => handleSummarySelect(item)}
+                      className="mt-1"
+                    />
+                  )}
+                  <p className="text-gray-800">{item}</p>
+                </div>
+              ))}
+            </div>
+            <button
+              onClick={(e) => handleSaveSelectedSummary(popupIndex, e)}
+              className="mt-4 bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-600"
+            >
+              Save Selection
+            </button>
+            <button
+              onClick={() => setShowPopup(false)}
+              className="mt-2 ml-2 bg-gray-400 text-black px-4 py-2 rounded hover:bg-gray-300"
+            >
+              Close
+            </button>
           </div>
         </div>
       )}
