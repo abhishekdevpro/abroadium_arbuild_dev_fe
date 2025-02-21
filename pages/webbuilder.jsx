@@ -207,7 +207,7 @@ export default function WebBuilder() {
       `;
 
       const response = await axios.post(
-        "https://api.sentryspot.co.uk/api/jobseeker/generate-pdf1",
+        "https://api.sentryspot.co.uk/api/jobseeker/generate-pdf-py",
         { html: fullContent,pdf_type: selectedPdfType},
         {
           headers: {

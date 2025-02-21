@@ -525,7 +525,7 @@ const ContactAndSocialMedia = ({
     if (!IconComponent) return null;
     
     return (
-      <div className={`${layout === "row" ? "px-2" : "pr-2"}`}>
+      <div>
         <IconComponent className="w-5 h-5" />
       </div>
     );
