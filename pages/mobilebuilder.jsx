@@ -1037,7 +1037,7 @@ export default function MobileBuilder() {
       `;
 
       const response = await axios.post(
-        "https://api.sentryspot.co.uk/api/jobseeker/generate-pdf1",
+        "https://api.sentryspot.co.uk/api/jobseeker/generate-pdf-py",
         { html: fullContent },
         {
           headers: {
@@ -1374,13 +1374,13 @@ export default function MobileBuilder() {
             </div>
 
             <div className="flex items-center justify-center gap-4 p-2 fixed bottom-0 left-0 right-0 bg-white shadow-lg ">
-              <LoaderButton
+              <button
                 isLoading={isLoading}
                 onClick={handleFinish}
                 className=" text-white px-4 py-2 rounded-lg bottom-btns"
               >
                 Save
-              </LoaderButton>
+              </button>
 
               <button
                 onClick={downloadAsPDF}
