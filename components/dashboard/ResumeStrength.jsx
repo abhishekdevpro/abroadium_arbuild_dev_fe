@@ -147,6 +147,11 @@ const ResumeStrength = ({ score, strength, resumeId }) => {
         completed: data.is_certifications,
         score: data.certifications_score,
       },
+      {
+        name: "ATS",
+        completed: data.is_certifications,
+        score: data.certifications_score,
+      },
     ];
   };
 
@@ -202,6 +207,15 @@ const ResumeStrength = ({ score, strength, resumeId }) => {
               }`}
             >
               Improve Resume
+            </button>
+            <button
+              // onClick={handleImproveResume}
+              // disabled={!resumeId}
+              className={`mt-2 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 ${
+                !resumeId ? "opacity-50 cursor-not-allowed" : ""
+              }`}
+            >
+             Improve ATS 
             </button>
           </div>
         </div>
