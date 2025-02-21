@@ -70,9 +70,9 @@
     @apply grid grid-cols-[repeat(auto-fit,minmax(150px,1fr))] gap-4;
   }
 
-  .editable {
+  /* .editable {
     @apply hover:bg-gray-100 hover:cursor-text outline-none;
-  }
+  } */
 }
 
 .name {
@@ -207,7 +207,8 @@ body {
   height: 100%;
   overflow: hidden; /* Prevent unwanted scrolling */
   transform: scale(0.98); /* Keep it at 1 to avoid distortion */
-  
+  padding: 0;
+  margin: 0;
   /* border: 1px solid; */
 }
 
@@ -215,9 +216,9 @@ body {
   box-sizing: border-box;
   margin: 0 auto;
   padding: 0;
-  width: 794px; /* A4 width */
+  width: 794px; 
   /* height: 1123px;  */
-  margin: auto;
+  /* margin: auto; */
   /* transform: scale(0.98); */
   /* border: 2px solid blue; */
   display: flex; /* Helps maintain layout */
