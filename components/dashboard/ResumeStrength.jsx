@@ -82,8 +82,8 @@ const TooltipContent = ({ improvements,resumeId,onClose}) => {
       if (response.data) {
         toast.success(response.message || "ATS updated successfully");
         onClose();
-        router.push('/dashboard')
-        window.location.reload();
+        // router.push('/dashboard')
+        // window.location.reload();
 
       } else {
         toast.error("No response data received");
