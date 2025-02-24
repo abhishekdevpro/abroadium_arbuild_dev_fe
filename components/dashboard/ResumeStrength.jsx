@@ -83,7 +83,7 @@ const TooltipContent = ({ improvements,resumeId,onClose}) => {
         toast.success(response.message || "ATS updated successfully");
         onClose();
         // router.push('/dashboard')
-        // window.location.reload();
+        window.location.reload();
 
       } else {
         toast.error("No response data received");
@@ -385,7 +385,7 @@ const ResumeStrength = ({ score, strength, resumeId }) => {
               <div
                 key={section.name}
                 className="flex items-center gap-4 relative"
-                onClick={() => isATS && setIsModalOpen(true)}
+                // onClick={() => isATS && setIsModalOpen(true)}
                 style={{ cursor: isATS ? 'pointer' : 'default' }}
               >
                 <Icon className="w-5 h-5 text-gray-600 flex-shrink-0" />
