@@ -488,6 +488,17 @@ const WorkExperience = () => {
     }));
   };
 
+  const removeWork = (index) => {
+    const newworkExperience = [...(resumeData.workExperience || [])];
+    newworkExperience.splice(index, 1);
+    setResumeData({ ...resumeData, workExperience: newworkExperience });
+    setExpandedExperiences(
+      expandedExperiences
+        .filter((i) => i !== index)
+        .map((i) => (i > index ? i - 1 : i))
+    );
+  };
+
   return (
     <div className="flex-col gap-3 w-full mt-10 px-10">
       <h2 className="input-title text-white text-3xl mb-6">Work Experience</h2>
@@ -1081,6 +1092,15 @@ const WorkExperience = () => {
                     </div>
                   )}
                 </div>
+
+               
+                <button
+                  onClick={() => removeWork(index)}
+                  className="bg-red-500 w-full text-white px-4 py-2 rounded mt-4"
+                  type="button"
+                >
+                  Remove Work Experience
+                </button>
               </div>
             )}
           </div>
