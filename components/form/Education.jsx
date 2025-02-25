@@ -162,6 +162,12 @@ const Education = () => {
     newEducation[index][field] = `${month || ""},${newYear}`;
     setResumeData({ ...resumeData, education: newEducation });
   };
+  const handlePresentToggle = (index) => {
+    const newEducation = [...resumeData.education];
+    newEducation[index].endYear =
+      newEducation[index].endYear === "Present" ? "" : "Present";
+    setResumeData({ ...resumeData, education: newEducation });
+  };
 
   const addEducation = () => {
     setResumeData({
@@ -442,6 +448,7 @@ const Education = () => {
                 }`}
                 value={(education.endYear || "Jul,2024").split(",")[0]}
                 onChange={(e) => handleMonthChange(e, index, "endYear")}
+                disabled={education.endYear === "Present"} // Disable the month select if "Present" is checked
               >
                 <option value="">Month</option>
                 {months.map((month, idx) => (
@@ -458,6 +465,7 @@ const Education = () => {
                 }`}
                 value={(education.endYear || "Jul,2024").split(",")[1]}
                 onChange={(e) => handleYearChange(e, index, "endYear")}
+                disabled={education.endYear === "Present"} // Disable the year select if "Present" is checked
               >
                 <option value="">Year</option>
                 {years.map((year, idx) => (
@@ -466,6 +474,15 @@ const Education = () => {
                   </option>
                 ))}
               </select>
+              <label className="flex flex-1 items-center gap-1 other-input text-xl">
+                <input
+                  type="checkbox"
+                  checked={education.endYear === "Present"}
+                  onChange={() => handlePresentToggle(index)}
+                  className="w-6 h-6"
+                />
+                Present
+              </label>
             </div>
           </div>
 
