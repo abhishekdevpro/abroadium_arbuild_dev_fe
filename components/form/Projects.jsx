@@ -50,6 +50,15 @@ const Projects = () => {
     newProjects[index][e.target.name] = e.target.value;
     setResumeData({ ...resumeData, projects: newProjects });
   };
+  const handlePresentToggle = (index) => {
+    const newProjects = [...resumeData.projects];
+    const isPresent = newProjects[index].endYear === "Present";
+  
+    newProjects[index].endMonth = isPresent ? "" : newProjects[index].endMonth;
+    newProjects[index].endYear = isPresent ? "" : "Present";
+  
+    setResumeData({ ...resumeData, projects: newProjects });
+  };
 
   const handleKeyAchievement = (e, projectIndex) => {
     // const newProjects = [...resumeData.projects]
@@ -101,47 +110,6 @@ const Projects = () => {
       prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
     );
   };
-
-  // const handleAIAssistDescription = async (projectIndex) => {
-  //   setLoadingStates((prev) => ({
-  //     ...prev,
-  //     [`description_${projectIndex}`]: true,
-  //   }));
-  //   setError("");
-
-  //   try {
-  //     const response = await axios.post(
-  //       "https://api.sentryspot.co.uk/api/jobseeker/ai-resume-project-summery-data",
-  //       {
-  //         key: "professional_experience",
-  //         keyword:
-  //           "Generate multiple professional summaries and descriptions for professional experience",
-  //         content:
-  //           resumeData.projects[index].description || "Project description",
-  //         company_name: resumeData.projects[index].name || "N/A",
-  //         job_title: resumeData.projects[index].title || "Project",
-  //         link: resumeData.projects[index].link || "N/A",
-  //       },
-  //       {
-  //         headers: {
-  //           Authorization: token,
-  //         },
-  //       }
-  //     );
-
-  //     setDescriptions(response.data.data.resume_analysis.project_summaries);
-  //     setPopupIndex(index);
-  //     setPopupType("description");
-  //     setShowPopup(true);
-  //   } catch (err) {
-  //     setError(err.message);
-  //   } finally {
-  //     setLoadingStates((prev) => ({
-  //       ...prev,
-  //       [`description_${index}`]: false,
-  //     }));
-  //   }
-  // };
 
   const handleAIAssistKey = async (index) => {
     setLoadingStates((prev) => ({
@@ -671,6 +639,7 @@ const Projects = () => {
                       className="other-input border-black border flex-1"
                       value={project.endMonth}
                       onChange={(e) => handleProjects(e, projectIndex)}
+                      disabled={project.endYear === "Present"}
                     >
                       <option value="">Select Month</option>
                       {months.map((month, idx) => (
@@ -684,6 +653,7 @@ const Projects = () => {
                       className="other-input border-black border flex-1"
                       value={project.endYear}
                       onChange={(e) => handleProjects(e, projectIndex)}
+                      disabled={project.endYear === "Present"}
                     >
                       <option value="">Select Year</option>
                       {years.map((year, idx) => (
@@ -692,6 +662,15 @@ const Projects = () => {
                         </option>
                       ))}
                     </select>
+                    <label className="flex flex-1 items-center gap-1 other-input text-xl">
+                      <input
+                        type="checkbox"
+                        checked={project.endYear === "Present"}
+                        onChange={() => handlePresentToggle(projectIndex)}
+                        className="w-6 h-6"
+                      />
+                      Present
+                    </label>
                   </div>
                 </div>
                 <button
