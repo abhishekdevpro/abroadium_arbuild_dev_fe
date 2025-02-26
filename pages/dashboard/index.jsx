@@ -131,14 +131,29 @@ export default function DashboardPage() {
     }
   };
 
-  useEffect(() => {
-    resumeStrength();
-    // Set up an interval to refresh data every 5 minutes
-    const interval = setInterval(resumeStrength, 300000);
+  // useEffect(() => {
+  //   resumeStrength();
+   
+  //   const interval = setInterval(resumeStrength, 300000);
 
-    // Cleanup interval on component unmount
-    return () => clearInterval(interval);
+  //   // Cleanup interval on component unmount
+  //   return () => clearInterval(interval);
+  // }, []);
+  useEffect(() => {
+    // Delay the first execution by 3 seconds
+    const timeout = setTimeout(() => {
+      resumeStrength();
+  
+      // Set an interval to call resumeStrength every 5 minutes (300000 ms)
+      const interval = setInterval(resumeStrength, 300000);
+  
+      // Cleanup both timeout and interval on component unmount
+      return () => clearInterval(interval);
+    }, 3000);
+  
+    return () => clearTimeout(timeout);
   }, []);
+  
 
   // Show the loader while loading
   if (loading) {
