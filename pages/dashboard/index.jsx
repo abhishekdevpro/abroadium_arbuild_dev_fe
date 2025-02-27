@@ -95,7 +95,7 @@ import MyResume from "./MyResume";
 import MyJobs from "./MyJobs";
 import FullScreenLoader from "../../components/ResumeLoader/Loader";
 import AbroadiumCommunity from "../../components/dashboard/AbroadiumCommunity";
-import { Download, Edit, Trash, Plus } from "lucide-react";
+import { Download, Edit, Trash, Plus, User } from "lucide-react";
 export default function DashboardPage() {
   const [strength, setStrength] = useState(null);
   const [resumeId, setResumeId] = useState(null);
@@ -131,28 +131,28 @@ export default function DashboardPage() {
     }
   };
 
-  // useEffect(() => {
-  //   resumeStrength();
-   
-  //   const interval = setInterval(resumeStrength, 300000);
-
-  //   // Cleanup interval on component unmount
-  //   return () => clearInterval(interval);
-  // }, []);
   useEffect(() => {
-    // Delay the first execution by 3 seconds
-    const timeout = setTimeout(() => {
-      resumeStrength();
-  
-      // Set an interval to call resumeStrength every 5 minutes (300000 ms)
-      const interval = setInterval(resumeStrength, 300000);
-  
-      // Cleanup both timeout and interval on component unmount
-      return () => clearInterval(interval);
-    }, 3000);
-  
-    return () => clearTimeout(timeout);
+    resumeStrength();
+   
+    const interval = setInterval(resumeStrength, 300000);
+
+    // Cleanup interval on component unmount
+    return () => clearInterval(interval);
   }, []);
+  // useEffect(() => {
+  //   // Delay the first execution by 3 seconds
+  //   const timeout = setTimeout(() => {
+  //     resumeStrength();
+  
+  //     // Set an interval to call resumeStrength every 5 minutes (300000 ms)
+  //     const interval = setInterval(resumeStrength, 300000);
+  
+  //     // Cleanup both timeout and interval on component unmount
+  //     return () => clearInterval(interval);
+  //   }, 3000);
+  
+  //   return () => clearTimeout(timeout);
+  // }, []);
   
 
   // Show the loader while loading
@@ -195,25 +195,26 @@ export default function DashboardPage() {
         />
 
         {/* Main Content */}
-        <main className="flex-1 p-6 overflow-y-auto">
-          <div className="flex justify-between items-center mb-8">
+        <main className="flex-1 p-2 md:p-6 overflow-y-auto">
+          <div className="flex flex-col gap-2 w-full md:flex-row  justify-between items-center mb-8">
             <button
               onClick={handleCreateResume}
-              className="flex items-center px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors duration-200 font-medium shadow-sm"
+              className="w-full flex items-center px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors duration-200 font-medium shadow-sm"
             >
               <Plus className="w-5 h-5 mr-2" /> Create New Resume
             </button>
             <button
               onClick={handleCreateCoverLetter}
-              className="flex items-center px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600  transition-colors duration-200 font-medium shadow-sm"
+              className="w-full flex items-center px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600  transition-colors duration-200 font-medium shadow-sm"
             >
               <Plus className="w-5 h-5 mr-2" /> Create New Cover Letters
             </button>
             <button
               onClick={handleMyDashboard}
-              className="flex items-center px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600  transition-colors duration-200 font-medium shadow-sm"
+              className="w-full flex items-center px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600  transition-colors duration-200 font-medium shadow-sm"
               disabled
-            >
+            > 
+            <User className="w-5 h-5 mr-2"/>
               My Profile Dashboard
             </button>
           </div>

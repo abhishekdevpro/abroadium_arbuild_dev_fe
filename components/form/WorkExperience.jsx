@@ -135,7 +135,7 @@ const WorkExperience = () => {
 
     try {
       const response = await axios.get(
-        `https://api.resumeintellect.com/api/user/job-title?job_title_keyword=${encodeURIComponent(
+        `https://api.sentryspot.co.uk/api/user/job-title?job_title_keyword=${encodeURIComponent(
           keyword
         )}`
       );

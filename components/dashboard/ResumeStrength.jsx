@@ -146,7 +146,7 @@ const TooltipContent = ({ improvements,resumeId,onClose}) => {
       <h3 className="text-lg font-semibold text-gray-900 mb-4">
         Formatting Checklist
       </h3>
-      <ul className="grid grid-cols-2 gap-4">
+      <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {formatItems.map((item, index) => (
           <li key={index} className="flex items-center gap-3 bg-gray-100 p-3 rounded-lg">
             <div 
@@ -173,8 +173,8 @@ const TooltipContent = ({ improvements,resumeId,onClose}) => {
   </div>
 
   {/* Keywords Section */}
-  <div className="flex justify-between items-start gap-6 mt-6">
-    <div className="w-1/2 p-4 bg-green-100 text-green-700 rounded-lg">
+  <div className="w-full flex flex-col md:flex-row justify-between items-start gap-2 md:gap-6 mt-6">
+    <div className="w-full md:w-1/2 p-4 bg-green-100 text-green-700 rounded-lg">
       <h4 className="font-bold text-lg">Keywords Found</h4>
       {improvements.keywords_found?.length >0 ? (
         <ul className="list-disc list-inside">
@@ -184,7 +184,7 @@ const TooltipContent = ({ improvements,resumeId,onClose}) => {
         </ul>
       ):<p>No missing keywords</p>}
     </div>
-    <div className="w-1/2 p-4 bg-red-100 text-red-700 rounded-lg">
+    <div className="w-full md:w-1/2 p-4 bg-red-100 text-red-700 rounded-lg">
   <h4 className="font-bold text-lg">Keywords Missing</h4>
   {improvements.keywords_missing?.length > 0 ? (
     <ul className="list-disc list-inside">
@@ -332,7 +332,7 @@ const ResumeStrength = ({ score, strength, resumeId }) => {
       </Modal>
       
       <div className="bg-blue-50 p-6 rounded-lg mb-6">
-        <div className="flex justify-between items-start mb-6">
+        <div className="flex flex-col gap-2 md:flex-row  justify-between items-start mb-6">
           <div>
             <h2 className="text-xl font-semibold mb-1">Resume Strength</h2>
             <div className="flex items-center gap-2">
@@ -342,7 +342,7 @@ const ResumeStrength = ({ score, strength, resumeId }) => {
             </div>
           </div>
 
-          <div className="flex flex-col items-end">
+          <div className="flex flex-col item-start md:items-end">
             <h3 className="text-xl font-semibold mb-1">Fix Resume</h3>
             <p className="text-gray-600">
               We found{" "}
@@ -354,7 +354,7 @@ const ResumeStrength = ({ score, strength, resumeId }) => {
             <p className="text-gray-600 mb-2">
               Use our Resume Check tool to fix them.
             </p>
-            <div className="flex gap-2">
+            <div className="flex flex-col md:flex-row gap-2">
               <button
                 onClick={handleImproveResume}
                 disabled={!resumeId}
@@ -374,7 +374,7 @@ const ResumeStrength = ({ score, strength, resumeId }) => {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {sectionsList.map((section) => {
             const Icon = section.icon;
             const currentScore = section.score || 0;
