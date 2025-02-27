@@ -6,6 +6,7 @@ import DashboardPreview from "../preview/DashboardPreview";
 import FullScreenLoader from "../ResumeLoader/Loader"; // Assuming you already have this component
 import axios from "axios";
 import { Download, Edit, Plus } from "lucide-react";
+import { SaveLoader } from "../ResumeLoader/SaveLoader";
 
 const Sidebar = ({ score, resumeId }) => {
   const templateRef = useRef(null);
@@ -17,9 +18,15 @@ const Sidebar = ({ score, resumeId }) => {
   const [loading, setLoading] = useState(false);
   const [showLoader, setShowLoader] = useState(false); // Loader state
   const [resumeTitle, setResumeTitle] = useState("");
+  const [isDownloading,setIsDownloading] =  useState(false)
 
   const handleEdit = () => {
-    router.push(`/dashboard/aibuilder/${resumeId}`);
+    setShowLoader(true);
+    setTimeout(() => {
+      router.push({
+        pathname: `/dashboard/aibuilder/${resumeId}`,
+      });
+    }, 2000);
   };
 
   const handleCreate = () => {
@@ -75,7 +82,7 @@ const Sidebar = ({ score, resumeId }) => {
 
   const handleDownload = async () => {
     const apiUrl = `https://api.sentryspot.co.uk/api/jobseeker/download-resume/${resumeId}`;
-
+    setIsDownloading(true)
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(apiUrl, {
@@ -102,6 +109,9 @@ const Sidebar = ({ score, resumeId }) => {
     } catch (error) {
       console.error("Error downloading file:", error);
       alert("Failed to download the file. Please try again later.");
+    }
+    finally{
+      setIsDownloading(false)
     }
   };
 
@@ -155,7 +165,7 @@ const Sidebar = ({ score, resumeId }) => {
               }`}
             >
               <Download />
-              Download
+              {isDownloading? <SaveLoader loadingText="Downloading" /> : "Download"}
             </button>
           </div>
 

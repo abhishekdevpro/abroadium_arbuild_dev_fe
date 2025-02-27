@@ -153,7 +153,7 @@
 //           <div className="space-y-4 mb-6 md:mb-0 md:mr-6 md:pr-6 w-full">
 //             <div className="flex flex-col md:flex-row md:items-center md:space-x-4">
 //               <img
-//                 src={`https://api.resumeintellect.com/${formData.photo}` || "https://www.kindpng.com/picc/m/252-2524695_dummy-profile-image-jpg-hd-png-download.png"}
+//                 src={`https://api.sentryspot.co.uk/${formData.photo}` || "https://www.kindpng.com/picc/m/252-2524695_dummy-profile-image-jpg-hd-png-download.png"}
 //                 alt="Please Upload Profile Photo"
 //                 className="w-20 h-20 rounded-full mb-4 md:mb-0"
 //               />
