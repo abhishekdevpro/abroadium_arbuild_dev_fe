@@ -539,7 +539,7 @@ const ContactAndSocialMedia = ({
       : data;
 
     return (
-      <div className={`flex items-center gap-2 ${contactClass}`}>
+      <div className={`flex items-center px-2 ${contactClass}`}>
         <span className={finalTextColor}>{getIcon(icon)}</span>
         &nbsp;
         <span className={finalTextColor}>{displayData}</span>
@@ -560,7 +560,7 @@ const ContactAndSocialMedia = ({
         title={socialMedia.socialMedia}
         target="_blank"
         rel="noreferrer"
-        className={`flex items-center gap-2 ${socialMediaClass}`}
+        className={`flex items-center px-2 ${socialMediaClass}`}
       >
         <span className={finalTextColor}>
           {getIcon(socialMedia.socialMedia.toLowerCase())}
