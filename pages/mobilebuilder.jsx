@@ -43,6 +43,7 @@ export default function MobileBuilder() {
   const [userId, setUserId] = useState(0);
   const [loading, setLoading] = useState(false);
   const [selectedPdfType, setSelectedPdfType] = useState("1");
+  const [isDownloading,setisDownloading] =  useState(false)
   const templateRef = useRef(null);
   const {
     setResumeStrength,
@@ -170,7 +171,7 @@ export default function MobileBuilder() {
       return;
     }
 
-    setLoading(true); // Start loading before the async operation
+    setisDownloading(true); // Start loading before the async operation
 
     try {
       const htmlContent = templateRef.current.innerHTML;
@@ -200,7 +201,7 @@ export default function MobileBuilder() {
         error.response?.data?.message || "Failed to generate and open PDF"
       );
     } finally {
-      setLoading(false); // Ensure loading is stopped after success or failure
+      setisDownloading(false); // Ensure loading is stopped after success or failure
     }
   };
   // const downloadAsPDF = async () => {
@@ -588,7 +589,7 @@ export default function MobileBuilder() {
                 } text-white transition-colors duration-200`}
                 disabled={loading}
               >
-                {loading ? <SaveLoader  /> : "Download"}
+                {isDownloading ? <SaveLoader loadingText="Downloading" /> : "Download"}
               </button>
 
               <button

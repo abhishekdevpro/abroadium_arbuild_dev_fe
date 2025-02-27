@@ -137,14 +137,14 @@ import React, { useContext,  forwardRef } from "react";
    
     return (
     
-        <A4PageWrapper>
+        <div className="a4-wrapper-dashboard">
           <div ref={ref} className="preview-dashboard" style={{ fontFamily: selectedFont }}>
            
             <DragDropContext onDragEnd={onDragEnd}>
               {templates[selectedTemplate]}
             </DragDropContext>
           </div>
-        </A4PageWrapper>
+        </div>
      
     );
   });

@@ -446,8 +446,9 @@ const TemplateSelector = ({ selectedTemplate, setSelectedTemplate,selectedPdfTyp
         <button
           onClick={openModal}
           className="hidden md:block rounded-lg border-2 border-blue-800 px-5 py-2 font-bold bg-white text-blue-800"
-        >
-          <span>Selected: {templateId || 'template1'}</span>
+        > 
+        
+          <span> {templateId.charAt(0).toUpperCase() + templateId.slice(1) || 'Template1'}</span>
         </button>
         <button
           onClick={openModal}
