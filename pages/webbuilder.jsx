@@ -53,6 +53,7 @@ export default function WebBuilder() {
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
   const [userId, setUserId] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [isDownloading,setisDownloading] =  useState(false)
   const templateRef = useRef(null);
   const {
     resumeData,
@@ -234,7 +235,7 @@ export default function WebBuilder() {
         return;
     }
 
-    setLoading(true); // Start loading before the async operation
+    setisDownloading(true); // Start loading before the async operation
 
     try {
         const htmlContent = templateRef.current.innerHTML;
@@ -264,7 +265,7 @@ export default function WebBuilder() {
             error.response?.data?.message || "Failed to generate and open PDF"
         );
     } finally {
-        setLoading(false); // Ensure loading is stopped after success or failure
+      setisDownloading(false); // Ensure loading is stopped after success or failure
     }
 };
 
@@ -715,8 +716,9 @@ export default function WebBuilder() {
                       : "bg-yellow-500 hover:bg-yellow-600 active:bg-yellow-600"
                   } text-white transition-colors duration-200`}
                   disabled={loading}
-                >
-                  {loading ? <SaveLoader /> : "Pay & Download"}
+                > 
+                
+                  {isDownloading ? <SaveLoader loadingText="Downloading" />  : "Pay & Download"}
                   
                 </button>
 
