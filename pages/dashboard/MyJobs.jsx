@@ -5,6 +5,7 @@ import axios from "axios";
 import { Heart, Bookmark, Filter, MapPin, Briefcase, Clock, DollarSign, Plus } from "lucide-react";
 import Link from "next/link";
 import { toast } from "react-toastify";
+import Navbar from "../Navbar/Navbar";
 
 const LoginModal = ({ onClose }) => {
   return (
@@ -213,6 +214,7 @@ export default function JobsPage() {
 
   return (
     <div className="w-full max-w-7xl mx-auto px-4 py-8">
+      <Navbar />
       <div className="bg-white rounded-lg shadow-sm p-4 mb-6">
         <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
         <div className="flex justify-between items-center mb-8">

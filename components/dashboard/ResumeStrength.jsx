@@ -19,6 +19,7 @@ import {
 import FullScreenLoader from "../ResumeLoader/Loader";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { SaveLoader } from "../ResumeLoader/SaveLoader";
 
 const Modal = ({ isOpen, onClose, children }) => {
   if (!isOpen) return null;
@@ -210,9 +211,7 @@ const TooltipContent = ({ improvements,resumeId,onClose}) => {
   disabled={improvements.ats_score === 10 || Loading} // Button is disabled during loading and when ATS score is 10
 >
   {Loading ? (
-    <div className="flex justify-center items-center">
-      <Circle /> {/* Assuming this is your loader component */}
-    </div>
+     <SaveLoader loadingText="Proceed To Improve" />
   ) : (
     "Proceed To Improve...."
   )}
