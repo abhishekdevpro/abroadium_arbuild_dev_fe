@@ -1,4 +1,4 @@
-// ProjectsSection.js
+
 import React from "react";
 import dynamic from "next/dynamic";
 import DateRange from "../utility/DateRange";
@@ -55,7 +55,10 @@ const ProjectsSection = ({ resumeData, headerColor }) => {
                   }`}
                 >
                   <div className="flex flex-row justify-between space-y-1">
-                    <p className="content i-bold">{item.name}</p>
+                    <p className="content i-bold"
+                      contentEditable
+                      suppressContentEditableWarning
+                    >{item.name}</p>
                     <DateRangeExperience
                       startYear={item.startYear}
                       endYear={item.endYear}
@@ -67,14 +70,18 @@ const ProjectsSection = ({ resumeData, headerColor }) => {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="content"
+                    contentEditable
+                     suppressContentEditableWarning
                   >
                     {item.link}
                   </Link>
                   <p
                     className="content"
-                    contentEditable="true"
-                    suppressContentEditableWarning={true}
-                    dangerouslySetInnerHTML={{ __html: item.description }}
+                    contentEditable
+                     suppressContentEditableWarning
+                    dangerouslySetInnerHTML={{
+                      __html: item.description,
+                    }}
                   ></p>
 
                   <Droppable
@@ -83,7 +90,7 @@ const ProjectsSection = ({ resumeData, headerColor }) => {
                   >
                     {(provided) => (
                       <ul
-                        className="list-disc ul-padding content pl-6" 
+                        className="list-disc ul-padding content"
                         {...provided.droppableProps}
                         ref={provided.innerRef}
                       >

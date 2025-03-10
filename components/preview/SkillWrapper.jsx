@@ -20,6 +20,8 @@ const SkillsWrapper = ({
           borderBottom: `2px solid ${headerColor == "black" ? `${backgroundColorss}` : headerColor}`,
         }}
         className="text-xl font-bold mb-1 "
+        contentEditable
+        suppressContentEditableWarning
       >
         Skills
       </h2>
