@@ -195,7 +195,8 @@ const ContactAndSocialMedia = ({
       </div>
     );
   };
-
+ 
+  
   const renderSocialMediaLinks = () => {
     if (!Array.isArray(socialMediaData) || socialMediaData.length === 0) {
       return (

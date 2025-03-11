@@ -55,6 +55,7 @@ import { ToastContainer } from "react-toastify"; // Import Toastify container
 import { ResumeProvider } from "../components/context/ResumeContext";
 import { CoverLetterProvider } from "../components/context/CoverLetterContext";
 import { useRouter } from "next/router"; // Import useRouter
+import Meta from "../components/meta/Meta";
 
 // // export default function App({ Component, pageProps }) {
 // //   const router = useRouter();
@@ -190,7 +191,11 @@ export default function App({ Component, pageProps }) {
           />
         </Head>
       )}
-
+        <Meta
+               title="Abroadium - AI Resume Builder"
+               description="ATSResume is a cutting-edge resume builder that helps job seekers create a professional, ATS-friendly resume in minutes..."
+               keywords="ATS-friendly, Resume optimization..."
+             />
       <ResumeProvider>
         <CoverLetterProvider>
           <Component {...pageProps} />
