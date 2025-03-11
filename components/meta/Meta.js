@@ -1,9 +1,9 @@
 import Head from "next/head";
 
 export default function Meta({ title, keywords, description }) {
-    const homepage = "https://Resume.vercel.app/";
-    const logo = "https://Resume.vercel.app/assets/logo.png";
-    const favicon = "https://Resume.vercel.app/assets/favicon.png"; // Use absolute path
+    const homepage = "https://airesume.abroadium.com/";
+    const logo = "/public/assets/logo2.png";
+    const favicon = "/assets/favicon.png"; // Use absolute path
 
     function isiteJsonLd() {
         return {
@@ -12,11 +12,7 @@ export default function Meta({ title, keywords, description }) {
                 "@type": "Organization",
                 "url": homepage,
                 "logo": logo,
-                "contactPoint": {
-                    "@type": "ContactPoint",
-                    "telephone": "+91 9999999999",
-                    "contactType": "customer service"
-                },
+                
                 "image": logo,
                 "description": description,
                 "founder": "Saurav Hathi",
@@ -45,8 +41,7 @@ export default function Meta({ title, keywords, description }) {
             <meta charSet="utf-8" />
             <link rel="icon" href={favicon} />
             <title>{title}</title>
-            <meta name="copyright" content="Resume" />
-            <meta name="author" content="Saurav Hathi" />
+            
             {/* Open Graph */}
             <meta property="og:type" content="website" />
             <meta property="og:url" content={homepage} />
