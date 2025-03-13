@@ -77,7 +77,8 @@ const WorkExperience = () => {
 
   const handlePresentToggle = (index) => {
     const newWorkExperience = [...resumeData.workExperience];
-    newWorkExperience[index].endYear = newWorkExperience[index].endYear === "Present" ? "" : "Present";
+    newWorkExperience[index].endYear =
+      newWorkExperience[index].endYear === "Present" ? "" : "Present";
     setResumeData({ ...resumeData, workExperience: newWorkExperience });
   };
 
@@ -111,7 +112,7 @@ const WorkExperience = () => {
     setIsLoading((prev) => ({ ...prev, location: true }));
     try {
       const response = await fetch(
-        `https://api.sentryspot.co.uk/api/jobseeker/locations?locations=${encodeURIComponent(
+        `https://api.abroadium.com/api/jobseeker/locations?locations=${encodeURIComponent(
           keyword
         )}`
       );
@@ -156,7 +157,7 @@ const WorkExperience = () => {
 
     try {
       const response = await axios.get(
-        `https://api.sentryspot.co.uk/api/jobseeker/compnay-list?company_keyword=${encodeURIComponent(
+        `https://api.abroadium.com/api/jobseeker/compnay-list?company_keyword=${encodeURIComponent(
           keyword
         )}`
       );
@@ -207,7 +208,7 @@ const WorkExperience = () => {
 
     try {
       const response = await axios.post(
-        "https://api.sentryspot.co.uk/api/jobseeker/ai-resume-profexp-summery-data",
+        "https://api.abroadium.com/api/jobseeker/ai-resume-profexp-summery-data",
         {
           key: "professional_experience",
           keyword:
@@ -250,7 +251,7 @@ const WorkExperience = () => {
 
     try {
       const response = await axios.post(
-        "https://api.sentryspot.co.uk/api/jobseeker/ai-resume-profexp-key-data",
+        "https://api.abroadium.com/api/jobseeker/ai-resume-profexp-key-data",
         {
           key: "professional_experience",
           keyword:
@@ -362,7 +363,7 @@ const WorkExperience = () => {
       setIsLoading(true);
       try {
         const response = await axios.post(
-          "https://api.sentryspot.co.uk/api/jobseeker/ai-resume-profexp-data",
+          "https://api.abroadium.com/api/jobseeker/ai-resume-profexp-data",
           {
             key: "professional_experience",
             keyword: value,
@@ -421,7 +422,7 @@ const WorkExperience = () => {
       }
 
       const response = await fetch(
-        "https://api.sentryspot.co.uk/api/jobseeker/ai-expsummery",
+        "https://api.abroadium.com/api/jobseeker/ai-expsummery",
         {
           method: "POST",
           headers: {
@@ -712,7 +713,7 @@ const WorkExperience = () => {
                     </div>
                   )}
                 </div>
-                
+
                 <div className="">
                   <label className="text-black">Start Date</label>
                   <div className="flex-wrap-gap-2">
@@ -748,7 +749,7 @@ const WorkExperience = () => {
                     </select>
                   </div>
 
-                   <label className="text-black">End Date</label>
+                  <label className="text-black">End Date</label>
                   <div className="flex-wrap-gap-2 flex items-center gap-2 ">
                     <select
                       className={`other-input border flex-1 ${
@@ -1090,7 +1091,6 @@ const WorkExperience = () => {
                   )}
                 </div>
 
-               
                 <button
                   onClick={() => removeWork(index)}
                   className="bg-red-500 w-full text-white px-4 py-2 rounded mt-4"

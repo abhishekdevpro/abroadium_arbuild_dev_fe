@@ -43,7 +43,7 @@ export default function MobileBuilder() {
   const [userId, setUserId] = useState(0);
   const [loading, setLoading] = useState(false);
   const [selectedPdfType, setSelectedPdfType] = useState("1");
-  const [isDownloading,setisDownloading] =  useState(false)
+  const [isDownloading, setisDownloading] = useState(false);
   const templateRef = useRef(null);
   const {
     setResumeStrength,
@@ -73,7 +73,7 @@ export default function MobileBuilder() {
       if (id && token) {
         try {
           const response = await axios.get(
-            `https://api.sentryspot.co.uk/api/jobseeker/resume-list/${id}`,
+            `https://api.abroadium.com/api/jobseeker/resume-list/${id}`,
             {
               headers: {
                 Authorization: token,
@@ -184,7 +184,7 @@ export default function MobileBuilder() {
         `;
 
       const response = await axios.post(
-        "https://api.sentryspot.co.uk/api/jobseeker/generate-pdf-py",
+        "https://api.abroadium.com/api/jobseeker/generate-pdf-py",
         { html: fullContent, pdf_type: selectedPdfType },
         {
           headers: {
@@ -222,7 +222,7 @@ export default function MobileBuilder() {
   //     `;
 
   //     const response = await axios.post(
-  //       "https://api.sentryspot.co.uk/api/jobseeker/generate-pdf-py",
+  //       "https://api.abroadium.com/api/jobseeker/generate-pdf-py",
   //       { html: fullContent },
   //       {
   //         headers: {
@@ -243,7 +243,7 @@ export default function MobileBuilder() {
   const downloadPDF = async () => {
     try {
       const response = await axios.get(
-        `https://api.sentryspot.co.uk/api/jobseeker/download-file/11/${resumeId}`,
+        `https://api.abroadium.com/api/jobseeker/download-file/11/${resumeId}`,
         {
           headers: {
             Authorization: token,
@@ -284,7 +284,7 @@ export default function MobileBuilder() {
 
       if (orderId && token && PayerID) {
         const response = await axios.get(
-          `https://api.sentryspot.co.uk/api/jobseeker/paypal/verify-order?orderid=${orderId}`,
+          `https://api.abroadium.com/api/jobseeker/paypal/verify-order?orderid=${orderId}`,
           {
             headers: {
               Authorization: token,
@@ -386,7 +386,7 @@ export default function MobileBuilder() {
           return;
         }
 
-        const url = `https://api.sentryspot.co.uk/api/jobseeker/resume-update/${id}`;
+        const url = `https://api.abroadium.com/api/jobseeker/resume-update/${id}`;
         const response = await axios.put(url, templateData, {
           headers: {
             "Content-Type": "application/json",
@@ -454,7 +454,7 @@ export default function MobileBuilder() {
         const token = localStorage.getItem("token");
 
         const userProfileResponse = await axios.get(
-          "https://api.sentryspot.co.uk/api/jobseeker/user-profile",
+          "https://api.abroadium.com/api/jobseeker/user-profile",
           {
             headers: {
               Authorization: token,
@@ -560,7 +560,7 @@ export default function MobileBuilder() {
                 selectedTemplate={selectedTemplate}
                 setSelectedTemplate={setSelectedTemplate}
                 setSelectedPdfType={setSelectedPdfType}
-                      selectedPdfType={selectedPdfType}
+                selectedPdfType={selectedPdfType}
               />
             </div>
             <div className=" ">
@@ -570,14 +570,14 @@ export default function MobileBuilder() {
             <div className="flex items-center justify-center gap-4 p-2 fixed bottom-0 left-0 right-0 bg-white shadow-lg ">
               <button
                 onClick={handleClick}
-                                 className={`px-6 py-2 rounded-lg flex items-center justify-center gap-2 ${
-                                   loading
-                                     ? "bg-blue-800 cursor-not-allowed"
-                                     : "bg-blue-950 hover:bg-blue-900 active:bg-blue-800"
-                                 } text-white transition-colors duration-200`}
-                                 disabled={loading}
-                               >
-                                 {loading ? <SaveLoader  /> : "Save"}
+                className={`px-6 py-2 rounded-lg flex items-center justify-center gap-2 ${
+                  loading
+                    ? "bg-blue-800 cursor-not-allowed"
+                    : "bg-blue-950 hover:bg-blue-900 active:bg-blue-800"
+                } text-white transition-colors duration-200`}
+                disabled={loading}
+              >
+                {loading ? <SaveLoader /> : "Save"}
               </button>
 
               <button
@@ -589,7 +589,11 @@ export default function MobileBuilder() {
                 } text-white transition-colors duration-200`}
                 disabled={loading}
               >
-                {isDownloading ? <SaveLoader loadingText="Downloading" /> : "Download"}
+                {isDownloading ? (
+                  <SaveLoader loadingText="Downloading" />
+                ) : (
+                  "Download"
+                )}
               </button>
 
               <button

@@ -20,7 +20,7 @@ const MyCvLetter = () => {
     const token = localStorage.getItem("token");
     if (token) {
       axios
-        .get("https://api.sentryspot.co.uk/api/jobseeker/coverletter", {
+        .get("https://api.abroadium.com/api/jobseeker/coverletter", {
           headers: { Authorization: token },
         })
         .then((response) => {
@@ -42,7 +42,7 @@ const MyCvLetter = () => {
   };
   const handleDownload = async (coverletterId) => {
     setcoverletterId(coverletterId);
-    const apiUrl = `https://api.sentryspot.co.uk/api/jobseeker/download-coverletter/${coverletterId}`;
+    const apiUrl = `https://api.abroadium.com/api/jobseeker/download-coverletter/${coverletterId}`;
 
     try {
       const token = localStorage.getItem("token");
@@ -74,7 +74,7 @@ const MyCvLetter = () => {
     if (token) {
       try {
         await axios.delete(
-          `https://api.sentryspot.co.uk/api/jobseeker/coverletter/${deletecoverletterId}`,
+          `https://api.abroadium.com/api/jobseeker/coverletter/${deletecoverletterId}`,
           {
             headers: { Authorization: token },
           }
@@ -103,7 +103,7 @@ const MyCvLetter = () => {
     if (token && currentCoverLetter) {
       axios
         .put(
-          `https://api.sentryspot.co.uk/api/jobseeker/coverletter-details/${currentCoverLetter.id}`,
+          `https://api.abroadium.com/api/jobseeker/coverletter-details/${currentCoverLetter.id}`,
           { cover_letter_title: newCoverLetterTitle },
           { headers: { Authorization: token } }
         )

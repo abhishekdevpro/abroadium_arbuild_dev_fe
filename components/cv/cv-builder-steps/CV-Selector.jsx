@@ -149,7 +149,7 @@ const CVSelector = ({ onNext, onBack, onChange, value }) => {
         }
 
         const response = await axios.get(
-          `https://api.sentryspot.co.uk/api/jobseeker/coverletter/${coverletterId}`,
+          `https://api.abroadium.com/api/jobseeker/coverletter/${coverletterId}`,
           {
             headers: {
               Authorization: token,
@@ -244,7 +244,7 @@ const CVSelector = ({ onNext, onBack, onChange, value }) => {
       }
 
       const response = await axios.put(
-        `https://api.sentryspot.co.uk/api/jobseeker/coverletter/${coverletterId}`,
+        `https://api.abroadium.com/api/jobseeker/coverletter/${coverletterId}`,
         coverletterInfo,
         {
           headers: {

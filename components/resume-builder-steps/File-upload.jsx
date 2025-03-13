@@ -1,23 +1,22 @@
+"use client";
 
-'use client'
-
-import { useRouter } from 'next/router';
-import { useState, useCallback, useContext } from 'react';
-import { useDropzone } from 'react-dropzone';
-import axios from 'axios';
-import { toast } from 'react-toastify';
-import Image from 'next/image';
-import { Upload, File } from 'lucide-react'; // Replaced SVG with lucide-react icons
+import { useRouter } from "next/router";
+import { useState, useCallback, useContext } from "react";
+import { useDropzone } from "react-dropzone";
+import axios from "axios";
+import { toast } from "react-toastify";
+import Image from "next/image";
+import { Upload, File } from "lucide-react"; // Replaced SVG with lucide-react icons
 import drive from "../../public/assets/google-drive.png";
-import { ResumeContext } from '../context/ResumeContext';
-import { SaveLoader } from '../ResumeLoader/SaveLoader';
+import { ResumeContext } from "../context/ResumeContext";
+import { SaveLoader } from "../ResumeLoader/SaveLoader";
 
 export default function FileUploadStep({ onNext, onBack, onChange, value }) {
   const [isUploading, setIsUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [showLoadingAnimation, setShowLoadingAnimation] = useState(false);
   const [resumeId, setResumeId] = useState();
-  const [uploadSuccess, setUploadSuccess] = useState(false);  // State to track upload success
+  const [uploadSuccess, setUploadSuccess] = useState(false); // State to track upload success
   const router = useRouter();
   const { setResumeData } = useContext(ResumeContext);
   const { id } = router.query;
@@ -50,7 +49,7 @@ export default function FileUploadStep({ onNext, onBack, onChange, value }) {
       }
 
       const response = await axios.post(
-        `https://api.sentryspot.co.uk/api/jobseeker/resume-upload/${id}`,
+        `https://api.abroadium.com/api/jobseeker/resume-upload/${id}`,
         formData,
         {
           headers: {
@@ -80,7 +79,10 @@ export default function FileUploadStep({ onNext, onBack, onChange, value }) {
       const parsedData = JSON.parse(resumeData.resume_parse_data);
       setResumeData(parsedData.templateData);
 
-      localStorage.setItem("resumeData", JSON.stringify(parsedData.templateData));
+      localStorage.setItem(
+        "resumeData",
+        JSON.stringify(parsedData.templateData)
+      );
       localStorage.setItem("resumeId", resumeData.id);
       localStorage.setItem("location", resumeData.file_path);
 
@@ -109,7 +111,7 @@ export default function FileUploadStep({ onNext, onBack, onChange, value }) {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accept: {
-      'application/pdf': ['.pdf']
+      "application/pdf": [".pdf"],
     },
     maxFiles: 1,
   });
@@ -121,11 +123,9 @@ export default function FileUploadStep({ onNext, onBack, onChange, value }) {
           <SaveLoader loadingText="Processing your resume..." />
         </div>
       )}
-      
+
       <div className="text-center">
-        <h2 className="text-3xl font-bold text-gray-900">
-          Upload Your Resume
-        </h2>
+        <h2 className="text-3xl font-bold text-gray-900">Upload Your Resume</h2>
         <p className="mt-3 text-gray-600">
           We accept PDF files for better parsing accuracy
         </p>
@@ -134,8 +134,12 @@ export default function FileUploadStep({ onNext, onBack, onChange, value }) {
       <div
         {...getRootProps()}
         className={`border-2 border-dashed rounded-xl p-12 text-center cursor-pointer transition-all
-          ${isDragActive ? 'border-blue-400 bg-blue-50' : 'border-gray-300 hover:border-blue-400'}
-          ${isUploading ? 'cursor-not-allowed opacity-75' : ''}`}
+          ${
+            isDragActive
+              ? "border-blue-400 bg-blue-50"
+              : "border-gray-300 hover:border-blue-400"
+          }
+          ${isUploading ? "cursor-not-allowed opacity-75" : ""}`}
       >
         <input {...getInputProps()} disabled={isUploading} />
         <div className="w-20 h-20 mx-auto mb-6 bg-blue-100 rounded-full flex items-center justify-center">
@@ -146,7 +150,7 @@ export default function FileUploadStep({ onNext, onBack, onChange, value }) {
           <div className="space-y-4">
             <div className="text-lg font-medium">Uploading your resume...</div>
             <div className="w-64 h-3 bg-gray-200 rounded-full mx-auto overflow-hidden">
-              <div 
+              <div
                 className="h-full bg-blue-600 rounded-full transition-all duration-300"
                 style={{ width: `${uploadProgress}%` }}
               />
@@ -156,7 +160,7 @@ export default function FileUploadStep({ onNext, onBack, onChange, value }) {
         ) : (
           <>
             <p className="text-xl font-medium mb-4">
-              {value ? value.name : 'Drag and drop your resume here'}
+              {value ? value.name : "Drag and drop your resume here"}
             </p>
             <button className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
               Select PDF File
@@ -190,7 +194,7 @@ export default function FileUploadStep({ onNext, onBack, onChange, value }) {
         </button>
         <button
           onClick={() => router.push(`/dashboard/aibuilder/${resumeId}`)}
-          disabled={!uploadSuccess || isUploading}  // Button is enabled only after successful upload
+          disabled={!uploadSuccess || isUploading} // Button is enabled only after successful upload
           className="px-8 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors
             disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-blue-600"
         >

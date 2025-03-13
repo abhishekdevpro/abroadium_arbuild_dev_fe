@@ -43,7 +43,7 @@
 //     try {
 //       const token = localStorage.getItem("token");
 //       const response = await axios.post(
-//         "https://api.sentryspot.co.uk/api/jobseeker/ai-resume-summery-data",
+//         "https://api.abroadium.com/api/jobseeker/ai-resume-summery-data",
 //         {
 //           key: "resumesummery",
 //           keyword: `professional summary in manner of description - ${Date.now()}`,
@@ -296,7 +296,7 @@ const Summary = () => {
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(
-        "https://api.sentryspot.co.uk/api/jobseeker/ai-summery",
+        "https://api.abroadium.com/api/jobseeker/ai-summery",
         {
           method: "POST",
           headers: {
@@ -354,7 +354,7 @@ const Summary = () => {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.post(
-        "https://api.sentryspot.co.uk/api/jobseeker/ai-resume-summery-data",
+        "https://api.abroadium.com/api/jobseeker/ai-resume-summery-data",
         {
           key: "resumesummery",
           keyword: `professional summary in manner of description - ${Date.now()}`,

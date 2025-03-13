@@ -43,7 +43,7 @@
 //     try {
 //       const token = localStorage.getItem("token");
 //       const response = await axios.get(
-//         `https://api.sentryspot.co.uk/api/jobseeker/skills-names?skill_keyword=${encodeURIComponent(query)}`,
+//         `https://api.abroadium.com/api/jobseeker/skills-names?skill_keyword=${encodeURIComponent(query)}`,
 //         {
 //           headers: {
 //             Authorization: token,
@@ -219,7 +219,7 @@
 //       }
 
 //       const response = await axios.post(
-//         "https://api.sentryspot.co.uk/api/jobseeker/ai-skills-data",
+//         "https://api.abroadium.com/api/jobseeker/ai-skills-data",
 //         {
 //           key: "skills",
 //           keyword: title,
@@ -506,7 +506,7 @@ const Skill = ({ title, currentSkillIndex }) => {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.get(
-        `https://api.sentryspot.co.uk/api/jobseeker/skills-names?skill_keyword=${encodeURIComponent(
+        `https://api.abroadium.com/api/jobseeker/skills-names?skill_keyword=${encodeURIComponent(
           query
         )}`,
         {
@@ -705,7 +705,7 @@ const Skill = ({ title, currentSkillIndex }) => {
       }
 
       const response = await axios.post(
-        "https://api.sentryspot.co.uk/api/jobseeker/ai-skills-data",
+        "https://api.abroadium.com/api/jobseeker/ai-skills-data",
         {
           key: "skills",
           keyword: title,
