@@ -1,5 +1,3 @@
-
-
 // // import React, { useState, useRef, createContext, useEffect } from "react";
 // // import Language from "../components/form/Language";
 // // import axios from "axios";
@@ -306,7 +304,7 @@
 // //       };
 
 // //       const response = await axios.post(
-// //         "https://api.sentryspot.co.uk/api/jobseeker/paypal/create-payment",
+// //         "https://api.abroadium.com/api/jobseeker/paypal/create-payment",
 // //         payload,
 // //         {
 // //           headers: {
@@ -348,7 +346,7 @@
 
 // //       if (orderId && token && PayerID) {
 // //         const response = await axios.get(
-// //           `https://api.sentryspot.co.uk/api/jobseeker/paypal/verify-order?orderid=${orderId}`,
+// //           `https://api.abroadium.com/api/jobseeker/paypal/verify-order?orderid=${orderId}`,
 // //           {
 // //             headers: {
 // //               Authorization: token,
@@ -453,7 +451,7 @@
 // //         return;
 // //       }
 
-// //       const url = `https://api.sentryspot.co.uk/api/jobseeker/resume-update/${id}`;
+// //       const url = `https://api.abroadium.com/api/jobseeker/resume-update/${id}`;
 // //       const response = await axios.put(url, templateData, {
 // //         headers: {
 // //           "Content-Type": "application/json",
@@ -793,7 +791,6 @@
 
 // // export { ResumeContext };
 
-
 // import MobileBuilder from './mobilebuilder'
 // import Navbar from './Navbar/Navbar'
 // import WebBuilder from "./webbuilder"
@@ -806,14 +803,14 @@
 //     </div>
 //     <div className="hidden md:block">
 //     <WebBuilder />
-//     </div>   
+//     </div>
 //     </>
 //   )
 // }
 
-import MobileBuilder from './mobilebuilder';
-import Navbar from './Navbar/Navbar';
-import WebBuilder from './webbuilder';
+import MobileBuilder from "./mobilebuilder";
+import Navbar from "./Navbar/Navbar";
+import WebBuilder from "./webbuilder";
 
 export default function Builder() {
   return (
@@ -821,7 +818,7 @@ export default function Builder() {
       <div className="flex flex-col items-center justify-center  bg-gray-100">
         {/* Mobile Builder */}
         <div className="block md:hidden w-full">
-        {/* <Navbar/> */}
+          {/* <Navbar/> */}
           <MobileBuilder />
         </div>
 

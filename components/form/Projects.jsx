@@ -53,10 +53,10 @@ const Projects = () => {
   const handlePresentToggle = (index) => {
     const newProjects = [...resumeData.projects];
     const isPresent = newProjects[index].endYear === "Present";
-  
+
     newProjects[index].endMonth = isPresent ? "" : newProjects[index].endMonth;
     newProjects[index].endYear = isPresent ? "" : "Present";
-  
+
     setResumeData({ ...resumeData, projects: newProjects });
   };
 
@@ -120,7 +120,7 @@ const Projects = () => {
 
     try {
       const response = await axios.post(
-        "https://api.sentryspot.co.uk/api/jobseeker/ai-resume-project-key-data",
+        "https://api.abroadium.com/api/jobseeker/ai-resume-project-key-data",
         {
           key: "professional_experience",
           keyword:
@@ -208,7 +208,7 @@ const Projects = () => {
       }
 
       const response = await fetch(
-        "https://api.sentryspot.co.uk/api/jobseeker/ai-prosummery",
+        "https://api.abroadium.com/api/jobseeker/ai-prosummery",
         {
           method: "POST",
           headers: {
@@ -285,7 +285,7 @@ const Projects = () => {
 
     try {
       const response = await axios.post(
-        "https://api.sentryspot.co.uk/api/jobseeker/ai-resume-project-summery-data",
+        "https://api.abroadium.com/api/jobseeker/ai-resume-project-summery-data",
         {
           key: "professional_experience",
           keyword:

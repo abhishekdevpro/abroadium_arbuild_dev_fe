@@ -18,7 +18,7 @@ const Sidebar = ({ score, resumeId }) => {
   const [loading, setLoading] = useState(false);
   const [showLoader, setShowLoader] = useState(false); // Loader state
   const [resumeTitle, setResumeTitle] = useState("");
-  const [isDownloading,setIsDownloading] =  useState(false)
+  const [isDownloading, setIsDownloading] = useState(false);
 
   const handleEdit = () => {
     setShowLoader(true);
@@ -46,7 +46,7 @@ const Sidebar = ({ score, resumeId }) => {
     if (token) {
       try {
         const response = await axios.get(
-          `https://api.sentryspot.co.uk/api/jobseeker/resume-list/${resumeId}`,
+          `https://api.abroadium.com/api/jobseeker/resume-list/${resumeId}`,
           {
             headers: {
               Authorization: token,
@@ -81,8 +81,8 @@ const Sidebar = ({ score, resumeId }) => {
   }, [resumeId]);
 
   const handleDownload = async () => {
-    const apiUrl = `https://api.sentryspot.co.uk/api/jobseeker/download-resume/${resumeId}`;
-    setIsDownloading(true)
+    const apiUrl = `https://api.abroadium.com/api/jobseeker/download-resume/${resumeId}`;
+    setIsDownloading(true);
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(apiUrl, {
@@ -109,9 +109,8 @@ const Sidebar = ({ score, resumeId }) => {
     } catch (error) {
       console.error("Error downloading file:", error);
       alert("Failed to download the file. Please try again later.");
-    }
-    finally{
-      setIsDownloading(false)
+    } finally {
+      setIsDownloading(false);
     }
   };
 
@@ -165,7 +164,11 @@ const Sidebar = ({ score, resumeId }) => {
               }`}
             >
               <Download />
-              {isDownloading? <SaveLoader loadingText="Downloading" /> : "Download"}
+              {isDownloading ? (
+                <SaveLoader loadingText="Downloading" />
+              ) : (
+                "Download"
+              )}
             </button>
           </div>
 

@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 import {
@@ -39,53 +38,52 @@ const Modal = ({ isOpen, onClose, children }) => {
   );
 };
 
-const TooltipContent = ({ improvements,resumeId,onClose}) => {
+const TooltipContent = ({ improvements, resumeId, onClose }) => {
   const [Loading, setLoading] = useState(false);
-  const router = useRouter()
+  const router = useRouter();
 
   const formatItems = [
     {
-      label: 'Bullet Points Used',
+      label: "Bullet Points Used",
       value: improvements?.formatting?.bullet_points_used,
-      description: 'Proper use of bullet points in resume sections'
+      description: "Proper use of bullet points in resume sections",
     },
     {
-      label: 'Clear Headings',
+      label: "Clear Headings",
       value: improvements?.formatting?.clear_headings,
-      description: 'Section headings are clear and well-defined'
+      description: "Section headings are clear and well-defined",
     },
     {
-      label: 'Consistent Font',
+      label: "Consistent Font",
       value: improvements?.formatting?.consistent_font,
-      description: 'Consistent font usage throughout the resume'
+      description: "Consistent font usage throughout the resume",
     },
     {
-      label: 'Contact Info Visible',
+      label: "Contact Info Visible",
       value: improvements?.formatting?.contact_info_visible,
-      description: 'Contact information is clearly visible'
-    }
+      description: "Contact information is clearly visible",
+    },
   ];
   const handleATS = async () => {
     const token = localStorage.getItem("token");
-    
-    setLoading(true);  // Ensure loading is set to true when the request starts
-  
+
+    setLoading(true); // Ensure loading is set to true when the request starts
+
     try {
       const response = await axios.get(
-        `https://api.sentryspot.co.uk/api/jobseeker/ats-improve/${resumeId}`,
+        `https://api.abroadium.com/api/jobseeker/ats-improve/${resumeId}`,
         {
           headers: {
             Authorization: token,
           },
         }
       );
-  
+
       if (response.data) {
         toast.success(response.message || "ATS updated successfully");
         onClose();
         // router.push('/dashboard')
         window.location.reload();
-
       } else {
         toast.error("No response data received");
       }
@@ -93,132 +91,137 @@ const TooltipContent = ({ improvements,resumeId,onClose}) => {
       console.error(error);
       toast.error(error.response?.data?.message || "Something went wrong");
     } finally {
-      setLoading(false);  // Ensure loading is set to false after the request finishes
+      setLoading(false); // Ensure loading is set to false after the request finishes
     }
   };
-  
-  
-
 
   return (
-    
     <div className="h-[600px] overflow-y-auto p-6 bg-gray-50 rounded-lg shadow-md">
-  {/* Grid Layout for Improvements and Formatting Checklist */}
-  <div className="flex flex-col">
-    
-    {/* Improvements Section */}
-    <div className="p-6 bg-white rounded-lg shadow-sm">
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">
-        Areas for Improvement
-      </h3>
-      <ul className="space-y-3">
-        {improvements?.areas_for_improvement?.file_format && (
-          <li className="flex items-start gap-3">
-            <div className="w-2 h-2 mt-2 bg-blue-500 rounded-full" />
-            <p className="text-gray-700">
-              <span className="font-bold text-black">File Formatting: </span> 
-              {improvements.areas_for_improvement.file_format}
-            </p>
-          </li>
+      {/* Grid Layout for Improvements and Formatting Checklist */}
+      <div className="flex flex-col">
+        {/* Improvements Section */}
+        <div className="p-6 bg-white rounded-lg shadow-sm">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">
+            Areas for Improvement
+          </h3>
+          <ul className="space-y-3">
+            {improvements?.areas_for_improvement?.file_format && (
+              <li className="flex items-start gap-3">
+                <div className="w-2 h-2 mt-2 bg-blue-500 rounded-full" />
+                <p className="text-gray-700">
+                  <span className="font-bold text-black">
+                    File Formatting:{" "}
+                  </span>
+                  {improvements.areas_for_improvement.file_format}
+                </p>
+              </li>
+            )}
+            {improvements?.areas_for_improvement?.keyword_optimization && (
+              <li className="flex items-start gap-3">
+                <div className="w-2 h-2 mt-2 bg-blue-500 rounded-full" />
+                <p className="text-gray-700">
+                  <span className="font-bold text-black">
+                    Keyword Optimization:{" "}
+                  </span>
+                  {improvements.areas_for_improvement.keyword_optimization}
+                </p>
+              </li>
+            )}
+            {improvements?.areas_for_improvement?.section_order && (
+              <li className="flex items-start gap-3">
+                <div className="w-2 h-2 mt-2 bg-blue-500 rounded-full" />
+                <p className="text-gray-700">
+                  <span className="font-bold text-black">Section Order: </span>
+                  {improvements.areas_for_improvement.section_order}
+                </p>
+              </li>
+            )}
+          </ul>
+        </div>
+
+        {/* Formatting Checklist */}
+        <div className="p-6 bg-white rounded-lg shadow-sm">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">
+            Formatting Checklist
+          </h3>
+          <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {formatItems.map((item, index) => (
+              <li
+                key={index}
+                className="flex items-center gap-3 bg-gray-100 p-3 rounded-lg"
+              >
+                <div
+                  className={`rounded-full p-1.5 ${
+                    item.value
+                      ? "bg-green-100 text-green-600"
+                      : "bg-red-100 text-red-600"
+                  }`}
+                >
+                  {item.value ? (
+                    <Check className="w-5 h-5" />
+                  ) : (
+                    <X className="w-5 h-5" />
+                  )}
+                </div>
+                <div>
+                  <p className="text-gray-700 font-medium">{item.label}</p>
+                  <p className="text-sm text-gray-500">{item.description}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      {/* Keywords Section */}
+      <div className="w-full flex flex-col md:flex-row justify-between items-start gap-2 md:gap-6 mt-6">
+        <div className="w-full md:w-1/2 p-4 bg-green-100 text-green-700 rounded-lg">
+          <h4 className="font-bold text-lg">Keywords Found</h4>
+          {improvements.keywords_found?.length > 0 ? (
+            <ul className="list-disc list-inside">
+              {improvements.keywords_found.map((keyword, index) => (
+                <li key={index}>{keyword}</li>
+              ))}
+            </ul>
+          ) : (
+            <p>No missing keywords</p>
+          )}
+        </div>
+        <div className="w-full md:w-1/2 p-4 bg-red-100 text-red-700 rounded-lg">
+          <h4 className="font-bold text-lg">Keywords Missing</h4>
+          {improvements.keywords_missing?.length > 0 ? (
+            <ul className="list-disc list-inside">
+              {improvements.keywords_missing.map((keyword, index) => (
+                <li key={index}>{keyword}</li>
+              ))}
+            </ul>
+          ) : (
+            <p>No missing keywords</p>
+          )}
+        </div>
+      </div>
+
+      {/* Overall Comments */}
+      <div className="bg-gradient-to-r from-blue-600 to-blue-800 rounded-xl p-6 mt-6 text-white">
+        <h3 className="text-lg font-bold">Overall Comments</h3>
+        <p>{improvements.overall_comments}</p>
+      </div>
+      <button
+        onClick={handleATS}
+        className={`mt-6 px-6 py-2 w-full bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors ${
+          improvements.ats_score === 10 || Loading
+            ? "opacity-50 cursor-not-allowed"
+            : ""
+        }`}
+        disabled={improvements.ats_score === 10 || Loading} // Button is disabled during loading and when ATS score is 10
+      >
+        {Loading ? (
+          <SaveLoader loadingText="Proceed To Improve" />
+        ) : (
+          "Proceed To Improve...."
         )}
-        {improvements?.areas_for_improvement?.keyword_optimization && (
-          <li className="flex items-start gap-3">
-            <div className="w-2 h-2 mt-2 bg-blue-500 rounded-full" />
-            <p className="text-gray-700">
-              <span className="font-bold text-black">Keyword Optimization: </span> 
-              {improvements.areas_for_improvement.keyword_optimization}
-            </p>
-          </li>
-        )}
-        {improvements?.areas_for_improvement?.section_order && (
-          <li className="flex items-start gap-3">
-            <div className="w-2 h-2 mt-2 bg-blue-500 rounded-full" />
-            <p className="text-gray-700">
-              <span className="font-bold text-black">Section Order: </span> 
-              {improvements.areas_for_improvement.section_order}
-            </p>
-          </li>
-        )}
-      </ul>
+      </button>
     </div>
-
-    {/* Formatting Checklist */}
-    <div className="p-6 bg-white rounded-lg shadow-sm">
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">
-        Formatting Checklist
-      </h3>
-      <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {formatItems.map((item, index) => (
-          <li key={index} className="flex items-center gap-3 bg-gray-100 p-3 rounded-lg">
-            <div 
-              className={`rounded-full p-1.5 ${
-                item.value 
-                  ? 'bg-green-100 text-green-600' 
-                  : 'bg-red-100 text-red-600'
-              }`}
-            >
-              {item.value ? (
-                <Check className="w-5 h-5" />
-              ) : (
-                <X className="w-5 h-5" />
-              )}
-            </div>
-            <div>
-              <p className="text-gray-700 font-medium">{item.label}</p>
-              <p className="text-sm text-gray-500">{item.description}</p>
-            </div>
-          </li>
-        ))}
-      </ul>
-    </div>
-  </div>
-
-  {/* Keywords Section */}
-  <div className="w-full flex flex-col md:flex-row justify-between items-start gap-2 md:gap-6 mt-6">
-    <div className="w-full md:w-1/2 p-4 bg-green-100 text-green-700 rounded-lg">
-      <h4 className="font-bold text-lg">Keywords Found</h4>
-      {improvements.keywords_found?.length >0 ? (
-        <ul className="list-disc list-inside">
-          {improvements.keywords_found.map((keyword, index) => (
-        <li key={index}>{keyword}</li>
-      ))}
-        </ul>
-      ):<p>No missing keywords</p>}
-    </div>
-    <div className="w-full md:w-1/2 p-4 bg-red-100 text-red-700 rounded-lg">
-  <h4 className="font-bold text-lg">Keywords Missing</h4>
-  {improvements.keywords_missing?.length > 0 ? (
-    <ul className="list-disc list-inside">
-      {improvements.keywords_missing.map((keyword, index) => (
-        <li key={index}>{keyword}</li>
-      ))}
-    </ul>
-  ) : (
-    <p>No missing keywords</p>
-  )}
-</div>
-
-  </div>
-
-  {/* Overall Comments */}
-  <div className="bg-gradient-to-r from-blue-600 to-blue-800 rounded-xl p-6 mt-6 text-white">
-    <h3 className="text-lg font-bold">Overall Comments</h3>
-    <p>{improvements.overall_comments}</p>
-  </div>
-  <button
-  onClick={handleATS}
-  className={`mt-6 px-6 py-2 w-full bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors ${improvements.ats_score === 10 || Loading ? "opacity-50 cursor-not-allowed" : ""}`}
-  disabled={improvements.ats_score === 10 || Loading} // Button is disabled during loading and when ATS score is 10
->
-  {Loading ? (
-     <SaveLoader loadingText="Proceed To Improve" />
-  ) : (
-    "Proceed To Improve...."
-  )}
-</button>
-
-</div>
-
   );
 };
 
@@ -314,7 +317,6 @@ const ResumeStrength = ({ score, strength, resumeId }) => {
     }, 5000);
   };
 
- 
   const sectionsList = getSectionsList(strength);
 
   const getScoreColor = (score, maxScore) => {
@@ -327,9 +329,13 @@ const ResumeStrength = ({ score, strength, resumeId }) => {
     <>
       {showLoader && <FullScreenLoader />}
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <TooltipContent improvements={strength.ats_strenght} resumeId={resumeId} onClose={() => setIsModalOpen(false)} />
+        <TooltipContent
+          improvements={strength.ats_strenght}
+          resumeId={resumeId}
+          onClose={() => setIsModalOpen(false)}
+        />
       </Modal>
-      
+
       <div className="bg-blue-50 p-6 rounded-lg mb-6">
         <div className="flex flex-col gap-2 md:flex-row  justify-between items-start mb-6">
           <div>
@@ -363,10 +369,13 @@ const ResumeStrength = ({ score, strength, resumeId }) => {
               >
                 Improve Resume
               </button>
-              <button 
-             disabled={strength.ats_score === 10}
-              onClick={()=>setIsModalOpen(true)}
-              className={`px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors ${!strength.ats_score === 10}?"opacity-50 cursor-not-allowed" :""}`}>
+              <button
+                disabled={strength.ats_score === 10}
+                onClick={() => setIsModalOpen(true)}
+                className={`px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors ${
+                  !strength.ats_score === 10
+                }?"opacity-50 cursor-not-allowed" :""}`}
+              >
                 Improve ATS
               </button>
             </div>
@@ -385,7 +394,7 @@ const ResumeStrength = ({ score, strength, resumeId }) => {
                 key={section.name}
                 className="flex items-center gap-4 relative"
                 // onClick={() => isATS && setIsModalOpen(true)}
-                style={{ cursor: isATS ? 'pointer' : 'default' }}
+                style={{ cursor: isATS ? "pointer" : "default" }}
               >
                 <Icon className="w-5 h-5 text-gray-600 flex-shrink-0" />
 

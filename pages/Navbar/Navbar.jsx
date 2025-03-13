@@ -31,7 +31,7 @@
 //       // Check API success
 //       // const checkApiSuccess = async () => {
 //       //   try {
-//       //     const response = await fetch('https://api.sentryspot.co.uk/api/jobseeker/user-profile', {
+//       //     const response = await fetch('https://api.abroadium.com/api/jobseeker/user-profile', {
 //       //       headers: {
 //       //         'Authorization': ` ${token}`,
 //       //       },
@@ -49,7 +49,7 @@
 //       const checkApiSuccess = async () => {
 //         try {
 //           const response = await axios.get(
-//             "https://api.sentryspot.co.uk/api/jobseeker/user-profile",
+//             "https://api.abroadium.com/api/jobseeker/user-profile",
 //             {
 //               headers: {
 //                 Authorization: `${token}`, // Ensure the token format is correct (added "Bearer" as an example)
@@ -96,7 +96,7 @@
 //     try {
 //       // Make the API call to log out
 //       await axios.post(
-//         "https://api.sentryspot.co.uk/api/jobseeker/logout",
+//         "https://api.abroadium.com/api/jobseeker/logout",
 //         { token },
 //         {
 //           headers: {
@@ -378,7 +378,7 @@ const Navbar = () => {
 
     try {
       await axios.post(
-        "https://api.sentryspot.co.uk/api/jobseeker/logout",
+        "https://api.abroadium.com/api/jobseeker/logout",
         { token },
         {
           headers: {
@@ -426,7 +426,7 @@ const Navbar = () => {
       const checkApiSuccess = async () => {
         try {
           const response = await axiosInstance.get(
-            "https://api.sentryspot.co.uk/api/jobseeker/user-profile",
+            "https://api.abroadium.com/api/jobseeker/user-profile",
             {
               headers: {
                 Authorization: `${token}`,

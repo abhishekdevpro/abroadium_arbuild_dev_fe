@@ -48,7 +48,7 @@ const Education = () => {
     setIsLoading((prev) => ({ ...prev, university: true }));
     try {
       const response = await fetch(
-        `https://api.sentryspot.co.uk/api/jobseeker/university-lists?university_keyword=${encodeURIComponent(
+        `https://api.abroadium.com/api/jobseeker/university-lists?university_keyword=${encodeURIComponent(
           keyword
         )}`
       );
@@ -71,7 +71,7 @@ const Education = () => {
     setIsLoading((prev) => ({ ...prev, degree: true }));
     try {
       const response = await fetch(
-        `https://api.sentryspot.co.uk/api/jobseeker/degree?degree_keyword=${encodeURIComponent(
+        `https://api.abroadium.com/api/jobseeker/degree?degree_keyword=${encodeURIComponent(
           keyword
         )}`
       );
@@ -95,7 +95,7 @@ const Education = () => {
     setIsLoading((prev) => ({ ...prev, location: true }));
     try {
       const response = await fetch(
-        `https://api.sentryspot.co.uk/api/jobseeker/locations?locations=${encodeURIComponent(
+        `https://api.abroadium.com/api/jobseeker/locations?locations=${encodeURIComponent(
           keyword
         )}`
       );

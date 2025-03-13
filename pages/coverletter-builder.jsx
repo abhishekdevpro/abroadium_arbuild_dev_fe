@@ -35,10 +35,10 @@ function CoverLetterBuilder() {
     checkIsMobile();
 
     // Add resize listener
-    window.addEventListener('resize', checkIsMobile);
+    window.addEventListener("resize", checkIsMobile);
 
     // Cleanup
-    return () => window.removeEventListener('resize', checkIsMobile);
+    return () => window.removeEventListener("resize", checkIsMobile);
   }, []);
   const handleFontChange = (e) => {
     setSelectedFont(e.target.value);
@@ -55,7 +55,7 @@ function CoverLetterBuilder() {
       if (id && token) {
         try {
           const response = await axios.get(
-            `https://api.sentryspot.co.uk/api/jobseeker/coverletter/${id}`,
+            `https://api.abroadium.com/api/jobseeker/coverletter/${id}`,
             {
               headers: {
                 Authorization: token,
@@ -79,7 +79,8 @@ function CoverLetterBuilder() {
                 parsedData.coverletterInfo.templateDetails.backgroundColor || ""
               );
               setSelectedTemplate(
-                parsedData.coverletterInfo.templateDetails.templateId || 'template1'
+                parsedData.coverletterInfo.templateDetails.templateId ||
+                  "template1"
               );
             }
           }
@@ -159,7 +160,7 @@ function CoverLetterBuilder() {
       }
 
       const response = await axios.put(
-        `https://api.sentryspot.co.uk/api/jobseeker/coverletter/${coverletterId}`,
+        `https://api.abroadium.com/api/jobseeker/coverletter/${coverletterId}`,
 
         { ...coverletterInfo, cover_letter_html: coverletterHtml },
         {
@@ -200,7 +201,7 @@ function CoverLetterBuilder() {
       `;
 
       // const response = await axios.post(
-      //   "https://api.sentryspot.co.uk/api/jobseeker/generate-pdf1",
+      //   "https://api.abroadium.com/api/jobseeker/generate-pdf1",
       //   { html: fullContent },
       //   {
       //     headers: {
@@ -221,7 +222,7 @@ function CoverLetterBuilder() {
   const downloadPDF = async () => {
     try {
       const response = await axios.get(
-        `https://api.sentryspot.co.uk/api/jobseeker/download-coverletter/${coverletterId}`,
+        `https://api.abroadium.com/api/jobseeker/download-coverletter/${coverletterId}`,
 
         {
           headers: {
@@ -254,8 +255,7 @@ function CoverLetterBuilder() {
   return (
     // <CoverLetterProvider>
     <>
-      {
-      isMobile?(
+      {isMobile ? (
         <MobileCoverLetterBuilder
           selectedFont={selectedFont}
           handleFontChange={handleFontChange}
@@ -267,90 +267,87 @@ function CoverLetterBuilder() {
           downloadAsPDF={downloadAsPDF}
           templateRef={templateRef}
         />
-      ):
-      (
+      ) : (
         <div className="flex flex-col min-h-screen">
-        {/* Sticky Navbar */}
-        <div className="sticky top-0 z-50 bg-white shadow-md">
-          <Navbar />
-        </div>
-  
-        {/* Main Content */}
-        <div className=" bg-gray-50 ">
-          {/* Sticky Options Bar */}
-          <div className="sticky top-[64px] z-40 bg-gray-200 p-4 shadow-sm">
-            <div className="flex flex-col lg:flex-row items-center justify-between gap-4">
-              {/* Font Selector and Options */}
-              <div className="flex items-center gap-4">
-                <select
-                  value={selectedFont}
-                  onChange={handleFontChange}
-                  className="w-40 h-10 rounded-lg border border-blue-800 px-4 font-bold text-blue-800 bg-white focus:ring-2 focus:ring-blue-800"
-                >
-                  <option value="Ubuntu">Ubuntu</option>
-                  <option value="Calibri">Calibri</option>
-                  <option value="Georgia">Georgia</option>
-                  <option value="Roboto">Roboto</option>
-                  <option value="Poppins">Poppins</option>
-                </select>
-  
-                <ColorPickers
-                  selectmultiplecolor={backgroundColorss}
-                  onChange={setBgColor}
-                />
-                <TemplateSelector
-                  selectedTemplate={selectedTemplate}
-                  setSelectedTemplate={setSelectedTemplate}
-                />
-              </div>
-  
-              {/* Action Buttons */}
-              <div className="flex gap-4">
-                <button
-                  onClick={handleFinish}
-                  className="bg-blue-950 text-white px-6 py-2 rounded-lg"
-                >
-                  Save Cover Letter
-                </button>
-                <button
-                  onClick={downloadAsPDF}
-                  className="bg-yellow-500 text-black px-6 py-2 rounded-lg"
-                >
-                  Pay & Download
-                </button>
+          {/* Sticky Navbar */}
+          <div className="sticky top-0 z-50 bg-white shadow-md">
+            <Navbar />
+          </div>
+
+          {/* Main Content */}
+          <div className=" bg-gray-50 ">
+            {/* Sticky Options Bar */}
+            <div className="sticky top-[64px] z-40 bg-gray-200 p-4 shadow-sm">
+              <div className="flex flex-col lg:flex-row items-center justify-between gap-4">
+                {/* Font Selector and Options */}
+                <div className="flex items-center gap-4">
+                  <select
+                    value={selectedFont}
+                    onChange={handleFontChange}
+                    className="w-40 h-10 rounded-lg border border-blue-800 px-4 font-bold text-blue-800 bg-white focus:ring-2 focus:ring-blue-800"
+                  >
+                    <option value="Ubuntu">Ubuntu</option>
+                    <option value="Calibri">Calibri</option>
+                    <option value="Georgia">Georgia</option>
+                    <option value="Roboto">Roboto</option>
+                    <option value="Poppins">Poppins</option>
+                  </select>
+
+                  <ColorPickers
+                    selectmultiplecolor={backgroundColorss}
+                    onChange={setBgColor}
+                  />
+                  <TemplateSelector
+                    selectedTemplate={selectedTemplate}
+                    setSelectedTemplate={setSelectedTemplate}
+                  />
+                </div>
+
+                {/* Action Buttons */}
+                <div className="flex gap-4">
+                  <button
+                    onClick={handleFinish}
+                    className="bg-blue-950 text-white px-6 py-2 rounded-lg"
+                  >
+                    Save Cover Letter
+                  </button>
+                  <button
+                    onClick={downloadAsPDF}
+                    className="bg-yellow-500 text-black px-6 py-2 rounded-lg"
+                  >
+                    Pay & Download
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-  
-          {/* Scrollable Main Content */}
-          <div className="flex flex-col md:flex-row flex-grow p-4">
-            {/* Editor Section */}
-            <div
-              className="w-[40%] overflow-auto"
-              style={{ backgroundColor: "#323159f5" }}
-            >
-              <main className="w-full mx-auto md:p-4">
-                <CoverLetterEditor />
-              </main>
-            </div>
-  
-            {/* Preview Section */}
-            <aside className="w-[60%] min-h-screen border-l bg-gray-50">
-              <div className="sticky top-20 p-4">
-                <CoverLetterPreview
-                  selectedTemplate={selectedTemplate}
-                  ref={templateRef}
-                />
+
+            {/* Scrollable Main Content */}
+            <div className="flex flex-col md:flex-row flex-grow p-4">
+              {/* Editor Section */}
+              <div
+                className="w-[40%] overflow-auto"
+                style={{ backgroundColor: "#323159f5" }}
+              >
+                <main className="w-full mx-auto md:p-4">
+                  <CoverLetterEditor />
+                </main>
               </div>
-            </aside>
+
+              {/* Preview Section */}
+              <aside className="w-[60%] min-h-screen border-l bg-gray-50">
+                <div className="sticky top-20 p-4">
+                  <CoverLetterPreview
+                    selectedTemplate={selectedTemplate}
+                    ref={templateRef}
+                  />
+                </div>
+              </aside>
+            </div>
           </div>
         </div>
-      </div>
-      )
-    }
-     
+      )}
     </>
-   
+
     // // <div className="flex flex-col min-h-screen">
     //   {/* Navbar */}
     //   <div className="sticky top-0 z-50 bg-white shadow-md">

@@ -1,4 +1,3 @@
-
 // "use client";
 
 // import { useState } from "react";
@@ -20,7 +19,7 @@
 //       const token = localStorage.getItem("token");
 
 //       const response = await axios.post(
-//         "https://api.sentryspot.co.uk/api/jobseeker/resume-create",
+//         "https://api.abroadium.com/api/jobseeker/resume-create",
 //         {},
 //         {
 //           headers: {
@@ -84,15 +83,15 @@ export default function Home() {
   const handleCreateResume = async () => {
     // Prevent multiple clicks
     if (loading) return;
-    
+
     setLoading(true);
     setError("");
-    
+
     try {
       // Replace this with your actual token
       const token = localStorage.getItem("token");
       const response = await axios.post(
-        "https://api.sentryspot.co.uk/api/jobseeker/resume-create",
+        "https://api.abroadium.com/api/jobseeker/resume-create",
         {},
         {
           headers: {
@@ -100,11 +99,11 @@ export default function Home() {
           },
         }
       );
-      
+
       // Assuming the response contains the ID
       console.log(response);
       const { id } = response.data.data;
-      
+
       // Only navigate after successful API response
       router.push(`/dashboard/resume-builder/${id}`);
     } catch (err) {
@@ -114,10 +113,10 @@ export default function Home() {
       setLoading(false);
     }
   };
-  
+
   return (
     <>
-      <Navbar/>
+      <Navbar />
       <main className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="bg-white rounded-lg shadow-lg p-8 text-center">
           <h1 className="text-2xl font-bold mb-4">Welcome to Resume Builder</h1>

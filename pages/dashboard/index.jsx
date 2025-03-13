@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import CoverLetterSection from "../../components/dashboard/CoverLetterSection";
 import InterviewSection from "../../components/dashboard/InterviewSection";
@@ -23,7 +22,7 @@ export default function DashboardPage() {
       setLoading(true);
       const token = localStorage.getItem("token");
       const response = await axios.get(
-        `https://api.sentryspot.co.uk/api/jobseeker/resume-list/0?resume_default=true`,
+        `https://api.abroadium.com/api/jobseeker/resume-list/0?resume_default=true`,
         {
           headers: {
             Authorization: token,
@@ -49,7 +48,7 @@ export default function DashboardPage() {
 
   useEffect(() => {
     resumeStrength();
-   
+
     const interval = setInterval(resumeStrength, 300000);
 
     // Cleanup interval on component unmount
@@ -59,17 +58,16 @@ export default function DashboardPage() {
   //   // Delay the first execution by 3 seconds
   //   const timeout = setTimeout(() => {
   //     resumeStrength();
-  
+
   //     // Set an interval to call resumeStrength every 5 minutes (300000 ms)
   //     const interval = setInterval(resumeStrength, 300000);
-  
+
   //     // Cleanup both timeout and interval on component unmount
   //     return () => clearInterval(interval);
   //   }, 3000);
-  
+
   //   return () => clearTimeout(timeout);
   // }, []);
-  
 
   // Show the loader while loading
   if (loading) {
@@ -128,9 +126,8 @@ export default function DashboardPage() {
             <button
               onClick={handleMyDashboard}
               className="w-full flex justify-center items-center px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600  transition-colors duration-200 font-medium shadow-sm "
-             
-            > 
-            <User className="w-5 h-5 mr-2"/>
+            >
+              <User className="w-5 h-5 mr-2" />
               My Profile Dashboard
             </button>
           </div>

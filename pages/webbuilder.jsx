@@ -53,7 +53,7 @@ export default function WebBuilder() {
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
   const [userId, setUserId] = useState(0);
   const [loading, setLoading] = useState(false);
-  const [isDownloading,setisDownloading] =  useState(false)
+  const [isDownloading, setisDownloading] = useState(false);
   const templateRef = useRef(null);
   const {
     resumeData,
@@ -80,7 +80,7 @@ export default function WebBuilder() {
       if (id && token) {
         try {
           const response = await axios.get(
-            `https://api.sentryspot.co.uk/api/jobseeker/resume-list/${id}`,
+            `https://api.abroadium.com/api/jobseeker/resume-list/${id}`,
             {
               headers: {
                 Authorization: token,
@@ -206,7 +206,7 @@ export default function WebBuilder() {
   //     `;
 
   //     const response = await axios.post(
-  //       "https://api.sentryspot.co.uk/api/jobseeker/generate-pdf-py",
+  //       "https://api.abroadium.com/api/jobseeker/generate-pdf-py",
   //       { html: fullContent, pdf_type: selectedPdfType },
   //       {
   //         headers: {
@@ -231,43 +231,43 @@ export default function WebBuilder() {
   const downloadAsPDF = async () => {
     handleFinish();
     if (!templateRef.current) {
-        toast.error("Template reference not found");
-        return;
+      toast.error("Template reference not found");
+      return;
     }
 
     setisDownloading(true); // Start loading before the async operation
 
     try {
-        const htmlContent = templateRef.current.innerHTML;
+      const htmlContent = templateRef.current.innerHTML;
 
-        const fullContent = `
+      const fullContent = `
             <style>
                 @import url('https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css');
             </style>
             ${htmlContent}
         `;
 
-        const response = await axios.post(
-            "https://api.sentryspot.co.uk/api/jobseeker/generate-pdf-py",
-            { html: fullContent, pdf_type: selectedPdfType },
-            {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: token,
-                },
-            }
-        );
+      const response = await axios.post(
+        "https://api.abroadium.com/api/jobseeker/generate-pdf-py",
+        { html: fullContent, pdf_type: selectedPdfType },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        }
+      );
 
-        downloadPDF(); // Call this only if the request is successful
+      downloadPDF(); // Call this only if the request is successful
     } catch (error) {
-        console.error("PDF generation error:", error);
-        toast.error(
-            error.response?.data?.message || "Failed to generate and open PDF"
-        );
+      console.error("PDF generation error:", error);
+      toast.error(
+        error.response?.data?.message || "Failed to generate and open PDF"
+      );
     } finally {
       setisDownloading(false); // Ensure loading is stopped after success or failure
     }
-};
+  };
 
   const createPayment = async () => {
     const amount = 49;
@@ -280,7 +280,7 @@ export default function WebBuilder() {
       };
 
       const response = await axios.post(
-        "https://api.sentryspot.co.uk/api/jobseeker/paypal/create-payment",
+        "https://api.abroadium.com/api/jobseeker/paypal/create-payment",
         payload,
         {
           headers: {
@@ -320,7 +320,7 @@ export default function WebBuilder() {
 
       if (orderId && token && PayerID) {
         const response = await axios.get(
-          `https://api.sentryspot.co.uk/api/jobseeker/paypal/verify-order?orderid=${orderId}`,
+          `https://api.abroadium.com/api/jobseeker/paypal/verify-order?orderid=${orderId}`,
           {
             headers: {
               Authorization: token,
@@ -352,7 +352,7 @@ export default function WebBuilder() {
   const downloadPDF = async () => {
     try {
       const response = await axios.get(
-        `https://api.sentryspot.co.uk/api/jobseeker/download-file/11/${resumeId}`,
+        `https://api.abroadium.com/api/jobseeker/download-file/11/${resumeId}`,
         {
           headers: {
             Authorization: token,
@@ -470,7 +470,7 @@ export default function WebBuilder() {
         return;
       }
 
-      const url = `https://api.sentryspot.co.uk/api/jobseeker/resume-update/${id}`;
+      const url = `https://api.abroadium.com/api/jobseeker/resume-update/${id}`;
       const response = await axios.put(
         url,
         { ...templateData, resume_html: resumeHtml },
@@ -521,7 +521,7 @@ export default function WebBuilder() {
         const token = localStorage.getItem("token");
 
         const userProfileResponse = await axios.get(
-          "https://api.sentryspot.co.uk/api/jobseeker/user-profile",
+          "https://api.abroadium.com/api/jobseeker/user-profile",
           {
             headers: {
               Authorization: token,
@@ -706,7 +706,7 @@ export default function WebBuilder() {
                   } text-white transition-colors duration-200`}
                   disabled={loading}
                 >
-                  {loading ? <SaveLoader  /> : "Save Resume"}
+                  {loading ? <SaveLoader /> : "Save Resume"}
                 </button>
                 <button
                   onClick={downloadAsPDF}
@@ -716,10 +716,12 @@ export default function WebBuilder() {
                       : "bg-yellow-500 hover:bg-yellow-600 active:bg-yellow-600"
                   } text-white transition-colors duration-200`}
                   disabled={loading}
-                > 
-                
-                  {isDownloading ? <SaveLoader loadingText="Downloading" />  : "Pay & Download"}
-                  
+                >
+                  {isDownloading ? (
+                    <SaveLoader loadingText="Downloading" />
+                  ) : (
+                    "Pay & Download"
+                  )}
                 </button>
 
                 <button

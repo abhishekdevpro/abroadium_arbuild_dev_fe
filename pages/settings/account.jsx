@@ -20,7 +20,7 @@ const Account = () => {
         }
 
         const response = await axios.get(
-          "https://api.sentryspot.co.uk/api/jobseeker/user-profile",
+          "https://api.abroadium.com/api/jobseeker/user-profile",
           {
             headers: { Authorization: token },
           }
@@ -44,8 +44,8 @@ const Account = () => {
 
   if (loading) return <p className="text-center text-gray-500">Loading...</p>;
   if (error) return <p className="text-center text-red-500">{error}</p>;
-//  console.log(userData,"///");
-localStorage.setItem("ID",userData.account_id)
+  //  console.log(userData,"///");
+  localStorage.setItem("ID", userData.account_id);
   return (
     <>
       <Navbar />
@@ -90,7 +90,6 @@ localStorage.setItem("ID",userData.account_id)
                     </button> */}
                   </div>
                 </div>
-               
               </div>
             </div>
           </div>
