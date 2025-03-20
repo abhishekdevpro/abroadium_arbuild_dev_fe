@@ -236,7 +236,7 @@ const pricingData = {
   },
   singlePass: {
     title: "Single Pass",
-    price: "1499",
+    price: "49",
     billingCycle: "single",
     bestValue: "false",
     buttonText: "Get Started",
@@ -253,7 +253,7 @@ const pricingData = {
   },
   aiProMonth: {
     title: "AI Pro Month",
-    price: "2000",
+    price: "199",
     billingCycle: "month",
     bestValue: "false",
     buttonText: "Get Started",
@@ -270,7 +270,7 @@ const pricingData = {
   },
   aiProYearly: {
     title: "AI Pro Yearly",
-    price: "2500",
+    price: "499",
     billingCycle: "year",
     bestValue: "true",
     buttonText: "Get Started",
@@ -334,12 +334,11 @@ export default function Payment() {
           </h2>
           <p className="text-gray-600 text-sm md:text-base">
             Our AI-powered platform scours millions of jobs to continuously find
-            and apply to relevant job openings until you are hired.
+            and apply to relevant job openings until you&apos;re hired.
           </p>
         </div>
-
         <h2 className="text-xl md:text-2xl font-bold mt-6 text-center">
-          Kudos! You are one step closer to success 🎉
+          Kudos! You&apos;re one step closer to success 🎉
         </h2>
 
         {/* Pricing Section Title */}
@@ -383,7 +382,7 @@ export default function Payment() {
                     <div className="text-2xl font-bold mb-1">
                       {plan.price === "0"
                         ? pricingData.freeLabel
-                        : `₹${plan.price}${
+                        : `CAD${plan.price}${
                             plan.billingCycle !== "single"
                               ? `/${
                                   plan.billingCycle === "month" ? "mo" : "yr"
