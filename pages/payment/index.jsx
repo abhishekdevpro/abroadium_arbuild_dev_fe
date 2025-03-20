@@ -334,12 +334,11 @@ export default function Payment() {
           </h2>
           <p className="text-gray-600 text-sm md:text-base">
             Our AI-powered platform scours millions of jobs to continuously find
-            and apply to relevant job openings until you're hired.
+            and apply to relevant job openings until you&apos;re hired.
           </p>
         </div>
-
         <h2 className="text-xl md:text-2xl font-bold mt-6 text-center">
-          Kudos! You're one step closer to success 🎉
+          Kudos! You&apos;re one step closer to success 🎉
         </h2>
 
         {/* Pricing Section Title */}
