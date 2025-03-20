@@ -330,7 +330,7 @@ export default function Payment() {
         {/* Intro Section */}
         <div className="bg-orange-100 p-4 rounded-lg text-center">
           <h2 className="text-lg md:text-xl font-semibold">
-            ✨ Cast a wider net – 10x your job applications
+            ✨ Cast a wider net - 10x your job applications
           </h2>
           <p className="text-gray-600 text-sm md:text-base">
             Our AI-powered platform scours millions of jobs to continuously find

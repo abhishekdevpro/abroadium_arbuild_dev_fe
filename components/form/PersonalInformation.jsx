@@ -889,20 +889,37 @@ const PersonalInformation = () => {
 
   //   return Array.isArray(strengthInfo) && strengthInfo.length > 0;
   // };
+  // const hasErrors = (field) => {
+  //   const strengthInfo = resumeStrength?.personal_info_strenght?.[field];
+  //   const fieldValue = resumeData[field]?.trim(); // Trim to check for empty values
+
+  //   // If the field has a value, don't show error (this makes the error disappear instantly)
+  //   if (fieldValue) return false;
+
+  //   // Only show errors for empty fields or fields with API-reported errors
+  //   return Array.isArray(strengthInfo) && strengthInfo.length > 0;
+  // };
+
   const hasErrors = (field) => {
     const strengthInfo = resumeStrength?.personal_info_strenght?.[field];
     const fieldValue = resumeData[field]?.trim(); // Trim to check for empty values
-
-    // If the field has a value, don't show error (this makes the error disappear instantly)
-    if (fieldValue) return false;
-
-    // Only show errors for empty fields or fields with API-reported errors
+  
+    // Check for empty required fields
+    if (!fieldValue) return true;
+  
+    // Special validation for contact information
+    if (field === "contactInformation") {
+      const isValidContact = /^(\+\d{1,3}\s?)?\(?\d+\)?[\d\s\-]+$/.test(fieldValue);
+      if (!isValidContact) return true;
+    }
+  
+    // Check for API-reported errors
     return Array.isArray(strengthInfo) && strengthInfo.length > 0;
   };
 
   const handleContactChange = (e) => {
     const { value } = e.target;
-    const fullContactValue = `${selectedCountryCode} ${value.replace(
+    const fullContactValue = `${value.replace(
       /^(\+\d+\s*)?/,
       ""
     )}`;
@@ -917,7 +934,7 @@ const PersonalInformation = () => {
     };
     handleChange(updatedContact);
   };
-  console.log(resumeStrength, "rss");
+  // console.log(resumeStrength, "rss");
   const markAsResolved = (field) => {
     // Mark this field as resolved
     setResolvedFields((prev) => ({ ...prev, [field]: true }));
@@ -969,6 +986,7 @@ const PersonalInformation = () => {
                 className="relative group"
                 onClick={(e) => e.stopPropagation()}
               >
+                
                 <div className="flex items-center relative">
                   {/* If field has a country code (for contact number) */}
 
@@ -976,7 +994,7 @@ const PersonalInformation = () => {
                     <div className="relative w-full">
                       <div className="flex items-center">
                         {/* Country Code Selector */}
-                        <div
+                        {/* <div
                           className="absolute left-2 z-10 flex items-center cursor-pointer"
                           onClick={() =>
                             setShowCountryCodeDropdown(!showCountryCodeDropdown)
@@ -988,7 +1006,6 @@ const PersonalInformation = () => {
                           <ChevronDown className="w-4 h-4 text-gray-500" />
                         </div>
 
-                        {/* Input Field for Contact Information */}
                         {showCountryCodeDropdown && (
                           <div className="absolute top-full left-0 mt-1 w-64 max-h-60 overflow-y-auto bg-white border border-gray-300 rounded-md shadow-lg z-50">
                             {countryCodes.map((country) => (
@@ -1002,12 +1019,12 @@ const PersonalInformation = () => {
                               </div>
                             ))}
                           </div>
-                        )}
+                        )} */}
                         <input
                           type={type}
                           placeholder={placeholder}
                           name={field}
-                          className={`w-full p-2 pl-16 border rounded-md outline-none transition-colors ${
+                          className={`w-full p-2 pl-2 border rounded-md outline-none transition-colors ${
                             improve && hasErrors(field)
                               ? "border-red-500 focus:border-red-600"
                               : "border-gray-300 focus:border-blue-500"
