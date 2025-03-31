@@ -112,6 +112,10 @@ const Projects = () => {
   };
 
   const handleAIAssistKey = async (index) => {
+    if(!resumeData.projects[index].name){
+      toast.warn("Project name is Required")
+      return
+    }
     setLoadingStates((prev) => ({
       ...prev,
       [`key_${index}`]: true,
@@ -277,6 +281,11 @@ const Projects = () => {
       : [];
   };
   const handleAIAssistDescription = async (projectIndex) => {
+    // console.log(resumeData.projects[projectIndex].name,"llll");
+    if(!resumeData.projects[projectIndex].name){
+      toast.warn("Project name is Required")
+      return
+    }
     setLoadingStates((prev) => ({
       ...prev,
       [`description_${projectIndex}`]: true,

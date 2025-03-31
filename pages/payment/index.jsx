@@ -208,85 +208,9 @@ import { CheckCircle, DollarSign, Bell, Clock, RefreshCw } from "lucide-react";
 import { useRouter } from "next/router";
 import Navbar from "../Navbar/Navbar";
 import Link from "next/link";
-
+import { pricingData } from "../../components/Data/PlanData";
 // Pricing data from your JSON
-const pricingData = {
-  title: "Pricing Plans",
-  subtitle: "Choose the plan that works best for you",
-  intro:
-    "Our pricing plans are designed to accommodate all your resume building needs.",
-  bestValueLabel: "Best Value",
-  freeLabel: "Free",
-  freePlan: {
-    title: "Free Plan",
-    billingCycle: "Free Plan",
-    price: "0",
-    bestValue: "false",
-    buttonText: "Get Started",
-    feature1: "Unlimited Resume Edits",
-    feature2: "Download in PDF",
-    feature3: "Interactive Dashboard",
-    feature4: "2 Unique Resume Templates",
-    feature5: "2 Color Options & 2 Fonts",
-    feature6: "Resume Parsing (ATS-Friendly)",
-    feature7: "French Language Support",
-    feature8: "Job Search & Career Resources",
-    feature9: "Cover Letter Builder",
-    feature10: "Job Alerts & Tracking",
-  },
-  singlePass: {
-    title: "Single Pass",
-    price: "49",
-    billingCycle: "single",
-    bestValue: "false",
-    buttonText: "Get Started",
-    feature1: "Everything in Free +",
-    feature2: "27 Unique Resume Templates",
-    feature3: "5 Color Options & 6 Fonts",
-    feature4: "Resume Parsing (ATS-Friendly)",
-    feature5: "Free Cover Letter Builder",
-    feature6: "AI Resume Score & Feedback",
-    feature7: "Skill Tests & Analysis",
-    feature8: "AI-Enabled Content",
-    feature9: "Auto-Improvement",
-    feature10: "ATS Optimization",
-  },
-  aiProMonth: {
-    title: "AI Pro Month",
-    price: "199",
-    billingCycle: "month",
-    bestValue: "false",
-    buttonText: "Get Started",
-    feature1: "Everything in Free +",
-    feature2: "37 Unique Resume Templates",
-    feature3: "8 Color Options & 6 Fonts",
-    feature4: "Resume Parsing (ATS-Friendly)",
-    feature5: "Free Cover Letter Builder",
-    feature6: "AI Resume Score & Feedback",
-    feature7: "Skill Tests & Analysis",
-    feature8: "AI-Enabled Content",
-    feature9: "Auto-Improvement",
-    feature10: "ATS Optimization",
-  },
-  aiProYearly: {
-    title: "AI Pro Yearly",
-    price: "499",
-    billingCycle: "year",
-    bestValue: "true",
-    buttonText: "Get Started",
-    feature1: "Everything in Free +",
-    feature2: "37 Unique Resume Templates",
-    feature3: "8 Color Options & 6 Fonts",
-    feature4: "Resume Parsing (ATS-Friendly)",
-    feature5: "Free Cover Letter Builder",
-    feature6: "AI Resume Score & Feedback",
-    feature7: "Skill Tests & Analysis",
-    feature8: "AI-Enabled Content",
-    feature9: "Auto-Improvement",
-    feature10: "ATS Optimization",
-    // feature11: "Most Affordable ATS Optimization",
-  },
-};
+
 
 export default function Payment() {
   const [selectedPlan, setSelectedPlan] = useState("freePlan");
