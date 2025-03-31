@@ -21,6 +21,11 @@ export const ResumeProvider = ({ children }) => {
     }
   };
 
+  const deleteProfilePicture = (e) => {
+    e.preventDefault()
+    setResumeData({ ...resumeData, profilePicture: "" });
+  };
+
   const handleChange = (e) => {
     setResumeData({ ...resumeData, [e.target.name]: e.target.value });
   };
@@ -40,6 +45,7 @@ export const ResumeProvider = ({ children }) => {
         setSelectedFont,
         resumeStrength,
         setResumeStrength,
+        deleteProfilePicture
       }}
     >
       {children}

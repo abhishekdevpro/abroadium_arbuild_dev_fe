@@ -136,7 +136,7 @@ const WorkExperience = () => {
 
     try {
       const response = await axios.get(
-        `https://api.sentryspot.co.uk/api/user/job-title?job_title_keyword=${encodeURIComponent(
+        `https://api.abroadium.com/api/jobseeker/job-title?job_title_keyword=${encodeURIComponent(
           keyword
         )}`
       );
@@ -1057,7 +1057,7 @@ const WorkExperience = () => {
                     </button>
                   )}
                   {activeTooltip === `achievements-${index}` && (
-                    <div className="absolute z-50 top-30px right-0 mt-2 w-80 bg-white rounded-lg shadow-xl transform transition-all duration-200 ease-in-out border border-gray-700">
+                    <div className="absolute z-50 top-0 right-0 w-80 bg-white rounded-lg shadow-xl transform transition-all duration-200 ease-in-out border border-gray-700">
                       <div className="p-4 border-b border-gray-700">
                         <div className="flex items-center justify-between">
                           <div className="flex items-center space-x-2">
@@ -1074,12 +1074,12 @@ const WorkExperience = () => {
                           </button>
                         </div>
                       </div>
-                      <div className="p-4">
+                      <div className="p-4 ">
                         {getErrorMessages(index, "KeyAchievements").map(
                           (msg, i) => (
                             <div
                               key={i}
-                              className="flex items-start space-x-3 mb-3 last:mb-0"
+                              className="flex items-start space-x-3 mb-3 last:mb-0 "
                             >
                               <div className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-red-400 mt-2"></div>
                               <p className="text-black text-sm">{msg}</p>
