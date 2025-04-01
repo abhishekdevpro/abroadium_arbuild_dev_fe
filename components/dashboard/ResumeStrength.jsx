@@ -42,7 +42,7 @@ const Modal = ({ isOpen, onClose, children }) => {
 const TooltipContent = ({ improvements, resumeId, onClose }) => {
   const [Loading, setLoading] = useState(false);
   const router = useRouter();
-
+  const { resumeData } = useContext(ResumeContext);
   const formatItems = [
     {
       label: "Bullet Points Used",
@@ -69,7 +69,10 @@ const TooltipContent = ({ improvements, resumeId, onClose }) => {
     const token = localStorage.getItem("token");
 
     setLoading(true); // Ensure loading is set to true when the request starts
-
+    if (!resumeData.position) {
+      toast.error("Job Title is required");
+      return;
+    }
     try {
       const response = await axios.get(
         `https://api.abroadium.com/api/jobseeker/ats-improve/${resumeId}`,
@@ -230,8 +233,8 @@ const ResumeStrength = ({ score, strength, resumeId }) => {
   const [showLoader, setShowLoader] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const router = useRouter();
-  const {resumeData} = useContext(ResumeContext)
-  console.log(resumeData,"resumeData");
+  const { resumeData } = useContext(ResumeContext);
+  console.log(resumeData, "resumeData");
   const getSectionsList = (data) => {
     if (!data) return [];
     return [
@@ -371,7 +374,9 @@ const ResumeStrength = ({ score, strength, resumeId }) => {
                 Improve Resume
               </button>
               <button
-                disabled={strength.ats_score === 10 || !resumeData.position  || !resumeId}
+                disabled={
+                  strength.ats_score === 10 || !resumeData.position || !resumeId
+                }
                 onClick={() => setIsModalOpen(true)}
                 className={`px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors ${
                   strength.ats_score === 10 || !resumeId
