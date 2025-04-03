@@ -72,7 +72,6 @@ const Template5 = () => {
     { name: "youtube", icon: <FaYoutube /> },
     { name: "website", icon: <CgWebsite /> },
   ];
-
   return (
     <div
       ref={templateRef}
@@ -136,18 +135,9 @@ const Template5 = () => {
       </section>
 
       <section className="education mb-6">
-        {resumeData.education.length > 0 && (
+        { (
           <div className="mb-1">
-            {/* <h2 className="text-lg font-bold mb-2.5 uppercase border-b border-black pb-0.5" style={{ color: headerColor }}>Education</h2> */}
-            {/* {resumeData.education.map((item, index) => (
-            <div key={index} className="mb-1">
-              <div className="flex justify-end text-sm italic">
-                <span>{item.startYear} - {item.endYear}</span>
-              </div>
-              <p className="font-semibold">{item.degree}</p>
-              <p className="">{item.school}</p>
-            </div>
-          ))} */}
+           
             <EducationSection
               itemClassNames={{
                 school: "",
