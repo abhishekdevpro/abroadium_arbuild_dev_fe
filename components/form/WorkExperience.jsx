@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
 import { ResumeContext } from "../context/ResumeContext";
 import FormButton from "./FormButton";
-import { AlertCircle, X, ChevronDown, ChevronUp, Trash2 } from "lucide-react";
+import { AlertCircle, X, ChevronDown, ChevronUp, Trash2, Trash } from "lucide-react";
 import axios from "axios";
 import dynamic from "next/dynamic";
 import "react-quill/dist/quill.snow.css";
@@ -508,7 +508,7 @@ const WorkExperience = () => {
   };
 
   return (
-    <div className="flex-col gap-3 w-full mt-10 px-10">
+    <div className="flex-col gap-3 w-full md:mt-10 md:px-10">
       <h2 className="input-title text-white text-3xl mb-6">Work Experience</h2>
       <div className="flex items-center space-x-2 mb-4">
         <label className="text-lg text-white font-medium">
@@ -540,21 +540,20 @@ const WorkExperience = () => {
                   experience.company ||
                   `Work Experience ${index + 1}`}
               </h3>
-              <div className="flex items-center">
-                {/* <button
-                onClick={(e) => {
-                  e.stopPropagation()
-                  removeWorkExperience(index)
-                }}
-                className="mr-4 text-red-500 hover:text-red-700 transition-colors"
-              >
-                <Trash2 className="w-5 h-5" />
-              </button> */}
-                {expandedExperiences[index] ? (
+              <div className="flex items-center gap-2">
+              {expandedExperiences[index] ? (
                   <ChevronUp className="w-6 h-6 text-black" />
                 ) : (
                   <ChevronDown className="w-6 h-6 text-black" />
                 )}
+              <button
+                  onClick={() => removeWork(index)}
+                  className="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded bg-red-500 text-white hover:bg-red-600 transition-colors md:ml-2"
+                  type="button"
+                >
+                 <Trash className="w-5 h-5" />
+                </button>
+                
               </div>
             </div>
 
@@ -943,25 +942,7 @@ const WorkExperience = () => {
                             </span>
                           </div>
 
-                          {/* <button
-                            onClick={() =>
-                              handleAutoFixDescription(index, experience)
-                            }
-                            onMouseDown={() => {
-                              if (!experience?.position) {
-                                toast.error("Job Title is required");
-                              }
-                            }}
-                            className="px-3 py-1 text-sm font-medium text-white bg-blue-600 rounded-md shadow hover:bg-blue-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-                            disabled={
-                              loadingStates[`description_${index}`] ||
-                              !experience?.position
-                            }
-                          >
-                            {loadingStates[`description_${index}`]
-                              ? "Fixing..."
-                              : "Auto Fix"}
-                          </button> */}
+                          
                           <button
                             type="button" // Ensure it's NOT a submit button
                             onClick={(e) =>
@@ -1029,6 +1010,7 @@ const WorkExperience = () => {
                         : "+ Key Assist"}
                     </button>
                   </div>
+                  {console.log(experience?.KeyAchievements,"experience?.KeyAchievements")}
                   <textarea
                     placeholder="Key Achievements (one per line)"
                     name="KeyAchievements"
@@ -1037,7 +1019,7 @@ const WorkExperience = () => {
                         ? "border-red-500"
                         : "border-black"
                     }`}
-                    value={experience.KeyAchievements.join("\n")}
+                    value={experience?.KeyAchievements}
                     onChange={(e) => handleWorkExperience(e, index)}
                     rows={4}
                   />
@@ -1109,7 +1091,7 @@ const WorkExperience = () => {
         remove={removeWorkExperience}
       />
 
-      {showPopup && (
+      {/* {showPopup && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
           <div className="bg-white p-6 rounded-lg w-[90%] max-w-lg">
             <h3 className="text-xl font-bold mb-4">
@@ -1121,9 +1103,9 @@ const WorkExperience = () => {
               {(popupType === "description"
                 ? descriptions
                 : keyAchievements
-              ).map((item, index) => (
+              )?.map((item, index) => (
                 <div key={index} className="flex items-start gap-3">
-                  {/* Radio for description (Single Select) */}
+                  {/* Radio for description (Single Select) 
                   {popupType === "description" ? (
                     <input
                       type="radio"
@@ -1159,7 +1141,76 @@ const WorkExperience = () => {
             </button>
           </div>
         </div>
-      )}
+      )} */}
+
+      {showPopup && (
+  <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+    <div className="bg-white p-6 rounded-lg w-[90%] max-w-lg">
+      <h3 className="text-xl font-bold mb-4">
+        {popupType === "description"
+          ? "Select Description"
+          : "Select Key Achievements"}
+      </h3>
+      <div className="space-y-3 max-h-96 overflow-y-auto">
+        {(popupType === "description" ? descriptions : keyAchievements)?.length > 0 ? (
+          // Rendering the list items when data exists
+          (popupType === "description" ? descriptions : keyAchievements)?.map((item, index) => (
+            <div key={index} className="flex items-start gap-3">
+              {/* Radio for description (Single Select) */}
+              {popupType === "description" ? (
+                <input
+                  type="radio"
+                  name="description" // Ensures only one can be selected
+                  checked={selectedDescriptions.includes(item)}
+                  onChange={() => setSelectedDescriptions([item])} // Only one selection
+                  className="mt-1"
+                />
+              ) : (
+                // Checkbox for key achievements (Multi Select)
+                <input
+                  type="checkbox"
+                  checked={selectedKeyAchievements.includes(item)}
+                  onChange={() => handleSummarySelect(item)}
+                  className="mt-1"
+                />
+              )}
+              <p className="text-gray-800">{item}</p>
+            </div>
+          ))
+        ) : (
+          // Fallback message when no data is available
+          <div className="flex flex-col items-center justify-center py-4">
+            <p className="text-gray-500 text-center">
+              {popupType === "description" 
+                ? "No descriptions available. " 
+                : "No key achievements available."}
+            </p>
+          </div>
+        )}
+      </div>
+      <div className="flex justify-start mt-4 gap-2">
+      <button
+          onClick={(e) => handleSaveSelectedSummary(popupIndex, e)}
+          className={`px-4 py-2 rounded text-white transition-colors ${
+            (popupType === "description" ? descriptions : keyAchievements)?.length > 0 
+              ? "bg-gray-800 hover:bg-gray-700" 
+              : "bg-gray-400 cursor-not-allowed"
+          }`}
+          disabled={(popupType === "description" ? descriptions : keyAchievements)?.length === 0}
+        >
+          Save Selection
+        </button>
+        <button
+          onClick={() => setShowPopup(false)}
+          className="bg-gray-200 text-gray-800 px-4 py-2 rounded hover:bg-gray-300 transition-colors"
+        >
+          Cancel
+        </button>
+        
+      </div>
+    </div>
+  </div>
+)}
 
       {searchResults.length > 0 && (
         <div className="absolute z-50 top-full left-0 right-0 bg-white rounded-lg shadow-xl mt-2">

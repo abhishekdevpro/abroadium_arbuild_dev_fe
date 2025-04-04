@@ -530,7 +530,7 @@ export default function MobileBuilder() {
                 className="w-screen flex justify-start min-h-screen "
                 style={{ backgroundColor: "#323159f5" }}
               >
-                <main className="flex-1 w-full mx-auto md:p-4">
+                <main className="flex-1 h-full w-full mx-auto p-4 pb-10 mb-8 overflow-visible">
                   <form>{sections[currentSection].component}</form>
                 </main>
               </div>

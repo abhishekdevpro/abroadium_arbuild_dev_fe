@@ -1,7 +1,7 @@
 import { ResumeContext } from "../context/ResumeContext";
 import FormButton from "./FormButton";
 import React, { useContext, useState } from "react";
-import { AlertCircle, X, Loader2 } from "lucide-react";
+import { AlertCircle, X, Loader2, Trash2, Trash } from "lucide-react";
 import { useRouter } from "next/router";
 import { MdRemoveCircle } from "react-icons/md";
 
@@ -54,7 +54,7 @@ const Education = () => {
       );
       if (response.ok) {
         const data = await response.json();
-        setUniversitySuggestions(data.data.map((item) => item.name));
+        setUniversitySuggestions(data?.data?.map((item) => item.name));
         setShowUniversityDropdown(true);
       }
     } catch (error) {
@@ -254,12 +254,14 @@ const Education = () => {
   };
 
   return (
-    <div className="flex-col gap-3 w-full mt-10 px-10">
+    <div className="flex-col gap-3 w-full md:mt-10 md:px-10">
       <h2 className="input-title text-white text-3xl">Education</h2>
-      {resumeData.education.map((education, index) => (
+     {
+      resumeData.education && resumeData.education.length>0 ?
+      resumeData.education?.map((education, index) => (
         <div key={index} className="f-col">
           <div className="relative mb-4">
-            <div className="flex items-center justify-between mt-4">
+            <div className="flex items-center justify-between mt-4 pb-4">
               <h3 className="text-white text-xl font-semibold">
                 {`Education ${index + 1}`}
               </h3>
@@ -267,9 +269,9 @@ const Education = () => {
                 type="button"
                 onClick={() => removeEducation(index)}
                 aria-label="Remove"
-                className="p-2 text-white bg-red-700 rounded-lg text-xl mb-2"
+                className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition-colors"
               >
-                <MdRemoveCircle />
+                <Trash />
               </button>
             </div>
             <div className="relative">
@@ -541,7 +543,11 @@ const Education = () => {
             {renderTooltip(index, "location", "Location Suggestions")}
           </div>
         </div>
-      ))}
+      )):
+      <p className="text-white my-2">
+          No Education available. Add a new one to get started.
+        </p>
+     }
       <FormButton
         size={resumeData.education.length}
         add={addEducation}

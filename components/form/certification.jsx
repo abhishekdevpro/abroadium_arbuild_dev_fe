@@ -218,7 +218,7 @@ const Certification = () => {
   };
 
   return (
-    <div className="flex-col flex gap-3 w-full  mt-10 px-10">
+    <div className="flex-col flex gap-3 w-full  md:mt-10 md:px-10">
       <h2 className="input-title text-white  text-3xl">{title}</h2>
       {resumeData[skillType].map((skill, index) => (
         <div key={index} className="f-col justify-center">

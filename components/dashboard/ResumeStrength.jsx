@@ -337,7 +337,7 @@ const ResumeStrength = ({ score, strength, resumeId }) => {
         />
       </Modal>
 
-      <div className="bg-blue-50 p-6 rounded-lg mb-6">
+      <div className="bg-blue-50 p-2 md:p-6 rounded-lg mb-6">
         <div className="flex flex-col gap-2 md:flex-row  justify-between items-start mb-6">
           <div>
             <h2 className="text-xl font-semibold mb-1">Resume Strength</h2>

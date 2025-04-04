@@ -583,7 +583,7 @@ export default function WebBuilder() {
                   <select
                     value={selectedFont}
                     onChange={handleFontChange}
-                    className="w-40 h-10 rounded-lg border border-blue-800 px-4 font-bold text-blue-800 bg-white focus:ring-2 focus:ring-blue-800"
+                    className=" rounded-lg border-2 border-blue-800 px-5 py-2 font-bold bg-white text-blue-800"
                   >
                     <option value="Ubuntu">Ubuntu</option>
                     <option value="Calibri">Calibri</option>
