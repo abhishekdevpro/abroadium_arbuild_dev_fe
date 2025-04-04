@@ -179,9 +179,9 @@ const Sidebar = ({ score, resumeId }) => {
                 <span className="bg-teal-100 text-teal-800 px-2 py-1 rounded-full text-sm">
                   {score}
                 </span>
-                <button className="text-blue-600 hover:text-blue-700 text-sm">
+                {/* <button className="text-blue-600 hover:text-blue-700 text-sm">
                   Improve
-                </button>
+                </button> */}
               </div>
             </div>
           </div>

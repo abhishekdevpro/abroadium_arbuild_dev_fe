@@ -407,7 +407,7 @@ const Summary = () => {
   };
 
   return (
-    <div className="flex-col gap-3 w-full mt-10 px-10">
+    <div className="flex-col gap-3 w-full md:mt-10 md:px-10">
       <div className="flex flex-col gap-2">
         <div className="flex justify-between mb-2 items-center">
           <div className="flex items-center gap-2">
@@ -519,7 +519,7 @@ const Summary = () => {
           }}
         />
         <div className="text-sm text-gray-500 mt-1 text-right">
-          {resumeData.summary?.length || 0}/500
+          {/* {resumeData.summary?.length || 0}/500 */}
         </div>
       </div>
 

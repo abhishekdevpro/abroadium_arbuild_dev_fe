@@ -179,7 +179,9 @@ export default function FileUploadStep({ onNext, onBack, onChange, value }) {
       </div>
 
       <div className="flex items-center justify-center space-x-6">
-        <button className="flex items-center px-6 py-3 border rounded-lg hover:bg-gray-50 transition-colors">
+        <button 
+         disabled
+        className="flex items-center px-6 py-3 border rounded-lg hover:bg-gray-50 transition-colors">
           <Image src={drive} alt="Google Drive" className="w-6 h-6 mr-3" />
           <span className="font-medium">Google Drive</span>
         </button>

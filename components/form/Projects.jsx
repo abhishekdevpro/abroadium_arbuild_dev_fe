@@ -4,7 +4,7 @@ import { useContext, useState } from "react";
 import dynamic from "next/dynamic";
 import "react-quill/dist/quill.snow.css";
 import { ResumeContext } from "../context/ResumeContext";
-import { ChevronDown, ChevronUp, AlertCircle, X } from "lucide-react";
+import { ChevronDown, ChevronUp, AlertCircle, X, Trash } from "lucide-react";
 import axios from "axios";
 import FormButton from "./FormButton";
 import { useRouter } from "next/router";
@@ -81,7 +81,7 @@ const Projects = () => {
           title: "",
           link: "",
           description: "",
-          keyAchievements: "",
+          keyAchievements: [],
           startYear: "",
           startMonth: "",
           endYear: "",
@@ -112,9 +112,9 @@ const Projects = () => {
   };
 
   const handleAIAssistKey = async (index) => {
-    if(!resumeData.projects[index].name){
-      toast.warn("Project name is Required")
-      return
+    if (!resumeData.projects[index].name) {
+      toast.warn("Project name is Required");
+      return;
     }
     setLoadingStates((prev) => ({
       ...prev,
@@ -282,9 +282,9 @@ const Projects = () => {
   };
   const handleAIAssistDescription = async (projectIndex) => {
     // console.log(resumeData.projects[projectIndex].name,"llll");
-    if(!resumeData.projects[projectIndex].name){
-      toast.warn("Project name is Required")
-      return
+    if (!resumeData.projects[projectIndex].name) {
+      toast.warn("Project name is Required");
+      return;
     }
     setLoadingStates((prev) => ({
       ...prev,
@@ -325,10 +325,10 @@ const Projects = () => {
     }
   };
   return (
-    <div className="flex-col-gap-3 w-full mt-10 px-10">
+    <div className="flex-col-gap-3 w-full md:mt-10 md:px-10">
       <h2 className="input-title text-white text-3xl">Projects</h2>
       {resumeData.projects && resumeData.projects.length > 0 ? (
-        resumeData.projects.map((project, projectIndex) => (
+        resumeData.projects?.map((project, projectIndex) => (
           <div
             key={projectIndex}
             className="f-col mt-4 mb-4 border border-gray-300 bg-white rounded-lg p-4"
@@ -337,17 +337,27 @@ const Projects = () => {
               <h3 className="text-black text-xl font-semibold">
                 {project.name || `Project ${projectIndex + 1}`}
               </h3>
+              <div className="flex items-center gap-2">
               <button
-                onClick={(e) => toggleProjectExpansion(projectIndex, e)}
-                className="text-black"
-                type="button" // Explicitly set the button type
-              >
-                {expandedProjects.includes(projectIndex) ? (
-                  <ChevronUp />
-                ) : (
-                  <ChevronDown />
-                )}
-              </button>
+                  onClick={(e) => toggleProjectExpansion(projectIndex, e)}
+                  className="text-black"
+                  type="button" // Explicitly set the button type
+                >
+                  {expandedProjects.includes(projectIndex) ? (
+                    <ChevronUp />
+                  ) : (
+                    <ChevronDown />
+                  )}
+                </button>
+                <button
+                  onClick={() => removeProjects(projectIndex)}
+                  className="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded bg-red-500 text-white hover:bg-red-600 transition-colors md:ml-2"
+                  type="button"
+                >
+                  <Trash className="w-5 h-5" />
+                </button>
+                
+              </div>
             </div>
             {expandedProjects.includes(projectIndex) && (
               <>
@@ -694,7 +704,7 @@ const Projects = () => {
           </div>
         ))
       ) : (
-        <p className="text-white">
+        <p className="text-white my-2">
           No projects available. Add a new project to get started.
         </p>
       )}
@@ -706,69 +716,6 @@ const Projects = () => {
         add={addProjects}
         remove={removeProjects}
       />
-      {/* {showPopup && (
-      
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-white p-6 rounded-lg w-[90%] max-w-lg">
-            <h3 className="text-xl font-bold mb-4">
-              {popupType === "description"
-                ? "Select Description"
-                : "Select Key Achievements"}
-            </h3>
-            <div className="space-y-3 max-h-96 overflow-y-auto">
-              {(popupType === "description"
-                ? descriptions
-                : keyAchievements
-              ).map((item, index) => (
-                <div key={index} className="flex items-start gap-3">
-                    {popupType === "description" ? (
-                    <input
-                      type="radio"
-                      name="description" // Ensures only one can be selected
-                      checked={selectedDescriptions.includes(item)}
-                      onChange={() => setSelectedDescriptions([item])} // Only one selection
-                      className="mt-1"
-                    />
-                  ) : (
-                    // Checkbox for key achievements (Multi Select)
-                    <input
-                      type="checkbox"
-                      checked={selectedKeyAchievements.includes(item)}
-                      onChange={() => handleSummarySelect(item)}
-                      className="mt-1"
-                    />
-                  )}
-                  <input
-                    type="checkbox"
-                    checked={
-                      popupType === "description"
-                        ? selectedDescriptions.includes(item)
-                        : selectedKeyAchievements.includes(item)
-                    }
-                    onChange={() => handleSummarySelect(item)}
-                    className="mt-1"
-                  />
-                  <p className="text-gray-800">{item}</p>
-                </div>
-              ))}
-            </div>
-            <div className="flex gap-2 mt-4">
-              <button
-                onClick={(e) => handleSaveSelectedSummary(popupIndex, e)}
-                className="bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-600"
-              >
-                Save Selection
-              </button>
-              <button
-                onClick={() => setShowPopup(false)}
-                className="bg-gray-400 text-black px-4 py-2 rounded hover:bg-gray-300"
-              >
-                Close
-              </button>
-            </div>
-          </div>
-        </div>
-      )} */}
       {showPopup && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
           <div className="bg-white p-6 rounded-lg w-[90%] max-w-lg">
@@ -778,36 +725,58 @@ const Projects = () => {
                 : "Select Key Achievements"}
             </h3>
             <div className="space-y-3 max-h-96 overflow-y-auto">
-              {(popupType === "description"
-                ? descriptions
-                : keyAchievements
-              ).map((item, index) => (
-                <div key={index} className="flex items-start gap-3">
-                  {/* Radio for description (Single Select) */}
-                  {popupType === "description" ? (
-                    <input
-                      type="radio"
-                      name="description" // Ensures only one can be selected
-                      checked={selectedDescriptions.includes(item)}
-                      onChange={() => setSelectedDescriptions([item])} // Only one selection
-                      className="mt-1"
-                    />
-                  ) : (
-                    // Checkbox for key achievements (Multi Select)
-                    <input
-                      type="checkbox"
-                      checked={selectedKeyAchievements.includes(item)}
-                      onChange={() => handleSummarySelect(item)}
-                      className="mt-1"
-                    />
-                  )}
-                  <p className="text-gray-800">{item}</p>
+              {(popupType === "description" ? descriptions : keyAchievements)
+                ?.length > 0 ? (
+                // Rendering the list items when data exists
+                (popupType === "description"
+                  ? descriptions
+                  : keyAchievements
+                )?.map((item, index) => (
+                  <div key={index} className="flex items-start gap-3">
+                    {/* Radio for description (Single Select) */}
+                    {popupType === "description" ? (
+                      <input
+                        type="radio"
+                        name="description" // Ensures only one can be selected
+                        checked={selectedDescriptions.includes(item)}
+                        onChange={() => setSelectedDescriptions([item])} // Only one selection
+                        className="mt-1"
+                      />
+                    ) : (
+                      // Checkbox for key achievements (Multi Select)
+                      <input
+                        type="checkbox"
+                        checked={selectedKeyAchievements.includes(item)}
+                        onChange={() => handleSummarySelect(item)}
+                        className="mt-1"
+                      />
+                    )}
+                    <p className="text-gray-800">{item}</p>
+                  </div>
+                ))
+              ) : (
+                // Fallback message when no data is available
+                <div className="text-center py-2">
+                  <p className="text-gray-500">
+                    {popupType === "description"
+                      ? "No descriptions available. "
+                      : "No key achievements available. "}
+                  </p>
                 </div>
-              ))}
+              )}
             </div>
             <button
               onClick={(e) => handleSaveSelectedSummary(popupIndex, e)}
-              className="mt-4 bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-600"
+              className={`mt-4 px-4 py-2 rounded text-white ${
+                (popupType === "description" ? descriptions : keyAchievements)
+                  ?.length > 0
+                  ? "bg-gray-800 hover:bg-gray-600"
+                  : "bg-gray-400 cursor-not-allowed"
+              }`}
+              disabled={
+                (popupType === "description" ? descriptions : keyAchievements)
+                  ?.length === 0
+              }
             >
               Save Selection
             </button>

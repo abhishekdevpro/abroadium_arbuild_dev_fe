@@ -34,7 +34,11 @@ export default function App({ Component, pageProps }) {
   const isExcluded = 
     excludedRoutes.includes(router.pathname) ||
     dynamicExcludedPatterns.some(pattern => pattern.test(router.asPath));
-
+    if (process.env.NODE_ENV === "production") {
+      console.log = () => {}; 
+      console.error = () => {}; 
+      console.warn = () => {}; 
+    }
   return (
     <>
       {!isExcluded && (
