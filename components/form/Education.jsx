@@ -1025,7 +1025,7 @@ const Education = () => {
             )}
           </div>
 
-          <div className="">
+          {/* <div className="">
             <label className="text-white">Start Date</label>
             <div className="flex-wrap-gap-2">
               <select
@@ -1060,6 +1060,48 @@ const Education = () => {
                   </option>
                 ))}
               </select>
+              {improve && hasErrors(index, "startYear") && (
+      <>
+        <button
+          type="button"
+          className="absolute right-2 top-2 text-red-500"
+          onClick={() =>
+            setActiveTooltip(
+              activeTooltip === `startYear-${index}` ? null : `startYear-${index}`
+            )
+          }
+        >
+          <AlertCircle className="w-5 h-5" />
+        </button>
+
+        {activeTooltip === `startYear-${index}` && (
+          <div className="absolute right-0 mt-12 w-80 bg-white rounded-lg shadow-xl border border-gray-700 z-50">
+            <div className="p-4 border-b border-gray-700">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-2">
+                  <AlertCircle className="w-5 h-5 text-red-400" />
+                  <span className="font-medium text-black">Start Date Issues</span>
+                </div>
+                <button
+                  onClick={() => setActiveTooltip(null)}
+                  className="text-black transition-colors"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+            <div className="p-4">
+              {getErrorMessages(index, "startYear").map((msg, i) => (
+                <div key={i} className="flex items-start space-x-3 mb-3 last:mb-0">
+                  <div className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-red-400 mt-2"></div>
+                  <p className="text-black text-sm">{msg}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </>
+    )}
             </div>
 
             <label className="text-white">End Date</label>
@@ -1107,8 +1149,224 @@ const Education = () => {
                 />
                 Present
               </label>
+              {improve && hasErrors(index, "endYear") && (
+      <>
+        <button
+          type="button"
+          className="absolute right-2 top-2 text-red-500"
+          onClick={() =>
+            setActiveTooltip(
+              activeTooltip === `endYear-${index}` ? null : `endYear-${index}`
+            )
+          }
+        >
+          <AlertCircle className="w-5 h-5" />
+        </button>
+
+        {activeTooltip === `endYear-${index}` && (
+          <div className="absolute right-0 mt-12 w-80 bg-white rounded-lg shadow-xl border border-gray-700 z-50">
+            <div className="p-4 border-b border-gray-700">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-2">
+                  <AlertCircle className="w-5 h-5 text-red-400" />
+                  <span className="font-medium text-black">End Date Issues</span>
+                </div>
+                <button
+                  onClick={() => setActiveTooltip(null)}
+                  className="text-black transition-colors"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+            <div className="p-4">
+              {getErrorMessages(index, "endYear").map((msg, i) => (
+                <div key={i} className="flex items-start space-x-3 mb-3 last:mb-0">
+                  <div className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-red-400 mt-2"></div>
+                  <p className="text-black text-sm">{msg}</p>
+                </div>
+              ))}
             </div>
           </div>
+        )}
+      </>
+    )}
+            </div>
+          </div> */}
+
+<div className="relative">
+  {/* Start Date */}
+  <label className="text-white">Start Date</label>
+  <div className="flex flex-wrap gap-2 relative">
+    <select
+      className={`border other-input flex-1 ${
+        improve && hasErrors(index, "startYear")
+          ? "border-red-500"
+          : "border-black"
+      }`}
+      value={getDatePart(education.startYear, "month")}
+      onChange={(e) => handleMonthChange(e, index, "startYear")}
+    >
+      <option value="">Month</option>
+      {months.map((month, idx) => (
+        <option key={idx} value={month}>
+          {month}
+        </option>
+      ))}
+    </select>
+    <select
+      className={`border other-input flex-1 ${
+        improve && hasErrors(index, "startYear")
+          ? "border-red-500"
+          : "border-black"
+      }`}
+      value={getDatePart(education.startYear, "year")}
+      onChange={(e) => handleYearChange(e, index, "startYear")}
+    >
+      <option value="">Year</option>
+      {years.map((year, idx) => (
+        <option key={idx} value={year}>
+          {year}
+        </option>
+      ))}
+    </select>
+
+    {improve && hasErrors(index, "startYear") && (
+      <>
+        <button
+          type="button"
+          className="absolute -right-8 top-1 text-red-500"
+          onClick={() =>
+            setActiveTooltip(
+              activeTooltip === `startYear-${index}` ? null : `startYear-${index}`
+            )
+          }
+        >
+          <AlertCircle className="w-5 h-5" />
+        </button>
+
+        {activeTooltip === `startYear-${index}` && (
+          <div className="absolute right-0 top-14 w-80 bg-white rounded-lg shadow-xl border border-gray-700 z-50">
+            <div className="p-4 border-b border-gray-700">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-2">
+                  <AlertCircle className="w-5 h-5 text-red-400" />
+                  <span className="font-medium text-black">Start Date Issues</span>
+                </div>
+                <button
+                  onClick={() => setActiveTooltip(null)}
+                  className="text-black transition-colors"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+            <div className="p-4">
+              {getErrorMessage(index, "startYear").map((msg, i) => (
+                <div key={i} className="flex items-start space-x-3 mb-3 last:mb-0">
+                  <div className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-red-400 mt-2" />
+                  <p className="text-black text-sm">{msg}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </>
+    )}
+  </div>
+
+  {/* End Date */}
+  <label className="mt-4 block text-white">End Date</label>
+  <div className="flex flex-wrap gap-2 relative">
+    <select
+      className={`border other-input flex-1 ${
+        improve && hasErrors(index, "endYear")
+          ? "border-red-500"
+          : "border-black"
+      }`}
+      value={getDatePart(education.endYear, "month")}
+      onChange={(e) => handleMonthChange(e, index, "endYear")}
+      disabled={education.endYear === "Present"}
+    >
+      <option value="">Month</option>
+      {months.map((month, idx) => (
+        <option key={idx} value={month}>
+          {month}
+        </option>
+      ))}
+    </select>
+    <select
+      className={`border other-input flex-1 ${
+        improve && hasErrors(index, "endYear")
+          ? "border-red-500"
+          : "border-black"
+      }`}
+      value={getDatePart(education.endYear, "year")}
+      onChange={(e) => handleYearChange(e, index, "endYear")}
+      disabled={education.endYear === "Present"}
+    >
+      <option value="">Year</option>
+      {years.map((year, idx) => (
+        <option key={idx} value={year}>
+          {year}
+        </option>
+      ))}
+    </select>
+    <label className="flex flex-1 items-center gap-1 other-input text-xl">
+      <input
+        type="checkbox"
+        checked={education.endYear === "Present"}
+        onChange={() => handlePresentToggle(index)}
+        className="w-6 h-6"
+      />
+      Present
+    </label>
+
+    {improve && hasErrors(index, "endYear") && (
+      <>
+        <button
+          type="button"
+          className="absolute -right-8 top-1 text-red-500"
+          onClick={() =>
+            setActiveTooltip(
+              activeTooltip === `endYear-${index}` ? null : `endYear-${index}`
+            )
+          }
+        >
+          <AlertCircle className="w-5 h-5" />
+        </button>
+
+        {activeTooltip === `endYear-${index}` && (
+          <div className="absolute right-0 top-14 w-80 bg-white rounded-lg shadow-xl border border-gray-700 z-50">
+            <div className="p-4 border-b border-gray-700">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-2">
+                  <AlertCircle className="w-5 h-5 text-red-400" />
+                  <span className="font-medium text-black">End Date Issues</span>
+                </div>
+                <button
+                  onClick={() => setActiveTooltip(null)}
+                  className="text-black transition-colors"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+            <div className="p-4">
+              {getErrorMessage(index, "endYear")?.map((msg, i) => (
+                <div key={i} className="flex items-start space-x-3 mb-3 last:mb-0">
+                  <div className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-red-400 mt-2" />
+                  <p className="text-black text-sm">{msg}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </>
+    )}
+  </div>
+</div>
+
 
           <div className="relative">
             <label className="mt-2 text-white">Location</label>
