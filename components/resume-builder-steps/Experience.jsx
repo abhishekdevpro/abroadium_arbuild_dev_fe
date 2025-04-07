@@ -41,15 +41,16 @@
 // }
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import { SaveLoader } from "../ResumeLoader/SaveLoader";
+import { ResumeContext } from "../context/ResumeContext";
 
 const ExperienceStep = ({ onNext, onBack, onChange, value }) => {
   const router = useRouter();
-  const [resumeData, setResumeData] = useState(null);
+  const {resumeData, setResumeData} = useContext(ResumeContext)
   const [loading, setLoading] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
