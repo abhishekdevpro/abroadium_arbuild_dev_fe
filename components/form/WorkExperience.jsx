@@ -748,7 +748,7 @@ const WorkExperience = () => {
                             : "border-black"
                         }`}
                         value={
-                          (experience.startYear || "Jan,2024").split(",")[0]
+                          (experience.startYear).split(",")[0]
                         }
                         onChange={(e) =>
                           handleMonthChange(e, index, "startYear")
@@ -769,7 +769,7 @@ const WorkExperience = () => {
                             : "border-black"
                         }`}
                         value={
-                          (experience.startYear || "Jan,2024").split(",")[1]
+                          (experience.startYear).split(",")[1]
                         }
                         onChange={(e) =>
                           handleYearChange(e, index, "startYear")
@@ -845,7 +845,7 @@ const WorkExperience = () => {
                         value={
                           experience.endYear === "Present"
                             ? ""
-                            : (experience.endYear || "Dec,2024").split(",")[0]
+                            : (experience.endYear).split(",")[0]
                         }
                         onChange={(e) => handleMonthChange(e, index, "endYear")}
                         disabled={experience.endYear === "Present"}
@@ -867,7 +867,7 @@ const WorkExperience = () => {
                         value={
                           experience.endYear === "Present"
                             ? ""
-                            : (experience.endYear || "Dec,2024").split(",")[1]
+                            : (experience.endYear).split(",")[1]
                         }
                         onChange={(e) => handleYearChange(e, index, "endYear")}
                         disabled={experience.endYear === "Present"}
