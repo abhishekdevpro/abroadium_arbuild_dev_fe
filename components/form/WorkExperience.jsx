@@ -1,7 +1,14 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
 import { ResumeContext } from "../context/ResumeContext";
 import FormButton from "./FormButton";
-import { AlertCircle, X, ChevronDown, ChevronUp, Trash2, Trash } from "lucide-react";
+import {
+  AlertCircle,
+  X,
+  ChevronDown,
+  ChevronUp,
+  Trash2,
+  Trash,
+} from "lucide-react";
 import axios from "axios";
 import dynamic from "next/dynamic";
 import "react-quill/dist/quill.snow.css";
@@ -217,6 +224,8 @@ const WorkExperience = () => {
           company_name: resumeData.workExperience[index].company,
           job_title: resumeData.workExperience[index].position,
           location: resumeData.workExperience[index].location,
+          start_date:resumeData.workExperience[index].startYear,
+          end_date:resumeData.workExperience[index].endYear,
         },
         {
           headers: {
@@ -260,6 +269,8 @@ const WorkExperience = () => {
           company_name: resumeData.workExperience[index].company,
           job_title: resumeData.workExperience[index].position,
           location: resumeData.workExperience[index].location,
+          start_date:resumeData.workExperience[index].startYear,
+          end_date:resumeData.workExperience[index].endYear,
         },
         {
           headers: {
@@ -541,19 +552,18 @@ const WorkExperience = () => {
                   `Work Experience ${index + 1}`}
               </h3>
               <div className="flex items-center gap-2">
-              {expandedExperiences[index] ? (
+                {expandedExperiences[index] ? (
                   <ChevronUp className="w-6 h-6 text-black" />
                 ) : (
                   <ChevronDown className="w-6 h-6 text-black" />
                 )}
-              <button
+                <button
                   onClick={() => removeWork(index)}
                   className="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded bg-red-500 text-white hover:bg-red-600 transition-colors md:ml-2"
                   type="button"
                 >
-                 <Trash className="w-5 h-5" />
+                  <Trash className="w-5 h-5" />
                 </button>
-                
               </div>
             </div>
 
@@ -713,7 +723,7 @@ const WorkExperience = () => {
                   )}
                 </div>
 
-                <div className="">
+                {/* <div className="">
                   <label className="text-black">Start Date</label>
                   <div className="flex-wrap-gap-2">
                     <select
@@ -746,6 +756,46 @@ const WorkExperience = () => {
                         </option>
                       ))}
                     </select>
+                    {improve && hasErrors(index, "startYear") && (
+      <button
+        type="button"
+        className="absolute right-2 top-1/2 translate-y-[-50%] text-red-500 hover:text-red-600 transition-colors"
+        onClick={() =>
+          setActiveTooltip(
+            activeTooltip === `startYear-${index}` ? null : `startYear-${index}`
+          )
+        }
+      >
+        <AlertCircle className="w-5 h-5" />
+      </button>
+    )}
+
+    {activeTooltip === `startYear-${index}` && (
+      <div className="absolute z-50 right-0 mt-2 w-80 bg-white rounded-lg shadow-xl transform transition-all duration-200 ease-in-out border border-gray-700">
+        <div className="p-4 border-b border-gray-700">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-2">
+              <AlertCircle className="w-5 h-5 text-red-400" />
+              <span className="font-medium text-black">Start Date Issue</span>
+            </div>
+            <button
+              onClick={() => setActiveTooltip(null)}
+              className="text-black transition-colors"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+        </div>
+        <div className="p-4">
+          {getErrorMessages(index, "startYear").map((msg, i) => (
+            <div key={i} className="flex items-start space-x-3 mb-3 last:mb-0">
+              <div className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-red-400 mt-2"></div>
+              <p className="text-black text-sm">{msg}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
                   </div>
 
                   <label className="text-black">End Date</label>
@@ -799,8 +849,251 @@ const WorkExperience = () => {
                       />
                       Present
                     </label>
+                    {improve && hasErrors(index, "endYear") && (
+      <button
+        type="button"
+        className="absolute right-2 top-1/2 translate-y-[-50%] text-red-500 hover:text-red-600 transition-colors"
+        onClick={() =>
+          setActiveTooltip(
+            activeTooltip === `endYear-${index}` ? null : `endYear-${index}`
+          )
+        }
+      >
+        <AlertCircle className="w-5 h-5" />
+      </button>
+    )}
+
+    {activeTooltip === `endYear-${index}` && (
+      <div className="absolute z-50 right-0 mt-2 w-80 bg-white rounded-lg shadow-xl transform transition-all duration-200 ease-in-out border border-gray-700">
+        <div className="p-4 border-b border-gray-700">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-2">
+              <AlertCircle className="w-5 h-5 text-red-400" />
+              <span className="font-medium text-black">End Date Issue</span>
+            </div>
+            <button
+              onClick={() => setActiveTooltip(null)}
+              className="text-black transition-colors"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+        </div>
+        <div className="p-4">
+          {getErrorMessages(index, "endYear").map((msg, i) => (
+            <div key={i} className="flex items-start space-x-3 mb-3 last:mb-0">
+              <div className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-red-400 mt-2"></div>
+              <p className="text-black text-sm">{msg}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
+                  </div>
+                </div> */}
+                <div className="space-y-6">
+                  {/* Start Date */}
+                  <div className="relative">
+                    <label className="text-black">Start Date</label>
+                    <div className="flex flex-wrap gap-2">
+                      {/* Month */}
+                      <select
+                        className={`other-input border flex-1 ${
+                          improve && hasErrors(index, "startYear")
+                            ? "border-red-500"
+                            : "border-black"
+                        }`}
+                        value={
+                          (experience.startYear || "Jan,2024").split(",")[0]
+                        }
+                        onChange={(e) =>
+                          handleMonthChange(e, index, "startYear")
+                        }
+                      >
+                        {months.map((month, idx) => (
+                          <option key={idx} value={month}>
+                            {month}
+                          </option>
+                        ))}
+                      </select>
+
+                      {/* Year */}
+                      <select
+                        className={`other-input border flex-1 ${
+                          improve && hasErrors(index, "startYear")
+                            ? "border-red-500"
+                            : "border-black"
+                        }`}
+                        value={
+                          (experience.startYear || "Jan,2024").split(",")[1]
+                        }
+                        onChange={(e) =>
+                          handleYearChange(e, index, "startYear")
+                        }
+                      >
+                        {years.map((year, idx) => (
+                          <option key={idx} value={year}>
+                            {year}
+                          </option>
+                        ))}
+                      </select>
+
+                      {/* Tooltip Icon */}
+                      {improve && hasErrors(index, "startYear") && (
+                        <button
+                          type="button"
+                          className="absolute right-2 top-10 text-red-500 hover:text-red-600 transition-colors"
+                          onClick={() =>
+                            setActiveTooltip(
+                              activeTooltip === `startYear-${index}`
+                                ? null
+                                : `startYear-${index}`
+                            )
+                          }
+                        >
+                          <AlertCircle className="w-5 h-5" />
+                        </button>
+                      )}
+                    </div>
+
+                    {/* Tooltip Message */}
+                    {activeTooltip === `startYear-${index}` && (
+                      <div className="absolute z-50 right-0 mt-2 w-80 bg-white rounded-lg shadow-xl transition-all border border-gray-700">
+                        <div className="p-4 border-b border-gray-700 flex items-center justify-between">
+                          <div className="flex items-center space-x-2">
+                            <AlertCircle className="w-5 h-5 text-red-400" />
+                            <span className="font-medium text-black">
+                              Start Date Issue
+                            </span>
+                          </div>
+                          <button onClick={() => setActiveTooltip(null)}>
+                            <X className="w-5 h-5 text-black" />
+                          </button>
+                        </div>
+                        <div className="p-4">
+                          {getErrorMessages(index, "startYear").map(
+                            (msg, i) => (
+                              <div
+                                key={i}
+                                className="flex items-start space-x-3 mb-3 last:mb-0"
+                              >
+                                <div className="w-1.5 h-1.5 rounded-full bg-red-400 mt-2" />
+                                <p className="text-black text-sm">{msg}</p>
+                              </div>
+                            )
+                          )}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* End Date */}
+                  <div className="relative">
+                    <label className="text-black">End Date</label>
+                    <div className="flex flex-wrap gap-2 items-center">
+                      {/* Month */}
+                      <select
+                        className={`other-input border flex-1 ${
+                          improve && hasErrors(index, "endYear")
+                            ? "border-red-500"
+                            : "border-black"
+                        }`}
+                        value={
+                          experience.endYear === "Present"
+                            ? ""
+                            : (experience.endYear || "Dec,2024").split(",")[0]
+                        }
+                        onChange={(e) => handleMonthChange(e, index, "endYear")}
+                        disabled={experience.endYear === "Present"}
+                      >
+                        {months.map((month, idx) => (
+                          <option key={idx} value={month}>
+                            {month}
+                          </option>
+                        ))}
+                      </select>
+
+                      {/* Year */}
+                      <select
+                        className={`other-input border flex-1 ${
+                          improve && hasErrors(index, "endYear")
+                            ? "border-red-500"
+                            : "border-black"
+                        }`}
+                        value={
+                          experience.endYear === "Present"
+                            ? ""
+                            : (experience.endYear || "Dec,2024").split(",")[1]
+                        }
+                        onChange={(e) => handleYearChange(e, index, "endYear")}
+                        disabled={experience.endYear === "Present"}
+                      >
+                        {years.map((year, idx) => (
+                          <option key={idx} value={year}>
+                            {year}
+                          </option>
+                        ))}
+                      </select>
+
+                      {/* Present Checkbox */}
+                      <label className="flex items-center gap-1 text-xl flex-1 other-input">
+                        <input
+                          type="checkbox"
+                          checked={experience.endYear === "Present"}
+                          onChange={() => handlePresentToggle(index)}
+                          className="w-6 h-6"
+                        />
+                        Present
+                      </label>
+
+                      {/* Tooltip Icon */}
+                      {improve && hasErrors(index, "endYear") && (
+                        <button
+                          type="button"
+                          className="absolute right-2 top-10 text-red-500 hover:text-red-600 transition-colors"
+                          onClick={() =>
+                            setActiveTooltip(
+                              activeTooltip === `endYear-${index}`
+                                ? null
+                                : `endYear-${index}`
+                            )
+                          }
+                        >
+                          <AlertCircle className="w-5 h-5" />
+                        </button>
+                      )}
+                    </div>
+
+                    {/* Tooltip Message */}
+                    {activeTooltip === `endYear-${index}` && (
+                      <div className="absolute z-50 right-0 mt-2 w-80 bg-white rounded-lg shadow-xl transition-all border border-gray-700">
+                        <div className="p-4 border-b border-gray-700 flex items-center justify-between">
+                          <div className="flex items-center space-x-2">
+                            <AlertCircle className="w-5 h-5 text-red-400" />
+                            <span className="font-medium text-black">
+                              End Date Issue
+                            </span>
+                          </div>
+                          <button onClick={() => setActiveTooltip(null)}>
+                            <X className="w-5 h-5 text-black" />
+                          </button>
+                        </div>
+                        <div className="p-4">
+                          {getErrorMessages(index, "endYear").map((msg, i) => (
+                            <div
+                              key={i}
+                              className="flex items-start space-x-3 mb-3 last:mb-0"
+                            >
+                              <div className="w-1.5 h-1.5 rounded-full bg-red-400 mt-2" />
+                              <p className="text-black text-sm">{msg}</p>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
+
                 <div className="relative mb-4">
                   <label className="mt-2 text-black">Location</label>
                   <input
@@ -942,7 +1235,6 @@ const WorkExperience = () => {
                             </span>
                           </div>
 
-                          
                           <button
                             type="button" // Ensure it's NOT a submit button
                             onClick={(e) =>
@@ -1010,7 +1302,10 @@ const WorkExperience = () => {
                         : "+ Key Assist"}
                     </button>
                   </div>
-                  {console.log(experience?.KeyAchievements,"experience?.KeyAchievements")}
+                  {console.log(
+                    experience?.KeyAchievements,
+                    "experience?.KeyAchievements"
+                  )}
                   <textarea
                     placeholder="Key Achievements (one per line)"
                     name="KeyAchievements"
@@ -1144,73 +1439,80 @@ const WorkExperience = () => {
       )} */}
 
       {showPopup && (
-  <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-    <div className="bg-white p-6 rounded-lg w-[90%] max-w-lg">
-      <h3 className="text-xl font-bold mb-4">
-        {popupType === "description"
-          ? "Select Description"
-          : "Select Key Achievements"}
-      </h3>
-      <div className="space-y-3 max-h-96 overflow-y-auto">
-        {(popupType === "description" ? descriptions : keyAchievements)?.length > 0 ? (
-          // Rendering the list items when data exists
-          (popupType === "description" ? descriptions : keyAchievements)?.map((item, index) => (
-            <div key={index} className="flex items-start gap-3">
-              {/* Radio for description (Single Select) */}
-              {popupType === "description" ? (
-                <input
-                  type="radio"
-                  name="description" // Ensures only one can be selected
-                  checked={selectedDescriptions.includes(item)}
-                  onChange={() => setSelectedDescriptions([item])} // Only one selection
-                  className="mt-1"
-                />
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+          <div className="bg-white p-6 rounded-lg w-[90%] max-w-lg">
+            <h3 className="text-xl font-bold mb-4">
+              {popupType === "description"
+                ? "Select Description"
+                : "Select Key Achievements"}
+            </h3>
+            <div className="space-y-3 max-h-96 overflow-y-auto">
+              {(popupType === "description" ? descriptions : keyAchievements)
+                ?.length > 0 ? (
+                // Rendering the list items when data exists
+                (popupType === "description"
+                  ? descriptions
+                  : keyAchievements
+                )?.map((item, index) => (
+                  <div key={index} className="flex items-start gap-3">
+                    {/* Radio for description (Single Select) */}
+                    {popupType === "description" ? (
+                      <input
+                        type="radio"
+                        name="description" // Ensures only one can be selected
+                        checked={selectedDescriptions.includes(item)}
+                        onChange={() => setSelectedDescriptions([item])} // Only one selection
+                        className="mt-1"
+                      />
+                    ) : (
+                      // Checkbox for key achievements (Multi Select)
+                      <input
+                        type="checkbox"
+                        checked={selectedKeyAchievements.includes(item)}
+                        onChange={() => handleSummarySelect(item)}
+                        className="mt-1"
+                      />
+                    )}
+                    <p className="text-gray-800">{item}</p>
+                  </div>
+                ))
               ) : (
-                // Checkbox for key achievements (Multi Select)
-                <input
-                  type="checkbox"
-                  checked={selectedKeyAchievements.includes(item)}
-                  onChange={() => handleSummarySelect(item)}
-                  className="mt-1"
-                />
+                // Fallback message when no data is available
+                <div className="flex flex-col items-center justify-center py-4">
+                  <p className="text-gray-500 text-center">
+                    {popupType === "description"
+                      ? "No descriptions available. "
+                      : "No key achievements available."}
+                  </p>
+                </div>
               )}
-              <p className="text-gray-800">{item}</p>
             </div>
-          ))
-        ) : (
-          // Fallback message when no data is available
-          <div className="flex flex-col items-center justify-center py-4">
-            <p className="text-gray-500 text-center">
-              {popupType === "description" 
-                ? "No descriptions available. " 
-                : "No key achievements available."}
-            </p>
+            <div className="flex justify-start mt-4 gap-2">
+              <button
+                onClick={(e) => handleSaveSelectedSummary(popupIndex, e)}
+                className={`px-4 py-2 rounded text-white transition-colors ${
+                  (popupType === "description" ? descriptions : keyAchievements)
+                    ?.length > 0
+                    ? "bg-gray-800 hover:bg-gray-700"
+                    : "bg-gray-400 cursor-not-allowed"
+                }`}
+                disabled={
+                  (popupType === "description" ? descriptions : keyAchievements)
+                    ?.length === 0
+                }
+              >
+                Save Selection
+              </button>
+              <button
+                onClick={() => setShowPopup(false)}
+                className="bg-gray-200 text-gray-800 px-4 py-2 rounded hover:bg-gray-300 transition-colors"
+              >
+                Cancel
+              </button>
+            </div>
           </div>
-        )}
-      </div>
-      <div className="flex justify-start mt-4 gap-2">
-      <button
-          onClick={(e) => handleSaveSelectedSummary(popupIndex, e)}
-          className={`px-4 py-2 rounded text-white transition-colors ${
-            (popupType === "description" ? descriptions : keyAchievements)?.length > 0 
-              ? "bg-gray-800 hover:bg-gray-700" 
-              : "bg-gray-400 cursor-not-allowed"
-          }`}
-          disabled={(popupType === "description" ? descriptions : keyAchievements)?.length === 0}
-        >
-          Save Selection
-        </button>
-        <button
-          onClick={() => setShowPopup(false)}
-          className="bg-gray-200 text-gray-800 px-4 py-2 rounded hover:bg-gray-300 transition-colors"
-        >
-          Cancel
-        </button>
-        
-      </div>
-    </div>
-  </div>
-)}
+        </div>
+      )}
 
       {searchResults.length > 0 && (
         <div className="absolute z-50 top-full left-0 right-0 bg-white rounded-lg shadow-xl mt-2">

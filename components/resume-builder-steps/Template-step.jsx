@@ -479,7 +479,7 @@ const TemplateStep = ({ onNext, onBack, onChange, value }) => {
           </div>
 
           <div className="lg:col-span-3">
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 max-h-[500px] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
               {filteredTemplates.map((template) => (
                 <button
                   key={template.key}
@@ -493,19 +493,19 @@ const TemplateStep = ({ onNext, onBack, onChange, value }) => {
                         src={template.imageUrl}
                         alt={template.name}
                         layout="fill"
-                        objectFit="cover"
+                        objectFit="contain"
                         className="transition-transform duration-300 group-hover:scale-105"
                         priority={templates.indexOf(template) < 6}
                       />
                     </div>
-                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
+                    {/* <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
                       <p className="text-white font-medium text-lg">
-                        {/* {template.key} */}
+                        {template.key} 
                       </p>
-                      {/* <p className="text-white/80 text-sm">
+                       <p className="text-white/80 text-sm">
                         {template.hasPhoto ? 'Supports profile photo' : 'No profile photo'}
-                      </p> */}
-                    </div>
+                      </p> 
+                    </div> */}
                   </div>
                 </button>
               ))}

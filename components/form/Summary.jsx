@@ -268,7 +268,7 @@ const Summary = () => {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [isAutoFixLoading, setIsAutoFixLoading] = useState(false);
   const router = useRouter();
-  const { improve } = router.query;
+  const { id,improve } = router.query;
   // console.log(resumeStrength.personal_summery_strenght.summery, ">>>>");
   const hasErrors = () => {
     return (
@@ -276,7 +276,7 @@ const Summary = () => {
       resumeStrength?.personal_summery_strenght?.summery !== null
     );
   };
-
+// console.log(id,"dddd");
   const getSuggestions = () => {
     const suggestions = [];
     if (resumeStrength?.personal_summery_strenght?.suggestions) {
@@ -345,7 +345,6 @@ const Summary = () => {
       setIsAutoFixLoading(false);
     }
   };
-
   const handleAIAssist = async () => {
     setLoading(true);
     setError(null);
@@ -354,7 +353,7 @@ const Summary = () => {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.post(
-        "https://api.abroadium.com/api/jobseeker/ai-resume-summery-data",
+        `https://api.abroadium.com/api/jobseeker/ai-resume-summery-data/${id}`,
         {
           key: "resumesummery",
           keyword: `professional summary in manner of description - ${Date.now()}`,
@@ -425,7 +424,7 @@ const Summary = () => {
           </div>
           <button
             type="button"
-            className={`border px-4 py-2 rounded-3xl transition-colors ${
+            className={` bg-black text-white px-3 py-2 rounded-lg ${
               loading
                 ? "bg-gray-400 text-white cursor-not-allowed"
                 : "bg-black text-white hover:bg-gray-800"
