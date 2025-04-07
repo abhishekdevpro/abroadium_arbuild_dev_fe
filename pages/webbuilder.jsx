@@ -414,9 +414,9 @@ export default function WebBuilder() {
             company: exp.company || "",
             position: exp.position || "",
             description: exp.description || "",
-            KeyAchievements: Array.isArray(exp.KeyAchievements)
-              ? exp.KeyAchievements
-              : [exp.KeyAchievements || ""],
+            keyAchievements: Array.isArray(exp.keyAchievements)
+              ? exp.keyAchievements
+              : [exp.keyAchievements],
             startYear: exp.startYear || "",
             endYear: exp.endYear || "",
             location: exp.location,
