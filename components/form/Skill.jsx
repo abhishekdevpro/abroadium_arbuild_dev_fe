@@ -50,7 +50,7 @@ const Skill = ({ title, currentSkillIndex }) => {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.get(
-        `https://api.resumeintellect.com/api/user/skills-names?skill_keyword=${encodeURIComponent(
+        `https://api.abroadium.com/api/jobseeker/skills-names?skill_keyword=${encodeURIComponent(
           query
         )}`,
         {
@@ -249,7 +249,7 @@ const Skill = ({ title, currentSkillIndex }) => {
       }
 
       const response = await axios.post(
-        "https://api.resumeintellect.com/api/user/ai-skills-data",
+        "https://api.abroadium.com/api/jobseeker/ai-skills-data",
         {
           key: "skills",
           keyword: title,

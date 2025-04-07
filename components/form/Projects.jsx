@@ -28,18 +28,18 @@ const Projects = () => {
 
   const token = localStorage.getItem("token");
   const months = [
-    "January",
-    "February",
-    "March",
-    "April",
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
     "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
   ];
   const years = Array.from({ length: 40 }, (_, index) => 2000 + index);
   const router = useRouter();
@@ -134,6 +134,9 @@ const Projects = () => {
           company_name: resumeData.projects[index].name || "N/A",
           job_title: resumeData.projects[index].po || "Project",
           link: resumeData.projects[index].link || "N/A",
+          start_date:resumeData.projects[projectIndex].startYear,
+          end_date:resumeData.projects[projectIndex].endYear,
+
         },
         {
           headers: {
@@ -303,6 +306,8 @@ const Projects = () => {
           company_name: resumeData.projects[projectIndex].name || "N/A",
           job_title: resumeData?.position || "Project",
           link: resumeData.projects[projectIndex].link || "N/A",
+          start_date:resumeData.projects[projectIndex].startYear,
+          end_date:resumeData.projects[projectIndex].endYear,
         },
         {
           headers: {
@@ -338,7 +343,7 @@ const Projects = () => {
                 {project.name || `Project ${projectIndex + 1}`}
               </h3>
               <div className="flex items-center gap-2">
-              <button
+                <button
                   onClick={(e) => toggleProjectExpansion(projectIndex, e)}
                   className="text-black"
                   type="button" // Explicitly set the button type
@@ -356,7 +361,6 @@ const Projects = () => {
                 >
                   <Trash className="w-5 h-5" />
                 </button>
-                
               </div>
             </div>
             {expandedProjects.includes(projectIndex) && (
@@ -621,13 +625,14 @@ const Projects = () => {
                     onChange={(e) => handleKeyAchievement(e, projectIndex)}
                   />
                 </div>
-                <div className="">
+                {/* <div className="">
+                  {console.log(project,"project")}
                   <label className="mt-2 text-black">Start Date</label>
                   <div className="flex-wrap-gap-2">
                     <select
                       name="startMonth"
                       className="other-input border-black border flex-1"
-                      value={project.startMonth}
+                      value={project.startYear}
                       onChange={(e) => handleProjects(e, projectIndex)}
                     >
                       <option value="">Select Month</option>
@@ -650,13 +655,61 @@ const Projects = () => {
                         </option>
                       ))}
                     </select>
+                    {improve && hasErrors(projectIndex, "startYear") && (
+                      <button
+                        type="button"
+                        className="absolute right-2 top-1/2 translate-y-[-50%] text-red-500 hover:text-red-600 transition-colors"
+                        onClick={() =>
+                          setActiveTooltip(
+                            activeTooltip === `startYear-${projectIndex}`
+                              ? null
+                              : `startYear-${projectIndex}`
+                          )
+                        }
+                      >
+                        <AlertCircle className="w-5 h-5" />
+                      </button>
+                    )}
+                    {activeTooltip === `startYear-${projectIndex}` && (
+                      <div className="absolute z-50 right-0 mt-14 w-80 bg-white rounded-lg shadow-xl border border-gray-700">
+                        <div className="p-4 border-b border-gray-700">
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center space-x-2">
+                              <AlertCircle className="w-5 h-5 text-red-400" />
+                              <span className="font-medium text-black">
+                                Start Date Issue
+                              </span>
+                            </div>
+                            <button
+                              onClick={() => setActiveTooltip(null)}
+                              className="text-black transition-colors"
+                            >
+                              <X className="w-5 h-5" />
+                            </button>
+                          </div>
+                        </div>
+                        <div className="p-4">
+                          {getErrorMessages(projectIndex, "startYear").map(
+                            (msg, i) => (
+                              <div
+                                key={i}
+                                className="flex items-start space-x-3 mb-3 last:mb-0"
+                              >
+                                <div className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-red-400 mt-2"></div>
+                                <p className="text-black text-sm">{msg}</p>
+                              </div>
+                            )
+                          )}
+                        </div>
+                      </div>
+                    )}
                   </div>
                   <label className="mt-2 text-black">End Date</label>
                   <div className="flex-wrap-gap-2">
                     <select
                       name="endMonth"
                       className="other-input border-black border flex-1"
-                      value={project.endMonth}
+                      value={project.endYear}
                       onChange={(e) => handleProjects(e, projectIndex)}
                       disabled={project.endYear === "Present"}
                     >
@@ -690,8 +743,261 @@ const Projects = () => {
                       />
                       Present
                     </label>
+                    {improve && hasErrors(projectIndex, "endYear") && (
+                      <button
+                        type="button"
+                        className="absolute right-2 top-1/2 translate-y-[-50%] text-red-500 hover:text-red-600 transition-colors"
+                        onClick={() =>
+                          setActiveTooltip(
+                            activeTooltip === `endYear-${projectIndex}`
+                              ? null
+                              : `endYear-${projectIndex}`
+                          )
+                        }
+                      >
+                        <AlertCircle className="w-5 h-5" />
+                      </button>
+                    )}
+                    {activeTooltip === `endYear-${projectIndex}` && (
+                      <div className="absolute z-50 right-0 mt-14 w-80 bg-white rounded-lg shadow-xl border border-gray-700">
+                        <div className="p-4 border-b border-gray-700">
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center space-x-2">
+                              <AlertCircle className="w-5 h-5 text-red-400" />
+                              <span className="font-medium text-black">
+                                End Date Issue
+                              </span>
+                            </div>
+                            <button
+                              onClick={() => setActiveTooltip(null)}
+                              className="text-black transition-colors"
+                            >
+                              <X className="w-5 h-5" />
+                            </button>
+                          </div>
+                        </div>
+                        <div className="p-4">
+                          {getErrorMessages(projectIndex, "endYear").map(
+                            (msg, i) => (
+                              <div
+                                key={i}
+                                className="flex items-start space-x-3 mb-3 last:mb-0"
+                              >
+                                <div className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-red-400 mt-2"></div>
+                                <p className="text-black text-sm">{msg}</p>
+                              </div>
+                            )
+                          )}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div> */}
+                <div className="space-y-6 relative">
+                  {/* Start Date */}
+                  <div className="relative">
+                    <label className="text-black">Start Date</label>
+                    <div className="flex flex-wrap gap-2">
+                      {/* Month */}
+                      <select
+                        className={`other-input border flex-1 ${
+                          improve && hasErrors(projectIndex, "startYear")
+                            ? "border-red-500"
+                            : "border-black"
+                        }`}
+                        value={(project.startYear || "Jan,2024").split(",")[0]}
+                        onChange={(e) =>
+                          handleMonthChange(e, projectIndex, "startYear")
+                        }
+                      >
+                        {months.map((month, idx) => (
+                          <option key={idx} value={month}>
+                            {month}
+                          </option>
+                        ))}
+                      </select>
+
+                      {/* Year */}
+                      <select
+                        className={`other-input border flex-1 ${
+                          improve && hasErrors(projectIndex, "startYear")
+                            ? "border-red-500"
+                            : "border-black"
+                        }`}
+                        value={(project.startYear || "Jan,2024").split(",")[1]}
+                        onChange={(e) =>
+                          handleYearChange(e, projectIndex, "startYear")
+                        }
+                      >
+                        {years.map((year, idx) => (
+                          <option key={idx} value={year}>
+                            {year}
+                          </option>
+                        ))}
+                      </select>
+
+                      {/* Tooltip Icon */}
+                      {improve && hasErrors(projectIndex, "startYear") && (
+                        <button
+                          type="button"
+                          className="absolute right-2 top-10 text-red-500 hover:text-red-600 transition-colors"
+                          onClick={() =>
+                            setActiveTooltip(
+                              activeTooltip === `startYear-${projectIndex}`
+                                ? null
+                                : `startYear-${projectIndex}`
+                            )
+                          }
+                        >
+                          <AlertCircle className="w-5 h-5" />
+                        </button>
+                      )}
+                    </div>
+
+                    {/* Tooltip Message */}
+                    {activeTooltip === `startYear-${projectIndex}` && (
+                      <div className="absolute z-50 right-0 mt-2 w-80 bg-white rounded-lg shadow-xl transition-all border border-gray-700">
+                        <div className="p-4 border-b border-gray-700 flex items-center justify-between">
+                          <div className="flex items-center space-x-2">
+                            <AlertCircle className="w-5 h-5 text-red-400" />
+                            <span className="font-medium text-black">
+                              Start Date Issue
+                            </span>
+                          </div>
+                          <button onClick={() => setActiveTooltip(null)}>
+                            <X className="w-5 h-5 text-black" />
+                          </button>
+                        </div>
+                        <div className="p-4">
+                          {getErrorMessages(projectIndex, "startYear").map(
+                            (msg, i) => (
+                              <div
+                                key={i}
+                                className="flex items-start space-x-3 mb-3 last:mb-0"
+                              >
+                                <div className="w-1.5 h-1.5 rounded-full bg-red-400 mt-2" />
+                                <p className="text-black text-sm">{msg}</p>
+                              </div>
+                            )
+                          )}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* End Date */}
+                  <div className="relative">
+                    <label className="text-black">End Date</label>
+                    <div className="flex flex-wrap gap-2 items-center">
+                      {/* Month */}
+                      <select
+                        className={`other-input border flex-1 ${
+                          improve && hasErrors(projectIndex, "endYear")
+                            ? "border-red-500"
+                            : "border-black"
+                        }`}
+                        value={
+                          project.endYear === "Present"
+                            ? ""
+                            : (project.endYear || "Dec,2024").split(",")[0]
+                        }
+                        onChange={(e) =>
+                          handleMonthChange(e, projectIndex, "endYear")
+                        }
+                        disabled={project.endYear === "Present"}
+                      >
+                        {months.map((month, idx) => (
+                          <option key={idx} value={month}>
+                            {month}
+                          </option>
+                        ))}
+                      </select>
+
+                      {/* Year */}
+                      <select
+                        className={`other-input border flex-1 ${
+                          improve && hasErrors(projectIndex, "endYear")
+                            ? "border-red-500"
+                            : "border-black"
+                        }`}
+                        value={
+                          project.endYear === "Present"
+                            ? ""
+                            : (project.endYear || "Dec,2024").split(",")[1]
+                        }
+                        onChange={(e) =>
+                          handleYearChange(e, projectIndex, "endYear")
+                        }
+                        disabled={project.endYear === "Present"}
+                      >
+                        {years.map((year, idx) => (
+                          <option key={idx} value={year}>
+                            {year}
+                          </option>
+                        ))}
+                      </select>
+
+                      {/* Present Checkbox */}
+                      <label className="flex items-center gap-1 text-xl flex-1 other-input">
+                        <input
+                          type="checkbox"
+                          checked={project.endYear === "Present"}
+                          onChange={() => handlePresentToggle(projectIndex)}
+                          className="w-6 h-6"
+                        />
+                        Present
+                      </label>
+
+                      {/* Tooltip Icon */}
+                      {improve && hasErrors(projectIndex, "endYear") && (
+                        <button
+                          type="button"
+                          className="absolute right-2 top-10 text-red-500 hover:text-red-600 transition-colors"
+                          onClick={() =>
+                            setActiveTooltip(
+                              activeTooltip === `endYear-${projectIndex}`
+                                ? null
+                                : `endYear-${projectIndex}`
+                            )
+                          }
+                        >
+                          <AlertCircle className="w-5 h-5" />
+                        </button>
+                      )}
+                    </div>
+
+                    {/* Tooltip Message */}
+                    {activeTooltip === `endYear-${projectIndex}` && (
+                      <div className="absolute z-50 right-0 mt-2 w-80 bg-white rounded-lg shadow-xl transition-all border border-gray-700">
+                        <div className="p-4 border-b border-gray-700 flex items-center justify-between">
+                          <div className="flex items-center space-x-2">
+                            <AlertCircle className="w-5 h-5 text-red-400" />
+                            <span className="font-medium text-black">
+                              End Date Issue
+                            </span>
+                          </div>
+                          <button onClick={() => setActiveTooltip(null)}>
+                            <X className="w-5 h-5 text-black" />
+                          </button>
+                        </div>
+                        <div className="p-4">
+                          {getErrorMessages(projectIndex, "endYear").map(
+                            (msg, i) => (
+                              <div
+                                key={i}
+                                className="flex items-start space-x-3 mb-3 last:mb-0"
+                              >
+                                <div className="w-1.5 h-1.5 rounded-full bg-red-400 mt-2" />
+                                <p className="text-black text-sm">{msg}</p>
+                              </div>
+                            )
+                          )}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
+
                 <button
                   onClick={() => removeProjects(projectIndex)}
                   className="bg-red-500 text-white px-4 py-2 rounded mt-4"
