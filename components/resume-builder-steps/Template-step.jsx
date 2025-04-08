@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Image from "next/image";
 import axios from "axios";
 import { useRouter } from "next/router";
@@ -14,10 +14,11 @@ import template5 from "../preview/template/template5.png";
 import template6 from "../preview/template/template6.png";
 import template7 from "../preview/template/template7.png";
 import { SaveLoader } from "../ResumeLoader/SaveLoader";
+import { ResumeContext } from "../context/ResumeContext";
 
 const TemplateStep = ({ onNext, onBack, onChange, value }) => {
   const router = useRouter();
-  const [resumeData, setResumeData] = useState(null);
+  const {resumeData, setResumeData , exp} = useContext(ResumeContext);
   const [loading, setLoading] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
@@ -331,6 +332,7 @@ const TemplateStep = ({ onNext, onBack, onChange, value }) => {
         backgroundColor: selectedHexCode || "#2563EB",
         font: "Ubuntu",
       },
+      no_of_experience: exp,
     };
   };
 

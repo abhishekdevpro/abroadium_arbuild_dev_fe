@@ -39,8 +39,221 @@ const Modal = ({ isOpen, onClose, children }) => {
   );
 };
 
+// const TooltipContent = ({ improvements, resumeId, onClose }) => {
+//   const [Loading, setLoading] = useState(false);
+//   const router = useRouter();
+
+//   const formatItems = [
+//     {
+//       label: "Bullet Points Used",
+//       value: improvements?.formatting?.bullet_points_used,
+//       description: "Proper use of bullet points in resume sections",
+//     },
+//     {
+//       label: "Clear Headings",
+//       value: improvements?.formatting?.clear_headings,
+//       description: "Section headings are clear and well-defined",
+//     },
+//     {
+//       label: "Consistent Font",
+//       value: improvements?.formatting?.consistent_font,
+//       description: "Consistent font usage throughout the resume",
+//     },
+//     {
+//       label: "Contact Info Visible",
+//       value: improvements?.formatting?.contact_info_visible,
+//       description: "Contact information is clearly visible",
+//     },
+//   ];
+//   const handleATS = async () => {
+//     const token = localStorage.getItem("token");
+
+//     setLoading(true); // Ensure loading is set to true when the request starts
+
+//     try {
+//       const response = await axios.get(
+//         `https://api.abroadium.com/api/jobseeker/ats-improve/${resumeId}`,
+//         {
+//           headers: {
+//             Authorization: token,
+//           },
+//         }
+//       );
+
+//       if (response.data) {
+//         toast.success(response.message || "ATS updated successfully");
+//         onClose();
+//         // router.push('/dashboard')
+//         window.location.reload();
+//       } else {
+//         toast.error("No response data received");
+//       }
+//     } catch (error) {
+//       console.error(error);
+//       toast.error(error.response?.data?.message || "Something went wrong");
+//     } finally {
+//       setLoading(false); // Ensure loading is set to false after the request finishes
+//     }
+//   };
+
+//   return (
+//     <div className="h-[600px] overflow-y-auto p-6 bg-gray-50 rounded-lg shadow-md">
+//       {/* Grid Layout for Improvements and Formatting Checklist */}
+//       <div className="flex flex-col">
+//         {/* Improvements Section */}
+//         <div className="p-6 bg-white rounded-lg shadow-sm">
+//           <h3 className="text-lg font-semibold text-gray-900 mb-4">
+//             Areas for Improvement
+//           </h3>
+//           <ul className="space-y-3">
+//             {improvements?.areas_for_improvement?.file_format && (
+//               <li className="flex items-start gap-3">
+//                 <div className="w-2 h-2 mt-2 bg-blue-500 rounded-full" />
+//                 <p className="text-gray-700">
+//                   <span className="font-bold text-black">
+//                     File Formatting:{" "}
+//                   </span>
+//                   {improvements.areas_for_improvement.file_format}
+//                 </p>
+//               </li>
+//             )}
+//             {improvements?.areas_for_improvement?.keyword_optimization && (
+//               <li className="flex items-start gap-3">
+//                 <div className="w-2 h-2 mt-2 bg-blue-500 rounded-full" />
+//                 <p className="text-gray-700">
+//                   <span className="font-bold text-black">
+//                     Keyword Optimization:{" "}
+//                   </span>
+//                   {improvements.areas_for_improvement.keyword_optimization}
+//                 </p>
+//               </li>
+//             )}
+//             {improvements?.areas_for_improvement?.section_order && (
+//               <li className="flex items-start gap-3">
+//                 <div className="w-2 h-2 mt-2 bg-blue-500 rounded-full" />
+//                 <p className="text-gray-700">
+//                   <span className="font-bold text-black">Section Order: </span>
+//                   {improvements.areas_for_improvement.section_order}
+//                 </p>
+//               </li>
+//             )}
+//           </ul>
+//         </div>
+
+//         {/* Formatting Checklist */}
+//         <div className="p-6 bg-white rounded-lg shadow-sm">
+//           <h3 className="text-lg font-semibold text-gray-900 mb-4">
+//             Formatting Checklist
+//           </h3>
+//           <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
+//             {formatItems.map((item, index) => (
+//               <li
+//                 key={index}
+//                 className="flex items-center gap-3 bg-gray-100 p-3 rounded-lg"
+//               >
+//                 <div
+//                   className={`rounded-full p-1.5 ${
+//                     item.value
+//                       ? "bg-green-100 text-green-600"
+//                       : "bg-red-100 text-red-600"
+//                   }`}
+//                 >
+//                   {item.value ? (
+//                     <Check className="w-5 h-5" />
+//                   ) : (
+//                     <X className="w-5 h-5" />
+//                   )}
+//                 </div>
+//                 <div>
+//                   <p className="text-gray-700 font-medium">{item.label}</p>
+//                   <p className="text-sm text-gray-500">{item.description}</p>
+//                 </div>
+//               </li>
+//             ))}
+//           </ul>
+//         </div>
+//       </div>
+
+//       {/* Keywords Section */}
+//       <div className="w-full flex flex-col md:flex-row justify-between items-start gap-2 md:gap-6 mt-6">
+//         <div className="w-full md:w-1/2 p-4 bg-green-100 text-green-700 rounded-lg">
+//           <h4 className="font-bold text-lg">Keywords Found</h4>
+//           {improvements.keywords_found?.length > 0 ? (
+//             <ul className="list-disc list-inside">
+//               {improvements.keywords_found.map((keyword, index) => (
+//                 <li key={index}>{keyword}</li>
+//               ))}
+//             </ul>
+//           ) : (
+//             <p>No missing keywords</p>
+//           )}
+//         </div>
+//         <div className="w-full md:w-1/2 p-4 bg-red-100 text-red-700 rounded-lg">
+//           <h4 className="font-bold text-lg">Keywords Missing</h4>
+//           {improvements.keywords_missing?.length > 0 ? (
+//             <ul className="list-disc list-inside">
+//               {improvements.keywords_missing.map((keyword, index) => (
+//                 <li key={index}>{keyword}</li>
+//               ))}
+//             </ul>
+//           ) : (
+//             <p>No missing keywords</p>
+//           )}
+//         </div>
+//       </div>
+      
+
+//       {/* Overall Comments */}
+//       <div className="bg-gradient-to-r from-blue-600 to-blue-800 rounded-xl p-6 mt-6 text-white">
+//         <h3 className="text-lg font-bold">Overall Comments</h3>
+//         <p>{improvements.overall_comments}</p>
+//       </div>
+
+//       <div className="flex flex-col gap-2 mt-4">
+//         <label className="flex items-center gap-2 text-sm text-gray-800">
+//           <input
+//             type="radio"
+//             name="improveBy"
+//             value="jobtitle"
+//             // checked={improveBy === "jobtitle"}
+//             // onChange={() => setImproveBy("jobtitle")}
+//             className="text-blue-600 focus:ring-blue-500"
+//           />
+//           Improve by Job Title
+//         </label>
+//         <label className="flex items-center gap-2 text-sm text-gray-800">
+//           <input
+//             type="radio"
+//             name="improveBy"
+//             value="overall"
+//             // checked={improveBy === "overall"}
+//             // onChange={() => setImproveBy("overall")}
+//             className="text-blue-600 focus:ring-blue-500"
+//           />
+//           Improve Overall
+//         </label>
+//       </div>
+//       <button
+//         onClick={handleATS}
+//         className={`mt-6 px-6 py-2 w-full bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors ${
+//           improvements.ats_score === 10 || Loading
+//             ? "opacity-50 cursor-not-allowed"
+//             : ""
+//         }`}
+//         disabled={improvements.ats_score === 10 || Loading} // Button is disabled during loading and when ATS score is 10
+//       >
+//         {Loading ? (
+//           <SaveLoader loadingText="Proceed To Improve" />
+//         ) : (
+//           "Proceed To Improve...."
+//         )}
+//       </button>
+//     </div>
+//   );
+// };
 const TooltipContent = ({ improvements, resumeId, onClose }) => {
-  const [Loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [improveBy, setImproveBy] = useState(null); // Track selected improvement option
   const router = useRouter();
 
   const formatItems = [
@@ -65,14 +278,16 @@ const TooltipContent = ({ improvements, resumeId, onClose }) => {
       description: "Contact information is clearly visible",
     },
   ];
+  
   const handleATS = async () => {
+    if (!improveBy) return; // Don't proceed if no option is selected
+    
     const token = localStorage.getItem("token");
-
-    setLoading(true); // Ensure loading is set to true when the request starts
+    setLoading(true);
 
     try {
       const response = await axios.get(
-        `https://api.abroadium.com/api/jobseeker/ats-improve/${resumeId}`,
+        `https://api.abroadium.com/api/jobseeker/ats-improve/${resumeId}?improve_by=${improveBy}`,
         {
           headers: {
             Authorization: token,
@@ -83,7 +298,6 @@ const TooltipContent = ({ improvements, resumeId, onClose }) => {
       if (response.data) {
         toast.success(response.message || "ATS updated successfully");
         onClose();
-        // router.push('/dashboard')
         window.location.reload();
       } else {
         toast.error("No response data received");
@@ -92,7 +306,7 @@ const TooltipContent = ({ improvements, resumeId, onClose }) => {
       console.error(error);
       toast.error(error.response?.data?.message || "Something went wrong");
     } finally {
-      setLoading(false); // Ensure loading is set to false after the request finishes
+      setLoading(false);
     }
   };
 
@@ -201,22 +415,51 @@ const TooltipContent = ({ improvements, resumeId, onClose }) => {
           )}
         </div>
       </div>
-
+      
       {/* Overall Comments */}
       <div className="bg-gradient-to-r from-blue-600 to-blue-800 rounded-xl p-6 mt-6 text-white">
         <h3 className="text-lg font-bold">Overall Comments</h3>
         <p>{improvements.overall_comments}</p>
       </div>
+
+      {/* Improvement Option Selection */}
+      <div className="flex flex-col gap-2 mt-4">
+        <h4 className="font-medium text-gray-800">Select Improvement Method:</h4>
+        <label className="flex items-center gap-2 text-sm text-gray-800">
+          <input
+            type="radio"
+            name="improveBy"
+            value="jobtitle"
+            checked={improveBy === "jobtitle"}
+            onChange={() => setImproveBy("jobtitle")}
+            className="text-blue-600 focus:ring-blue-500"
+          />
+          Improve by Job Title
+        </label>
+        <label className="flex items-center gap-2 text-sm text-gray-800">
+          <input
+            type="radio"
+            name="improveBy"
+            value="overall"
+            checked={improveBy === "overall"}
+            onChange={() => setImproveBy("overall")}
+            className="text-blue-600 focus:ring-blue-500"
+          />
+          Improve Overall
+        </label>
+      </div>
+      
+      {/* Submit Button */}
       <button
         onClick={handleATS}
         className={`mt-6 px-6 py-2 w-full bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors ${
-          improvements.ats_score === 10 || Loading
+          !improveBy || improvements.ats_score === 10 || loading
             ? "opacity-50 cursor-not-allowed"
             : ""
         }`}
-        disabled={improvements.ats_score === 10 || Loading} // Button is disabled during loading and when ATS score is 10
+        disabled={!improveBy || improvements.ats_score === 10 || loading}
       >
-        {Loading ? (
+        {loading ? (
           <SaveLoader loadingText="Proceed To Improve" />
         ) : (
           "Proceed To Improve...."
@@ -225,13 +468,12 @@ const TooltipContent = ({ improvements, resumeId, onClose }) => {
     </div>
   );
 };
-
 const ResumeStrength = ({ score, strength, resumeId }) => {
   const [showLoader, setShowLoader] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const router = useRouter();
-  const {resumeData} = useContext(ResumeContext)
-  console.log(resumeData,"resumeData");
+  const { resumeData } = useContext(ResumeContext);
+  // console.log(resumeData,"resumeData");
   const getSectionsList = (data) => {
     if (!data) return [];
     return [
@@ -371,7 +613,9 @@ const ResumeStrength = ({ score, strength, resumeId }) => {
                 Improve Resume
               </button>
               <button
-                disabled={strength.ats_score === 10 || !resumeData.position  || !resumeId}
+                disabled={
+                  strength.ats_score === 10 || !resumeData.position || !resumeId
+                }
                 onClick={() => setIsModalOpen(true)}
                 className={`px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors ${
                   strength.ats_score === 10 || !resumeId

@@ -1224,8 +1224,7 @@ const PersonalInformation = () => {
 
                         <div className="flex items-center space-x-2">
                           {(field === "name" ||
-                            field === "position" ||
-                            field === "contactInformation") && (
+                            field === "position") && (
                             <button
                               onClick={() =>
                                 handleAutoFix(field, resumeData[field])
