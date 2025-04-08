@@ -1,4 +1,3 @@
-
 import React, { useContext, useState, useEffect, useRef } from "react";
 import { ResumeContext } from "../context/ResumeContext";
 import FormButton from "./FormButton";
@@ -212,7 +211,10 @@ const WorkExperience = () => {
   };
 
   const handleAIAssistDescription = async (index) => {
-    if (!resumeData.workExperience[index].startYear || !resumeData.workExperience[index].endYear) {
+    if (
+      !resumeData.workExperience[index].startYear ||
+      !resumeData.workExperience[index].endYear
+    ) {
       toast.warn("Date is Required");
       return;
     }
@@ -260,7 +262,10 @@ const WorkExperience = () => {
   };
 
   const handleAIAssistKey = async (index) => {
-    if (!resumeData.workExperience[index].startYear || !resumeData.workExperience[index].endYear) {
+    if (
+      !resumeData.workExperience[index].startYear ||
+      !resumeData.workExperience[index].endYear
+    ) {
       toast.warn("Date is Required");
       return;
     }
@@ -747,9 +752,7 @@ const WorkExperience = () => {
                             ? "border-red-500"
                             : "border-black"
                         }`}
-                        value={
-                          (experience.startYear).split(",")[0]
-                        }
+                        value={experience.startYear.split(",")[0]}
                         onChange={(e) =>
                           handleMonthChange(e, index, "startYear")
                         }
@@ -768,9 +771,7 @@ const WorkExperience = () => {
                             ? "border-red-500"
                             : "border-black"
                         }`}
-                        value={
-                          (experience.startYear).split(",")[1]
-                        }
+                        value={experience.startYear.split(",")[1]}
                         onChange={(e) =>
                           handleYearChange(e, index, "startYear")
                         }
@@ -845,7 +846,7 @@ const WorkExperience = () => {
                         value={
                           experience.endYear === "Present"
                             ? ""
-                            : (experience.endYear).split(",")[0]
+                            : experience.endYear.split(",")[0]
                         }
                         onChange={(e) => handleMonthChange(e, index, "endYear")}
                         disabled={experience.endYear === "Present"}
@@ -867,7 +868,7 @@ const WorkExperience = () => {
                         value={
                           experience.endYear === "Present"
                             ? ""
-                            : (experience.endYear).split(",")[1]
+                            : experience.endYear.split(",")[1]
                         }
                         onChange={(e) => handleYearChange(e, index, "endYear")}
                         disabled={experience.endYear === "Present"}
@@ -1225,7 +1226,7 @@ const WorkExperience = () => {
         remove={removeWorkExperience}
       />
 
-      {showPopup && (
+      {/* {showPopup && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
           <div className="bg-white p-6 rounded-lg w-[90%] max-w-lg">
             <h3 className="text-xl font-bold mb-4">
@@ -1242,7 +1243,7 @@ const WorkExperience = () => {
                   : keyAchievements
                 )?.map((item, index) => (
                   <div key={index} className="flex items-start gap-3">
-                    {/* Radio for description (Single Select) */}
+                    {/* Radio for description (Single Select) 
                     {popupType === "description" ? (
                       <input
                         type="radio"
@@ -1297,6 +1298,103 @@ const WorkExperience = () => {
                 Cancel
               </button>
             </div>
+          </div>
+        </div>
+      )} */}
+      {showPopup && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+          <div className="bg-white p-6 rounded-lg w-[90%] max-w-lg">
+            <h3 className="text-xl font-bold mb-4">
+              {popupType === "description"
+                ? "Select Description"
+                : "Select Key Achievements"}
+            </h3>
+
+            <div className="space-y-3 max-h-96 overflow-y-auto">
+              {(popupType === "description" ? descriptions : keyAchievements)
+                ?.length > 0 ? (
+                (popupType === "description"
+                  ? descriptions
+                  : keyAchievements
+                )?.map((item, index) => (
+                  <div key={index} className="flex items-start gap-3">
+                    {popupType === "description" ? (
+                      <input
+                        type="radio"
+                        name="description"
+                        checked={selectedDescriptions.includes(item)}
+                        onChange={() => setSelectedDescriptions([item])}
+                        className="mt-1"
+                      />
+                    ) : (
+                      <input
+                        type="checkbox"
+                        checked={selectedKeyAchievements.includes(item)}
+                        onChange={() => handleSummarySelect(item)}
+                        className="mt-1"
+                      />
+                    )}
+                    <p className="text-gray-800">{item}</p>
+                  </div>
+                ))
+              ) : (
+                <div className="text-center py-6">
+                  <p className="text-gray-500 mb-4">
+                    {popupType === "description"
+                      ? "No descriptions available."
+                      : "No key achievements available."}
+                  </p>
+                  <button
+                    onClick={() => {
+                      if (popupType === "description") {
+                        handleAIAssistDescription(popupIndex);
+                      } else {
+                        handleAIAssistKey(popupIndex);
+                      }
+                    }}
+                    className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+                    disabled={
+                      loadingStates[
+                        `${
+                          popupType === "description" ? "description" : "key"
+                        }_${popupIndex}`
+                      ]
+                    }
+                  >
+                    {loadingStates[
+                      `${
+                        popupType === "description" ? "description" : "key"
+                      }_${popupIndex}`
+                    ]
+                      ? "Retrying..."
+                      : "Retry"}
+                  </button>
+                </div>
+              )}
+            </div>
+
+            <button
+              onClick={(e) => handleSaveSelectedSummary(popupIndex, e)}
+              className={`mt-4 px-4 py-2 rounded text-white ${
+                (popupType === "description" ? descriptions : keyAchievements)
+                  ?.length > 0
+                  ? "bg-gray-800 hover:bg-gray-600"
+                  : "bg-gray-400 cursor-not-allowed"
+              }`}
+              disabled={
+                (popupType === "description" ? descriptions : keyAchievements)
+                  ?.length === 0
+              }
+            >
+              Save Selection
+            </button>
+
+            <button
+              onClick={() => setShowPopup(false)}
+              className="mt-2 ml-2 bg-gray-400 text-black px-4 py-2 rounded hover:bg-gray-300"
+            >
+              Close
+            </button>
           </div>
         </div>
       )}

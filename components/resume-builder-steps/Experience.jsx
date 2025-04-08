@@ -50,7 +50,7 @@ import { ResumeContext } from "../context/ResumeContext";
 
 const ExperienceStep = ({ onNext, onBack, onChange, value }) => {
   const router = useRouter();
-  const {resumeData, setResumeData} = useContext(ResumeContext)
+  const { resumeData, setResumeData, exp, setExp } = useContext(ResumeContext);
   const [loading, setLoading] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
@@ -90,10 +90,13 @@ const ExperienceStep = ({ onNext, onBack, onChange, value }) => {
 
           // Set initial experience value if it exists
           if (parsedAIData.templateData.no_of_experience) {
+            const experienceValue = parsedAIData.templateData.no_of_experience;
             onChange({
               ...value,
-              experience: parsedAIData.templateData.no_of_experience,
+              experience: experienceValue,
             });
+            // Also set it in the context
+            setExp(experienceValue);
           }
         } else {
           toast.error(response.data.message || "Failed to fetch resume data");
@@ -125,6 +128,9 @@ const ExperienceStep = ({ onNext, onBack, onChange, value }) => {
       return;
     }
 
+    // Update exp in context
+    setExp(value.experience);
+
     const templateData = {
       templateData: formatResumeData(resumeData),
     };
@@ -151,7 +157,7 @@ const ExperienceStep = ({ onNext, onBack, onChange, value }) => {
 
       if (response.data.code === 200 || response.data.status === "success") {
         setIsSaved(true);
-        localStorage.setItem("isSaved", "true");
+        // localStorage.setItem("isSaved", "true");
         toast.success(response.data.message || "Experience saved Successfully");
         onNext();
       } else {
@@ -164,15 +170,7 @@ const ExperienceStep = ({ onNext, onBack, onChange, value }) => {
       setIsLoading(false);
     }
   };
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-xl font-semibold">Loading...</div>
-      </div>
-    );
-  }
-
+console.log(exp,"no-of exp");
   return (
     <div className="min-h-screen bg-gray-50 py-12">
       <div className="max-w-4xl mx-auto px-4">
@@ -197,17 +195,21 @@ const ExperienceStep = ({ onNext, onBack, onChange, value }) => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {experiences.map((exp) => (
+              {experiences.map((experience) => (
                 <button
-                  key={exp.id}
-                  onClick={() => onChange({ ...value, experience: exp.id })}
+                  key={experience.id}
+                  onClick={() => {
+                    onChange({ ...value, experience: experience.id });
+                    // Also update the exp in context when a button is clicked
+                    setExp(experience.id);
+                  }}
                   className={`p-6 rounded-lg border-2 transition-all hover:shadow-md ${
-                    value.experience === exp.id
+                    value.experience === experience.id
                       ? "border-blue-600 bg-blue-50"
                       : "border-gray-200 hover:border-blue-400"
                   }`}
                 >
-                  <span className="block text-lg font-medium">{exp.label}</span>
+                  <span className="block text-lg font-medium">{experience.label}</span>
                 </button>
               ))}
             </div>

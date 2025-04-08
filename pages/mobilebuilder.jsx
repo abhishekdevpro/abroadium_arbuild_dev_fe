@@ -55,6 +55,7 @@ export default function MobileBuilder() {
     selectedFont,
     backgroundColorss,
     headerColor,
+    exp
   } = useContext(ResumeContext);
   const [showModal, setShowModal] = useState(false);
 
@@ -375,6 +376,7 @@ export default function MobileBuilder() {
           backgroundColor: backgroundColorss || "",
           font: selectedFont || "Ubuntu",
         },
+        no_of_experience: exp,
       },
     };
 

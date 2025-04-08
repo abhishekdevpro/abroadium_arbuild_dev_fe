@@ -65,6 +65,7 @@ export default function WebBuilder() {
     backgroundColorss,
     headerColor,
     setResumeStrength,
+    exp
   } = useContext(ResumeContext);
 
   useEffect(() => {
@@ -446,6 +447,7 @@ export default function WebBuilder() {
           backgroundColor: backgroundColorss || "",
           font: selectedFont || "Ubuntu",
         },
+        no_of_experience: exp,
       },
     };
 

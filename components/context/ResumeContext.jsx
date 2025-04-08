@@ -6,6 +6,7 @@ export const ResumeContext = createContext();
 export const ResumeProvider = ({ children }) => {
   const [resumeData, setResumeData] = useState(DefaultResumeData);
   const [resumeStrength,setResumeStrength] = useState({})
+  const [exp,setExp] = useState()
   const [headerColor, setHeaderColor] = useState("");
   const [backgroundColorss, setBgColor] = useState("");
   const [selectedFont, setSelectedFont] = useState("Ubuntu");
@@ -45,7 +46,9 @@ export const ResumeProvider = ({ children }) => {
         setSelectedFont,
         resumeStrength,
         setResumeStrength,
-        deleteProfilePicture
+        deleteProfilePicture,
+        exp,
+        setExp
       }}
     >
       {children}

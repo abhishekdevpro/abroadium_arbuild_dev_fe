@@ -58,7 +58,7 @@ import { ResumeContext } from "../context/ResumeContext";
 const Skills = ({ title, skills, color = "black", layout }) => {
   const { resumeData, setResumeData, backgroundColorss } = useContext(ResumeContext);
 
-  console.log(backgroundColorss, "backgroundColorss");
+  // console.log(backgroundColorss, "backgroundColorss");
 
   const handleTitleChange = (e) => {
     const newSkills = [...resumeData.skills];
