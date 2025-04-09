@@ -55,7 +55,7 @@ export default function MobileBuilder() {
     selectedFont,
     backgroundColorss,
     headerColor,
-    exp
+    exp,
   } = useContext(ResumeContext);
   const [showModal, setShowModal] = useState(false);
 
@@ -343,24 +343,24 @@ export default function MobileBuilder() {
           resumeData.workExperience?.map((exp) => ({
             company: exp.company || "",
             position: exp.position || "",
-            description: exp.description || "",
+            description: exp.description,
             KeyAchievements: Array.isArray(exp.keyAchievements)
               ? exp.keyAchievements
-              : [exp.keyAchievements || ""],
-            startYear: exp.startYear || "",
-            endYear: exp.endYear || "",
+              : [exp.keyAchievements],
+            startYear: exp.startYear,
+            endYear: exp.endYear,
             location: exp.location || "",
           })) || [],
         projects:
           resumeData.projects?.map((project) => ({
             title: project.title || "",
             link: project.link || "",
-            description: project.description || "",
+            description: project.description,
             keyAchievements: Array.isArray(project.keyAchievements)
               ? project.keyAchievements
-              : [project.keyAchievements || ""],
-            startYear: project.startYear || "",
-            endYear: project.endYear || "",
+              : [project.keyAchievements],
+            startYear: project.startYear,
+            endYear: project.endYear,
             name: project.name || "",
           })) || [],
         skills: Array.isArray(resumeData.skills)

@@ -65,7 +65,7 @@ export default function WebBuilder() {
     backgroundColorss,
     headerColor,
     setResumeStrength,
-    exp
+    exp,
   } = useContext(ResumeContext);
 
   useEffect(() => {
@@ -406,32 +406,32 @@ export default function WebBuilder() {
           resumeData.education?.map((edu) => ({
             school: edu.school || "",
             degree: edu.degree || "",
-            startYear: edu.startYear || "",
-            endYear: edu.endYear || "",
+            startYear: edu.startYear,
+            endYear: edu.endYear,
             location: edu.location || "",
           })) || [],
         workExperience:
           resumeData.workExperience?.map((exp) => ({
             company: exp.company || "",
             position: exp.position || "",
-            description: exp.description || "",
+            description: exp.description,
             keyAchievements: Array.isArray(exp.keyAchievements)
               ? exp.keyAchievements
               : [exp.keyAchievements],
-            startYear: exp.startYear || "",
-            endYear: exp.endYear || "",
+            startYear: exp.startYear,
+            endYear: exp.endYear,
             location: exp.location,
           })) || [],
         projects:
           resumeData.projects?.map((project) => ({
             title: project.title || "",
             link: project.link || "",
-            description: project.description || "",
+            description: project.description,
             keyAchievements: Array.isArray(project.keyAchievements)
               ? project.keyAchievements
-              : [project.keyAchievements || ""],
-            startYear: project.startYear || "",
-            endYear: project.endYear || "",
+              : [project.keyAchievements],
+            startYear: project.startYear,
+            endYear: project.endYear,
             name: project.name || "",
           })) || [],
         skills: Array.isArray(resumeData.skills)
