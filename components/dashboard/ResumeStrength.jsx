@@ -201,7 +201,6 @@ const Modal = ({ isOpen, onClose, children }) => {
 //           )}
 //         </div>
 //       </div>
-      
 
 //       {/* Overall Comments */}
 //       <div className="bg-gradient-to-r from-blue-600 to-blue-800 rounded-xl p-6 mt-6 text-white">
@@ -278,10 +277,10 @@ const TooltipContent = ({ improvements, resumeId, onClose }) => {
       description: "Contact information is clearly visible",
     },
   ];
-  
+
   const handleATS = async () => {
     if (!improveBy) return; // Don't proceed if no option is selected
-    
+
     const token = localStorage.getItem("token");
     setLoading(true);
 
@@ -415,7 +414,7 @@ const TooltipContent = ({ improvements, resumeId, onClose }) => {
           )}
         </div>
       </div>
-      
+
       {/* Overall Comments */}
       <div className="bg-gradient-to-r from-blue-600 to-blue-800 rounded-xl p-6 mt-6 text-white">
         <h3 className="text-lg font-bold">Overall Comments</h3>
@@ -423,7 +422,7 @@ const TooltipContent = ({ improvements, resumeId, onClose }) => {
       </div>
 
       {/* Improvement Option Selection */}
-      <div className="flex flex-col gap-2 mt-4">
+      {/* <div className="flex flex-col gap-2 mt-4">
         <h4 className="font-medium text-gray-800">Select Improvement Method:</h4>
         <label className="flex items-center gap-2 text-sm text-gray-800">
           <input
@@ -447,17 +446,17 @@ const TooltipContent = ({ improvements, resumeId, onClose }) => {
           />
           Improve Overall
         </label>
-      </div>
-      
+      </div> */}
+
       {/* Submit Button */}
       <button
         onClick={handleATS}
         className={`mt-6 px-6 py-2 w-full bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors ${
-          !improveBy || improvements.ats_score === 10 || loading
+          improvements.ats_score === 10 || loading
             ? "opacity-50 cursor-not-allowed"
             : ""
         }`}
-        disabled={!improveBy || improvements.ats_score === 10 || loading}
+        disabled={improvements.ats_score === 10 || loading}
       >
         {loading ? (
           <SaveLoader loadingText="Proceed To Improve" />
