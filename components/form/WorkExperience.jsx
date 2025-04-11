@@ -66,23 +66,53 @@ const WorkExperience = () => {
     { length: 50 },
     (_, i) => new Date().getFullYear() - i
   );
-
+  const formatDateValue = (month, year) => {
+    if (month && year) {
+      return `${month},${year}`;
+    } else if (month) {
+      return month;
+    } else if (year) {
+      return year;
+    } else {
+      return "";
+    }
+  };
   const handleMonthChange = (e, index, field) => {
     const newWorkExperience = [...resumeData.workExperience];
-    const currentDate = newWorkExperience[index][field] || "Jan,2024";
-    const [_, year] = currentDate.split(",");
-    newWorkExperience[index][field] = `${e.target.value},${year || ""}`;
+    const newMonth = e.target.value;
+    let year = "";
+    if (newWorkExperience[index][field]) {
+      const parts = newWorkExperience[index][field].split(",");
+      if (parts.length > 1) {
+        year = parts[1];
+      } else if (parts.length === 1 && !months.includes(parts[0])) {
+        // If there's only one part and it's not a month, it must be a year
+        year = parts[0];
+      }
+    }
+
+    newWorkExperience[index][field] = formatDateValue(newMonth, year);
     setResumeData({ ...resumeData, workExperience: newWorkExperience });
   };
 
   const handleYearChange = (e, index, field) => {
     const newWorkExperience = [...resumeData.workExperience];
-    const currentDate = newWorkExperience[index][field] || "Jan,2024";
-    const [month, _] = currentDate.split(",");
-    newWorkExperience[index][field] = `${month || ""},${e.target.value}`;
+    const newYear = e.target.value;
+
+    // Get the current month value
+    let month = "";
+    if (newWorkExperience[index][field]) {
+      const parts = newWorkExperience[index][field].split(",");
+      if (parts.length > 0 && months.includes(parts[0])) {
+        month = parts[0];
+      }
+    }
+
+    // Format the new value
+    newWorkExperience[index][field] = formatDateValue(month, newYear);
+
     setResumeData({ ...resumeData, workExperience: newWorkExperience });
   };
-
   const handlePresentToggle = (index) => {
     const newWorkExperience = [...resumeData.workExperience];
     newWorkExperience[index].endYear =
@@ -309,6 +339,28 @@ const WorkExperience = () => {
       }));
     }
   };
+  const handleKeyAchievement = (e, index) => {
+    const newWorkExperience = [...resumeData.workExperience];
+    const achievements = e.target.value
+      .split("\n")
+      .map((item) => item.trim())
+      .filter((item) => item !== "");
+
+    newWorkExperience[index].keyAchievements = achievements;
+
+    // Optional: Track user-modified achievements separately if needed
+    setSelectedKeyAchievements(achievements); // sync with popup logic
+
+    setResumeData({ ...resumeData, workExperience: newWorkExperience });
+  };
+  // const handleKeyAchievement = (e, index) => {
+  //   const newWorkExperience = [...resumeData.workExperience];
+  //   const achievements = e.target.value
+  //     .split("\n")
+  //     .filter((item) => item.trim());
+  //   newWorkExperience[index].keyAchievements = achievements;
+  //   setResumeData({ ...resumeData, workExperience: newWorkExperience });
+  // };
 
   const handleSummarySelect = (item) => {
     if (popupType === "description") {
@@ -322,23 +374,23 @@ const WorkExperience = () => {
     }
   };
 
-  const handleSaveSelectedSummary = (index, e) => {
-    e.preventDefault();
-    const newWorkExperience = [...resumeData.workExperience];
+  // const handleSaveSelectedSummary = (index, e) => {
+  //   e.preventDefault();
+  //   const newWorkExperience = [...resumeData.workExperience];
 
-    if (popupType === "description") {
-      newWorkExperience[index].description = selectedDescriptions.join(" ");
-    } else {
-      newWorkExperience[index].keyAchievements = selectedKeyAchievements;
-    }
+  //   if (popupType === "description") {
+  //     newWorkExperience[index].description = selectedDescriptions.join(" ");
+  //   } else {
+  //     newWorkExperience[index].keyAchievements = selectedKeyAchievements;
+  //   }
 
-    setResumeData({
-      ...resumeData,
-      workExperience: newWorkExperience,
-    });
+  //   setResumeData({
+  //     ...resumeData,
+  //     workExperience: newWorkExperience,
+  //   });
 
-    setShowPopup(false);
-  };
+  //   setShowPopup(false);
+  // };
 
   const addWorkExperience = () => {
     setResumeData({
@@ -431,6 +483,26 @@ const WorkExperience = () => {
       newExpanded[index] = !newExpanded[index];
       return newExpanded;
     });
+  };
+  const handleSaveSelectedSummary = (index, e) => {
+    e.preventDefault();
+
+    const newWorkExperience = [...resumeData.workExperience];
+    const currentAchievements = newWorkExperience[index].keyAchievements || [];
+
+    // Avoid duplicates, respect deletions
+    const filteredSelected = selectedKeyAchievements.filter(
+      (item) => !currentAchievements.includes(item)
+    );
+
+    const updatedAchievements = [...currentAchievements, ...filteredSelected];
+
+    newWorkExperience[index].keyAchievements = updatedAchievements;
+    setResumeData({ ...resumeData, workExperience: newWorkExperience });
+
+    // Close popup and clear state
+    setShowPopup(false);
+    setSelectedKeyAchievements([]);
   };
 
   const handleAutoFixDescription = async (e, index, content) => {
@@ -534,7 +606,31 @@ const WorkExperience = () => {
         .map((i) => (i > index ? i - 1 : i))
     );
   };
+  // Parse date string to get month and year
+  const getDatePart = (dateStr, part) => {
+    if (!dateStr) return "";
+    if (dateStr === "Present") return part === "month" ? "" : dateStr;
 
+    const parts = dateStr.split(",");
+
+    // If there's only one part, determine if it's a month or year
+    if (parts.length === 1) {
+      if (months.includes(parts[0]) && part === "month") {
+        return parts[0];
+      } else if (!isNaN(parts[0]) && part === "year") {
+        return parts[0];
+      } else {
+        return "";
+      }
+    }
+
+    // If there are two parts, return the appropriate one
+    if (part === "month") {
+      return parts[0] || "";
+    } else {
+      return parts[1] || "";
+    }
+  };
   return (
     <div className="flex-col gap-3 w-full md:mt-10 md:px-10">
       <h2 className="input-title text-white text-3xl mb-6">Work Experience</h2>
@@ -740,54 +836,48 @@ const WorkExperience = () => {
                   )}
                 </div>
 
-                <div className="space-y-6">
+                <div className="relative">
                   {/* Start Date */}
-                  <div className="relative">
-                    <label className="text-black">Start Date</label>
-                    <div className="flex flex-wrap gap-2">
-                      {/* Month */}
-                      <select
-                        className={`other-input border flex-1 ${
-                          improve && hasErrors(index, "startYear")
-                            ? "border-red-500"
-                            : "border-black"
-                        }`}
-                        value={experience.startYear.split(",")[0]}
-                        onChange={(e) =>
-                          handleMonthChange(e, index, "startYear")
-                        }
-                      >
-                        {months.map((month, idx) => (
-                          <option key={idx} value={month}>
-                            {month}
-                          </option>
-                        ))}
-                      </select>
+                  <label className="text-black">Start Date</label>
+                  <div className="flex flex-wrap gap-2 relative">
+                    <select
+                      className={`border other-input flex-1 ${
+                        improve && hasErrors(index, "startYear")
+                          ? "border-red-500"
+                          : "border-black"
+                      }`}
+                      value={getDatePart(experience.startYear, "month")}
+                      onChange={(e) => handleMonthChange(e, index, "startYear")}
+                    >
+                      <option value="">Month</option>
+                      {months.map((month, idx) => (
+                        <option key={idx} value={month}>
+                          {month}
+                        </option>
+                      ))}
+                    </select>
+                    <select
+                      className={`border other-input flex-1 ${
+                        improve && hasErrors(index, "startYear")
+                          ? "border-red-500"
+                          : "border-black"
+                      }`}
+                      value={getDatePart(experience.startYear, "year")}
+                      onChange={(e) => handleYearChange(e, index, "startYear")}
+                    >
+                      <option value="">Year</option>
+                      {years.map((year, idx) => (
+                        <option key={idx} value={year}>
+                          {year}
+                        </option>
+                      ))}
+                    </select>
 
-                      {/* Year */}
-                      <select
-                        className={`other-input border flex-1 ${
-                          improve && hasErrors(index, "startYear")
-                            ? "border-red-500"
-                            : "border-black"
-                        }`}
-                        value={experience.startYear.split(",")[1]}
-                        onChange={(e) =>
-                          handleYearChange(e, index, "startYear")
-                        }
-                      >
-                        {years.map((year, idx) => (
-                          <option key={idx} value={year}>
-                            {year}
-                          </option>
-                        ))}
-                      </select>
-
-                      {/* Tooltip Icon */}
-                      {improve && hasErrors(index, "startYear") && (
+                    {improve && hasErrors(index, "startYear") && (
+                      <>
                         <button
                           type="button"
-                          className="absolute right-2 top-10 text-red-500 hover:text-red-600 transition-colors"
+                          className="absolute -right-8 top-1 text-red-500"
                           onClick={() =>
                             setActiveTooltip(
                               activeTooltip === `startYear-${index}`
@@ -798,104 +888,96 @@ const WorkExperience = () => {
                         >
                           <AlertCircle className="w-5 h-5" />
                         </button>
-                      )}
-                    </div>
 
-                    {/* Tooltip Message */}
-                    {activeTooltip === `startYear-${index}` && (
-                      <div className="absolute z-50 right-0 mt-2 w-80 bg-white rounded-lg shadow-xl transition-all border border-gray-700">
-                        <div className="p-4 border-b border-gray-700 flex items-center justify-between">
-                          <div className="flex items-center space-x-2">
-                            <AlertCircle className="w-5 h-5 text-red-400" />
-                            <span className="font-medium text-black">
-                              Start Date Issue
-                            </span>
-                          </div>
-                          <button onClick={() => setActiveTooltip(null)}>
-                            <X className="w-5 h-5 text-black" />
-                          </button>
-                        </div>
-                        <div className="p-4">
-                          {getErrorMessages(index, "startYear").map(
-                            (msg, i) => (
-                              <div
-                                key={i}
-                                className="flex items-start space-x-3 mb-3 last:mb-0"
-                              >
-                                <div className="w-1.5 h-1.5 rounded-full bg-red-400 mt-2" />
-                                <p className="text-black text-sm">{msg}</p>
+                        {activeTooltip === `startYear-${index}` && (
+                          <div className="absolute right-0 top-14 w-80 bg-white rounded-lg shadow-xl border border-gray-700 z-50">
+                            <div className="p-4 border-b border-gray-700">
+                              <div className="flex items-center justify-between">
+                                <div className="flex items-center space-x-2">
+                                  <AlertCircle className="w-5 h-5 text-red-400" />
+                                  <span className="font-medium text-black">
+                                    Start Date Issues
+                                  </span>
+                                </div>
+                                <button
+                                  onClick={() => setActiveTooltip(null)}
+                                  className="text-black transition-colors"
+                                >
+                                  <X className="w-5 h-5" />
+                                </button>
                               </div>
-                            )
-                          )}
-                        </div>
-                      </div>
+                            </div>
+                            <div className="p-4">
+                              {getErrorMessages(index, "startYear").map(
+                                (msg, i) => (
+                                  <div
+                                    key={i}
+                                    className="flex items-start space-x-3 mb-3 last:mb-0"
+                                  >
+                                    <div className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-red-400 mt-2" />
+                                    <p className="text-black text-sm">{msg}</p>
+                                  </div>
+                                )
+                              )}
+                            </div>
+                          </div>
+                        )}
+                      </>
                     )}
                   </div>
 
                   {/* End Date */}
-                  <div className="relative">
-                    <label className="text-black">End Date</label>
-                    <div className="flex flex-wrap gap-2 items-center">
-                      {/* Month */}
-                      <select
-                        className={`other-input border flex-1 ${
-                          improve && hasErrors(index, "endYear")
-                            ? "border-red-500"
-                            : "border-black"
-                        }`}
-                        value={
-                          experience.endYear === "Present"
-                            ? ""
-                            : experience.endYear.split(",")[0]
-                        }
-                        onChange={(e) => handleMonthChange(e, index, "endYear")}
-                        disabled={experience.endYear === "Present"}
-                      >
-                        {months.map((month, idx) => (
-                          <option key={idx} value={month}>
-                            {month}
-                          </option>
-                        ))}
-                      </select>
+                  <label className="mt-4 block text-black">End Date</label>
+                  <div className="flex flex-wrap gap-2 relative">
+                    <select
+                      className={`border other-input flex-1 ${
+                        improve && hasErrors(index, "endYear")
+                          ? "border-red-500"
+                          : "border-black"
+                      }`}
+                      value={getDatePart(experience.endYear, "month")}
+                      onChange={(e) => handleMonthChange(e, index, "endYear")}
+                      disabled={experience.endYear === "Present"}
+                    >
+                      <option value="">Month</option>
+                      {months.map((month, idx) => (
+                        <option key={idx} value={month}>
+                          {month}
+                        </option>
+                      ))}
+                    </select>
+                    <select
+                      className={`border other-input flex-1 ${
+                        improve && hasErrors(index, "endYear")
+                          ? "border-red-500"
+                          : "border-black"
+                      }`}
+                      value={getDatePart(experience.endYear, "year")}
+                      onChange={(e) => handleYearChange(e, index, "endYear")}
+                      disabled={experience.endYear === "Present"}
+                    >
+                      <option value="">Year</option>
+                      {years.map((year, idx) => (
+                        <option key={idx} value={year}>
+                          {year}
+                        </option>
+                      ))}
+                    </select>
+                    <label className="flex flex-1 items-center gap-1 other-input text-xl">
+                      <input
+                        type="checkbox"
+                        checked={experience.endYear === "Present"}
+                        onChange={() => handlePresentToggle(index)}
+                        className="w-6 h-6"
+                      />
+                      Present
+                    </label>
 
-                      {/* Year */}
-                      <select
-                        className={`other-input border flex-1 ${
-                          improve && hasErrors(index, "endYear")
-                            ? "border-red-500"
-                            : "border-black"
-                        }`}
-                        value={
-                          experience.endYear === "Present"
-                            ? ""
-                            : experience.endYear.split(",")[1]
-                        }
-                        onChange={(e) => handleYearChange(e, index, "endYear")}
-                        disabled={experience.endYear === "Present"}
-                      >
-                        {years.map((year, idx) => (
-                          <option key={idx} value={year}>
-                            {year}
-                          </option>
-                        ))}
-                      </select>
-
-                      {/* Present Checkbox */}
-                      <label className="flex items-center gap-1 text-xl flex-1 other-input">
-                        <input
-                          type="checkbox"
-                          checked={experience.endYear === "Present"}
-                          onChange={() => handlePresentToggle(index)}
-                          className="w-6 h-6"
-                        />
-                        Present
-                      </label>
-
-                      {/* Tooltip Icon */}
-                      {improve && hasErrors(index, "endYear") && (
+                    {improve && hasErrors(index, "endYear") && (
+                      <>
                         <button
                           type="button"
-                          className="absolute right-2 top-10 text-red-500 hover:text-red-600 transition-colors"
+                          className="absolute -right-8 top-1 text-red-500"
                           onClick={() =>
                             setActiveTooltip(
                               activeTooltip === `endYear-${index}`
@@ -906,39 +988,44 @@ const WorkExperience = () => {
                         >
                           <AlertCircle className="w-5 h-5" />
                         </button>
-                      )}
-                    </div>
 
-                    {/* Tooltip Message */}
-                    {activeTooltip === `endYear-${index}` && (
-                      <div className="absolute z-50 right-0 mt-2 w-80 bg-white rounded-lg shadow-xl transition-all border border-gray-700">
-                        <div className="p-4 border-b border-gray-700 flex items-center justify-between">
-                          <div className="flex items-center space-x-2">
-                            <AlertCircle className="w-5 h-5 text-red-400" />
-                            <span className="font-medium text-black">
-                              End Date Issue
-                            </span>
-                          </div>
-                          <button onClick={() => setActiveTooltip(null)}>
-                            <X className="w-5 h-5 text-black" />
-                          </button>
-                        </div>
-                        <div className="p-4">
-                          {getErrorMessages(index, "endYear").map((msg, i) => (
-                            <div
-                              key={i}
-                              className="flex items-start space-x-3 mb-3 last:mb-0"
-                            >
-                              <div className="w-1.5 h-1.5 rounded-full bg-red-400 mt-2" />
-                              <p className="text-black text-sm">{msg}</p>
+                        {activeTooltip === `endYear-${index}` && (
+                          <div className="absolute right-0 top-14 w-80 bg-white rounded-lg shadow-xl border border-gray-700 z-50">
+                            <div className="p-4 border-b border-gray-700">
+                              <div className="flex items-center justify-between">
+                                <div className="flex items-center space-x-2">
+                                  <AlertCircle className="w-5 h-5 text-red-400" />
+                                  <span className="font-medium text-black">
+                                    End Date Issues
+                                  </span>
+                                </div>
+                                <button
+                                  onClick={() => setActiveTooltip(null)}
+                                  className="text-black transition-colors"
+                                >
+                                  <X className="w-5 h-5" />
+                                </button>
+                              </div>
                             </div>
-                          ))}
-                        </div>
-                      </div>
+                            <div className="p-4">
+                              {getErrorMessages(index, "endYear")?.map(
+                                (msg, i) => (
+                                  <div
+                                    key={i}
+                                    className="flex items-start space-x-3 mb-3 last:mb-0"
+                                  >
+                                    <div className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-red-400 mt-2" />
+                                    <p className="text-black text-sm">{msg}</p>
+                                  </div>
+                                )
+                              )}
+                            </div>
+                          </div>
+                        )}
+                      </>
                     )}
                   </div>
                 </div>
-
                 <div className="relative mb-4">
                   <label className="mt-2 text-black">Location</label>
                   <input
@@ -1146,7 +1233,7 @@ const WorkExperience = () => {
                         : "+ Key Assist"}
                     </button>
                   </div>
-                  <textarea
+                  {/* <textarea
                     placeholder="Key Achievements (one per line)"
                     name="keyAchievements"
                     className={`w-full other-input border ${
@@ -1157,6 +1244,17 @@ const WorkExperience = () => {
                     value={experience?.keyAchievements}
                     onChange={(e) => handleWorkExperience(e, index)}
                     rows={4}
+                  /> */}
+                  <textarea
+                    placeholder="Enter key achievements (one per line)"
+                    className="w-full other-input border-black border h-24 max-w-[33rem] p-2 mb-2"
+                    // value={experience.keyAchievements}
+                    value={
+                      Array.isArray(experience?.keyAchievements)
+                        ? experience.keyAchievements.join("\n")
+                        : experience?.keyAchievements || ""
+                    }
+                    onChange={(e) => handleKeyAchievement(e, index)}
                   />
                   {improve && hasErrors(index, "keyAchievements") && (
                     <button
@@ -1226,81 +1324,6 @@ const WorkExperience = () => {
         remove={removeWorkExperience}
       />
 
-      {/* {showPopup && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-white p-6 rounded-lg w-[90%] max-w-lg">
-            <h3 className="text-xl font-bold mb-4">
-              {popupType === "description"
-                ? "Select Description"
-                : "Select Key Achievements"}
-            </h3>
-            <div className="space-y-3 max-h-96 overflow-y-auto">
-              {(popupType === "description" ? descriptions : keyAchievements)
-                ?.length > 0 ? (
-                // Rendering the list items when data exists
-                (popupType === "description"
-                  ? descriptions
-                  : keyAchievements
-                )?.map((item, index) => (
-                  <div key={index} className="flex items-start gap-3">
-                    {/* Radio for description (Single Select) 
-                    {popupType === "description" ? (
-                      <input
-                        type="radio"
-                        name="description" // Ensures only one can be selected
-                        checked={selectedDescriptions.includes(item)}
-                        onChange={() => setSelectedDescriptions([item])} // Only one selection
-                        className="mt-1"
-                      />
-                    ) : (
-                      // Checkbox for key achievements (Multi Select)
-                      <input
-                        type="checkbox"
-                        checked={selectedKeyAchievements.includes(item)}
-                        onChange={() => handleSummarySelect(item)}
-                        className="mt-1"
-                      />
-                    )}
-                    <p className="text-gray-800">{item}</p>
-                  </div>
-                ))
-              ) : (
-                // Fallback message when no data is available
-                <div className="flex flex-col items-center justify-center py-4">
-                  <p className="text-gray-500 text-center">
-                    {popupType === "description"
-                      ? "No descriptions available. "
-                      : "No key achievements available."}
-                  </p>
-                </div>
-              )}
-            </div>
-            <div className="flex justify-start mt-4 gap-2">
-              <button
-                onClick={(e) => handleSaveSelectedSummary(popupIndex, e)}
-                className={`px-4 py-2 rounded text-white transition-colors ${
-                  (popupType === "description" ? descriptions : keyAchievements)
-                    ?.length > 0
-                    ? "bg-gray-800 hover:bg-gray-700"
-                    : "bg-gray-400 cursor-not-allowed"
-                }`}
-                disabled={
-                  (popupType === "description" ? descriptions : keyAchievements)
-                    ?.length === 0
-                }
-              >
-                Save Selection
-              </button>
-              <button
-                onClick={() => setShowPopup(false)}
-                className="bg-gray-200 text-gray-800 px-4 py-2 rounded hover:bg-gray-300 transition-colors"
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
-        </div>
-      )} */}
       {showPopup && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
           <div className="bg-white p-6 rounded-lg w-[90%] max-w-lg">

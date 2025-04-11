@@ -48,7 +48,21 @@ const Projects = () => {
     "Nov",
     "Dec",
   ];
-  const years = Array.from({ length: 40 }, (_, index) => 2000 + index);
+  const years = Array.from(
+    { length: 50 },
+    (_, i) => new Date().getFullYear() - i
+  );
+  const formatDateValue = (month, year) => {
+    if (month && year) {
+      return `${month},${year}`;
+    } else if (month) {
+      return month;
+    } else if (year) {
+      return year;
+    } else {
+      return "";
+    }
+  };
   const router = useRouter();
   const { improve } = router.query;
 
@@ -67,15 +81,29 @@ const Projects = () => {
     setResumeData({ ...resumeData, projects: newProjects });
   };
 
+  // const handleKeyAchievement = (e, projectIndex) => {
+  //   // const newProjects = [...resumeData.projects]
+  //   // newProjects[projectIndex].keyAchievements = e.target.value
+  //   // setResumeData({ ...resumeData, projects: newProjects })
+  //   const newProjects = [...resumeData.projects];
+  //   const achievements = e.target.value
+  //     .split("\n")
+  //     .filter((item) => item.trim());
+  //   newProjects[projectIndex].keyAchievements = achievements;
+  //   setResumeData({ ...resumeData, projects: newProjects });
+  // };
   const handleKeyAchievement = (e, projectIndex) => {
-    // const newProjects = [...resumeData.projects]
-    // newProjects[projectIndex].keyAchievements = e.target.value
-    // setResumeData({ ...resumeData, projects: newProjects })
     const newProjects = [...resumeData.projects];
     const achievements = e.target.value
       .split("\n")
-      .filter((item) => item.trim());
-    newProjects[projectIndex].keyAchievements = achievements;
+      .map((item) => item.trim())
+      .filter((item) => item !== "");
+
+    newWorkExperience[projectIndex].keyAchievements = achievements;
+
+    // Optional: Track user-modified achievements separately if needed
+    setSelectedKeyAchievements(achievements); // sync with popup logic
+
     setResumeData({ ...resumeData, projects: newProjects });
   };
 
@@ -99,18 +127,41 @@ const Projects = () => {
     });
     setExpandedProjects([...expandedProjects, resumeData.projects.length]);
   };
-  const handleYearChange = (e, index, field) => {
-    const newProjects = [...resumeData.projects];
-    const currentDate = newProjects[index][field];
-    const [month, _] = currentDate.split(",");
-    newProjects[index][field] = `${month || ""},${e.target.value}`;
-    setResumeData({ ...resumeData, projects: newProjects });
-  };
+
   const handleMonthChange = (e, index, field) => {
     const newProjects = [...resumeData.projects];
-    const currentDate = newProjects[index][field] || "Jan,2024";
-    const [_, year] = currentDate.split(",");
-    newProjects[index][field] = `${e.target.value},${year || ""}`;
+    const newMonth = e.target.value;
+    let year = "";
+    if (newProjects[index][field]) {
+      const parts = newProjects[index][field].split(",");
+      if (parts.length > 1) {
+        year = parts[1];
+      } else if (parts.length === 1 && !months.includes(parts[0])) {
+        // If there's only one part and it's not a month, it must be a year
+        year = parts[0];
+      }
+    }
+
+    newProjects[index][field] = formatDateValue(newMonth, year);
+    setResumeData({ ...resumeData, projects: newProjects });
+  };
+
+  const handleYearChange = (e, index, field) => {
+    const newProjects = [...resumeData.projects];
+    const newYear = e.target.value;
+
+    // Get the current month value
+    let month = "";
+    if (newProjects[index][field]) {
+      const parts = newProjects[index][field].split(",");
+      if (parts.length > 0 && months.includes(parts[0])) {
+        month = parts[0];
+      }
+    }
+
+    // Format the new value
+    newProjects[index][field] = formatDateValue(month, newYear);
+
     setResumeData({ ...resumeData, projects: newProjects });
   };
   const removeProjects = (index) => {
@@ -196,24 +247,44 @@ const Projects = () => {
       );
     }
   };
-
   const handleSaveSelectedSummary = (index, e) => {
     e.preventDefault();
+
     const newProjects = [...resumeData.projects];
+    const currentAchievements = newProjects[index].keyAchievements || [];
 
-    if (popupType === "description") {
-      newProjects[index].description = selectedDescriptions.join(" ");
-    } else {
-      newProjects[index].keyAchievements = selectedKeyAchievements;
-    }
+    // Avoid duplicates, respect deletions
+    const filteredSelected = selectedKeyAchievements.filter(
+      (item) => !currentAchievements.includes(item)
+    );
 
-    setResumeData({
-      ...resumeData,
-      projects: newProjects,
-    });
+    const updatedAchievements = [...currentAchievements, ...filteredSelected];
 
+    newProjects[index].keyAchievements = updatedAchievements;
+    setResumeData({ ...resumeData, projects: newProjects });
+
+    // Close popup and clear state
     setShowPopup(false);
+    setSelectedKeyAchievements([]);
   };
+
+  // const handleSaveSelectedSummary = (index, e) => {
+  //   e.preventDefault();
+  //   const newProjects = [...resumeData.projects];
+
+  //   if (popupType === "description") {
+  //     newProjects[index].description = selectedDescriptions.join(" ");
+  //   } else {
+  //     newProjects[index].keyAchievements = selectedKeyAchievements;
+  //   }
+
+  //   setResumeData({
+  //     ...resumeData,
+  //     projects: newProjects,
+  //   });
+
+  //   setShowPopup(false);
+  // };
   const hasErrors = (index, field) => {
     const workStrength = resumeStrength?.project_strenght?.[index];
     return (
@@ -310,7 +381,6 @@ const Projects = () => {
       : [];
   };
   const handleAIAssistDescription = async (projectIndex) => {
-  
     // console.log(resumeData.projects[projectIndex].name,"llll");
     if (!resumeData.projects[projectIndex].name) {
       toast.warn("Project name is Required");
@@ -361,6 +431,32 @@ const Projects = () => {
         ...prev,
         [`description_${projectIndex}`]: false,
       }));
+    }
+  };
+
+  // Parse date string to get month and year
+  const getDatePart = (dateStr, part) => {
+    if (!dateStr) return "";
+    if (dateStr === "Present") return part === "month" ? "" : dateStr;
+
+    const parts = dateStr.split(",");
+
+    // If there's only one part, determine if it's a month or year
+    if (parts.length === 1) {
+      if (months.includes(parts[0]) && part === "month") {
+        return parts[0];
+      } else if (!isNaN(parts[0]) && part === "year") {
+        return parts[0];
+      } else {
+        return "";
+      }
+    }
+
+    // If there are two parts, return the appropriate one
+    if (part === "month") {
+      return parts[0] || "";
+    } else {
+      return parts[1] || "";
     }
   };
   return (
@@ -527,207 +623,202 @@ const Projects = () => {
                     )}
                   </div>
                 </div>
-                <div className="space-y-6 relative">
+
+                <div className="relative">
                   {/* Start Date */}
-                  <div className="relative">
-                    <label className="text-black">Start Date</label>
-                    <div className="flex flex-wrap gap-2">
-                      {/* Month */}
-                      <select
-                        className={`other-input border flex-1 ${
-                          improve && hasErrors(projectIndex, "startYear")
-                            ? "border-red-500"
-                            : "border-black"
-                        }`}
-                        value={project.startYear.split(",")[0]}
-                        onChange={(e) =>
-                          handleMonthChange(e, projectIndex, "startYear")
-                        }
-                      >
-                        {months.map((month, idx) => (
-                          <option key={idx} value={month}>
-                            {month}
-                          </option>
-                        ))}
-                      </select>
+                  <label className="text-black">Start Date</label>
+                  <div className="flex flex-wrap gap-2 relative">
+                    <select
+                      className={`border other-input flex-1 ${
+                        improve && hasErrors(projectIndex, "startYear")
+                          ? "border-red-500"
+                          : "border-black"
+                      }`}
+                      value={getDatePart(project.startYear, "month")}
+                      onChange={(e) =>
+                        handleMonthChange(e, projectIndex, "startYear")
+                      }
+                    >
+                      <option value="">Month</option>
+                      {months.map((month, idx) => (
+                        <option key={idx} value={month}>
+                          {month}
+                        </option>
+                      ))}
+                    </select>
+                    <select
+                      className={`border other-input flex-1 ${
+                        improve && hasErrors(projectIndex, "startYear")
+                          ? "border-red-500"
+                          : "border-black"
+                      }`}
+                      value={getDatePart(project.startYear, "year")}
+                      onChange={(e) =>
+                        handleYearChange(e, projectIndex, "startYear")
+                      }
+                    >
+                      <option value="">Year</option>
+                      {years.map((year, idx) => (
+                        <option key={idx} value={year}>
+                          {year}
+                        </option>
+                      ))}
+                    </select>
 
-                      {/* Year */}
-                      <select
-                        className={`other-input border flex-1 ${
-                          improve && hasErrors(projectIndex, "startYear")
-                            ? "border-red-500"
-                            : "border-black"
-                        }`}
-                        value={project.startYear.split(",")[1]}
-                        onChange={(e) =>
-                          handleYearChange(e, projectIndex, "startYear")
-                        }
-                      >
-                        {years.map((year, idx) => (
-                          <option key={idx} value={year}>
-                            {year}
-                          </option>
-                        ))}
-                      </select>
-
-                      {/* Tooltip Icon */}
-                      {improve && hasErrors(projectIndex, "startYear") && (
+                    {improve && hasErrors(projectIndex, "startYear") && (
+                      <>
                         <button
                           type="button"
-                          className="absolute right-2 top-10 text-red-500 hover:text-red-600 transition-colors"
+                          className="absolute -right-8 top-1 text-red-500"
                           onClick={() =>
                             setActiveTooltip(
-                              activeTooltip === `startYear-${projectIndex}`
+                              activeTooltip === `startYear-${index}`
                                 ? null
-                                : `startYear-${projectIndex}`
+                                : `startYear-${index}`
                             )
                           }
                         >
                           <AlertCircle className="w-5 h-5" />
                         </button>
-                      )}
-                    </div>
 
-                    {/* Tooltip Message */}
-                    {activeTooltip === `startYear-${projectIndex}` && (
-                      <div className="absolute z-50 right-0 mt-2 w-80 bg-white rounded-lg shadow-xl transition-all border border-gray-700">
-                        <div className="p-4 border-b border-gray-700 flex items-center justify-between">
-                          <div className="flex items-center space-x-2">
-                            <AlertCircle className="w-5 h-5 text-red-400" />
-                            <span className="font-medium text-black">
-                              Start Date Issue
-                            </span>
-                          </div>
-                          <button onClick={() => setActiveTooltip(null)}>
-                            <X className="w-5 h-5 text-black" />
-                          </button>
-                        </div>
-                        <div className="p-4">
-                          {getErrorMessages(projectIndex, "startYear").map(
-                            (msg, i) => (
-                              <div
-                                key={i}
-                                className="flex items-start space-x-3 mb-3 last:mb-0"
-                              >
-                                <div className="w-1.5 h-1.5 rounded-full bg-red-400 mt-2" />
-                                <p className="text-black text-sm">{msg}</p>
+                        {activeTooltip === `startYear-${index}` && (
+                          <div className="absolute right-0 top-14 w-80 bg-white rounded-lg shadow-xl border border-gray-700 z-50">
+                            <div className="p-4 border-b border-gray-700">
+                              <div className="flex items-center justify-between">
+                                <div className="flex items-center space-x-2">
+                                  <AlertCircle className="w-5 h-5 text-red-400" />
+                                  <span className="font-medium text-black">
+                                    Start Date Issues
+                                  </span>
+                                </div>
+                                <button
+                                  onClick={() => setActiveTooltip(null)}
+                                  className="text-black transition-colors"
+                                >
+                                  <X className="w-5 h-5" />
+                                </button>
                               </div>
-                            )
-                          )}
-                        </div>
-                      </div>
+                            </div>
+                            <div className="p-4">
+                              {getErrorMessages(index, "startYear").map(
+                                (msg, i) => (
+                                  <div
+                                    key={i}
+                                    className="flex items-start space-x-3 mb-3 last:mb-0"
+                                  >
+                                    <div className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-red-400 mt-2" />
+                                    <p className="text-black text-sm">{msg}</p>
+                                  </div>
+                                )
+                              )}
+                            </div>
+                          </div>
+                        )}
+                      </>
                     )}
                   </div>
 
                   {/* End Date */}
-                  <div className="relative">
-                    <label className="text-black">End Date</label>
-                    <div className="flex flex-wrap gap-2 items-center">
-                      {/* Month */}
-                      <select
-                        className={`other-input border flex-1 ${
-                          improve && hasErrors(projectIndex, "endYear")
-                            ? "border-red-500"
-                            : "border-black"
-                        }`}
-                        value={
-                          project.endYear === "Present"
-                            ? ""
-                            : project.endYear.split(",")[0]
-                        }
-                        onChange={(e) =>
-                          handleMonthChange(e, projectIndex, "endYear")
-                        }
-                        disabled={project.endYear === "Present"}
-                      >
-                        {months.map((month, idx) => (
-                          <option key={idx} value={month}>
-                            {month}
-                          </option>
-                        ))}
-                      </select>
+                  <label className="mt-4 block text-black">End Date</label>
+                  <div className="flex flex-wrap gap-2 relative">
+                    <select
+                      className={`border other-input flex-1 ${
+                        improve && hasErrors(projectIndex, "endYear")
+                          ? "border-red-500"
+                          : "border-black"
+                      }`}
+                      value={getDatePart(project.endYear, "month")}
+                      onChange={(e) =>
+                        handleMonthChange(e, projectIndex, "endYear")
+                      }
+                      disabled={project.endYear === "Present"}
+                    >
+                      <option value="">Month</option>
+                      {months.map((month, idx) => (
+                        <option key={idx} value={month}>
+                          {month}
+                        </option>
+                      ))}
+                    </select>
+                    <select
+                      className={`border other-input flex-1 ${
+                        improve && hasErrors(projectIndex, "endYear")
+                          ? "border-red-500"
+                          : "border-black"
+                      }`}
+                      value={getDatePart(project.endYear, "year")}
+                      onChange={(e) =>
+                        handleYearChange(e, projectIndex, "endYear")
+                      }
+                      disabled={project.endYear === "Present"}
+                    >
+                      <option value="">Year</option>
+                      {years.map((year, idx) => (
+                        <option key={idx} value={year}>
+                          {year}
+                        </option>
+                      ))}
+                    </select>
+                    <label className="flex flex-1 items-center gap-1 other-input text-xl">
+                      <input
+                        type="checkbox"
+                        checked={project.endYear === "Present"}
+                        onChange={() => handlePresentToggle(index)}
+                        className="w-6 h-6"
+                      />
+                      Present
+                    </label>
 
-                      {/* Year */}
-                      <select
-                        className={`other-input border flex-1 ${
-                          improve && hasErrors(projectIndex, "endYear")
-                            ? "border-red-500"
-                            : "border-black"
-                        }`}
-                        value={
-                          project.endYear === "Present"
-                            ? ""
-                            : project.endYear.split(",")[1]
-                        }
-                        onChange={(e) =>
-                          handleYearChange(e, projectIndex, "endYear")
-                        }
-                        disabled={project.endYear === "Present"}
-                      >
-                        {years.map((year, idx) => (
-                          <option key={idx} value={year}>
-                            {year}
-                          </option>
-                        ))}
-                      </select>
-
-                      {/* Present Checkbox */}
-                      <label className="flex items-center gap-1 text-xl flex-1 other-input">
-                        <input
-                          type="checkbox"
-                          checked={project.endYear === "Present"}
-                          onChange={() => handlePresentToggle(projectIndex)}
-                          className="w-6 h-6"
-                        />
-                        Present
-                      </label>
-
-                      {/* Tooltip Icon */}
-                      {improve && hasErrors(projectIndex, "endYear") && (
+                    {improve && hasErrors(projectIndex, "endYear") && (
+                      <>
                         <button
                           type="button"
-                          className="absolute right-2 top-10 text-red-500 hover:text-red-600 transition-colors"
+                          className="absolute -right-8 top-1 text-red-500"
                           onClick={() =>
                             setActiveTooltip(
-                              activeTooltip === `endYear-${projectIndex}`
+                              activeTooltip === `endYear-${index}`
                                 ? null
-                                : `endYear-${projectIndex}`
+                                : `endYear-${index}`
                             )
                           }
                         >
                           <AlertCircle className="w-5 h-5" />
                         </button>
-                      )}
-                    </div>
 
-                    {/* Tooltip Message */}
-                    {activeTooltip === `endYear-${projectIndex}` && (
-                      <div className="absolute z-50 right-0 mt-2 w-80 bg-white rounded-lg shadow-xl transition-all border border-gray-700">
-                        <div className="p-4 border-b border-gray-700 flex items-center justify-between">
-                          <div className="flex items-center space-x-2">
-                            <AlertCircle className="w-5 h-5 text-red-400" />
-                            <span className="font-medium text-black">
-                              End Date Issue
-                            </span>
-                          </div>
-                          <button onClick={() => setActiveTooltip(null)}>
-                            <X className="w-5 h-5 text-black" />
-                          </button>
-                        </div>
-                        <div className="p-4">
-                          {getErrorMessages(projectIndex, "endYear").map(
-                            (msg, i) => (
-                              <div
-                                key={i}
-                                className="flex items-start space-x-3 mb-3 last:mb-0"
-                              >
-                                <div className="w-1.5 h-1.5 rounded-full bg-red-400 mt-2" />
-                                <p className="text-black text-sm">{msg}</p>
+                        {activeTooltip === `endYear-${index}` && (
+                          <div className="absolute right-0 top-14 w-80 bg-white rounded-lg shadow-xl border border-gray-700 z-50">
+                            <div className="p-4 border-b border-gray-700">
+                              <div className="flex items-center justify-between">
+                                <div className="flex items-center space-x-2">
+                                  <AlertCircle className="w-5 h-5 text-red-400" />
+                                  <span className="font-medium text-black">
+                                    End Date Issues
+                                  </span>
+                                </div>
+                                <button
+                                  onClick={() => setActiveTooltip(null)}
+                                  className="text-black transition-colors"
+                                >
+                                  <X className="w-5 h-5" />
+                                </button>
                               </div>
-                            )
-                          )}
-                        </div>
-                      </div>
+                            </div>
+                            <div className="p-4">
+                              {getErrorMessages(index, "endYear")?.map(
+                                (msg, i) => (
+                                  <div
+                                    key={i}
+                                    className="flex items-start space-x-3 mb-3 last:mb-0"
+                                  >
+                                    <div className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-red-400 mt-2" />
+                                    <p className="text-black text-sm">{msg}</p>
+                                  </div>
+                                )
+                              )}
+                            </div>
+                          </div>
+                        )}
+                      </>
                     )}
                   </div>
                 </div>
@@ -1024,16 +1115,22 @@ const Projects = () => {
           </div>
         </div>
       )} */}
-       {showPopup && (
+      {showPopup && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
           <div className="bg-white p-6 rounded-lg w-[90%] max-w-lg">
             <h3 className="text-xl font-bold mb-4">
-              {popupType === "description" ? "Select Description" : "Select Key Achievements"}
+              {popupType === "description"
+                ? "Select Description"
+                : "Select Key Achievements"}
             </h3>
             <div className="space-y-3 max-h-96 overflow-y-auto">
-              {(popupType === "description" ? descriptions : keyAchievements)?.length > 0 ? (
+              {(popupType === "description" ? descriptions : keyAchievements)
+                ?.length > 0 ? (
                 // Rendering the list items when data exists
-                (popupType === "description" ? descriptions : keyAchievements)?.map((item, index) => (
+                (popupType === "description"
+                  ? descriptions
+                  : keyAchievements
+                )?.map((item, index) => (
                   <div key={index} className="flex items-start gap-3">
                     {/* Radio for description (Single Select) */}
                     {popupType === "description" ? (
@@ -1060,20 +1157,32 @@ const Projects = () => {
                 // Fallback message when no data is available
                 <div className="text-center py-6">
                   <p className="text-gray-500 mb-4">
-                    {popupType === "description" ? "No descriptions available." : "No key achievements available."}
+                    {popupType === "description"
+                      ? "No descriptions available."
+                      : "No key achievements available."}
                   </p>
                   <button
                     onClick={() => {
                       if (popupType === "description") {
-                        handleAIAssistDescription(popupIndex)
+                        handleAIAssistDescription(popupIndex);
                       } else {
-                        handleAIAssistKey(popupIndex)
+                        handleAIAssistKey(popupIndex);
                       }
                     }}
                     className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
-                    disabled={loadingStates[`${popupType === "description" ? "description" : "key"}_${popupIndex}`]}
+                    disabled={
+                      loadingStates[
+                        `${
+                          popupType === "description" ? "description" : "key"
+                        }_${popupIndex}`
+                      ]
+                    }
                   >
-                    {loadingStates[`${popupType === "description" ? "description" : "key"}_${popupIndex}`]
+                    {loadingStates[
+                      `${
+                        popupType === "description" ? "description" : "key"
+                      }_${popupIndex}`
+                    ]
                       ? "Retrying..."
                       : "Retry"}
                   </button>
@@ -1083,11 +1192,15 @@ const Projects = () => {
             <button
               onClick={(e) => handleSaveSelectedSummary(popupIndex, e)}
               className={`mt-4 px-4 py-2 rounded text-white ${
-                (popupType === "description" ? descriptions : keyAchievements)?.length > 0
+                (popupType === "description" ? descriptions : keyAchievements)
+                  ?.length > 0
                   ? "bg-gray-800 hover:bg-gray-600"
                   : "bg-gray-400 cursor-not-allowed"
               }`}
-              disabled={(popupType === "description" ? descriptions : keyAchievements)?.length === 0}
+              disabled={
+                (popupType === "description" ? descriptions : keyAchievements)
+                  ?.length === 0
+              }
             >
               Save Selection
             </button>
