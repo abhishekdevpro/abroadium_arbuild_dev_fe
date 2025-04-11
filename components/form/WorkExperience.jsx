@@ -877,7 +877,7 @@ const WorkExperience = () => {
                       <>
                         <button
                           type="button"
-                          className="absolute -right-8 top-1 text-red-500"
+                          className="absolute right-[2px] top-[-1.5rem] text-red-500"
                           onClick={() =>
                             setActiveTooltip(
                               activeTooltip === `startYear-${index}`
@@ -977,7 +977,7 @@ const WorkExperience = () => {
                       <>
                         <button
                           type="button"
-                          className="absolute -right-8 top-1 text-red-500"
+                          className="absolute right-[2px] top-[-1.5rem] text-red-500"
                           onClick={() =>
                             setActiveTooltip(
                               activeTooltip === `endYear-${index}`
@@ -1247,7 +1247,7 @@ const WorkExperience = () => {
                   /> */}
                   <textarea
                     placeholder="Enter key achievements (one per line)"
-                    className="w-full other-input border-black border h-24 max-w-[33rem] p-2 mb-2"
+                    className="w-full other-input border-black border"
                     // value={experience.keyAchievements}
                     value={
                       Array.isArray(experience?.keyAchievements)
