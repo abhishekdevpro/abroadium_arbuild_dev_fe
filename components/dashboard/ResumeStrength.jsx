@@ -279,7 +279,7 @@ const TooltipContent = ({ improvements, resumeId, onClose }) => {
   ];
 
   const handleATS = async () => {
-    if (!improveBy) return; // Don't proceed if no option is selected
+    // if (!improveBy) return; // Don't proceed if no option is selected
 
     const token = localStorage.getItem("token");
     setLoading(true);
