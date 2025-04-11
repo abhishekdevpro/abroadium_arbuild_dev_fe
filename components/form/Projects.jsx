@@ -99,7 +99,7 @@ const Projects = () => {
       .map((item) => item.trim())
       .filter((item) => item !== "");
 
-    newWorkExperience[projectIndex].keyAchievements = achievements;
+    newProjects[projectIndex].keyAchievements = achievements;
 
     // Optional: Track user-modified achievements separately if needed
     setSelectedKeyAchievements(achievements); // sync with popup logic
@@ -669,19 +669,19 @@ const Projects = () => {
                       <>
                         <button
                           type="button"
-                          className="absolute -right-8 top-1 text-red-500"
+                          className="absolute right-[2px] top-[-1.5rem] text-red-500"
                           onClick={() =>
                             setActiveTooltip(
-                              activeTooltip === `startYear-${index}`
+                              activeTooltip === `startYear-${projectIndex}`
                                 ? null
-                                : `startYear-${index}`
+                                : `startYear-${projectIndex}`
                             )
                           }
                         >
                           <AlertCircle className="w-5 h-5" />
                         </button>
 
-                        {activeTooltip === `startYear-${index}` && (
+                        {activeTooltip === `startYear-${projectIndex}` && (
                           <div className="absolute right-0 top-14 w-80 bg-white rounded-lg shadow-xl border border-gray-700 z-50">
                             <div className="p-4 border-b border-gray-700">
                               <div className="flex items-center justify-between">
@@ -700,7 +700,7 @@ const Projects = () => {
                               </div>
                             </div>
                             <div className="p-4">
-                              {getErrorMessages(index, "startYear").map(
+                              {getErrorMessages(projectIndex, "startYear").map(
                                 (msg, i) => (
                                   <div
                                     key={i}
@@ -773,19 +773,19 @@ const Projects = () => {
                       <>
                         <button
                           type="button"
-                          className="absolute -right-8 top-1 text-red-500"
+                          className="absolute right-[2px] top-[-1.5rem] text-red-500"
                           onClick={() =>
                             setActiveTooltip(
-                              activeTooltip === `endYear-${index}`
+                              activeTooltip === `endYear-${projectIndex}`
                                 ? null
-                                : `endYear-${index}`
+                                : `endYear-${projectIndex}`
                             )
                           }
                         >
                           <AlertCircle className="w-5 h-5" />
                         </button>
 
-                        {activeTooltip === `endYear-${index}` && (
+                        {activeTooltip === `endYear-${projectIndex}` && (
                           <div className="absolute right-0 top-14 w-80 bg-white rounded-lg shadow-xl border border-gray-700 z-50">
                             <div className="p-4 border-b border-gray-700">
                               <div className="flex items-center justify-between">
@@ -804,7 +804,7 @@ const Projects = () => {
                               </div>
                             </div>
                             <div className="p-4">
-                              {getErrorMessages(index, "endYear")?.map(
+                              {getErrorMessages(projectIndex, "endYear")?.map(
                                 (msg, i) => (
                                   <div
                                     key={i}
@@ -950,7 +950,7 @@ const Projects = () => {
 
                   <textarea
                     placeholder="Enter key achievements (one per line)"
-                    className="w-full other-input border-black border h-24 max-w-[33rem] p-2 mb-2"
+                    className="w-full other-input border-black border "
                     value={project.keyAchievements}
                     onChange={(e) => handleKeyAchievement(e, projectIndex)}
                   />
