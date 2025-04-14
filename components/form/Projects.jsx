@@ -247,27 +247,55 @@ const Projects = () => {
       );
     }
   };
+  // const handleSaveSelectedSummary = (index, e) => {
+  //   e.preventDefault();
+
+  //   const newProjects = [...resumeData.projects];
+  //   const currentAchievements = newProjects[index].keyAchievements || [];
+
+  //   // Avoid duplicates, respect deletions
+  //   const filteredSelected = selectedKeyAchievements.filter(
+  //     (item) => !currentAchievements.includes(item)
+  //   );
+
+  //   const updatedAchievements = [...currentAchievements, ...filteredSelected];
+
+  //   newProjects[index].keyAchievements = updatedAchievements;
+  //   setResumeData({ ...resumeData, projects: newProjects });
+
+  //   // Close popup and clear state
+  //   setShowPopup(false);
+  //   setSelectedKeyAchievements([]);
+  // };
   const handleSaveSelectedSummary = (index, e) => {
     e.preventDefault();
 
     const newProjects = [...resumeData.projects];
-    const currentAchievements = newProjects[index].keyAchievements || [];
 
-    // Avoid duplicates, respect deletions
-    const filteredSelected = selectedKeyAchievements.filter(
-      (item) => !currentAchievements.includes(item)
-    );
+    if (popupType === "keyAchievements") {
+      const currentAchievements = newProjects[index].keyAchievements || [];
 
-    const updatedAchievements = [...currentAchievements, ...filteredSelected];
+      // Avoid duplicates
+      const filteredSelected = selectedKeyAchievements.filter(
+        (item) => !currentAchievements.includes(item)
+      );
 
-    newProjects[index].keyAchievements = updatedAchievements;
+      const updatedAchievements = [...currentAchievements, ...filteredSelected];
+
+      newProjects[index].keyAchievements = updatedAchievements;
+      setSelectedKeyAchievements([]);
+    } else if (popupType === "description") {
+      if (selectedDescriptions.length > 0) {
+        newProjects[index].description = selectedDescriptions[0]; // 🟢 Select only one description
+        setSelectedDescriptions([]);
+      }
+    }
+
     setResumeData({ ...resumeData, projects: newProjects });
 
-    // Close popup and clear state
+    // Close popup
     setShowPopup(false);
-    setSelectedKeyAchievements([]);
   };
-
   // const handleSaveSelectedSummary = (index, e) => {
   //   e.preventDefault();
   //   const newProjects = [...resumeData.projects];
