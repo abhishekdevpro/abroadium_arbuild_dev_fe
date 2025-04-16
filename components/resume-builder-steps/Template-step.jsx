@@ -290,12 +290,13 @@ const TemplateStep = ({ onNext, onBack, onChange, value }) => {
         })) || [],
       summary: data.summary || "",
       education:
-        data.education?.map((edu) => ({
-          school: edu.school || "",
-          degree: edu.degree || "",
-          startYear: edu.startYear || "",
-          endYear: edu.endYear || "",
-        })) || [],
+      resumeData.education?.map((edu) => ({
+        school: edu.school || "",
+        degree: edu.degree || "",
+        startYear: edu.startYear,
+        endYear: edu.endYear,
+        location: edu.location || "",
+      })) || [],
       workExperience:
         data.workExperience?.map((exp) => ({
           company: exp.company || "",
