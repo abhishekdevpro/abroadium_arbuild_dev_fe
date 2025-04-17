@@ -341,18 +341,31 @@ const WorkExperience = () => {
   };
   const handleKeyAchievement = (e, index) => {
     const newWorkExperience = [...resumeData.workExperience];
-    const achievements = e.target.value
-      .split("\n")
-      .map((item) => item.trim())
-      .filter((item) => item !== "");
-
+    
+    // Don't filter out empty strings - this is the key change
+    const achievements = e.target.value.split("\n");
+    
     newWorkExperience[index].keyAchievements = achievements;
-
+    
     // Optional: Track user-modified achievements separately if needed
     setSelectedKeyAchievements(achievements); // sync with popup logic
-
+    
     setResumeData({ ...resumeData, workExperience: newWorkExperience });
   };
+  // const handleKeyAchievement = (e, index) => {
+  //   const newWorkExperience = [...resumeData.workExperience];
+  //   const achievements = e.target.value
+  //     .split("\n")
+  //     .map((item) => item.trim())
+  //     .filter((item) => item !== "");
+
+  //   newWorkExperience[index].keyAchievements = achievements;
+
+  //   // Optional: Track user-modified achievements separately if needed
+  //   setSelectedKeyAchievements(achievements); // sync with popup logic
+
+  //   setResumeData({ ...resumeData, workExperience: newWorkExperience });
+  // };
   // const handleKeyAchievement = (e, index) => {
   //   const newWorkExperience = [...resumeData.workExperience];
   //   const achievements = e.target.value
@@ -1263,18 +1276,7 @@ const WorkExperience = () => {
                         : "+ Key Assist"}
                     </button>
                   </div>
-                  {/* <textarea
-                    placeholder="Key Achievements (one per line)"
-                    name="keyAchievements"
-                    className={`w-full other-input border ${
-                      improve && hasErrors(index, "keyAchievements")
-                        ? "border-red-500"
-                        : "border-black"
-                    }`}
-                    value={experience?.keyAchievements}
-                    onChange={(e) => handleWorkExperience(e, index)}
-                    rows={4}
-                  /> */}
+                 
                   <textarea
                     placeholder="Enter key achievements (one per line)"
                     className="w-full other-input border-black border"

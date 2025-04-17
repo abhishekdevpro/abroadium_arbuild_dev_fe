@@ -94,17 +94,14 @@ const Projects = () => {
   // };
   const handleKeyAchievement = (e, projectIndex) => {
     const newProjects = [...resumeData.projects];
-    const achievements = e.target.value
-      .split("\n")
-      .map((item) => item.trim())
-      .filter((item) => item !== "");
+    const achievements = e.target.value.split("\n");
 
     newProjects[projectIndex].keyAchievements = achievements;
 
     // Optional: Track user-modified achievements separately if needed
     setSelectedKeyAchievements(achievements); // sync with popup logic
 
-    setResumeData({ ...resumeData, projects: newProjects });
+    // setResumeData({ ...resumeData, projects: newProjects });
   };
 
   const addProjects = () => {
@@ -979,7 +976,11 @@ const Projects = () => {
                   <textarea
                     placeholder="Enter key achievements (one per line)"
                     className="w-full other-input border-black border "
-                    value={project.keyAchievements}
+                    value={
+                      Array.isArray(project?.keyAchievements)
+                        ? project.keyAchievements.join("\n")
+                        : project?.keyAchievements || ""
+                    }
                     onChange={(e) => handleKeyAchievement(e, projectIndex)}
                   />
 

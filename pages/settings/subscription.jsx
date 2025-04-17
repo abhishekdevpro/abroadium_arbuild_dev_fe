@@ -189,6 +189,14 @@ export default function Subscription() {
 
     fetchUserProfile();
   }, []);
+  const planName = {
+    1: "Free",
+    2: "Single Pass",
+    3: "AI Pro Month",
+    4: "AI Pro Yearly",
+  };
+
+  const currentPlan = userData?.plan_id ? planName[String(userData.plan_id)] : "Free";
 
   return (
     <>
@@ -286,19 +294,19 @@ export default function Subscription() {
                 {/* <p className="text-gray-700">
                   Current plan: {userData?.plan_id || "N/A"}
                 </p> */}
-                <p className="text-gray-700">
-                  Current Plan:{" "}
-                  {userData?.plan_id ? (
-                    <span className="font-medium">
-                      {userData.plan_id === 1 && "Free Plan"}
-                      {userData.plan_id === 2 && "Single Pass"}
-                      {userData.plan_id === 3 && "AI Pro Month"}
-                      {userData.plan_id === 4 && "AI Pro Yearly"}
-                    </span>
-                  ) : (
-                    "N/A"
-                  )}
-                </p>
+                <p className="text-sm text-gray-600">
+              Current Plan:{" "}
+              <span
+                className={`px-2 py-1 rounded text-sm ${
+                  currentPlan === "Free"
+                    ? "bg-red-100 text-red-600"
+                    : "bg-green-100 text-green-600"
+                }`}
+              >
+                {currentPlan}
+              </span>
+            </p>
+        
                 <p className="mt-4 text-gray-700">
                   For more information or changes to your subscription, contact
                   us at

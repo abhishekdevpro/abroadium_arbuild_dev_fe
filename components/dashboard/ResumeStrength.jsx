@@ -560,11 +560,15 @@ const ResumeStrength = ({ score, strength, resumeId }) => {
   };
 
   const sectionsList = getSectionsList(strength);
-
-  const getScoreColor = (score, maxScore) => {
+  // console.log(sectionsList, "list");
+  const getScoreColor = (name, score, maxScore) => {
     const percentage = (score / maxScore) * 100;
-    if (percentage >= 70) return "bg-green-500";
-    return "bg-red-600";
+
+    if (name === "ATS") {
+      return percentage >= 50 ? "bg-green-500" : "bg-red-600";
+    }
+
+    return percentage >= 70 ? "bg-green-500" : "bg-red-600";
   };
 
   return (
@@ -632,7 +636,11 @@ const ResumeStrength = ({ score, strength, resumeId }) => {
           {sectionsList.map((section) => {
             const Icon = section.icon;
             const currentScore = section.score || 0;
-            const scoreColor = getScoreColor(currentScore, section.max_score);
+            const scoreColor = getScoreColor(
+              section.name,
+              currentScore,
+              section.max_score
+            );
             const isATS = section.name === "ATS";
 
             return (
