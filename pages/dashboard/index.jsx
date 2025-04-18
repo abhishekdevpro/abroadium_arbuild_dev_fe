@@ -41,7 +41,7 @@ useEffect(() => {
         });
     }
   }, []);
-console.log(resumes.length,"Length");
+// console.log(resumes.length,"Length");
   const resumeStrength = async () => {
     try {
       setLoading(true);
