@@ -6,10 +6,12 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import { ToastContainer } from 'react-toastify';
 import Link from 'next/link'; // Import Link from next/link
+import SupportPopup from './SupportPopUp';
 
 const Footer = () => {
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
+    const [showPopup, setShowPopup] = useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault(); // Prevent form default behavior
@@ -103,6 +105,10 @@ const Footer = () => {
               <div className="w-full md:w-auto mb-6 md:mb-0">
                 <h2 className="text-lg font-bold text-white">Support</h2>
                 <ul>
+                  <li onClick={() => setShowPopup(true)}
+                  className=" cursor-pointer">
+                      <span>Support</span>
+                  </li>
                   <li>
                     <Link href="/footerr/Salarytools">
                       <span>Salary Tool</span>
@@ -119,6 +125,10 @@ const Footer = () => {
                     </Link>
                   </li>
                 </ul>
+                <SupportPopup
+                  isOpen={showPopup}
+                  onClose={() => setShowPopup(false)}
+                />
               </div>
               <div className="w-full md:w-auto mb-6 md:mb-0">
                 <h2 className="text-lg font-bold text-white">

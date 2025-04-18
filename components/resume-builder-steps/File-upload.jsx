@@ -171,12 +171,12 @@ export default function FileUploadStep({ onNext, onBack, onChange, value }) {
           </>
         )}
       </div>
-
+{/* 
       <div className="flex items-center justify-center space-x-6">
         <div className="h-px bg-gray-300 w-24"></div>
         <span className="text-gray-500 font-medium">OR</span>
         <div className="h-px bg-gray-300 w-24"></div>
-      </div>
+      </div> */}
 
       {/* <div className="flex items-center justify-center space-x-6">
         <button 

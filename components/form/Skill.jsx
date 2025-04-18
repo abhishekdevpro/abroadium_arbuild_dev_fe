@@ -338,6 +338,19 @@ const Skill = ({ title, currentSkillIndex }) => {
                 }
               }}
             />
+            {improve && hasErrors(index) && (
+            <button
+              type="button"
+              className="absolute right-2 top-1/2 -translate-y-1/2 text-red-500 hover:text-red-600 transition-colors"
+              onClick={() =>
+                setActiveTooltip(
+                  activeTooltip === `skill-${index}` ? null : `skill-${index}`
+                )
+              }
+            >
+              <AlertCircle className="w-5 h-5" />
+            </button>
+          )}
             {showSuggestions &&
               activeInputIndex === index &&
               suggestions.length > 0 && (
@@ -362,19 +375,7 @@ const Skill = ({ title, currentSkillIndex }) => {
               )}
           </div>
 
-          {improve && hasErrors(index) && (
-            <button
-              type="button"
-              className="absolute right-8 top-1/2 -translate-y-1/2 text-red-500 hover:text-red-600 transition-colors"
-              onClick={() =>
-                setActiveTooltip(
-                  activeTooltip === `skill-${index}` ? null : `skill-${index}`
-                )
-              }
-            >
-              <AlertCircle className="w-5 h-5" />
-            </button>
-          )}
+          
 
           <button
             type="button"
