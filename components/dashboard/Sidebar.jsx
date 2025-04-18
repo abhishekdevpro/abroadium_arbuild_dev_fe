@@ -8,7 +8,8 @@ import axios from "axios";
 import { Download, Edit, Plus } from "lucide-react";
 import { SaveLoader } from "../ResumeLoader/SaveLoader";
 
-const Sidebar = ({ score, resumeId }) => {
+const Sidebar = ({ score, resumeId ,resumes=[]}) => {
+  console.log(resumes,"lllll");
   const templateRef = useRef(null);
   const router = useRouter();
 
@@ -78,7 +79,7 @@ const Sidebar = ({ score, resumeId }) => {
 
   useEffect(() => {
     fetchResumeData();
-  }, [resumeId]);
+  }, [resumeId,resumes]);
 
   const handleDownload = async () => {
     const apiUrl = `https://api.abroadium.com/api/jobseeker/download-resume/${resumeId}`;

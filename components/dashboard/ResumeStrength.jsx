@@ -617,7 +617,7 @@ const ResumeStrength = ({ score, strength, resumeId }) => {
               </button>
               <button
                 disabled={
-                  strength.ats_score === 10 || !resumeData.position || !resumeId
+                  strength.ats_score === 10 || !resumeData?.position || !resumeId
                 }
                 onClick={() => setIsModalOpen(true)}
                 className={`px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors ${

@@ -4,7 +4,7 @@ import DefaultResumeData from '../utility/DefaultResumeData';
 export const ResumeContext = createContext();
 
 export const ResumeProvider = ({ children }) => {
-  const [resumeData, setResumeData] = useState(DefaultResumeData);
+  const [resumeData, setResumeData] = useState({});
   const [resumeStrength,setResumeStrength] = useState({})
   const [exp,setExp] = useState()
   const [headerColor, setHeaderColor] = useState("");

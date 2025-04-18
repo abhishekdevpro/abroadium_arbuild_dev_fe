@@ -11,12 +11,37 @@ import MyJobs from "./MyJobs";
 import FullScreenLoader from "../../components/ResumeLoader/Loader";
 import AbroadiumCommunity from "../../components/dashboard/AbroadiumCommunity";
 import { Download, Edit, Trash, Plus, User } from "lucide-react";
+import { toast } from "react-toastify";
 export default function DashboardPage() {
   const [strength, setStrength] = useState(null);
   const [resumeId, setResumeId] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [resumes, setResumes] = useState([]);
   const [error, setError] = useState(null);
   const router = useRouter();
+
+useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      axios
+        .get("https://api.abroadium.com/api/jobseeker/resume-list", {
+          headers: { Authorization: token },
+        })
+        .then((response) => {
+          const resumes = response?.data?.data || [];
+          if (resumes.length === 0) {
+            toast.info("No resumes available.");
+          }
+          setResumes(resumes);
+        })
+        .catch((error) => {
+          console.error("Error fetching resume list:", error);
+          toast.error("Failed to fetch resumes.");
+
+        });
+    }
+  }, []);
+console.log(resumes.length,"Length");
   const resumeStrength = async () => {
     try {
       setLoading(true);
@@ -47,41 +72,18 @@ export default function DashboardPage() {
   };
 
   useEffect(() => {
+    if(resumes.length==0)
     resumeStrength();
 
-    const interval = setInterval(resumeStrength, 300000);
+    // const interval = setInterval(resumeStrength, 300000);
 
-    // Cleanup interval on component unmount
-    return () => clearInterval(interval);
-  }, []);
-  // useEffect(() => {
-  //   // Delay the first execution by 3 seconds
-  //   const timeout = setTimeout(() => {
-  //     resumeStrength();
-
-  //     // Set an interval to call resumeStrength every 5 minutes (300000 ms)
-  //     const interval = setInterval(resumeStrength, 300000);
-
-  //     // Cleanup both timeout and interval on component unmount
-  //     return () => clearInterval(interval);
-  //   }, 3000);
-
-  //   return () => clearTimeout(timeout);
-  // }, []);
-
-  // Show the loader while loading
+    // // Cleanup interval on component unmount
+    // return () => clearInterval(interval);
+  }, [resumes]);
+ 
   if (loading) {
     return <FullScreenLoader />;
   }
-
-  // Show error message if there's an error
-  // if (error) {
-  //   return (
-  //     <div className="bg-red-50 p-6 rounded-lg mb-6">
-  //       <p className="text-red-600">Error loading resume strength: {error}</p>
-  //     </div>
-  //   );
-  // }
 
   const handleCreateCoverLetter = () => {
     setTimeout(() => {
@@ -106,6 +108,7 @@ export default function DashboardPage() {
         <Sidebar
           score={strength?.resume_strenght || 0}
           resumeId={resumeId || null}
+          resumes={resumes}
         />
 
         {/* Main Content */}
@@ -144,7 +147,7 @@ export default function DashboardPage() {
           <CoverLetterSection />
         </main>
       </div>
-      <MyResume />
+      <MyResume resumes={resumes} setResumes={setResumes} />
       <MyJobs />
     </>
   );

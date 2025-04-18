@@ -1026,12 +1026,12 @@ const PersonalInformation = () => {
      <div className="flex flex-col items-center gap-4">
       <div className="relative">
         <img
-          src={resumeData.profilePicture || dummyImage}
+          src={resumeData?.profilePicture || dummyImage}
           alt="Profile"
           className="w-28 h-28 md:w-32 md:h-32 rounded-lg object-cover"
         />
         
-        {resumeData.profilePicture && (
+        {resumeData?.profilePicture && (
           <button
             onClick={handleDelete}
             className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center hover:bg-red-600 transition-colors"

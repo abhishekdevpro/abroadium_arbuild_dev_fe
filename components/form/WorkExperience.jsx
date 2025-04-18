@@ -283,6 +283,7 @@ const WorkExperience = () => {
       setShowPopup(true);
     } catch (err) {
       setError(err.message);
+      toast.error(err.response?.data?.message);
     } finally {
       setLoadingStates((prev) => ({
         ...prev,
@@ -332,6 +333,7 @@ const WorkExperience = () => {
       setShowPopup(true);
     } catch (err) {
       setError(err.message);
+      toast.error(err.response?.data?.message);
     } finally {
       setLoadingStates((prev) => ({
         ...prev,
