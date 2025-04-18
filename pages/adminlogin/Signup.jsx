@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import Link from "next/link";
 import toast from "react-hot-toast";
-import logo from "../login2/logo.jpg";
+import logo from "./logo.jpg";
 import { useRouter } from "next/router";
  // Ensure this file exists and is correctly linked
 

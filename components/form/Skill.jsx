@@ -312,14 +312,14 @@ const Skill = ({ title, currentSkillIndex }) => {
     (skillType) => skillType.title === title
   );
 
-  if (!skillType || skillType.skills.length === 0) {
-    return null;
-  }
+  // if (!skillType || skillType.skills.length === 0) {
+  //   return null;
+  // }
 
   return (
     <div className="flex-col-gap-3 w-full md:mt-10 md:px-10">
       <h2 className="input-title text-white text-3xl py-2">{title}</h2>
-      {skillType.skills.map((skill, index) => (
+      {skillType?.skills?.map((skill, index) => (
         <div key={index} className="relative flex items-center gap-2 space-x-2">
           <div className="relative w-full">
             <input
