@@ -16,31 +16,31 @@ export default function DashboardPage() {
   const [strength, setStrength] = useState(null);
   const [resumeId, setResumeId] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [resumes, setResumes] = useState([]);
+  // const [resumes, setResumes] = useState([]);
   const [error, setError] = useState(null);
   const router = useRouter();
 
-useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      axios
-        .get("https://api.abroadium.com/api/jobseeker/resume-list", {
-          headers: { Authorization: token },
-        })
-        .then((response) => {
-          const resumes = response?.data?.data || [];
-          if (resumes.length === 0) {
-            toast.info("No resumes available.");
-          }
-          setResumes(resumes);
-        })
-        .catch((error) => {
-          console.error("Error fetching resume list:", error);
-          toast.error("Failed to fetch resumes.");
+// useEffect(() => {
+//     const token = localStorage.getItem("token");
+//     if (token) {
+//       axios
+//         .get("https://api.abroadium.com/api/jobseeker/resume-list", {
+//           headers: { Authorization: token },
+//         })
+//         .then((response) => {
+//           const resumes = response?.data?.data || [];
+//           if (resumes.length === 0) {
+//             toast.info("No resumes available.");
+//           }
+//           setResumes(resumes);
+//         })
+//         .catch((error) => {
+//           console.error("Error fetching resume list:", error);
+//           toast.error("Failed to fetch resumes.");
 
-        });
-    }
-  }, []);
+//         });
+//     }
+//   }, []);
 // console.log(resumes.length,"Length");
   const resumeStrength = async () => {
     try {
@@ -72,14 +72,14 @@ useEffect(() => {
   };
 
   useEffect(() => {
-    if(resumes.length==0)
+    // if(resumes.length==0)
     resumeStrength();
 
     // const interval = setInterval(resumeStrength, 300000);
 
     // // Cleanup interval on component unmount
     // return () => clearInterval(interval);
-  }, [resumes]);
+  }, []);
  
   if (loading) {
     return <FullScreenLoader />;
@@ -108,7 +108,7 @@ useEffect(() => {
         <Sidebar
           score={strength?.resume_strenght || 0}
           resumeId={resumeId || null}
-          resumes={resumes}
+          // resumes={resumes}
         />
 
         {/* Main Content */}
@@ -147,7 +147,7 @@ useEffect(() => {
           <CoverLetterSection />
         </main>
       </div>
-      <MyResume resumes={resumes} setResumes={setResumes} />
+      <MyResume  />
       <MyJobs />
     </>
   );

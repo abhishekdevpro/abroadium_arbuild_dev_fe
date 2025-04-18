@@ -7,9 +7,9 @@ import { ResumeContext } from "../../components/context/ResumeContext";
 import { Download, Edit, Trash, Plus } from "lucide-react";
 import Link from "next/link";
 
-const MyResume = ({resumes,setResumes}) => {
+const MyResume = () => {
   const { setResumeData } = useContext(ResumeContext);
-  // const [resumes, setResumes] = useState([]);
+  const [resumes, setResumes] = useState([]);
   const [deleteResumeId, setDeleteResumeId] = useState(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [resumeId, setResumeId] = useState(null);
@@ -28,26 +28,26 @@ const MyResume = ({resumes,setResumes}) => {
     setIsDeleteModalOpen(true); // Open the modal
   };
 
-  // useEffect(() => {
-  //   const token = localStorage.getItem("token");
-  //   if (token) {
-  //     axios
-  //       .get("https://api.abroadium.com/api/jobseeker/resume-list", {
-  //         headers: { Authorization: token },
-  //       })
-  //       .then((response) => {
-  //         const resumes = response?.data?.data || [];
-  //         if (resumes.length === 0) {
-  //           toast.info("No resumes available.");
-  //         }
-  //         setResumes(resumes);
-  //       })
-  //       .catch((error) => {
-  //         console.error("Error fetching resume list:", error);
-  //         toast.error("Failed to fetch resumes.");
-  //       });
-  //   }
-  // }, []);
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      axios
+        .get("https://api.abroadium.com/api/jobseeker/resume-list", {
+          headers: { Authorization: token },
+        })
+        .then((response) => {
+          const resumes = response?.data?.data || [];
+          if (resumes.length === 0) {
+            toast.info("No resumes available.");
+          }
+          setResumes(resumes);
+        })
+        .catch((error) => {
+          console.error("Error fetching resume list:", error);
+          toast.error("Failed to fetch resumes.");
+        });
+    }
+  }, []);
 
   const handleEdit = (resumeId) => {
     setResumeId(resumeId);
