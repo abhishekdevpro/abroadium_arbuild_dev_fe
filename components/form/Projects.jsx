@@ -162,8 +162,35 @@ const Projects = () => {
     setResumeData({ ...resumeData, projects: newProjects });
   };
   const removeProjects = (index) => {
+    // Check if this is the last project entry
+    if ((resumeData.projects || []).length <= 1) {
+      toast.warn("At least one project entry is required")
+      // setValidationErrors({
+      //   ...validationErrors,
+      //   general: "At least one project entry is required"
+      // });
+      
+      // // Clear the error message after 3 seconds
+      // setTimeout(() => {
+      //   const updatedErrors = {...validationErrors};
+      //   delete updatedErrors.general;
+      //   setValidationErrors(updatedErrors);
+      // }, 3000);
+      return; // Don't remove if it's the last one
+    }
+    
     const newProjects = [...(resumeData.projects || [])];
     newProjects.splice(index, 1);
+    
+    // Clear any errors related to this index
+    // const updatedErrors = {};
+    // Object.keys(validationErrors).forEach(key => {
+    //   if (!key.startsWith(`${index}-`)) {
+    //     updatedErrors[key] = validationErrors[key];
+    //   }
+    // });
+    // setValidationErrors(updatedErrors);
+    
     setResumeData({ ...resumeData, projects: newProjects });
     setExpandedProjects(
       expandedProjects
