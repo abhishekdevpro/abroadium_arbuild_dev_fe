@@ -204,7 +204,7 @@ const Skill = ({ title, currentSkillIndex }) => {
 
       // Prevent removing the last skill if there's only one left
       if (skillType.skills.length <= 1) {
-        alert("At least one skill is required.");
+        toast.warn("At least one skill is required.");
         return prevData; // Prevent deletion
       }
 

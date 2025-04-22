@@ -641,9 +641,46 @@ const WorkExperience = () => {
     }));
   };
 
+  // const removeWork = (index) => {
+  //   const newworkExperience = [...(resumeData.workExperience || [])];
+  //   newworkExperience.splice(index, 1);
+  //   setResumeData({ ...resumeData, workExperience: newworkExperience });
+  //   setExpandedExperiences(
+  //     expandedExperiences
+  //       .filter((i) => i !== index)
+  //       .map((i) => (i > index ? i - 1 : i))
+  //   );
+  // };
   const removeWork = (index) => {
+    // Check if this is the last work experience entry
+    if ((resumeData.workExperience || []).length <= 1) {
+      toast.warn("At least one work experience entry is required")
+      // setValidationErrors({
+      //   ...validationErrors,
+      //   general: "At least one work experience entry is required"
+      // });
+      
+      // // Clear the error message after 3 seconds
+      // setTimeout(() => {
+      //   const updatedErrors = {...validationErrors};
+      //   delete updatedErrors.general;
+      //   setValidationErrors(updatedErrors);
+      // }, 3000);
+      return; // Don't remove if it's the last one
+    }
+    
     const newworkExperience = [...(resumeData.workExperience || [])];
     newworkExperience.splice(index, 1);
+    
+    // Clear any errors related to this index
+    // const updatedErrors = {};
+    // Object.keys(validationErrors).forEach(key => {
+    //   if (!key.startsWith(`${index}-`)) {
+    //     updatedErrors[key] = validationErrors[key];
+    //   }
+    // });
+    // setValidationErrors(updatedErrors);
+    
     setResumeData({ ...resumeData, workExperience: newworkExperience });
     setExpandedExperiences(
       expandedExperiences
