@@ -166,7 +166,7 @@ import React, { useContext,  forwardRef } from "react";
     };
   
     return (
-      <div className="a4-wrapper-dashboard    "
+      <div className="a4-wrapper-dashboard"
     
       onLoad={alertA4Size}>
         {children}

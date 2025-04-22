@@ -225,6 +225,7 @@ const Projects = () => {
       setShowPopup(true);
     } catch (err) {
       setError(err.message);
+      toast.error(err.response?.data?.message || "Limit Exhausted");
     } finally {
       setLoadingStates((prev) => ({
         ...prev,
@@ -450,6 +451,7 @@ const Projects = () => {
       setPopupType("description");
       setShowPopup(true);
     } catch (err) {
+      toast.error(err.response?.data?.message || "Limit Exhausted");
       setError(err.message);
     } finally {
       setLoadingStates((prev) => ({
@@ -460,6 +462,30 @@ const Projects = () => {
   };
 
   // Parse date string to get month and year
+  // const getDatePart = (dateStr, part) => {
+  //   if (!dateStr) return "";
+  //   if (dateStr === "Present") return part === "month" ? "" : dateStr;
+
+  //   const parts = dateStr.split(",");
+
+  //   // If there's only one part, determine if it's a month or year
+  //   if (parts.length === 1) {
+  //     if (months.includes(parts[0]) && part === "month") {
+  //       return parts[0];
+  //     } else if (!isNaN(parts[0]) && part === "year") {
+  //       return parts[0];
+  //     } else {
+  //       return "";
+  //     }
+  //   }
+
+  //   // If there are two parts, return the appropriate one
+  //   if (part === "month") {
+  //     return parts[0] || "";
+  //   } else {
+  //     return parts[1] || "";
+  //   }
+  // };
   const getDatePart = (dateStr, part) => {
     if (!dateStr) return "";
     if (dateStr === "Present") return part === "month" ? "" : dateStr;
@@ -788,7 +814,7 @@ const Projects = () => {
                       <input
                         type="checkbox"
                         checked={project.endYear === "Present"}
-                        onChange={() => handlePresentToggle(index)}
+                        onChange={() => handlePresentToggle(projectIndex)}
                         className="w-6 h-6"
                       />
                       Present

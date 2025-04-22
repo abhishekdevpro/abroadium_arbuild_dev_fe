@@ -378,7 +378,8 @@ const Summary = () => {
       }
     } catch (error) {
       console.error("Error getting AI summaries:", error);
-      setError("An error occurred while fetching summaries. Please try again.");
+      toast.error(error.response?.data?.message || "Limit Exhausted");
+      setError(error.response?.data?.message || "An error occurred while fetching summaries. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -449,7 +450,7 @@ const Summary = () => {
           </button>
         </div>
 
-        {error && <div className="text-red-500 text-sm mb-2">{error}</div>}
+        {/* {error && <div className="text-red-500 text-sm mb-2">{error}</div>} */}
 
         {/* Suggestions Tooltip */}
         {showSuggestions && hasErrors() && (
