@@ -499,12 +499,17 @@ export default function WebBuilder() {
           })) || [],
         workExperience:
           resumeData.workExperience?.map((exp) => ({
-            company: exp.company || "",
-            position: exp.position || "",
+            company: exp.company ,
+            position: exp.position ,
             description: exp.description,
+            // keyAchievements: Array.isArray(exp.keyAchievements)
+            //   ? exp.keyAchievements
+            //   : [exp.keyAchievements],
             keyAchievements: Array.isArray(exp.keyAchievements)
-              ? exp.keyAchievements
-              : [exp.keyAchievements],
+  ? exp.keyAchievements.filter(item => item?.trim?.()) // filter out empty strings or undefined
+  : exp.keyAchievements && exp.keyAchievements.trim?.()
+    ? [exp.keyAchievements.trim()]
+    : [],
             startYear: exp.startYear,
             endYear: exp.endYear,
             location: exp.location,
@@ -515,11 +520,13 @@ export default function WebBuilder() {
             link: project.link || "",
             description: project.description,
             keyAchievements: Array.isArray(project.keyAchievements)
-              ? project.keyAchievements
-              : [project.keyAchievements],
+  ? project.keyAchievements.filter(item => item?.trim?.()) // filter out empty strings or undefined
+  : project.keyAchievements && project.keyAchievements.trim?.()
+    ? [project.keyAchievements.trim()]
+    : [],
             startYear: project.startYear,
             endYear: project.endYear,
-            name: project.name || "",
+            name: project.name,
           })) || [],
         skills: Array.isArray(resumeData.skills)
           ? resumeData.skills.map((skill) => ({

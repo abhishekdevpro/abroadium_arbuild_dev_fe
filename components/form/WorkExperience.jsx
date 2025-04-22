@@ -283,8 +283,8 @@ const WorkExperience = () => {
       setShowPopup(true);
     } catch (err) {
       setError(err.message);
-      toast.error(err.response?.data?.message);
-    } finally {
+      toast.error(err.response?.data?.message || "Limit Exhausted");
+        } finally {
       setLoadingStates((prev) => ({
         ...prev,
         [`description_${index}`]: false, // ✅ Reset only description button
@@ -333,7 +333,7 @@ const WorkExperience = () => {
       setShowPopup(true);
     } catch (err) {
       setError(err.message);
-      toast.error(err.response?.data?.message);
+      toast.error(err.response?.data?.message || "Limit Exhausted");
     } finally {
       setLoadingStates((prev) => ({
         ...prev,
@@ -1286,14 +1286,14 @@ const WorkExperience = () => {
                     value={
                       Array.isArray(experience?.keyAchievements)
                         ? experience.keyAchievements.join("\n")
-                        : experience?.keyAchievements || ""
+                        : experience?.keyAchievements
                     }
                     onChange={(e) => handleKeyAchievement(e, index)}
                   />
                   {improve && hasErrors(index, "keyAchievements") && (
                     <button
                       type="button"
-                      className="absolute right-2 top-8 text-red-500 hover:text-red-600 transition-colors"
+                      className="absolute right-2 top-12 text-red-500 hover:text-red-600 transition-colors"
                       onClick={() =>
                         setActiveTooltip(
                           activeTooltip === `achievements-${index}`

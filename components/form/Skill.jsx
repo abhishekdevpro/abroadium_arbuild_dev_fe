@@ -5,6 +5,7 @@ import FormButton from "./FormButton";
 import { ResumeContext } from "../context/ResumeContext";
 import { AlertCircle, Trash } from "lucide-react";
 import { useRouter } from "next/router";
+import { toast } from "react-toastify";
 
 const Skill = ({ title, currentSkillIndex }) => {
   const { resumeData, setResumeData, resumeStrength } =
@@ -270,7 +271,8 @@ const Skill = ({ title, currentSkillIndex }) => {
       }
     } catch (error) {
       console.error("Error getting AI skills data:", error);
-      setError(
+      toast.error(error.response?.data?.message || "Limit Exhausted");
+      setError(error.response?.data?.message || 
         "An error occurred while fetching skills data. Please try again."
       );
     } finally {

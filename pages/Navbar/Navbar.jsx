@@ -230,7 +230,7 @@ const Navbar = () => {
                   </div>
                 )} */}
                 {isDropdownOpen && (
-        <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-md text-black border border-gray-200">
+        <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-md text-black border border-gray-200 z-50">
           <div className="px-4 py-3 border-b border-gray-100">
             <p className="text-sm text-gray-600">
               Current Plan:{" "}

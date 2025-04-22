@@ -1,44 +1,4 @@
-// export default function ExperienceStep({ onNext, onChange, value }) {
-//   const experiences = [
-//     { id: "none", label: "No Experience" },
-//     { id: "less-3", label: "Less Than 3 Years" },
-//     { id: "3-5", label: "3-5 Years" },
-//     { id: "5-10", label: "5-10 Years" },
-//     { id: "10-plus", label: "10+ Years" },
-//   ];
 
-//   return (
-//     <div className="space-y-6">
-//       <div className="text-center">
-//         <h2 className="text-2xl font-bold text-gray-900">
-//           How long have you been working?
-//         </h2>
-//         <p className="mt-2 text-gray-600">
-//           We will find the best templates for your experience level.
-//         </p>
-//       </div>
-
-//       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-//         {experiences.map((exp) => (
-//           <button
-//             key={exp.id}
-//             onClick={() => {
-//               onChange(exp.id);
-//               onNext();
-//             }}
-//             className={`p-4 rounded-lg border-2 transition-all ${
-//               value === exp.id
-//                 ? "border-yellow-600 bg-yellow-50"
-//                 : "border-gray-200 hover:border-yellow-400"
-//             }`}
-//           >
-//             {exp.label}
-//           </button>
-//         ))}
-//       </div>
-//     </div>
-//   );
-// }
 "use client";
 
 import React, { useContext, useEffect, useState } from "react";
@@ -139,10 +99,10 @@ const ExperienceStep = ({ onNext, onBack, onChange, value }) => {
     
     try {
       const resumeId = router.query.id || localStorage.getItem("resumeId");
-      if (!resumeId) {
-        toast.error("Resume ID not found");
-        return;
-      }
+      // if (!resumeId) {
+      //   toast.error("Resume ID not found");
+      //   return;
+      // }
 
       const response = await axios.put(
         `https://api.abroadium.com/api/jobseeker/resume-update/${resumeId}`,
@@ -157,7 +117,6 @@ const ExperienceStep = ({ onNext, onBack, onChange, value }) => {
 
       if (response.data.code === 200 || response.data.status === "success") {
         setIsSaved(true);
-        // localStorage.setItem("isSaved", "true");
         toast.success(response.data.message || "Experience saved Successfully");
         onNext();
       } else {
@@ -170,7 +129,13 @@ const ExperienceStep = ({ onNext, onBack, onChange, value }) => {
       setIsLoading(false);
     }
   };
-console.log(exp,"no-of exp");
+
+  // Helper function to check if Next button should be disabled
+  const isNextButtonDisabled = () => {
+
+    return loading || value.experience === "2" || isLoading;
+  };
+console.log(value.experience,"value.experience");
   return (
     <div className="min-h-screen bg-gray-50 py-12">
       <div className="max-w-4xl mx-auto px-4">
@@ -213,25 +178,32 @@ console.log(exp,"no-of exp");
                 </button>
               ))}
             </div>
+            
+            {/* Added warning message for when no experience is selected */}
+            {!value.experience && (
+              <p className="text-center text-red-500 mt-4">
+                Please select an experience level to continue
+              </p>
+            )}
           </div>
         </div>
 
-        <div className="flex justify-between mt-12">
-          <button
+        <div className="flex justify-end mt-12">
+          {/* <button
             onClick={onBack}
             className="px-8 py-3 bg-white border-2 border-gray-300 rounded-xl text-gray-700 
               font-medium hover:bg-gray-50 hover:border-gray-400 transition-colors"
           >
             Back
-          </button>
+          </button> */}
           <button
             onClick={handleSaveExperience}
-            disabled={loading || !value.experience}
-            className={`px-8 py-3 bg-blue-600 text-white rounded-xl font-medium transition-all shadow-lg 
+            disabled={isNextButtonDisabled()}
+            className={`px-8 py-3 rounded-xl font-medium transition-all shadow-lg 
               ${
-                loading || !value.experience
-                  ? "opacity-70 cursor-not-allowed"
-                  : "hover:bg-blue-700 hover:shadow-xl"
+                isNextButtonDisabled()
+                  ? "bg-gray-400 opacity-70 cursor-not-allowed"
+                  : "bg-blue-600 text-white hover:bg-blue-700 hover:shadow-xl"
               }`}
           >
             {isLoading ? <SaveLoader loadingText="Saving" /> : "Next"}
