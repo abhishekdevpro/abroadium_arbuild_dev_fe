@@ -363,6 +363,21 @@ const Projects = () => {
         toast.error("Authentication token is missing");
         return;
       }
+      if (!resumeData.projects[projectIndex].name) {
+        toast.warn("Project name is Required");
+        return;
+      }
+      if (!resumeData.position) {
+        toast.warn("Job Title is Required");
+        return;
+      }
+      if (
+        !resumeData.projects[projectIndex].startYear ||
+        !resumeData.projects[projectIndex].endYear
+      ) {
+        toast.warn("Date is Required");
+        return;
+      }
 
       const response = await fetch(
         "https://api.abroadium.com/api/jobseeker/ai-prosummery",
@@ -374,11 +389,14 @@ const Projects = () => {
           },
           body: JSON.stringify({
             key: "project description",
-            keyword: "auto improve",
-            content: resumeData.position || "",
-            company_name: content.name || "",
-            job_title: resumeData.position || "",
-            link: content.link || "",
+          keyword: "auto improve",
+          content: resumeData.position || "",
+          // company_name: content.name || "",
+          job_title: resumeData.position || "",
+          link: content.link || "",
+          project_name: resumeData.projects[projectIndex].name || "N/A",
+          start_date: resumeData.projects[projectIndex].startYear,
+          end_date: resumeData.projects[projectIndex].endYear,
           }),
         }
       );
@@ -418,7 +436,7 @@ const Projects = () => {
         error
       );
       // console.log(resumeData.position, ">>>>>position");
-      toast.error("An error occurred while processing your request");
+      toast.error(error.response?.data?.message || "An error occurred while processing your request");
     } finally {
       setLoadingStates((prev) => ({
         ...prev,
