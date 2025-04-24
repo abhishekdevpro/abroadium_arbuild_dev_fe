@@ -252,7 +252,7 @@ const PersonalInformation = () => {
       const updatedContact = {
         target: {
           name: "contactInformation",
-          value: `${newCountryCode} ${resumeData.contactInformation.replace(
+          value: `${resumeData.contactInformation.replace(
             /^(\+\d+\s*)?/,
             ""
           )}`,
@@ -563,8 +563,7 @@ const PersonalInformation = () => {
                           }`}
                           value={
                             resumeData[field]
-                              ? resumeData[field].replace(/^(\+\d+\s*)?/, "")
-                              : ""
+                              
                           }
                           onChange={
                             field === "contactInformation"
