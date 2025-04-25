@@ -482,7 +482,7 @@ const TemplateStep = ({ onNext, onBack, onChange, value }) => {
           </div>
 
           <div className="lg:col-span-3">
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 max-h-[500px] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-6 max-h-[500px] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
               {filteredTemplates.map((template) => (
                 <button
                   key={template.key}

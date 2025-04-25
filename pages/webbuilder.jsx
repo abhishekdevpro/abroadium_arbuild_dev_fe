@@ -25,7 +25,7 @@ import { toast } from "react-toastify";
 import LoaderButton from "../components/utility/LoaderButton";
 import useLoader from "../hooks/useLoader";
 import Modal from "./adminlogin/Modal";
-import { Menu, X } from "lucide-react";
+import { AlertCircle, Menu, X } from "lucide-react";
 import Image from "next/image";
 import { ResumeContext } from "../components/context/ResumeContext";
 import ResumeLoader from "../components/ResumeLoader/Loader";
@@ -54,6 +54,7 @@ export default function WebBuilder() {
   const [userId, setUserId] = useState(0);
   const [loading, setLoading] = useState(false);
   const [isDownloading, setisDownloading] = useState(false);
+  const { improve } = router.query;
   const templateRef = useRef(null);
   const {
     resumeData,
@@ -65,6 +66,7 @@ export default function WebBuilder() {
     backgroundColorss,
     headerColor,
     setResumeStrength,
+    resumeStrength,
     exp,
   } = useContext(ResumeContext);
 
@@ -127,14 +129,39 @@ export default function WebBuilder() {
   }, []);
 
   const sections = [
-    { label: "Personal Details", component: <PersonalInformation /> },
-    { label: "Social Links", component: <SocialMedia /> },
-    { label: "Summary", component: <Summary /> },
-    { label: "Education", component: <Education /> },
-    { label: "Experience", component: <WorkExperience /> },
-    { label: "Projects", component: <Projects /> },
+    {
+      label: "Personal Details",
+      component: <PersonalInformation />,
+      showErrorIcon: resumeStrength?.is_personal_info === true,
+    },
+    {
+      label: "Social Links",
+      component: <SocialMedia />,
+      showErrorIcon: resumeStrength?.is_social === true,
+    },
+    {
+      label: "Summary",
+      component: <Summary />,
+      showErrorIcon: resumeStrength?.is_personal_summery === true,
+    },
+    {
+      label: "Education",
+      component: <Education />,
+      showErrorIcon: resumeStrength?.is_education === true,
+    },
+    {
+      label: "Experience",
+      component: <WorkExperience />,
+      showErrorIcon: resumeStrength?.is_work_history === true,
+    },
+    {
+      label: "Projects",
+      component: <Projects />,
+      showErrorIcon: resumeStrength?.is_project === true,
+    },
     {
       label: "Skills",
+      showErrorIcon: resumeStrength?.is_skills === true,
       component: Array.isArray(resumeData?.skills) ? (
         resumeData.skills.map((skill, index) => (
           <Skill title={skill.title} currentSkillIndex={index} key={index} />
@@ -143,8 +170,16 @@ export default function WebBuilder() {
         <p>No skills available</p>
       ),
     },
-    { label: "Languages", component: <Language /> },
-    { label: "Certifications", component: <Certification /> },
+    {
+      label: "Languages",
+      component: <Language />,
+      showErrorIcon: resumeStrength?.is_languages === true,
+    },
+    {
+      label: "Certifications",
+      component: <Certification />,
+      showErrorIcon: resumeStrength?.is_certifications === true,
+    },
   ];
 
   const handleNext = () => {
@@ -302,30 +337,31 @@ export default function WebBuilder() {
         }
       );
       console.log(response);
-      if(response.code ==200){
+      if (response.code == 200) {
         const url = window.URL.createObjectURL(
           new Blob([response.data], { type: "application/pdf" })
         );
         const link = document.createElement("a");
         link.href = url;
-  
+
         link.setAttribute("download", `resume.pdf`);
         document.body.appendChild(link);
         link.click();
-  
+
         document.body.removeChild(link);
         window.URL.revokeObjectURL(url);
-        toast.success(response.data.message || "Resume Downloaded Successfully")
-      }else{
-        toast.error(response.data.message || "Error while downloading")
+        toast.success(
+          response.data.message || "Resume Downloaded Successfully"
+        );
+      } else {
+        toast.error(response.data.message || "Error while downloading");
       }
 
       // downloadPDF();
       // initiateCheckout(); // Call this only if the request is successful
-    } 
-    catch (error) {
+    } catch (error) {
       console.error("PDF generation error:", error);
-    
+
       if (
         error?.response?.status === 403 &&
         error?.response?.data instanceof Blob
@@ -349,9 +385,8 @@ export default function WebBuilder() {
           error?.message ||
           "Failed to generate and open PDF";
         toast.error(errorMessage);
-      }    
-    } 
-    finally {
+      }
+    } finally {
       setisDownloading(false); // Ensure loading is stopped after success or failure
     }
   };
@@ -499,17 +534,17 @@ export default function WebBuilder() {
           })) || [],
         workExperience:
           resumeData.workExperience?.map((exp) => ({
-            company: exp.company ,
-            position: exp.position ,
+            company: exp.company,
+            position: exp.position,
             description: exp.description,
             // keyAchievements: Array.isArray(exp.keyAchievements)
             //   ? exp.keyAchievements
             //   : [exp.keyAchievements],
             keyAchievements: Array.isArray(exp.keyAchievements)
-  ? exp.keyAchievements.filter(item => item?.trim?.()) // filter out empty strings or undefined
-  : exp.keyAchievements && exp.keyAchievements.trim?.()
-    ? [exp.keyAchievements.trim()]
-    : [],
+              ? exp.keyAchievements.filter((item) => item?.trim?.()) // filter out empty strings or undefined
+              : exp.keyAchievements && exp.keyAchievements.trim?.()
+              ? [exp.keyAchievements.trim()]
+              : [],
             startYear: exp.startYear,
             endYear: exp.endYear,
             location: exp.location,
@@ -520,10 +555,10 @@ export default function WebBuilder() {
             link: project.link || "",
             description: project.description,
             keyAchievements: Array.isArray(project.keyAchievements)
-  ? project.keyAchievements.filter(item => item?.trim?.()) // filter out empty strings or undefined
-  : project.keyAchievements && project.keyAchievements.trim?.()
-    ? [project.keyAchievements.trim()]
-    : [],
+              ? project.keyAchievements.filter((item) => item?.trim?.()) // filter out empty strings or undefined
+              : project.keyAchievements && project.keyAchievements.trim?.()
+              ? [project.keyAchievements.trim()]
+              : [],
             startYear: project.startYear,
             endYear: project.endYear,
             name: project.name,
@@ -643,7 +678,7 @@ export default function WebBuilder() {
     fetchData();
   }, []);
 
-  // console.log(selectedTemplate,selectedPdfType);
+  console.log(resumeStrength, "resumeStrength");
   return (
     <>
       <Meta
@@ -719,16 +754,32 @@ export default function WebBuilder() {
                     <div className="flex-1 overflow-x-auto scrollbar-hide ">
                       <ul className="flex flex-row gap-3 items-center py-2 px-4  ">
                         {sections.map((section, index) => (
+                          // <li
+                          //   key={index}
+                          //   className={`px-4 py-2 cursor-pointer transition rounded-lg border-2 ${
+                          //     currentSection === index
+                          //       ? "border-blue-800 font-semibold bg-blue-950 text-white"
+                          //       : "border-blue-800 bg-white text-blue-800 hover:bg-blue-50"
+                          //   }`}
+                          //   onClick={() => handleSectionClick(index)}
+                          // >
+                          //   {section.label}
+                          //   {improve && section.showErrorIcon && <AlertCircle className="text-red-500" />}
+                          // </li>
                           <li
                             key={index}
-                            className={`px-4 py-2 cursor-pointer transition rounded-lg border-2 ${
-                              currentSection === index
-                                ? "border-blue-800 font-semibold bg-blue-950 text-white"
-                                : "border-blue-800 bg-white text-blue-800 hover:bg-blue-50"
-                            }`}
+                            className={`flex items-center justify-between gap-2 px-4 py-2 cursor-pointer transition-all duration-200 rounded-lg border-2 
+    ${
+      currentSection === index
+        ? "border-blue-800 bg-blue-950 text-white font-semibold shadow-md"
+        : "border-blue-800 bg-white text-blue-800 hover:bg-blue-100"
+    }`}
                             onClick={() => handleSectionClick(index)}
                           >
-                            {section.label}
+                            <span>{section.label}</span>
+                            {improve && section.showErrorIcon && (
+                              <AlertCircle className="text-red-500 w-5 h-5" />
+                            )}
                           </li>
                         ))}
                       </ul>
