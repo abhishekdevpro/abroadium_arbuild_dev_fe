@@ -14,6 +14,7 @@ import dynamic from "next/dynamic";
 import "react-quill/dist/quill.snow.css";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
+import ErrorPopup from "../utility/ErrorPopUp";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
@@ -43,7 +44,10 @@ const WorkExperience = () => {
 
   const [selectedDescriptions, setSelectedDescriptions] = useState([]); // Stores selected descriptions
   const [selectedKeyAchievements, setSelectedKeyAchievements] = useState([]); // Stores selected key achievements
-
+  const [errorPopup, setErrorPopup] = useState({
+    show: false,
+    message: "",
+  });
   const token = localStorage.getItem("token");
   const router = useRouter();
   const { improve } = router.query;
@@ -283,8 +287,14 @@ const WorkExperience = () => {
       setShowPopup(true);
     } catch (err) {
       setError(err.message);
-      toast.error(err.response?.data?.message || "Limit Exhausted");
-        } finally {
+      // toast.error(err.response?.data?.message || "Limit Exhausted");
+      setErrorPopup({
+        show: true,
+        message:
+          err.response?.data?.message ||
+          "Your API Limit is Exhausted. Please upgrade your plan.",
+      });
+    } finally {
       setLoadingStates((prev) => ({
         ...prev,
         [`description_${index}`]: false, // ✅ Reset only description button
@@ -333,7 +343,13 @@ const WorkExperience = () => {
       setShowPopup(true);
     } catch (err) {
       setError(err.message);
-      toast.error(err.response?.data?.message || "Limit Exhausted");
+      setErrorPopup({
+        show: true,
+        message:
+          err.response?.data?.message ||
+          "Your API Limit is Exhausted. Please upgrade your plan.",
+      });
+      // toast.error(err.response?.data?.message || "Limit Exhausted");
     } finally {
       setLoadingStates((prev) => ({
         ...prev,
@@ -343,15 +359,15 @@ const WorkExperience = () => {
   };
   const handleKeyAchievement = (e, index) => {
     const newWorkExperience = [...resumeData.workExperience];
-    
+
     // Don't filter out empty strings - this is the key change
     const achievements = e.target.value.split("\n");
-    
+
     newWorkExperience[index].keyAchievements = achievements;
-    
+
     // Optional: Track user-modified achievements separately if needed
     setSelectedKeyAchievements(achievements); // sync with popup logic
-    
+
     setResumeData({ ...resumeData, workExperience: newWorkExperience });
   };
   // const handleKeyAchievement = (e, index) => {
@@ -654,12 +670,12 @@ const WorkExperience = () => {
   const removeWork = (index) => {
     // Check if this is the last work experience entry
     if ((resumeData.workExperience || []).length <= 1) {
-      toast.warn("At least one work experience entry is required")
+      toast.warn("At least one work experience entry is required");
       // setValidationErrors({
       //   ...validationErrors,
       //   general: "At least one work experience entry is required"
       // });
-      
+
       // // Clear the error message after 3 seconds
       // setTimeout(() => {
       //   const updatedErrors = {...validationErrors};
@@ -668,10 +684,10 @@ const WorkExperience = () => {
       // }, 3000);
       return; // Don't remove if it's the last one
     }
-    
+
     const newworkExperience = [...(resumeData.workExperience || [])];
     newworkExperience.splice(index, 1);
-    
+
     // Clear any errors related to this index
     // const updatedErrors = {};
     // Object.keys(validationErrors).forEach(key => {
@@ -680,7 +696,7 @@ const WorkExperience = () => {
     //   }
     // });
     // setValidationErrors(updatedErrors);
-    
+
     setResumeData({ ...resumeData, workExperience: newworkExperience });
     setExpandedExperiences(
       expandedExperiences
@@ -1315,7 +1331,7 @@ const WorkExperience = () => {
                         : "+ Key Assist"}
                     </button>
                   </div>
-                 
+
                   <textarea
                     placeholder="Enter key achievements (one per line)"
                     className="w-full other-input border-black border"
@@ -1491,6 +1507,12 @@ const WorkExperience = () => {
             </button>
           </div>
         </div>
+      )}
+      {errorPopup.show && (
+        <ErrorPopup
+          message={errorPopup.message}
+          onClose={() => setErrorPopup({ show: false, message: "" })}
+        />
       )}
 
       {searchResults.length > 0 && (

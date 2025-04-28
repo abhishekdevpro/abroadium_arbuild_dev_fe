@@ -132,36 +132,36 @@ export default function WebBuilder() {
     {
       label: "Personal Details",
       component: <PersonalInformation />,
-      showErrorIcon: resumeStrength?.is_personal_info === true,
+      showErrorIcon: resumeStrength?.is_personal_info === false,
     },
     {
       label: "Social Links",
       component: <SocialMedia />,
-      showErrorIcon: resumeStrength?.is_social === true,
+      showErrorIcon: resumeStrength?.is_social === false,
     },
     {
       label: "Summary",
       component: <Summary />,
-      showErrorIcon: resumeStrength?.is_personal_summery === true,
+      showErrorIcon: resumeStrength?.is_personal_summery === false,
     },
     {
       label: "Education",
       component: <Education />,
-      showErrorIcon: resumeStrength?.is_education === true,
+      showErrorIcon: resumeStrength?.is_education === false,
     },
     {
       label: "Experience",
       component: <WorkExperience />,
-      showErrorIcon: resumeStrength?.is_work_history === true,
+      showErrorIcon: resumeStrength?.is_work_history === false,
     },
     {
       label: "Projects",
       component: <Projects />,
-      showErrorIcon: resumeStrength?.is_project === true,
+      showErrorIcon: resumeStrength?.is_project === false,
     },
     {
       label: "Skills",
-      showErrorIcon: resumeStrength?.is_skills === true,
+      showErrorIcon: resumeStrength?.is_skills === false,
       component: Array.isArray(resumeData?.skills) ? (
         resumeData.skills.map((skill, index) => (
           <Skill title={skill.title} currentSkillIndex={index} key={index} />
@@ -173,12 +173,12 @@ export default function WebBuilder() {
     {
       label: "Languages",
       component: <Language />,
-      showErrorIcon: resumeStrength?.is_languages === true,
+      showErrorIcon: resumeStrength?.is_languages === false,
     },
     {
       label: "Certifications",
       component: <Certification />,
-      showErrorIcon: resumeStrength?.is_certifications === true,
+      showErrorIcon: resumeStrength?.is_certifications === false,
     },
   ];
 
