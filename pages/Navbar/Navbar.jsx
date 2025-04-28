@@ -115,7 +115,7 @@ const Navbar = () => {
     4: "AI Pro Yearly",
   };
 
-  const currentPlan = user?.plan_id ? planName[String(user.plan_id)] : "Free";
+  const currentPlan = user?.plan_id ? planName[user.plan_id] : "Free";
 
   return (
     <nav

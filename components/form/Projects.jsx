@@ -16,6 +16,7 @@ import axios from "axios";
 import FormButton from "./FormButton";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
+import ErrorPopup from "../utility/ErrorPopUp";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 const Projects = () => {
@@ -32,6 +33,10 @@ const Projects = () => {
   const [selectedDescriptions, setSelectedDescriptions] = useState([]);
   const [selectedKeyAchievements, setSelectedKeyAchievements] = useState([]);
   const [activeTooltip, setActiveTooltip] = useState(null);
+  const [errorPopup, setErrorPopup] = useState({
+    show: false,
+    message: "",
+  });
 
   const token = localStorage.getItem("token");
   const months = [
@@ -252,7 +257,13 @@ const Projects = () => {
       setShowPopup(true);
     } catch (err) {
       setError(err.message);
-      toast.error(err.response?.data?.message || "Limit Exhausted");
+      // toast.error(err.response?.data?.message || "Limit Exhausted");
+      setErrorPopup({
+        show: true,
+        message:
+          err.response?.data?.message ||
+          "Your API Limit is Exhausted. Please upgrade your plan.",
+      });
     } finally {
       setLoadingStates((prev) => ({
         ...prev,
@@ -496,7 +507,13 @@ const Projects = () => {
       setPopupType("description");
       setShowPopup(true);
     } catch (err) {
-      toast.error(err.response?.data?.message || "Limit Exhausted");
+      // toast.error(err.response?.data?.message || "Limit Exhausted");
+      setErrorPopup({
+        show: true,
+        message:
+          err.response?.data?.message ||
+          "Your API Limit is Exhausted. Please upgrade your plan.",
+      });
       setError(err.message);
     } finally {
       setLoadingStates((prev) => ({
@@ -1312,6 +1329,12 @@ const Projects = () => {
             </button>
           </div>
         </div>
+      )}
+       {errorPopup.show && (
+        <ErrorPopup
+          message={errorPopup.message}
+          onClose={() => setErrorPopup({ show: false, message: "" })}
+        />
       )}
     </div>
   );

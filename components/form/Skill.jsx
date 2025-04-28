@@ -6,6 +6,7 @@ import { ResumeContext } from "../context/ResumeContext";
 import { AlertCircle, Trash } from "lucide-react";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
+import ErrorPopup from "../utility/ErrorPopUp";
 
 const Skill = ({ title, currentSkillIndex }) => {
   const { resumeData, setResumeData, resumeStrength } =
@@ -21,6 +22,10 @@ const Skill = ({ title, currentSkillIndex }) => {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [activeInputIndex, setActiveInputIndex] = useState(null);
   const [typingTimeout, setTypingTimeout] = useState(null);
+  const [errorPopup, setErrorPopup] = useState({
+    show: false,
+    message: "",
+  });
 
   const router = useRouter();
   const { improve } = router.query;
@@ -271,7 +276,13 @@ const Skill = ({ title, currentSkillIndex }) => {
       }
     } catch (error) {
       console.error("Error getting AI skills data:", error);
-      toast.error(error.response?.data?.message || "Limit Exhausted");
+      // toast.error(error.response?.data?.message || "Limit Exhausted");
+      setErrorPopup({
+        show: true,
+        message:
+          error.response?.data?.message ||
+          "Your API Limit is Exhausted. Please upgrade your plan.",
+      });
       setError(error.response?.data?.message || 
         "An error occurred while fetching skills data. Please try again."
       );
@@ -472,6 +483,12 @@ const Skill = ({ title, currentSkillIndex }) => {
         </div>
       )}
       {error && <p className="text-red-500 mt-2">{error}</p>}
+      {errorPopup.show && (
+        <ErrorPopup
+          message={errorPopup.message}
+          onClose={() => setErrorPopup({ show: false, message: "" })}
+        />
+      )}
     </div>
   );
 };
