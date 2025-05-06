@@ -35,7 +35,7 @@ const ResumeBuilder = () => {
   // }
   return (
     <>
-    {/* <Navbar/>
+      {/* <Navbar/>
       <Home/> */}
       <DashboardPage />
       {/* 

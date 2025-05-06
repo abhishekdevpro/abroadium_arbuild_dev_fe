@@ -20,6 +20,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { SaveLoader } from "../ResumeLoader/SaveLoader";
 import { ResumeContext } from "../context/ResumeContext";
+import Button from "../buttonUIComponent";
 
 const Modal = ({ isOpen, onClose, children }) => {
   if (!isOpen) return null;
@@ -27,12 +28,12 @@ const Modal = ({ isOpen, onClose, children }) => {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white rounded-lg shadow-xl max-w-4xl w-full mx-4 relative">
-        <button
+        <Button
           onClick={onClose}
           className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
         >
           <X className="w-6 h-6" />
-        </button>
+        </Button>
         {children}
       </div>
     </div>
@@ -232,7 +233,7 @@ const Modal = ({ isOpen, onClose, children }) => {
 //           Improve Overall
 //         </label>
 //       </div>
-//       <button
+//       <Button
 //         onClick={handleATS}
 //         className={`mt-6 px-6 py-2 w-full bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors ${
 //           improvements.ats_score === 10 || Loading
@@ -246,7 +247,7 @@ const Modal = ({ isOpen, onClose, children }) => {
 //         ) : (
 //           "Proceed To Improve...."
 //         )}
-//       </button>
+//       </Button>
 //     </div>
 //   );
 // };
@@ -287,7 +288,6 @@ const TooltipContent = ({ improvements, resumeId, onClose }) => {
       description: "Summary section is well-written and clearly presented",
     },
   ];
-  
 
   const handleATS = async () => {
     // if (!improveBy) return; // Don't proceed if no option is selected
@@ -460,7 +460,7 @@ const TooltipContent = ({ improvements, resumeId, onClose }) => {
       </div> */}
 
       {/* Submit Button */}
-      <button
+      <Button
         onClick={handleATS}
         className={`mt-6 px-6 py-2 w-full bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors ${
           improvements.ats_score === 10 || loading
@@ -474,7 +474,7 @@ const TooltipContent = ({ improvements, resumeId, onClose }) => {
         ) : (
           "Proceed To Improve...."
         )}
-      </button>
+      </Button>
     </div>
   );
 };
@@ -617,7 +617,7 @@ const ResumeStrength = ({ score, strength, resumeId }) => {
               Use our Resume Check tool to fix them.
             </p>
             <div className="flex flex-col md:flex-row gap-2">
-              <button
+              <Button
                 onClick={handleImproveResume}
                 disabled={!resumeId}
                 className={`px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors ${
@@ -625,8 +625,8 @@ const ResumeStrength = ({ score, strength, resumeId }) => {
                 }`}
               >
                 Improve Resume
-              </button>
-              {/* <button
+              </Button>
+              {/* <Button
                 disabled={
                   strength.ats_score === 10 || !resumeData?.position || !resumeId
                 }
@@ -638,13 +638,10 @@ const ResumeStrength = ({ score, strength, resumeId }) => {
                 }`}
               >
                 Improve ATS
-              </button> */}
-             
-              <button
-                disabled={
-                  strength.ats_score === 10 ||
-                  !resumeId
-                }
+              </Button> */}
+
+              <Button
+                disabled={strength.ats_score === 10 || !resumeId}
                 onClick={() => {
                   if (!resumeData?.position) {
                     toast.error("Please enter a position first");
@@ -657,14 +654,13 @@ const ResumeStrength = ({ score, strength, resumeId }) => {
                   setIsModalOpen(true);
                 }}
                 className={`px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors ${
-                  strength.ats_score === 10 ||
-                  !resumeId
+                  strength.ats_score === 10 || !resumeId
                     ? "opacity-50 cursor-not-allowed"
                     : ""
                 }`}
               >
                 Improve ATS
-              </button>
+              </Button>
             </div>
           </div>
         </div>

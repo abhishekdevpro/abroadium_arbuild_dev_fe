@@ -30,6 +30,7 @@ import Image from "next/image";
 import { ResumeContext } from "../components/context/ResumeContext";
 import ResumeLoader from "../components/ResumeLoader/Loader";
 import { SaveLoader } from "../components/ResumeLoader/SaveLoader";
+import Button from "../components/buttonUIComponent";
 
 const Print = dynamic(() => import("../components/utility/WinPrint"), {
   ssr: false,
@@ -693,28 +694,33 @@ export default function WebBuilder() {
             <div className="w-full bg-gray-200 p-4 shadow-sm">
               <div className="hidden md:flex flex-col lg:flex-row items-center justify-between gap-4">
                 <div className="flex w-full lg:w-auto gap-4">
-                  <button
+                  <Button
                     type="button"
                     onClick={handlePrevious}
                     disabled={currentSection === 0}
-                    className="w-40 h-10 rounded-lg bg-blue-950 text-white font-medium transition hover:bg-blue-900 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-40 h-10 rounded-lg bg-blue-950 text-white font-medium relative transform transition-all duration-300 ease-in-out 
+             hover:scale-105 hover:font-semibold hover:text-xl hover:bg-blue-900 
+             disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     Previous
-                  </button>
-                  <button
+                  </Button>
+
+                  <Button
                     type="button"
                     onClick={handleNext}
-                    className="w-40 h-10 rounded-lg bg-yellow-500 text-black font-medium transition hover:bg-yellow-400"
+                    className="w-40 h-10 rounded-lg bg-yellow-500 text-black font-medium transition hover:bg-yellow-400 relative transform transition-all duration-300 ease-in-out 
+             hover:scale-105 hover:font-semibold hover:text-xl"
                   >
                     {currentSection === sections.length - 1 ? "Finish" : "Next"}
-                  </button>
+                  </Button>
                 </div>
 
                 <div className="hidden lg:flex items-center gap-4">
                   <select
                     value={selectedFont}
                     onChange={handleFontChange}
-                    className=" rounded-lg border-2 border-blue-800 px-5 py-2 font-bold bg-white text-blue-800"
+                    className=" rounded-lg border-2 border-blue-800 px-5 py-2 font-bold bg-white text-blue-800 relative transform transition-all duration-300 ease-in-out 
+             hover:scale-105 hover:font-semibold hover:text-lg"
                   >
                     <option value="Ubuntu">Ubuntu</option>
                     <option value="Calibri">Calibri</option>
@@ -743,32 +749,21 @@ export default function WebBuilder() {
               <div className="hidden md:flex justify-center items-center p-4">
                 <nav className="bg-gray-100 rounded-lg p-2">
                   <div className="flex items-center">
-                    <button
+                    <Button
                       onClick={() => prevSection()}
                       className="p-2 hover:bg-gray-200 rounded-lg "
                       disabled={currentSection === 0}
                     >
                       {/* Chevron Left Icon Here */}
-                    </button>
+                    </Button>
 
                     <div className="flex-1 overflow-x-auto scrollbar-hide ">
                       <ul className="flex flex-row gap-3 items-center py-2 px-4  ">
                         {sections.map((section, index) => (
-                          // <li
-                          //   key={index}
-                          //   className={`px-4 py-2 cursor-pointer transition rounded-lg border-2 ${
-                          //     currentSection === index
-                          //       ? "border-blue-800 font-semibold bg-blue-950 text-white"
-                          //       : "border-blue-800 bg-white text-blue-800 hover:bg-blue-50"
-                          //   }`}
-                          //   onClick={() => handleSectionClick(index)}
-                          // >
-                          //   {section.label}
-                          //   {improve && section.showErrorIcon && <AlertCircle className="text-red-500" />}
-                          // </li>
                           <li
                             key={index}
-                            className={`flex items-center justify-between gap-2 px-4 py-2 cursor-pointer transition-all duration-200 rounded-lg border-2 
+                            className={`flex items-center justify-between gap-2 px-4 py-2 cursor-pointer transition-all duration-200 rounded-lg border-2 hover:scale-105 hover:font-semibold hover:text-lg 
+                  disabled:opacity-50 disabled:cursor-not-allowed hover:bg-blue-950 hover:text-white
     ${
       currentSection === index
         ? "border-blue-800 bg-blue-950 text-white font-semibold shadow-md"
@@ -785,13 +780,13 @@ export default function WebBuilder() {
                       </ul>
                     </div>
 
-                    <button
+                    <Button
                       onClick={() => nextSection()}
                       className="p-2 hover:bg-gray-200 rounded-lg "
                       disabled={currentSection === sections.length - 1}
                     >
                       {/* Chevron Right Icon Here */}
-                    </button>
+                    </Button>
                   </div>
                 </nav>
               </div>
@@ -824,7 +819,8 @@ export default function WebBuilder() {
                 <select
                   value={selectedFont}
                   onChange={handleFontChange}
-                  className="px-4 py-2 border rounded-lg"
+                  className="rounded-lg border-2 border-blue-800 px-5 py-2 font-bold bg-white text-blue-800 relative transform transition-all duration-300 ease-in-out 
+             hover:scale-105 hover:font-semibold hover:text-lg"
                 >
                   <option value="Ubuntu">Ubuntu</option>
                   <option value="Calibri">Calibri</option>

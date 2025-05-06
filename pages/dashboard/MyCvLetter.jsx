@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import FullScreenLoader from "../../components/ResumeLoader/Loader";
 import { toast } from "react-toastify";
 import Link from "next/link";
+import Button from "../../components/buttonUIComponent";
 const MyCvLetter = () => {
   const [coverletters, setCoverLetters] = useState([]);
   const [deletecoverletterId, setDeletecoverletterId] = useState(null);
@@ -137,12 +138,12 @@ const MyCvLetter = () => {
       {showLoader && <FullScreenLoader />}
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-2xl font-bold text-gray-800">My Cover Letters</h1>
-        <button
+        <Button
           onClick={handleCreate}
           className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 font-medium shadow-sm"
         >
           <Plus className="w-5 h-5 mr-2" /> Create New Cover Letters
-        </button>
+        </Button>
       </div>
 
       <div className="bg-white rounded-lg shadow-lg overflow-hidden">
@@ -179,12 +180,12 @@ const MyCvLetter = () => {
                         <span className="text-sm text-gray-900">
                           {coverletter.cover_letter_title}
                         </span>
-                        <button
+                        <Button
                           onClick={() => handleOpenEditModal(coverletter)}
                           className="text-blue-600 hover:text-blue-800"
                         >
                           🖍
-                        </button>
+                        </Button>
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -197,13 +198,13 @@ const MyCvLetter = () => {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                       <div className="flex items-center space-x-3">
-                        <button
+                        <Button
                           onClick={() => handleEdit(coverletter.id)}
                           className="text-blue-600 hover:text-blue-800"
                         >
                           <Edit className="w-5 h-5" />
-                        </button>
-                        <button
+                        </Button>
+                        <Button
                           onClick={() => {
                             setIsDeleteModalOpen(true);
                             setDeletecoverletterId(coverletter.id);
@@ -211,13 +212,13 @@ const MyCvLetter = () => {
                           className="text-red-600 hover:text-red-800"
                         >
                           <Trash className="w-5 h-5" />
-                        </button>
-                        <button
+                        </Button>
+                        <Button
                           onClick={() => handleDownload(coverletter.id)}
                           className="text-green-600 hover:text-green-800 transition-colors duration-200"
                         >
                           <Download className="w-5 h-5" />
-                        </button>
+                        </Button>
                       </div>
                     </td>
                   </tr>
@@ -244,18 +245,18 @@ const MyCvLetter = () => {
               Are you sure you want to delete this cover letter?
             </h2>
             <div className="flex justify-end space-x-3">
-              <button
+              <Button
                 onClick={() => setIsDeleteModalOpen(false)}
                 className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200"
               >
                 Cancel
-              </button>
-              <button
+              </Button>
+              <Button
                 onClick={handleDeleteCvLetter}
                 className="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700"
               >
                 Delete
-              </button>
+              </Button>
             </div>
           </div>
         </div>
@@ -276,18 +277,18 @@ const MyCvLetter = () => {
               placeholder="Enter new cover letter title"
             />
             <div className="flex justify-end space-x-3 mt-4">
-              <button
+              <Button
                 onClick={() => setIsEditModalOpen(false)}
                 className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200"
               >
                 Cancel
-              </button>
-              <button
+              </Button>
+              <Button
                 onClick={handleUpdateCvLetterTitle}
                 className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700"
               >
                 Save
-              </button>
+              </Button>
             </div>
           </div>
         </div>

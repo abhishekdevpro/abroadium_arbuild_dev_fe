@@ -136,32 +136,32 @@ const Navbar = () => {
           <div className="hidden md:flex justify-center items-center space-x-4">
             <Link
               href="/dashboard"
-              className="text-white px-3 py-2 rounded-md text-lg font-semibold"
+              className="text-white px-3 py-2 rounded-md text-lg font-semibold hover:text-orange-500"
             >
               Dashboard
             </Link>
             <Link
               href="/dashboard/resumelist"
-              className="text-white px-3 py-2 rounded-md text-lg font-semibold"
+              className="text-white px-3 py-2 rounded-md text-lg font-semibold hover:text-orange-500"
             >
               My Resumes
             </Link>
             <Link
               href="/dashboard/cvletterlist"
-              className="text-white px-3 py-2 rounded-md text-lg font-semibold"
+              className="text-white px-3 py-2 rounded-md text-lg font-semibold hover:text-orange-500"
             >
               CoverLetter
             </Link>
             <Link
               href="https://abroadium-arbuild-fe.vercel.app/job-list"
-              className="text-white px-3 py-2 rounded-md text-lg font-semibold"
+              className="text-white px-3 py-2 rounded-md text-lg font-semibold hover:text-orange-500"
             >
               Jobs
             </Link>
             <Link
               href=""
               onClick={handleOpenPopup}
-              className="text-white px-3 py-2 rounded-md text-lg font-semibold"
+              className="text-white px-3 py-2 rounded-md text-lg font-semibold hover:text-orange-500"
             >
               Abroadium ID
             </Link>
@@ -230,58 +230,58 @@ const Navbar = () => {
                   </div>
                 )} */}
                 {isDropdownOpen && (
-        <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-md text-black border border-gray-200 z-50">
-          <div className="px-4 py-3 border-b border-gray-100">
-            <p className="text-sm text-gray-600">
-              Current Plan:{" "}
-              <span
-                className={`px-2 py-1 rounded text-sm ${
-                  currentPlan === "Free"
-                    ? "bg-red-100 text-red-600"
-                    : "bg-green-100 text-green-600"
-                }`}
-              >
-                {currentPlan}
-              </span>
-            </p>
-          </div>
-          
-          <Link
-            href="/dashboard"
-            className="flex items-center px-4 py-3 hover:bg-gray-100 transition-colors duration-200 group"
-            onClick={() => setIsDropdownOpen(false)}
-          >
-            <LayoutDashboard className="mr-3 w-5 h-5 text-gray-500 group-hover:text-orange-500" />
-            <span className="text-gray-800 group-hover:text-orange-500">
-              Dashboard
-            </span>
-          </Link>
-          
-          <Link
-            href="/settings"
-            className="flex items-center px-4 py-3 hover:bg-gray-100 transition-colors duration-200 group"
-            onClick={() => setIsDropdownOpen(false)}
-          >
-            <Settings className="mr-3 w-5 h-5 text-gray-500 group-hover:text-orange-500" />
-            <span className="text-gray-800 group-hover:text-orange-500">
-              Settings
-            </span>
-          </Link>
-          
-          <button
-            onClick={() => {
-              handleLogout();
-              setIsDropdownOpen(false);
-            }}
-            className="flex items-center w-full text-left px-4 py-3 hover:bg-gray-100 transition-colors duration-200 group border-t border-gray-100"
-          >
-            <LogOut className="mr-3 w-5 h-5 text-gray-500 group-hover:text-red-600" />
-            <span className="text-gray-800 group-hover:text-red-600">
-              Logout
-            </span>
-          </button>
-        </div>
-      )}
+                  <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-md text-black border border-gray-200 z-50">
+                    <div className="px-4 py-3 border-b border-gray-100">
+                      <p className="text-sm text-gray-600">
+                        Current Plan:{" "}
+                        <span
+                          className={`px-2 py-1 rounded text-sm ${
+                            currentPlan === "Free"
+                              ? "bg-red-100 text-red-600"
+                              : "bg-green-100 text-green-600"
+                          }`}
+                        >
+                          {currentPlan}
+                        </span>
+                      </p>
+                    </div>
+
+                    <Link
+                      href="/dashboard"
+                      className="flex items-center px-4 py-3 hover:bg-gray-100 transition-colors duration-200 group"
+                      onClick={() => setIsDropdownOpen(false)}
+                    >
+                      <LayoutDashboard className="mr-3 w-5 h-5 text-gray-500 group-hover:text-orange-500" />
+                      <span className="text-gray-800 group-hover:text-orange-500">
+                        Dashboard
+                      </span>
+                    </Link>
+
+                    <Link
+                      href="/settings"
+                      className="flex items-center px-4 py-3 hover:bg-gray-100 transition-colors duration-200 group"
+                      onClick={() => setIsDropdownOpen(false)}
+                    >
+                      <Settings className="mr-3 w-5 h-5 text-gray-500 group-hover:text-orange-500" />
+                      <span className="text-gray-800 group-hover:text-orange-500">
+                        Settings
+                      </span>
+                    </Link>
+
+                    <button
+                      onClick={() => {
+                        handleLogout();
+                        setIsDropdownOpen(false);
+                      }}
+                      className="flex items-center w-full text-left px-4 py-3 hover:bg-gray-100 transition-colors duration-200 group border-t border-gray-100"
+                    >
+                      <LogOut className="mr-3 w-5 h-5 text-gray-500 group-hover:text-red-600" />
+                      <span className="text-gray-800 group-hover:text-red-600">
+                        Logout
+                      </span>
+                    </button>
+                  </div>
+                )}
               </div>
             ) : (
               <>

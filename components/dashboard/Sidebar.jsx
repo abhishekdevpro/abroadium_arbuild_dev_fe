@@ -7,6 +7,7 @@ import FullScreenLoader from "../ResumeLoader/Loader"; // Assuming you already h
 import axios from "axios";
 import { Download, Edit, Plus } from "lucide-react";
 import { SaveLoader } from "../ResumeLoader/SaveLoader";
+import Button from "../buttonUIComponent";
 
 const Sidebar = ({ score, resumeId }) => {
   // console.log(resumes,"lllll");
@@ -147,17 +148,17 @@ const Sidebar = ({ score, resumeId }) => {
           </div>
 
           <div className="flex gap-4 mb-6">
-            <button
+            <Button
               onClick={handleEdit}
-              disabled={!resumeId} // Disable button if resumeId is null
+              disabled={!resumeId} // Disable Button if resumeId is null
               className={`flex-1 flex items-center justify-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 ${
                 !resumeId ? "opacity-50 cursor-not-allowed" : ""
               }`}
             >
               <Edit />
               Edit
-            </button>
-            <button
+            </Button>
+            <Button
               onClick={handleDownload}
               disabled={!resumeId}
               className={`flex-1 flex items-center justify-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 ${
@@ -170,7 +171,7 @@ const Sidebar = ({ score, resumeId }) => {
               ) : (
                 "Download"
               )}
-            </button>
+            </Button>
           </div>
 
           <div className="mb-6">
@@ -180,20 +181,20 @@ const Sidebar = ({ score, resumeId }) => {
                 <span className="bg-teal-100 text-teal-800 px-2 py-1 rounded-full text-sm">
                   {score}
                 </span>
-                {/* <button className="text-blue-600 hover:text-blue-700 text-sm">
+                {/* <Button className="text-blue-600 hover:text-blue-700 text-sm">
                   Improve
-                </button> */}
+                </Button> */}
               </div>
             </div>
           </div>
 
-          <button
+          <Button
             onClick={handleCreate}
             className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
           >
             <Plus />
             Create New Resume
-          </button>
+          </Button>
         </>
       )}
     </div>

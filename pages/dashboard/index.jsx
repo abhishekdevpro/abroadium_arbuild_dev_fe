@@ -12,6 +12,7 @@ import FullScreenLoader from "../../components/ResumeLoader/Loader";
 import AbroadiumCommunity from "../../components/dashboard/AbroadiumCommunity";
 import { Download, Edit, Trash, Plus, User } from "lucide-react";
 import { toast } from "react-toastify";
+import Button from "../../components/buttonUIComponent";
 export default function DashboardPage() {
   const [strength, setStrength] = useState(null);
   const [resumeId, setResumeId] = useState(null);
@@ -20,28 +21,28 @@ export default function DashboardPage() {
   const [error, setError] = useState(null);
   const router = useRouter();
 
-// useEffect(() => {
-//     const token = localStorage.getItem("token");
-//     if (token) {
-//       axios
-//         .get("https://api.abroadium.com/api/jobseeker/resume-list", {
-//           headers: { Authorization: token },
-//         })
-//         .then((response) => {
-//           const resumes = response?.data?.data || [];
-//           if (resumes.length === 0) {
-//             toast.info("No resumes available.");
-//           }
-//           setResumes(resumes);
-//         })
-//         .catch((error) => {
-//           console.error("Error fetching resume list:", error);
-//           toast.error("Failed to fetch resumes.");
+  // useEffect(() => {
+  //     const token = localStorage.getItem("token");
+  //     if (token) {
+  //       axios
+  //         .get("https://api.abroadium.com/api/jobseeker/resume-list", {
+  //           headers: { Authorization: token },
+  //         })
+  //         .then((response) => {
+  //           const resumes = response?.data?.data || [];
+  //           if (resumes.length === 0) {
+  //             toast.info("No resumes available.");
+  //           }
+  //           setResumes(resumes);
+  //         })
+  //         .catch((error) => {
+  //           console.error("Error fetching resume list:", error);
+  //           toast.error("Failed to fetch resumes.");
 
-//         });
-//     }
-//   }, []);
-// console.log(resumes.length,"Length");
+  //         });
+  //     }
+  //   }, []);
+  // console.log(resumes.length,"Length");
   const resumeStrength = async () => {
     try {
       setLoading(true);
@@ -80,10 +81,10 @@ export default function DashboardPage() {
     // // Cleanup interval on component unmount
     // return () => clearInterval(interval);
   }, []);
- 
-  if (loading) {
-    return <FullScreenLoader />;
-  }
+
+  // if (loading) {
+  //   return <FullScreenLoader />;
+  // }
 
   const handleCreateCoverLetter = () => {
     setTimeout(() => {
@@ -114,25 +115,25 @@ export default function DashboardPage() {
         {/* Main Content */}
         <main className="flex-1 p-2 md:p-6 overflow-y-auto">
           <div className="flex flex-col gap-2 w-full md:flex-row  justify-between items-center mb-8">
-            <button
+            <Button
               onClick={handleCreateResume}
               className="w-full flex justify-center items-center px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors duration-200 font-medium shadow-sm"
             >
               <Plus className="w-5 h-5 mr-2" /> Create New Resume
-            </button>
-            <button
+            </Button>
+            <Button
               onClick={handleCreateCoverLetter}
               className="w-full flex justify-center items-center px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600  transition-colors duration-200 font-medium shadow-sm"
             >
               <Plus className="w-5 h-5 mr-2" /> Create New Cover Letters
-            </button>
-            <button
+            </Button>
+            <Button
               onClick={handleMyDashboard}
               className="w-full flex justify-center items-center px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600  transition-colors duration-200 font-medium shadow-sm "
             >
               <User className="w-5 h-5 mr-2" />
               My Profile Dashboard
-            </button>
+            </Button>
           </div>
           <h1 className="text-2xl font-bold mb-6">
             Your Recommended Next Steps
@@ -147,7 +148,7 @@ export default function DashboardPage() {
           <CoverLetterSection />
         </main>
       </div>
-      <MyResume  />
+      <MyResume />
       <MyJobs />
     </>
   );

@@ -1,4 +1,3 @@
-
 import React, { useContext, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import FormButton from "./FormButton";
@@ -7,6 +6,7 @@ import { AlertCircle, Trash } from "lucide-react";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import ErrorPopup from "../utility/ErrorPopUp";
+import Button from "../buttonUIComponent";
 
 const Skill = ({ title, currentSkillIndex }) => {
   const { resumeData, setResumeData, resumeStrength } =
@@ -283,8 +283,9 @@ const Skill = ({ title, currentSkillIndex }) => {
           error.response?.data?.message ||
           "Your API Limit is Exhausted. Please upgrade your plan.",
       });
-      setError(error.response?.data?.message || 
-        "An error occurred while fetching skills data. Please try again."
+      setError(
+        error.response?.data?.message ||
+          "An error occurred while fetching skills data. Please try again."
       );
     } finally {
       setLoading(false);
@@ -352,18 +353,18 @@ const Skill = ({ title, currentSkillIndex }) => {
               }}
             />
             {improve && hasErrors(index) && (
-            <button
-              type="button"
-              className="absolute right-2 top-1/2 -translate-y-1/2 text-red-500 hover:text-red-600 transition-colors"
-              onClick={() =>
-                setActiveTooltip(
-                  activeTooltip === `skill-${index}` ? null : `skill-${index}`
-                )
-              }
-            >
-              <AlertCircle className="w-5 h-5" />
-            </button>
-          )}
+              <Button
+                type="button"
+                className="absolute right-2 top-1/2 -translate-y-1/2 text-red-500 hover:text-red-600 transition-colors"
+                onClick={() =>
+                  setActiveTooltip(
+                    activeTooltip === `skill-${index}` ? null : `skill-${index}`
+                  )
+                }
+              >
+                <AlertCircle className="w-5 h-5" />
+              </Button>
+            )}
             {showSuggestions &&
               activeInputIndex === index &&
               suggestions.length > 0 && (
@@ -388,16 +389,14 @@ const Skill = ({ title, currentSkillIndex }) => {
               )}
           </div>
 
-          
-
-          <button
+          <Button
             type="button"
             onClick={() => removeSkill(title, index)}
             className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition-colors"
             aria-label="Delete skill"
           >
             <Trash />
-          </button>
+          </Button>
 
           {activeTooltip === `skill-${index}` && (
             <div className="absolute z-10 right-10 top-10 mt-2 w-64 bg-white rounded-lg shadow-lg border border-gray-200">
@@ -415,12 +414,12 @@ const Skill = ({ title, currentSkillIndex }) => {
                 ))}
               </div>
               <div className="border-t border-gray-100 p-3 flex justify-end">
-                <button
+                <Button
                   onClick={() => setActiveTooltip(null)}
                   className="text-blue-600 hover:text-blue-800 text-sm font-medium"
                 >
                   Dismiss
-                </button>
+                </Button>
               </div>
             </div>
           )}
@@ -433,15 +432,15 @@ const Skill = ({ title, currentSkillIndex }) => {
           add={() => addSkill(title)}
           remove={() => removeSkill(title)}
         />
-        
-        <button
+
+        <Button
           type="button"
           onClick={handleAIAssist}
           className=" bg-black text-white px-3 rounded-lg"
           disabled={loading}
         >
           {loading ? "Loading..." : " + Smart Assist"}
-        </button>
+        </Button>
       </div>
 
       {isModalOpen && (
@@ -464,13 +463,13 @@ const Skill = ({ title, currentSkillIndex }) => {
                 <li>No AI skills available.</li>
               )}
             </ul>
-            <button
+            <Button
               className="mt-4 px-4 py-2 bg-gray-300 rounded-lg"
               onClick={addSelectedSkills}
             >
               Add Selected Skills
-            </button>
-            <button
+            </Button>
+            <Button
               className="mt-4 ml-2 px-4 py-2 bg-gray-300 rounded-lg"
               onClick={() => {
                 setIsModalOpen(false);
@@ -478,7 +477,7 @@ const Skill = ({ title, currentSkillIndex }) => {
               }}
             >
               Close
-            </button>
+            </Button>
           </div>
         </div>
       )}

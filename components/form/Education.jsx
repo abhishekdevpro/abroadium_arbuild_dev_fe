@@ -1,4 +1,3 @@
-
 import { ResumeContext } from "../context/ResumeContext";
 import FormButton from "./FormButton";
 import React, { useContext, useState } from "react";
@@ -6,6 +5,7 @@ import { AlertCircle, X, Loader2, Trash2, Trash } from "lucide-react";
 import { useRouter } from "next/router";
 import { MdRemoveCircle } from "react-icons/md";
 import { toast } from "react-toastify";
+import Button from "../buttonUIComponent";
 
 const Education = () => {
   const { resumeData, setResumeData, resumeStrength } =
@@ -234,8 +234,8 @@ const Education = () => {
   const removeEducation = (index) => {
     // Check if this is the last education entry
     if (resumeData.education.length <= 1) {
-      toast.warn("At least one Education is required")
-      
+      toast.warn("At least one Education is required");
+
       // Clear the error message after 3 seconds
       // setTimeout(() => {
       //   // const updatedErrors = {...validationErrors};
@@ -244,10 +244,10 @@ const Education = () => {
       // }, 3000);
       return; // Don't remove if it's the last one
     }
-    
+
     const newEducation = [...resumeData.education];
     newEducation.splice(index, 1);
-    
+
     // Clear any errors related to this index
     // const updatedErrors = {};
     // Object.keys(validationErrors).forEach(key => {
@@ -256,7 +256,7 @@ const Education = () => {
     //   }
     // });
     // setValidationErrors(updatedErrors);
-    
+
     setResumeData({ ...resumeData, education: newEducation });
   };
 
@@ -343,12 +343,12 @@ const Education = () => {
                   {title || "Suggestions"}
                 </span>
               </div>
-              <button
+              <Button
                 onClick={() => setActiveTooltip(null)}
                 className="text-gray-400 hover:text-white transition-colors"
               >
                 <X className="w-5 h-5" />
-              </button>
+              </Button>
             </div>
           </div>
           <div className="p-4">
@@ -379,14 +379,14 @@ const Education = () => {
                 <h3 className="text-white text-xl font-semibold">
                   {`Education ${index + 1}`}
                 </h3>
-                <button
+                <Button
                   type="button"
                   onClick={() => removeEducation(index)}
                   aria-label="Remove"
                   className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition-colors"
                 >
                   <Trash />
-                </button>
+                </Button>
               </div>
               <div className="relative">
                 <input
@@ -408,7 +408,7 @@ const Education = () => {
                   </div>
                 )}
                 {improve && hasErrors(index, "school") && (
-                  <button
+                  <Button
                     type="button"
                     className="absolute right-2 top-1/2 -translate-y-1/2 text-red-500 hover:text-red-600 transition-colors"
                     onClick={() =>
@@ -420,7 +420,7 @@ const Education = () => {
                     }
                   >
                     <AlertCircle className="w-5 h-5" />
-                  </button>
+                  </Button>
                 )}
               </div>
 
@@ -462,7 +462,7 @@ const Education = () => {
                 }
               />
               {improve && hasErrors(index, "degree") && (
-                <button
+                <Button
                   type="button"
                   className="absolute right-2 top-1/2 -translate-y-1/2 text-red-500 hover:text-red-600 transition-colors"
                   onClick={() =>
@@ -474,7 +474,7 @@ const Education = () => {
                   }
                 >
                   <AlertCircle className="w-5 h-5" />
-                </button>
+                </Button>
               )}
               {renderTooltip(index, "degree", "Degree Suggestions")}
 
@@ -538,7 +538,7 @@ const Education = () => {
 
                 {improve && hasErrors(index, "startYear") && (
                   <>
-                    <button
+                    <Button
                       type="button"
                       className="absolute right-[2px] top-[-1.5rem] text-red-500"
                       onClick={() =>
@@ -550,7 +550,7 @@ const Education = () => {
                       }
                     >
                       <AlertCircle className="w-5 h-5" />
-                    </button>
+                    </Button>
 
                     {activeTooltip === `startYear-${index}` && (
                       <div className="absolute right-0 top-14 w-80 bg-white rounded-lg shadow-xl border border-gray-700 z-50">
@@ -562,12 +562,12 @@ const Education = () => {
                                 Start Date Issues
                               </span>
                             </div>
-                            <button
+                            <Button
                               onClick={() => setActiveTooltip(null)}
                               className="text-black transition-colors"
                             >
                               <X className="w-5 h-5" />
-                            </button>
+                            </Button>
                           </div>
                         </div>
                         <div className="p-4">
@@ -636,7 +636,7 @@ const Education = () => {
 
                 {improve && hasErrors(index, "endYear") && (
                   <>
-                    <button
+                    <Button
                       type="button"
                       className="absolute right-[2px] top-[-1.5rem] text-red-500"
                       onClick={() =>
@@ -648,7 +648,7 @@ const Education = () => {
                       }
                     >
                       <AlertCircle className="w-5 h-5" />
-                    </button>
+                    </Button>
 
                     {activeTooltip === `endYear-${index}` && (
                       <div className="absolute right-0 top-14 w-80 bg-white rounded-lg shadow-xl border border-gray-700 z-50">
@@ -660,12 +660,12 @@ const Education = () => {
                                 End Date Issues
                               </span>
                             </div>
-                            <button
+                            <Button
                               onClick={() => setActiveTooltip(null)}
                               className="text-black transition-colors"
                             >
                               <X className="w-5 h-5" />
-                            </button>
+                            </Button>
                           </div>
                         </div>
                         <div className="p-4">
@@ -708,7 +708,7 @@ const Education = () => {
                   </div>
                 )}
                 {improve && hasErrors(index, "location") && (
-                  <button
+                  <Button
                     type="button"
                     className="absolute right-2 top-1/2 -translate-y-1/2 text-red-500 hover:text-red-600 transition-colors"
                     onClick={() =>
@@ -720,7 +720,7 @@ const Education = () => {
                     }
                   >
                     <AlertCircle className="w-5 h-5" />
-                  </button>
+                  </Button>
                 )}
               </div>
 

@@ -1067,32 +1067,58 @@ const PersonalInformation = () => {
     },
   ];
 
+  // const hasErrors = (field) => {
+  //   const strengthInfo = resumeStrength?.personal_info_strenght?.[field];
+  //   const fieldValue = resumeData[field]?.trim(); // Trim to check for empty values
+
+  //   // Check for empty required fields
+  //   if (!fieldValue) return true;
+
+  //   // Special validation for contact information
+  //   if (field === "contactInformation") {
+  //     // const isValidContact = /^(\+\d{1,3}\s?)?$$?\d+$$?[\d\s-]+$/.test(fieldValue)
+  //     // if (!isValidContact)
+  //     return true;
+  //   }
+
+  //   // Check for API-reported errors
+  //   return Array.isArray(strengthInfo) && strengthInfo.length > 0;
+  // };
   const hasErrors = (field) => {
     const strengthInfo = resumeStrength?.personal_info_strenght?.[field];
-    const fieldValue = resumeData[field]?.trim(); // Trim to check for empty values
+    const fieldValue = resumeData[field]?.trim();
 
-    // Check for empty required fields
     if (!fieldValue) return true;
 
-    // Special validation for contact information
     if (field === "contactInformation") {
-      // const isValidContact = /^(\+\d{1,3}\s?)?$$?\d+$$?[\d\s-]+$/.test(fieldValue)
-      // if (!isValidContact)
-      return true;
+      // Replace this with a proper phone number validation if needed
+      const phoneRegex = /^[0-9]{7,15}$/; // Accepts 7 to 15 digits
+      if (!phoneRegex.test(fieldValue)) return true;
     }
 
-    // Check for API-reported errors
     return Array.isArray(strengthInfo) && strengthInfo.length > 0;
   };
 
+  // const handleContactChange = (e) => {
+  //   const { value } = e.target;
+  //   const fullContactValue = `${value.replace(/^(\+\d+\s*)?/, "")}`;
+
+  //   const updatedContact = {
+  //     target: {
+  //       name: "contactInformation",
+  //       value: fullContactValue,
+  //     },
+  //   };
+  //   handleChange(updatedContact);
+  // };
   const handleContactChange = (e) => {
-    const { value } = e.target;
-    const fullContactValue = `${value.replace(/^(\+\d+\s*)?/, "")}`;
+    const rawValue = e.target.value;
+    const cleanedValue = rawValue.replace(/[^\d]/g, ""); // Remove non-digits
 
     const updatedContact = {
       target: {
         name: "contactInformation",
-        value: fullContactValue,
+        value: cleanedValue,
       },
     };
     handleChange(updatedContact);
@@ -1241,7 +1267,7 @@ const PersonalInformation = () => {
                           type={type}
                           placeholder={placeholder}
                           name={field}
-                          className={`w-full p-2 pl-16 border rounded-md outline-none transition-colors ${
+                          className={`w-full p-2 pl-24 border rounded-md outline-none transition-colors ${
                             improve && hasErrors(field)
                               ? "border-red-500 focus:border-red-600"
                               : "border-gray-300 focus:border-blue-500"

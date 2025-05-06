@@ -145,9 +145,9 @@
 //               </div>
 //               <div className=" mt-6">
 //                 <Link href={`/payment/plans/?selectedPlan=${selectedPlan}`}>
-//                   <button className="w-full bg-orange-600 text-white text-lg font-semibold py-3 rounded-xl hover:bg-orange-700">
+//                   <Button className="w-full bg-orange-600 text-white text-lg font-semibold py-3 rounded-xl hover:bg-orange-700">
 //                     Next
-//                   </button>
+//                   </Button>
 //                 </Link>
 //                 <p className="text-gray-600 text-center mt-4">
 //                   <strong>Got questions?</strong> Contact our customer support.
@@ -176,7 +176,7 @@
 // // Plan Card Component
 // function PlanCard({ title, price, selected, onClick }) {
 //   return (
-//     <button
+//     <Button
 //       className={`p-4 border rounded-lg w-full md:w-32 text-center ${
 //         selected ? "border-orange-500 bg-orange-100" : "bg-white"
 //       }`}
@@ -185,7 +185,7 @@
 //       <input type="checkbox" checked={selected} readOnly />
 //       <p className=" font-semibold">{title}</p>
 //       <p className="text-md font-bold">{price}</p>
-//     </button>
+//     </Button>
 //   );
 // }
 
@@ -209,8 +209,8 @@ import { useRouter } from "next/router";
 import Navbar from "../Navbar/Navbar";
 import Link from "next/link";
 import { pricingData } from "../../components/Data/PlanData";
+import Button from "../../components/buttonUIComponent";
 // Pricing data from your JSON
-
 
 export default function Payment() {
   const [selectedPlan, setSelectedPlan] = useState("freePlan");
@@ -387,9 +387,9 @@ export default function Payment() {
               </div>
               <div className=" mt-6">
                 <Link href={`/payment/plans/?selectedPlan=${selectedPlan}`}>
-                  <button className="w-full bg-orange-600 text-white text-lg font-semibold py-3 rounded-xl hover:bg-orange-700">
+                  <Button className="w-full bg-orange-600 text-white text-lg font-semibold py-3 rounded-xl hover:bg-orange-700">
                     Next
-                  </button>
+                  </Button>
                 </Link>
                 <p className="text-gray-600 text-center mt-4">
                   <strong>Got questions?</strong> Contact our customer support.

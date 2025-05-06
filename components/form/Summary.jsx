@@ -1,4 +1,3 @@
-
 import React, { useContext, useState } from "react";
 import axios from "axios";
 import dynamic from "next/dynamic";
@@ -8,6 +7,7 @@ import { AlertCircle, Loader, Loader2, X } from "lucide-react";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import ErrorPopup from "../utility/ErrorPopUp";
+import Button from "../buttonUIComponent";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 const Summary = () => {
@@ -25,7 +25,7 @@ const Summary = () => {
     message: "",
   });
   const router = useRouter();
-  const { id,improve } = router.query;
+  const { id, improve } = router.query;
   // console.log(resumeStrength.personal_summery_strenght.summery, ">>>>");
   const hasErrors = () => {
     return (
@@ -33,7 +33,7 @@ const Summary = () => {
       resumeStrength?.personal_summery_strenght?.summery !== null
     );
   };
-// console.log(id,"dddd");
+  // console.log(id,"dddd");
   const getSuggestions = () => {
     const suggestions = [];
     if (resumeStrength?.personal_summery_strenght?.suggestions) {
@@ -142,7 +142,10 @@ const Summary = () => {
           "Your API Limit is Exhausted. Please upgrade your plan.",
       });
       // toast.error(error.response?.data?.message || "Limit Exhausted");
-      setError(error.response?.data?.message || "An error occurred while fetching summaries. Please try again.");
+      setError(
+        error.response?.data?.message ||
+          "An error occurred while fetching summaries. Please try again."
+      );
     } finally {
       setLoading(false);
     }
@@ -176,17 +179,17 @@ const Summary = () => {
           <div className="flex items-center gap-2">
             <h2 className="input-title text-white text-3xl">Summary</h2>
             {improve && hasErrors() && (
-              <button
+              <Button
                 type="button"
                 className="text-red-500 hover:text-red-600 transition-colors"
                 onClick={() => setShowSuggestions(!showSuggestions)}
                 aria-label="Show suggestions"
               >
                 <AlertCircle className="w-6 h-6" />
-              </button>
+              </Button>
             )}
           </div>
-          <button
+          <Button
             type="button"
             className={` bg-black text-white px-3 py-2 rounded-lg ${
               loading
@@ -210,7 +213,7 @@ const Summary = () => {
             ) : (
               "+ Smart Assist"
             )}
-          </button>
+          </Button>
         </div>
 
         {/* {error && <div className="text-red-500 text-sm mb-2">{error}</div>} */}
@@ -227,7 +230,7 @@ const Summary = () => {
                   </span>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <button
+                  <Button
                     onClick={handleAutoFix}
                     disabled={isAutoFixLoading}
                     className="px-3 py-1 text-sm font-medium text-white bg-blue-600 rounded-md shadow hover:bg-blue-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
@@ -237,13 +240,13 @@ const Summary = () => {
                     ) : (
                       "Auto Fix"
                     )}
-                  </button>
-                  <button
+                  </Button>
+                  <Button
                     onClick={() => setShowSuggestions(false)}
                     className="text-black transition-colors"
                   >
                     <X className="w-5 h-5" />
-                  </button>
+                  </Button>
                 </div>
               </div>
             </div>
@@ -306,24 +309,24 @@ const Summary = () => {
               ))}
             </div>
             <div className="mt-4 flex justify-end gap-4">
-              <button
+              <Button
                 onClick={() => setShowPopup(false)}
                 className="bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-600"
               >
                 Close
-              </button>
-              <button
+              </Button>
+              <Button
                 onClick={handleAddSummary}
                 className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-500"
                 disabled={selectedSummaryIndex === null}
               >
                 Add
-              </button>
+              </Button>
             </div>
           </div>
         </div>
       )}
-       {errorPopup.show && (
+      {errorPopup.show && (
         <ErrorPopup
           message={errorPopup.message}
           onClose={() => setErrorPopup({ show: false, message: "" })}

@@ -17,6 +17,7 @@ import FormButton from "./FormButton";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import ErrorPopup from "../utility/ErrorPopUp";
+import Button from "../buttonUIComponent";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 const Projects = () => {
@@ -169,12 +170,12 @@ const Projects = () => {
   const removeProjects = (index) => {
     // Check if this is the last project entry
     if ((resumeData.projects || []).length <= 1) {
-      toast.warn("At least one project entry is required")
+      toast.warn("At least one project entry is required");
       // setValidationErrors({
       //   ...validationErrors,
       //   general: "At least one project entry is required"
       // });
-      
+
       // // Clear the error message after 3 seconds
       // setTimeout(() => {
       //   const updatedErrors = {...validationErrors};
@@ -183,10 +184,10 @@ const Projects = () => {
       // }, 3000);
       return; // Don't remove if it's the last one
     }
-    
+
     const newProjects = [...(resumeData.projects || [])];
     newProjects.splice(index, 1);
-    
+
     // Clear any errors related to this index
     // const updatedErrors = {};
     // Object.keys(validationErrors).forEach(key => {
@@ -195,7 +196,7 @@ const Projects = () => {
     //   }
     // });
     // setValidationErrors(updatedErrors);
-    
+
     setResumeData({ ...resumeData, projects: newProjects });
     setExpandedProjects(
       expandedProjects
@@ -205,7 +206,7 @@ const Projects = () => {
   };
 
   const toggleProjectExpansion = (index, e) => {
-    e.preventDefault(); // Prevent the default button behavior
+    e.preventDefault(); // Prevent the default Button behavior
     setExpandedProjects((prev) =>
       prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
     );
@@ -400,14 +401,14 @@ const Projects = () => {
           },
           body: JSON.stringify({
             key: "project description",
-          keyword: "auto improve",
-          content: resumeData.position || "",
-          // company_name: content.name || "",
-          job_title: resumeData.position || "",
-          link: content.link || "",
-          project_name: resumeData.projects[projectIndex].name || "N/A",
-          start_date: resumeData.projects[projectIndex].startYear,
-          end_date: resumeData.projects[projectIndex].endYear,
+            keyword: "auto improve",
+            content: resumeData.position || "",
+            // company_name: content.name || "",
+            job_title: resumeData.position || "",
+            link: content.link || "",
+            project_name: resumeData.projects[projectIndex].name || "N/A",
+            start_date: resumeData.projects[projectIndex].startYear,
+            end_date: resumeData.projects[projectIndex].endYear,
           }),
         }
       );
@@ -447,7 +448,10 @@ const Projects = () => {
         error
       );
       // console.log(resumeData.position, ">>>>>position");
-      toast.error(error.response?.data?.message || "An error occurred while processing your request");
+      toast.error(
+        error.response?.data?.message ||
+          "An error occurred while processing your request"
+      );
     } finally {
       setLoadingStates((prev) => ({
         ...prev,
@@ -586,24 +590,24 @@ const Projects = () => {
                 {project.name || `Project ${projectIndex + 1}`}
               </h3>
               <div className="flex items-center gap-2">
-                <button
+                <Button
                   onClick={(e) => toggleProjectExpansion(projectIndex, e)}
                   className="text-black"
-                  type="button" // Explicitly set the button type
+                  type="button" // Explicitly set the Button type
                 >
                   {expandedProjects.includes(projectIndex) ? (
                     <ChevronUp />
                   ) : (
                     <ChevronDown />
                   )}
-                </button>
-                <button
+                </Button>
+                <Button
                   onClick={() => removeProjects(projectIndex)}
                   className="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded bg-red-500 text-white hover:bg-red-600 transition-colors md:ml-2"
                   type="button"
                 >
                   <Trash className="w-5 h-5" />
-                </button>
+                </Button>
               </div>
             </div>
             {expandedProjects.includes(projectIndex) && (
@@ -623,7 +627,7 @@ const Projects = () => {
                   />
 
                   {improve && hasErrors(projectIndex, "name") && (
-                    <button
+                    <Button
                       type="button"
                       className="absolute right-2 top-1/2 -translate-y-1/2 text-red-500 hover:text-red-600 transition-colors"
                       onClick={() =>
@@ -635,7 +639,7 @@ const Projects = () => {
                       }
                     >
                       <AlertCircle className="w-5 h-5" />
-                    </button>
+                    </Button>
                   )}
                   {activeTooltip === `name-${projectIndex}` && (
                     <div className="absolute z-50 right-0 mt-2 w-80 bg-white rounded-lg shadow-xl transform transition-all duration-200 ease-in-out border border-gray-700">
@@ -647,12 +651,12 @@ const Projects = () => {
                               Project Name Suggestion
                             </span>
                           </div>
-                          <button
+                          <Button
                             onClick={() => setActiveTooltip(null)}
                             className="text-black transition-colors"
                           >
                             <X className="w-5 h-5" />
-                          </button>
+                          </Button>
                         </div>
                       </div>
                       <div className="p-4">
@@ -687,7 +691,7 @@ const Projects = () => {
                       onChange={(e) => handleProjects(e, projectIndex)}
                     />
                     {improve && hasErrors(projectIndex, "link") && (
-                      <button
+                      <Button
                         type="button"
                         className="absolute right-2 top-1/2 -translate-y-1/2 text-red-500 hover:text-red-600 transition-colors"
                         onClick={() =>
@@ -699,7 +703,7 @@ const Projects = () => {
                         }
                       >
                         <AlertCircle className="w-5 h-5" />
-                      </button>
+                      </Button>
                     )}
                     {activeTooltip === `link-${projectIndex}` && (
                       <div className="absolute z-50 right-0 mt-2 w-80 bg-white rounded-lg shadow-xl transform transition-all duration-200 ease-in-out border border-gray-700">
@@ -711,12 +715,12 @@ const Projects = () => {
                                 Project Link
                               </span>
                             </div>
-                            <button
+                            <Button
                               onClick={() => setActiveTooltip(null)}
                               className="text-black transition-colors"
                             >
                               <X className="w-5 h-5" />
-                            </button>
+                            </Button>
                           </div>
                         </div>
                         <div className="p-4">
@@ -780,7 +784,7 @@ const Projects = () => {
 
                     {improve && hasErrors(projectIndex, "startYear") && (
                       <>
-                        <button
+                        <Button
                           type="button"
                           className="absolute right-[2px] top-[-1.5rem] text-red-500"
                           onClick={() =>
@@ -792,7 +796,7 @@ const Projects = () => {
                           }
                         >
                           <AlertCircle className="w-5 h-5" />
-                        </button>
+                        </Button>
 
                         {activeTooltip === `startYear-${projectIndex}` && (
                           <div className="absolute right-0 top-14 w-80 bg-white rounded-lg shadow-xl border border-gray-700 z-50">
@@ -804,12 +808,12 @@ const Projects = () => {
                                     Start Date Issues
                                   </span>
                                 </div>
-                                <button
+                                <Button
                                   onClick={() => setActiveTooltip(null)}
                                   className="text-black transition-colors"
                                 >
                                   <X className="w-5 h-5" />
-                                </button>
+                                </Button>
                               </div>
                             </div>
                             <div className="p-4">
@@ -884,7 +888,7 @@ const Projects = () => {
 
                     {improve && hasErrors(projectIndex, "endYear") && (
                       <>
-                        <button
+                        <Button
                           type="button"
                           className="absolute right-[2px] top-[-1.5rem] text-red-500"
                           onClick={() =>
@@ -896,7 +900,7 @@ const Projects = () => {
                           }
                         >
                           <AlertCircle className="w-5 h-5" />
-                        </button>
+                        </Button>
 
                         {activeTooltip === `endYear-${projectIndex}` && (
                           <div className="absolute right-0 top-14 w-80 bg-white rounded-lg shadow-xl border border-gray-700 z-50">
@@ -908,12 +912,12 @@ const Projects = () => {
                                     End Date Issues
                                   </span>
                                 </div>
-                                <button
+                                <Button
                                   onClick={() => setActiveTooltip(null)}
                                   className="text-black transition-colors"
                                 >
                                   <X className="w-5 h-5" />
-                                </button>
+                                </Button>
                               </div>
                             </div>
                             <div className="p-4">
@@ -938,7 +942,7 @@ const Projects = () => {
                 <div className="relative mb-4">
                   <div className="flex justify-between mb-2">
                     <label className="text-black">Description</label>
-                    <button
+                    <Button
                       type="button"
                       className="border bg-black text-white px-3 rounded-3xl"
                       onClick={() => handleAIAssistDescription(projectIndex)}
@@ -947,7 +951,7 @@ const Projects = () => {
                       {loadingStates[`description_${projectIndex}`]
                         ? "Loading..."
                         : "+ Smart Assist"}
-                    </button>
+                    </Button>
                   </div>
 
                   <ReactQuill
@@ -976,7 +980,7 @@ const Projects = () => {
                   />
 
                   {improve && hasErrors(projectIndex, "description") && (
-                    <button
+                    <Button
                       type="button"
                       className="absolute right-2 top-12 text-red-500 hover:text-red-600 transition-colors"
                       onClick={() =>
@@ -988,7 +992,7 @@ const Projects = () => {
                       }
                     >
                       <AlertCircle className="w-5 h-5" />
-                    </button>
+                    </Button>
                   )}
                   {activeTooltip === `description-${projectIndex}` && (
                     <div className="absolute z-50 right-0 top-[50px] w-80 bg-white rounded-lg shadow-xl transform transition-all duration-200 ease-in-out border border-gray-700">
@@ -1001,7 +1005,7 @@ const Projects = () => {
                             </span>
                           </div>
 
-                          <button
+                          <Button
                             type="button" // Prevent form submission if inside a form
                             onClick={(e) =>
                               handleAutoFixDescription(e, projectIndex, project)
@@ -1020,14 +1024,14 @@ const Projects = () => {
                             {loadingStates[`description_${projectIndex}`]
                               ? "Fixing..."
                               : "Auto Fix"}
-                          </button>
+                          </Button>
 
-                          <button
+                          <Button
                             onClick={() => setActiveTooltip(null)}
                             className="text-black transition-colors"
                           >
                             <X className="w-5 h-5" />
-                          </button>
+                          </Button>
                         </div>
                       </div>
                       <div className="p-4">
@@ -1049,7 +1053,7 @@ const Projects = () => {
                 <div className="mt-4 relative">
                   <div className="flex justify-between mb-2">
                     <label className="text-black">Key Achievements</label>
-                    <button
+                    <Button
                       type="button"
                       className="border bg-black text-white px-3 rounded-3xl"
                       onClick={() => handleAIAssistKey(projectIndex)}
@@ -1058,7 +1062,7 @@ const Projects = () => {
                       {loadingStates[`key_${projectIndex}`]
                         ? "Loading..."
                         : "+ Smart Assist"}
-                    </button>
+                    </Button>
                   </div>
 
                   <textarea
@@ -1073,7 +1077,7 @@ const Projects = () => {
                   />
 
                   {improve && hasErrors(projectIndex, "keyAchievements") && (
-                    <button
+                    <Button
                       type="button"
                       className="absolute right-2 top-12 text-red-500 hover:text-red-600 transition-colors"
                       onClick={() =>
@@ -1085,7 +1089,7 @@ const Projects = () => {
                       }
                     >
                       <AlertCircle className="w-5 h-5" />
-                    </button>
+                    </Button>
                   )}
 
                   {activeTooltip === `keyAchievements-${projectIndex}` && (
@@ -1098,12 +1102,12 @@ const Projects = () => {
                               Key Achievements Suggestions
                             </span>
                           </div>
-                          <button
+                          <Button
                             onClick={() => setActiveTooltip(null)}
                             className="text-black transition-colors"
                           >
                             <X className="w-5 h-5" />
-                          </button>
+                          </Button>
                         </div>
                       </div>
                       <div className="p-4">
@@ -1123,13 +1127,13 @@ const Projects = () => {
                   )}
                 </div>
 
-                <button
+                <Button
                   onClick={() => removeProjects(projectIndex)}
                   className="bg-red-500 text-white px-4 py-2 rounded mt-4"
                   type="button"
                 >
                   Remove Project
-                </button>
+                </Button>
               </>
             )}
           </div>
@@ -1139,9 +1143,9 @@ const Projects = () => {
           No projects available. Add a new project to get started.
         </p>
       )}
-      {/* <button onClick={addProjects} className="bg-blue-500 text-white px-4 py-2 rounded mt-4" type="button">
+      {/* <Button onClick={addProjects} className="bg-blue-500 text-white px-4 py-2 rounded mt-4" type="button">
         Add Project
-      </button> */}
+      </Button> */}
       <FormButton
         size={resumeData.projects ? resumeData.projects.length : 0}
         add={addProjects}
@@ -1196,7 +1200,7 @@ const Projects = () => {
                 </div>
               )}
             </div>
-            <button
+            <Button
               onClick={(e) => handleSaveSelectedSummary(popupIndex, e)}
               className={`mt-4 px-4 py-2 rounded text-white ${
                 (popupType === "description" ? descriptions : keyAchievements)
@@ -1210,9 +1214,9 @@ const Projects = () => {
               }
             >
               Save Selection
-            </button>
+            </Button>
             {console.log(popupIndex,"POPOPOP")}
-            <button
+            <Button
               onClick={() =>
                 popupType === "description"
                   ? handleAIAssistDescription(popupIndex)
@@ -1222,13 +1226,13 @@ const Projects = () => {
             >
               <RefreshCcw className="w-5 h-5" />
               Retry Smart Assist
-            </button>
-            <button
+            </Button>
+            <Button
               onClick={() => setShowPopup(false)}
               className="mt-2 ml-2 bg-gray-400 text-black px-4 py-2 rounded hover:bg-gray-300"
             >
               Close
-            </button>
+            </Button>
           </div>
         </div>
       )} */}
@@ -1278,7 +1282,7 @@ const Projects = () => {
                       ? "No descriptions available."
                       : "No key achievements available."}
                   </p>
-                  <button
+                  <Button
                     onClick={() => {
                       if (popupType === "description") {
                         handleAIAssistDescription(popupIndex);
@@ -1302,11 +1306,11 @@ const Projects = () => {
                     ]
                       ? "Retrying..."
                       : "Retry"}
-                  </button>
+                  </Button>
                 </div>
               )}
             </div>
-            <button
+            <Button
               onClick={(e) => handleSaveSelectedSummary(popupIndex, e)}
               className={`mt-4 px-4 py-2 rounded text-white ${
                 (popupType === "description" ? descriptions : keyAchievements)
@@ -1320,17 +1324,17 @@ const Projects = () => {
               }
             >
               Save Selection
-            </button>
-            <button
+            </Button>
+            <Button
               onClick={() => setShowPopup(false)}
               className="mt-2 ml-2 bg-gray-400 text-black px-4 py-2 rounded hover:bg-gray-300"
             >
               Close
-            </button>
+            </Button>
           </div>
         </div>
       )}
-       {errorPopup.show && (
+      {errorPopup.show && (
         <ErrorPopup
           message={errorPopup.message}
           onClose={() => setErrorPopup({ show: false, message: "" })}
