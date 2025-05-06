@@ -1,4 +1,3 @@
-
 import React, { useContext, useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
@@ -6,6 +5,7 @@ import { toast } from "react-toastify";
 import { ResumeContext } from "../../components/context/ResumeContext";
 import { Download, Edit, Trash, Plus } from "lucide-react";
 import Link from "next/link";
+import Button from "../../components/buttonUIComponent";
 
 const MyResume = () => {
   const { setResumeData } = useContext(ResumeContext);
@@ -22,7 +22,7 @@ const MyResume = () => {
   const handleToggle = () => {
     setIsChecked(!isChecked);
   };
-  
+
   const handleDeleteClick = (id) => {
     setDeleteResumeId(id); // Store the ID of the item to be deleted
     setIsDeleteModalOpen(true); // Open the modal
@@ -147,10 +147,10 @@ const MyResume = () => {
           My Resumes
         </h1>
         <Link href={"/dashboard/resume-builder"}>
-          <button className="flex text-sm items-center px-2 md:px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 font-medium shadow-sm">
+          <Button className="flex text-sm items-center px-2 md:px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 font-medium shadow-sm">
             <Plus className="w-5 h-5 mr-2" />
             Create New Resume
-          </button>
+          </Button>
         </Link>
       </div>
 
@@ -195,12 +195,12 @@ const MyResume = () => {
                           <span className="text-sm text-gray-900">
                             {resume.resume_title || "ABC"}
                           </span>
-                          <button
+                          <Button
                             onClick={() => handleOpenEditModal(resume)}
                             className="text-blue-600 hover:text-blue-800"
                           >
                             🖍
-                          </button>
+                          </Button>
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -232,7 +232,7 @@ const MyResume = () => {
                           <span className="text-sm text-gray-700">
                             Include your Abroadium Id
                           </span>
-                          <button
+                          <Button
                             role="switch"
                             aria-checked={isChecked}
                             onClick={handleToggle}
@@ -245,29 +245,29 @@ const MyResume = () => {
                                 isChecked ? "translate-x-6" : "translate-x-1"
                               }`}
                             />
-                          </button>
+                          </Button>
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                         <div className="flex items-center space-x-3">
-                          <button
+                          <Button
                             onClick={() => handleEdit(resume.resume_id)}
                             className="text-blue-600 hover:text-blue-800 transition-colors duration-200"
                           >
                             <Edit className="w-5 h-5" />
-                          </button>
-                          <button
+                          </Button>
+                          <Button
                             onClick={() => handleDeleteClick(resume.resume_id)}
                             className="text-red-600 hover:text-red-800 transition-colors duration-200"
                           >
                             <Trash className="w-5 h-5" />
-                          </button>
-                          <button
+                          </Button>
+                          <Button
                             onClick={() => handleDownload(resume.resume_id)}
                             className="text-green-600 hover:text-green-800 transition-colors duration-200"
                           >
                             <Download className="w-5 h-5" />
-                          </button>
+                          </Button>
                         </div>
                       </td>
                     </tr>
@@ -296,18 +296,18 @@ const MyResume = () => {
               Are you sure you want to delete this resume?
             </h2>
             <div className="flex justify-end space-x-3">
-              <button
+              <Button
                 onClick={() => setIsDeleteModalOpen(false)}
                 className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
               >
                 Cancel
-              </button>
-              <button
+              </Button>
+              <Button
                 onClick={handleDeleteResume}
                 className="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
               >
                 Delete
-              </button>
+              </Button>
             </div>
           </div>
         </div>
@@ -328,18 +328,18 @@ const MyResume = () => {
               placeholder="Enter new resume title"
             />
             <div className="flex justify-end space-x-3 mt-4">
-              <button
+              <Button
                 onClick={() => setIsEditModalOpen(false)}
                 className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
               >
                 Cancel
-              </button>
-              <button
+              </Button>
+              <Button
                 onClick={handleUpdateResumeTitle}
                 className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
               >
                 Save
-              </button>
+              </Button>
             </div>
           </div>
         </div>

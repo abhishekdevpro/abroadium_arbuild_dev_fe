@@ -15,6 +15,7 @@ import "react-quill/dist/quill.snow.css";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import ErrorPopup from "../utility/ErrorPopUp";
+import Button from "../buttonUIComponent";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
@@ -297,7 +298,7 @@ const WorkExperience = () => {
     } finally {
       setLoadingStates((prev) => ({
         ...prev,
-        [`description_${index}`]: false, // ✅ Reset only description button
+        [`description_${index}`]: false, // ✅ Reset only description Button
       }));
     }
   };
@@ -353,7 +354,7 @@ const WorkExperience = () => {
     } finally {
       setLoadingStates((prev) => ({
         ...prev,
-        [`key_${index}`]: false, // ✅ Reset only key achievements button
+        [`key_${index}`]: false, // ✅ Reset only key achievements Button
       }));
     }
   };
@@ -670,7 +671,7 @@ const WorkExperience = () => {
   const removeWork = (index) => {
     if ((resumeData.workExperience || []).length <= 1) {
       toast.warn("At least one work experience entry is required");
-      return; 
+      return;
     }
     const newworkExperience = [...(resumeData.workExperience || [])];
     newworkExperience.splice(index, 1);
@@ -713,7 +714,7 @@ const WorkExperience = () => {
         <label className="text-lg text-white font-medium">
           Are you a Fresher?
         </label>
-        <button
+        <Button
           className={`w-14 h-7 flex items-center rounded-full p-1 transition ${
             resumeData.is_fresher ? "bg-green-500" : "bg-gray-400"
           }`}
@@ -724,7 +725,7 @@ const WorkExperience = () => {
               resumeData.is_fresher ? "translate-x-7" : "translate-x-0"
             }`}
           />
-        </button>
+        </Button>
       </div>
 
       {!resumeData.is_fresher &&
@@ -745,13 +746,13 @@ const WorkExperience = () => {
                 ) : (
                   <ChevronDown className="w-6 h-6 text-black" />
                 )}
-                <button
+                <Button
                   onClick={() => removeWork(index)}
                   className="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded bg-red-500 text-white hover:bg-red-600 transition-colors md:ml-2"
                   type="button"
                 >
                   <Trash className="w-5 h-5" />
-                </button>
+                </Button>
               </div>
             </div>
 
@@ -787,7 +788,7 @@ const WorkExperience = () => {
                     </div>
                   )}
                   {improve && hasErrors(index, "company") && (
-                    <button
+                    <Button
                       type="button"
                       className="absolute right-2 top-1/2 -translate-y-1/2 text-red-500 hover:text-red-600 transition-colors"
                       onClick={() =>
@@ -799,7 +800,7 @@ const WorkExperience = () => {
                       }
                     >
                       <AlertCircle className="w-5 h-5" />
-                    </button>
+                    </Button>
                   )}
                   {activeTooltip === `company-${index}` && (
                     <div className="absolute z-50 right-0 mt-2 w-80 bg-white rounded-lg shadow-xl transform transition-all duration-200 ease-in-out border border-gray-700">
@@ -811,12 +812,12 @@ const WorkExperience = () => {
                               Company Suggestions
                             </span>
                           </div>
-                          <button
+                          <Button
                             onClick={() => setActiveTooltip(null)}
                             className="text-black transition-colors"
                           >
                             <X className="w-5 h-5" />
-                          </button>
+                          </Button>
                         </div>
                       </div>
                       <div className="p-4">
@@ -864,7 +865,7 @@ const WorkExperience = () => {
                     </div>
                   )}
                   {improve && hasErrors(index, "position") && (
-                    <button
+                    <Button
                       type="button"
                       className="absolute right-2 top-1/2 -translate-y-1/2 text-red-500 hover:text-red-600 transition-colors"
                       onClick={() =>
@@ -876,7 +877,7 @@ const WorkExperience = () => {
                       }
                     >
                       <AlertCircle className="w-5 h-5" />
-                    </button>
+                    </Button>
                   )}
                   {activeTooltip === `position-${index}` && (
                     <div className="absolute z-50 right-0 mt-2 w-80 bg-white rounded-lg shadow-xl transform transition-all duration-200 ease-in-out border border-gray-700">
@@ -888,12 +889,12 @@ const WorkExperience = () => {
                               Position Suggestions
                             </span>
                           </div>
-                          <button
+                          <Button
                             onClick={() => setActiveTooltip(null)}
                             className="text-black transition-colors"
                           >
                             <X className="w-5 h-5" />
-                          </button>
+                          </Button>
                         </div>
                       </div>
                       <div className="p-4">
@@ -950,7 +951,7 @@ const WorkExperience = () => {
 
                     {improve && hasErrors(index, "startYear") && (
                       <>
-                        <button
+                        <Button
                           type="button"
                           className="absolute right-[2px] top-[-1.5rem] text-red-500"
                           onClick={() =>
@@ -962,7 +963,7 @@ const WorkExperience = () => {
                           }
                         >
                           <AlertCircle className="w-5 h-5" />
-                        </button>
+                        </Button>
 
                         {activeTooltip === `startYear-${index}` && (
                           <div className="absolute right-0 top-14 w-80 bg-white rounded-lg shadow-xl border border-gray-700 z-50">
@@ -974,12 +975,12 @@ const WorkExperience = () => {
                                     Start Date Issues
                                   </span>
                                 </div>
-                                <button
+                                <Button
                                   onClick={() => setActiveTooltip(null)}
                                   className="text-black transition-colors"
                                 >
                                   <X className="w-5 h-5" />
-                                </button>
+                                </Button>
                               </div>
                             </div>
                             <div className="p-4">
@@ -1050,7 +1051,7 @@ const WorkExperience = () => {
 
                     {improve && hasErrors(index, "endYear") && (
                       <>
-                        <button
+                        <Button
                           type="button"
                           className="absolute right-[2px] top-[-1.5rem] text-red-500"
                           onClick={() =>
@@ -1062,7 +1063,7 @@ const WorkExperience = () => {
                           }
                         >
                           <AlertCircle className="w-5 h-5" />
-                        </button>
+                        </Button>
 
                         {activeTooltip === `endYear-${index}` && (
                           <div className="absolute right-0 top-14 w-80 bg-white rounded-lg shadow-xl border border-gray-700 z-50">
@@ -1074,12 +1075,12 @@ const WorkExperience = () => {
                                     End Date Issues
                                   </span>
                                 </div>
-                                <button
+                                <Button
                                   onClick={() => setActiveTooltip(null)}
                                   className="text-black transition-colors"
                                 >
                                   <X className="w-5 h-5" />
-                                </button>
+                                </Button>
                               </div>
                             </div>
                             <div className="p-4">
@@ -1134,7 +1135,7 @@ const WorkExperience = () => {
                     </div>
                   )}
                   {improve && hasErrors(index, "location") && (
-                    <button
+                    <Button
                       type="button"
                       className="absolute right-2 top-1/2 translate-y-1 text-red-500 hover:text-red-600 transition-colors"
                       onClick={() =>
@@ -1146,7 +1147,7 @@ const WorkExperience = () => {
                       }
                     >
                       <AlertCircle className="w-5 h-5" />
-                    </button>
+                    </Button>
                   )}
                   {activeTooltip === `location-${index}` && (
                     <div className="absolute z-50 right-0 mt-2 w-80 bg-white rounded-lg shadow-xl transform transition-all duration-200 ease-in-out border border-gray-700">
@@ -1158,12 +1159,12 @@ const WorkExperience = () => {
                               Location Suggestions
                             </span>
                           </div>
-                          <button
+                          <Button
                             onClick={() => setActiveTooltip(null)}
                             className="text-black transition-colors"
                           >
                             <X className="w-5 h-5" />
-                          </button>
+                          </Button>
                         </div>
                       </div>
                       <div className="p-4">
@@ -1185,7 +1186,7 @@ const WorkExperience = () => {
                   <div className="flex justify-between mb-2">
                     <label className="text-black">Description</label>
 
-                    <button
+                    <Button
                       type="button"
                       className="border bg-black text-white px-3 rounded-3xl"
                       onClick={() => {
@@ -1195,12 +1196,12 @@ const WorkExperience = () => {
                           toast.error("Job Title is required");
                         }
                       }}
-                      disabled={loadingStates[`description_${index}`]} // Check loading state per button
+                      disabled={loadingStates[`description_${index}`]} // Check loading state per Button
                     >
                       {loadingStates[`description_${index}`]
                         ? "Loading..."
                         : "+ Smart Assist"}
-                    </button>
+                    </Button>
                   </div>
                   <ReactQuill
                     placeholder="Description"
@@ -1217,7 +1218,7 @@ const WorkExperience = () => {
                     }}
                   />
                   {improve && hasErrors(index, "descriptionDetails") && (
-                    <button
+                    <Button
                       type="button"
                       className="absolute right-2 top-12 text-red-500 hover:text-red-600 transition-colors"
                       onClick={() =>
@@ -1229,7 +1230,7 @@ const WorkExperience = () => {
                       }
                     >
                       <AlertCircle className="w-5 h-5" />
-                    </button>
+                    </Button>
                   )}
                   {activeTooltip === `description-${index}` && (
                     <div className="absolute z-50 right-0 top-[50px] w-80 bg-white rounded-lg shadow-xl transform transition-all duration-200 ease-in-out border border-gray-700">
@@ -1242,8 +1243,8 @@ const WorkExperience = () => {
                             </span>
                           </div>
 
-                          <button
-                            type="button" // Ensure it's NOT a submit button
+                          <Button
+                            type="button" // Ensure it's NOT a submit Button
                             onClick={(e) =>
                               handleAutoFixDescription(e, index, experience)
                             }
@@ -1261,14 +1262,14 @@ const WorkExperience = () => {
                             {loadingStates[`description_${index}`]
                               ? "Fixing..."
                               : "Auto Fix"}
-                          </button>
+                          </Button>
 
-                          <button
+                          <Button
                             onClick={() => setActiveTooltip(null)}
                             className="text-black transition-colors"
                           >
                             <X className="w-5 h-5" />
-                          </button>
+                          </Button>
                         </div>
                       </div>
                       <div className="p-4">
@@ -1291,7 +1292,7 @@ const WorkExperience = () => {
                 <div className="relative mb-4">
                   <div className="flex justify-between mb-2">
                     <label className="text-black">Key Achievements</label>
-                    <button
+                    <Button
                       type="button"
                       className="border bg-black text-white px-3 rounded-3xl"
                       onClick={() => {
@@ -1301,12 +1302,12 @@ const WorkExperience = () => {
                           toast.error("Job Title is required");
                         }
                       }}
-                      disabled={loadingStates[`key_${index}`]} // Check loading state per button
+                      disabled={loadingStates[`key_${index}`]} // Check loading state per Button
                     >
                       {loadingStates[`key_${index}`]
                         ? "Loading..."
                         : "+ Key Assist"}
-                    </button>
+                    </Button>
                   </div>
 
                   <textarea
@@ -1321,7 +1322,7 @@ const WorkExperience = () => {
                     onChange={(e) => handleKeyAchievement(e, index)}
                   />
                   {improve && hasErrors(index, "keyAchievements") && (
-                    <button
+                    <Button
                       type="button"
                       className="absolute right-2 top-12 text-red-500 hover:text-red-600 transition-colors"
                       onClick={() =>
@@ -1333,7 +1334,7 @@ const WorkExperience = () => {
                       }
                     >
                       <AlertCircle className="w-5 h-5" />
-                    </button>
+                    </Button>
                   )}
                   {activeTooltip === `achievements-${index}` && (
                     <div className="absolute z-50 top-0 right-0 w-80 bg-white rounded-lg shadow-xl transform transition-all duration-200 ease-in-out border border-gray-700">
@@ -1345,12 +1346,12 @@ const WorkExperience = () => {
                               Achievement Suggestions
                             </span>
                           </div>
-                          <button
+                          <Button
                             onClick={() => setActiveTooltip(null)}
                             className="text-black transition-colors"
                           >
                             <X className="w-5 h-5" />
-                          </button>
+                          </Button>
                         </div>
                       </div>
                       <div className="p-4 ">
@@ -1370,13 +1371,13 @@ const WorkExperience = () => {
                   )}
                 </div>
 
-                <button
+                <Button
                   onClick={() => removeWork(index)}
                   className="bg-red-500 w-full text-white px-4 py-2 rounded mt-4"
                   type="button"
                 >
                   Remove Work Experience
-                </button>
+                </Button>
               </div>
             )}
           </div>
@@ -1431,7 +1432,7 @@ const WorkExperience = () => {
                       ? "No descriptions available."
                       : "No key achievements available."}
                   </p>
-                  <button
+                  <Button
                     onClick={() => {
                       if (popupType === "description") {
                         handleAIAssistDescription(popupIndex);
@@ -1455,12 +1456,12 @@ const WorkExperience = () => {
                     ]
                       ? "Retrying..."
                       : "Retry"}
-                  </button>
+                  </Button>
                 </div>
               )}
             </div>
 
-            <button
+            <Button
               onClick={(e) => handleSaveSelectedSummary(popupIndex, e)}
               className={`mt-4 px-4 py-2 rounded text-white ${
                 (popupType === "description" ? descriptions : keyAchievements)
@@ -1474,14 +1475,14 @@ const WorkExperience = () => {
               }
             >
               Save Selection
-            </button>
+            </Button>
 
-            <button
+            <Button
               onClick={() => setShowPopup(false)}
               className="mt-2 ml-2 bg-gray-400 text-black px-4 py-2 rounded hover:bg-gray-300"
             >
               Close
-            </button>
+            </Button>
           </div>
         </div>
       )}

@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useContext, useEffect, useState } from "react";
@@ -14,7 +13,7 @@ const ExperienceStep = ({ onNext, onBack, onChange, value }) => {
   const [loading, setLoading] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
-  
+
   const token =
     typeof window !== "undefined" ? localStorage.getItem("token") : null;
 
@@ -94,9 +93,9 @@ const ExperienceStep = ({ onNext, onBack, onChange, value }) => {
     const templateData = {
       templateData: formatResumeData(resumeData),
     };
-    
+
     setIsLoading(true);
-    
+
     try {
       const resumeId = router.query.id || localStorage.getItem("resumeId");
       // if (!resumeId) {
@@ -132,10 +131,9 @@ const ExperienceStep = ({ onNext, onBack, onChange, value }) => {
 
   // Helper function to check if Next button should be disabled
   const isNextButtonDisabled = () => {
-
     return loading || value.experience === "2" || isLoading;
   };
-console.log(value.experience,"value.experience");
+  console.log(value.experience, "value.experience");
   return (
     <div className="min-h-screen bg-gray-50 py-12">
       <div className="max-w-4xl mx-auto px-4">
@@ -174,11 +172,13 @@ console.log(value.experience,"value.experience");
                       : "border-gray-200 hover:border-blue-400"
                   }`}
                 >
-                  <span className="block text-lg font-medium">{experience.label}</span>
+                  <span className="block text-lg font-medium">
+                    {experience.label}
+                  </span>
                 </button>
               ))}
             </div>
-            
+
             {/* Added warning message for when no experience is selected */}
             {!value.experience && (
               <p className="text-center text-red-500 mt-4">

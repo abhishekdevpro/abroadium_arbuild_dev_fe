@@ -1,4 +1,3 @@
-
 import React, { useContext, useState } from "react";
 import FormButton from "./FormButton";
 import { ResumeContext } from "../context/ResumeContext";
@@ -12,6 +11,7 @@ import {
   Globe2,
 } from "lucide-react";
 import { toast } from "react-toastify";
+import Button from "../buttonUIComponent";
 
 const Language = () => {
   const { resumeData, setResumeData, resumeStrength } =
@@ -112,7 +112,6 @@ const Language = () => {
 
       {resumeData[skillType]?.length > 0 ? (
         resumeData[skillType].map((skill, index) => (
-          
           <div
             key={index}
             className="bg-white rounded-lg p-2 mb-6 shadow-md border border-gray-300"
@@ -145,7 +144,7 @@ const Language = () => {
 
                   {/* Error Tooltip */}
                   {improve && hasErrors(index, "language") && (
-                    <button
+                    <Button
                       type="button"
                       className="absolute right-3 top-[55%] -translate-y-1/2 text-red-500 hover:text-red-600 transition"
                       onClick={() =>
@@ -157,7 +156,7 @@ const Language = () => {
                       }
                     >
                       <AlertCircle className="w-5 h-5" />
-                    </button>
+                    </Button>
                   )}
 
                   {activeTooltip === `language-${index}` && (
@@ -169,12 +168,12 @@ const Language = () => {
                             Language Suggestion
                           </span>
                         </div>
-                        <button
+                        <Button
                           onClick={() => setActiveTooltip(null)}
                           className="text-gray-600 hover:text-gray-900"
                         >
                           <X className="w-5 h-5" />
-                        </button>
+                        </Button>
                       </div>
                       <div className="p-4">
                         {getErrorMessages(index, "language").map((msg, i) => (
@@ -218,14 +217,14 @@ const Language = () => {
               </div>
 
               {/* Delete Button */}
-              <button
+              <Button
                 onClick={() => deleteLanguage(index)}
                 className="bg-red-500 text-white p-2 rounded-md hover:bg-red-600 transition-all flex items-center justify-center"
                 type="button"
                 title="Delete language"
               >
                 <Trash className="w-5 h-5" />
-              </button>
+              </Button>
             </div>
           </div>
         ))

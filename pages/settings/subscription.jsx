@@ -1,10 +1,10 @@
-
 import { useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
 import Navbar from "../Navbar/Navbar";
 import Link from "next/link";
 import axios from "axios";
 import { toast } from "react-toastify";
+import Button from "../../components/buttonUIComponent";
 export default function Subscription() {
   const [status, setStatus] = useState("Inactive");
   const [accountId, setAccountId] = useState();
@@ -92,7 +92,9 @@ export default function Subscription() {
     4: "AI Pro Yearly",
   };
 
-  const currentPlan = userData?.plan_id ? planName[String(userData.plan_id)] : "Free";
+  const currentPlan = userData?.plan_id
+    ? planName[String(userData.plan_id)]
+    : "Free";
   // console.log(userData,"/////");
 
   return (
@@ -121,7 +123,7 @@ export default function Subscription() {
                   <p className="mt-2 text-gray-700">Contact us at:</p>
                   <ul className="list-disc ml-5 text-gray-700">
                     <li className="text-[15px]">
-                      📧  customersupport@Abroadium.com
+                      📧 customersupport@Abroadium.com
                     </li>
                   </ul>
                 </div>
@@ -169,11 +171,11 @@ export default function Subscription() {
 
                   <div className="flex space-x-4">
                     <Link href="/payment">
-                      <button className="mt-3 md:mt-0 px-4 py-2 bg-blue-600 text-white rounded-md">
+                      <Button className="mt-3 md:mt-0 px-4 py-2 bg-blue-600 text-white rounded-md">
                         Upgrade
-                      </button>
+                      </Button>
                     </Link>
-                    <button
+                    <Button
                       onClick={handleCancelSubscription}
                       disabled={
                         userData?.plan_id === 1 || !userData?.is_active_plan
@@ -185,25 +187,25 @@ export default function Subscription() {
                       }`}
                     >
                       Cancel Subscription
-                    </button>
+                    </Button>
                   </div>
                 </div>
                 {/* <p className="text-gray-700">
                   Current plan: {userData?.plan_id || "N/A"}
                 </p> */}
                 <p className="text-sm text-gray-600">
-              Current Plan:{" "}
-              <span
-                className={`px-2 py-1 rounded text-sm ${
-                  currentPlan === "Free"
-                    ? "bg-red-100 text-red-600"
-                    : "bg-green-100 text-green-600"
-                }`}
-              >
-                {currentPlan}
-              </span>
-            </p>
-        
+                  Current Plan:{" "}
+                  <span
+                    className={`px-2 py-1 rounded text-sm ${
+                      currentPlan === "Free"
+                        ? "bg-red-100 text-red-600"
+                        : "bg-green-100 text-green-600"
+                    }`}
+                  >
+                    {currentPlan}
+                  </span>
+                </p>
+
                 <p className="mt-4 text-gray-700">
                   For more information or changes to your subscription, contact
                   us at
@@ -212,7 +214,7 @@ export default function Subscription() {
                     className="text-blue-600 cursor-pointer"
                   >
                     {" "}
-                     customersupport@Abroadium.com
+                    customersupport@Abroadium.com
                   </a>
                   .
                 </p>
