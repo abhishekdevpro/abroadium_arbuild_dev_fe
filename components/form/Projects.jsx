@@ -642,7 +642,7 @@ const Projects = () => {
                     </Button>
                   )}
                   {activeTooltip === `name-${projectIndex}` && (
-                    <div className="absolute z-50 right-0 mt-2 w-80 bg-white rounded-lg shadow-xl transform transition-all duration-200 ease-in-out border border-gray-700">
+                    <div className="absolute z-50 right-0  w-80 bg-white rounded-lg shadow-xl transform transition-all duration-200 ease-in-out border border-gray-700">
                       <div className="p-4 border-b border-gray-700">
                         <div className="flex items-center justify-between">
                           <div className="flex items-center space-x-2">
@@ -706,7 +706,7 @@ const Projects = () => {
                       </Button>
                     )}
                     {activeTooltip === `link-${projectIndex}` && (
-                      <div className="absolute z-50 right-0 mt-2 w-80 bg-white rounded-lg shadow-xl transform transition-all duration-200 ease-in-out border border-gray-700">
+                      <div className="absolute z-50 right-0  w-80 bg-white rounded-lg shadow-xl transform transition-all duration-200 ease-in-out border border-gray-700">
                         <div className="p-4 border-b border-gray-700">
                           <div className="flex items-center justify-between">
                             <div className="flex items-center space-x-2">
@@ -903,7 +903,7 @@ const Projects = () => {
                         </Button>
 
                         {activeTooltip === `endYear-${projectIndex}` && (
-                          <div className="absolute right-0 top-14 w-80 bg-white rounded-lg shadow-xl border border-gray-700 z-50">
+                          <div className="absolute right-0  w-80 bg-white rounded-lg shadow-xl border border-gray-700 z-50">
                             <div className="p-4 border-b border-gray-700">
                               <div className="flex items-center justify-between">
                                 <div className="flex items-center space-x-2">
@@ -1093,7 +1093,7 @@ const Projects = () => {
                   )}
 
                   {activeTooltip === `keyAchievements-${projectIndex}` && (
-                    <div className="absolute z-50 right-0 top-[50px] w-80 bg-white rounded-lg shadow-xl transform transition-all duration-200 ease-in-out border border-gray-700">
+                    <div className="absolute z-50 right-0 top-8 w-80 bg-white rounded-lg shadow-xl transform transition-all duration-200 ease-in-out border border-gray-700">
                       <div className="p-4 border-b border-gray-700">
                         <div className="flex items-center justify-between">
                           <div className="flex items-center space-x-2">

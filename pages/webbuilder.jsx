@@ -338,7 +338,7 @@ export default function WebBuilder() {
         }
       );
       console.log(response);
-      if (response.code == 200) {
+      if (response.status == 200) {
         const url = window.URL.createObjectURL(
           new Blob([response.data], { type: "application/pdf" })
         );

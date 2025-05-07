@@ -399,7 +399,7 @@ const Skill = ({ title, currentSkillIndex }) => {
           </Button>
 
           {activeTooltip === `skill-${index}` && (
-            <div className="absolute z-10 right-10 top-10 mt-2 w-64 bg-white rounded-lg shadow-lg border border-gray-200">
+            <div className="absolute z-10 right-0 top-10 mt-2 w-64 bg-white rounded-lg shadow-lg border border-gray-200">
               <div className="bg-red-50 px-4 py-2 rounded-t-lg border-b border-red-100">
                 <div className="flex items-center gap-2">
                   <AlertCircle className="w-5 h-5 text-red-600" />

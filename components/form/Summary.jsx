@@ -220,7 +220,7 @@ const Summary = () => {
 
         {/* Suggestions Tooltip */}
         {showSuggestions && hasErrors() && (
-          <div className="absolute z-50 left-8 mt-10 w-80 bg-white rounded-lg shadow-xl transform transition-all duration-200 ease-in-out border border-gray-700">
+          <div className="absolute z-50 left-50 mt-10 w-80 bg-white rounded-lg shadow-xl transform transition-all duration-200 ease-in-out border border-gray-700">
             <div className="p-4 border-b border-gray-700">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-2">
