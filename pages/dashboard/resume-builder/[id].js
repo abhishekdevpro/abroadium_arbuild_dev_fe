@@ -1,41 +1,43 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { useRouter } from 'next/router'
-import ProgressBar from '../../../components/resume-builder-steps/Progress-Bar'
-import ExperienceStep from '../../../components/resume-builder-steps/Experience'
-import TemplateStep from '../../../components/resume-builder-steps/Template-step'
-import UploadStep from '../../../components/resume-builder-steps/Upload-Step'
-import FileUploadStep from '../../../components/resume-builder-steps/File-upload'
-import { ResumeProvider } from '../../../components/context/ResumeContext'
+import { useState } from "react";
+import { useRouter } from "next/router";
+import ProgressBar from "../../../components/resume-builder-steps/Progress-Bar";
+import ExperienceStep from "../../../components/resume-builder-steps/Experience";
+import TemplateStep from "../../../components/resume-builder-steps/Template-step";
+import UploadStep from "../../../components/resume-builder-steps/Upload-Step";
+import FileUploadStep from "../../../components/resume-builder-steps/File-upload";
+import { ResumeProvider } from "../../../components/context/ResumeContext";
+import CountrySelection from "../../../components/resume-builder-steps/CountrySelection";
 
 export default function Home() {
-  const router = useRouter()
-  const { id } = router.query // Retrieve the dynamic ID
+  const router = useRouter();
+  const { id } = router.query; // Retrieve the dynamic ID
 
-  const [currentStep, setCurrentStep] = useState(1)
+  const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
-    experience: '',
-    template: '',
+    experience: "",
+    template: "",
     hasPhoto: false,
     columns: 1,
-    uploadType: '',
+    uploadType: "",
     file: null,
-  })
+    country: "",
+  });
 
-  const totalSteps = 4
+  const totalSteps = 4;
 
   const handleNext = () => {
-    setCurrentStep((prev) => Math.min(prev + 1, totalSteps))
-  }
+    setCurrentStep((prev) => Math.min(prev + 1, totalSteps));
+  };
 
   const handleBack = () => {
-    setCurrentStep((prev) => Math.max(prev - 1, 1))
-  }
+    setCurrentStep((prev) => Math.max(prev - 1, 1));
+  };
 
   const updateFormData = (data) => {
-    setFormData((prev) => ({ ...prev, ...data }))
-  }
+    setFormData((prev) => ({ ...prev, ...data }));
+  };
 
   return (
     <main className="min-h-screen bg-gray-50 py-8 px-4">
@@ -45,6 +47,16 @@ export default function Home() {
 
         <div className="mt-8 bg-white rounded-lg shadow-lg p-6">
           {currentStep === 1 && (
+            <CountrySelection
+              onSelectCountry={(country) => {
+                updateFormData({ country });
+                handleNext();
+              }}
+              onBack={() => router.back()} // optional: go back to previous page
+            />
+          )}
+
+          {currentStep === 2 && (
             <ExperienceStep
               onNext={handleNext}
               onChange={(experience) => updateFormData({ experience })}
@@ -52,7 +64,7 @@ export default function Home() {
             />
           )}
 
-          {currentStep === 2 && (
+          {currentStep === 3 && (
             <TemplateStep
               onNext={handleNext}
               onBack={handleBack}
@@ -65,7 +77,7 @@ export default function Home() {
             />
           )}
 
-          {currentStep === 3 && (
+          {currentStep === 4 && (
             <UploadStep
               onNext={handleNext}
               onBack={handleBack}
@@ -74,7 +86,7 @@ export default function Home() {
             />
           )}
 
-          {currentStep === 4 && formData.uploadType === 'upload' && (
+          {currentStep === 5 && formData.uploadType === "upload" && (
             <FileUploadStep
               onNext={handleNext}
               onBack={handleBack}
@@ -85,5 +97,5 @@ export default function Home() {
         </div>
       </div>
     </main>
-  )
+  );
 }
