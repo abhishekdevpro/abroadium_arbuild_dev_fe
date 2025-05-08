@@ -20,8 +20,8 @@ const AbroadiumId = ({ isOpen, onClose }) => {
       }}
     >
       <div
+        className="bg-gradient-to-b from-white to-blue-100"
         style={{
-          backgroundColor: "white",
           padding: "20px",
           borderRadius: "8px",
           maxWidth: "600px",
@@ -30,14 +30,12 @@ const AbroadiumId = ({ isOpen, onClose }) => {
         }}
       >
         <div className="hero">
-        <div className="flex justify-center items-center mb-2">
-           
-              <img
-                src="https://abroadiumlandingemployee.vercel.app/assets/logo-c5bcd0df.png"
-                alt="logo"
-                className="h-10 w-40"
-              />
-           
+          <div className="flex justify-center items-center mb-2">
+            <img
+              src="https://abroadiumlandingemployee.vercel.app/assets/logo-c5bcd0df.png"
+              alt="logo"
+              className="h-10 w-40"
+            />
           </div>
           <h1>Abroadium ID</h1>
           <p>Your One-Stop Access to Career Solutions</p>
@@ -59,23 +57,20 @@ const AbroadiumId = ({ isOpen, onClose }) => {
         <div className="">
           <p>Want to know when Abroadium ID is live? Sign up for updates!</p>
           <form>
-           
-             <input
-                type="email"
-                name="email"
-                style={{
-                    padding: "10px",
-                    marginRight: "10px",
-                    width: "250px",
-                  }}
-               
-                className=" px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500"
-                placeholder="Enter your email ID"
-                
-              />
+            <input
+              type="email"
+              name="email"
+              style={{
+                padding: "10px",
+                marginRight: "10px",
+                width: "250px",
+              }}
+              className=" px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500"
+              placeholder="Enter your email ID"
+            />
             <button
               type="submit"
-             className="bg-blue-950 text-white px-6 py-2 rounded-lg"
+              className="bg-blue-950 text-white px-6 py-2 rounded-lg"
             >
               Notify Me
             </button>

@@ -13,22 +13,22 @@ const Sidebar = () => {
 
   const getLinkClassName = (path) => {
     return router.pathname === path
-      ? "flex items-center p-2 bg-violet-900 border-b-2 rounded font-semibold text-white"
-      : "flex items-center p-2 hover:bg-purple-900 hover:text-white border-b-2 rounded font-semibold";
+      ? "flex items-center p-2 bg-[#002a48] border-b-2 rounded font-semibold text-white"
+      : "flex items-center p-2 hover:bg-orange-600 hover:text-white border-b-2 rounded font-semibold";
   };
 
   return (
     <>
       {/* Mobile Toggle Button */}
       {/* <button
-        className="md:hidden p-2 fixed top-[7rem] left-4 z-50 bg-violet-900 text-white rounded-full"
+        className="md:hidden p-2 fixed top-[7rem] left-4 z-50 bg-[#002a48] text-white rounded-full"
         onClick={toggleSidebar}
       >
         {isOpen ? <X size={24} /> : <Menu size={24} />}
       </button> */}
       {!isOpen && (
         <button
-          className="md:hidden p-2 fixed top-[7rem] left-4 z-50 bg-violet-900 text-white rounded-full"
+          className="md:hidden p-2 fixed top-[7rem] left-4 z-50 bg-[#002a48] text-white rounded-full"
           onClick={toggleSidebar}
         >
           <Menu size={24} />
@@ -54,7 +54,7 @@ const Sidebar = () => {
           <li>
             <Link
               href="/settings/account"
-              className="flex items-center p-2 bg-purple-900 border-b-2 border-black font-semibold text-white rounded-xl"
+              className="flex items-center p-2 bg-orange-600 border-b-2 border-black font-semibold text-white rounded-xl"
               onClick={toggleSidebar}
             >
               <User className="mr-2" size={20} />
@@ -64,7 +64,9 @@ const Sidebar = () => {
           <li>
             <Link
               href="/settings/notification"
-              className={`rounded-xl ${getLinkClassName("/settings/notification")}`}
+              className={`rounded-xl ${getLinkClassName(
+                "/settings/notification"
+              )}`}
               onClick={toggleSidebar}
             >
               <Bell className="mr-2" size={20} />
@@ -74,7 +76,9 @@ const Sidebar = () => {
           <li>
             <Link
               href="/settings/subscription"
-              className={`rounded-xl ${getLinkClassName("/settings/subscription")}`}
+              className={`rounded-xl ${getLinkClassName(
+                "/settings/subscription"
+              )}`}
               onClick={toggleSidebar}
             >
               <CreditCard className="mr-2" size={20} />

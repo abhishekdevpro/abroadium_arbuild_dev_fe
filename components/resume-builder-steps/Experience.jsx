@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import { SaveLoader } from "../ResumeLoader/SaveLoader";
 import { ResumeContext } from "../context/ResumeContext";
 
-const ExperienceStep = ({ onNext, onBack, onChange, value }) => {
+const ExperienceStep = ({ onBack, onNext, onChange, value }) => {
   const router = useRouter();
   const { resumeData, setResumeData, exp, setExp } = useContext(ResumeContext);
   const [loading, setLoading] = useState(true);
@@ -213,7 +213,7 @@ const ExperienceStep = ({ onNext, onBack, onChange, value }) => {
   //   </div>
   // );
   return (
-    <div className="min-h-screen bg-[#fefcf9] flex flex-col">
+    <div className="min-h-screen bg-gradient-to-b from-white to-blue-100 flex flex-col">
       <header className="bg-[#002a48] text-white px-4 py-6 flex items-center justify-between"></header>
 
       <main className="flex-1 flex flex-col items-center justify-center px-4 py-12">
@@ -256,7 +256,14 @@ const ExperienceStep = ({ onNext, onBack, onChange, value }) => {
           </p>
         )}
 
-        <div className="mt-10">
+        <div className="mt-10 flex justify-center gap-4 ">
+          <button
+            onClick={onBack}
+            className="px-8 py-3 bg-white border-2 border-gray-300 rounded-xl text-gray-700 
+              font-medium hover:bg-gray-50 hover:border-gray-400 transition-colors"
+          >
+            Back
+          </button>
           <button
             onClick={handleSaveExperience}
             disabled={isNextButtonDisabled()}

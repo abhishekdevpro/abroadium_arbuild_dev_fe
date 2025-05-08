@@ -21,10 +21,10 @@ export default function DashboardPage() {
   return (
     <div>
       <Navbar />
-      <div className="min-h-screen flex flex-col items-center bg-gray-100">
+      <div className="min-h-screen flex flex-col items-center bg-gradient-to-b from-white to-blue-100">
         <div className="w-full shadow-md">{/* <ProfilePage /> */}</div>
 
-        <div className="flex flex-1 w-full  mt-4 bg-white shadow-md rounded-lg overflow-hidden">
+        <div className="flex flex-1 w-full  mt-4 bg-gradient-to-b from-white to-blue-100 shadow-md rounded-lg overflow-hidden">
           {/* Hamburger icon for mobile view */}
           <div className="md:hidden">
             <button onClick={toggleSidebar} className="p-4 focus:outline-none">

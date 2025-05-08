@@ -61,6 +61,7 @@ export default function Home() {
               onNext={handleNext}
               onChange={(experience) => updateFormData({ experience })}
               value={formData.experience}
+              onBack={handleBack}
             />
           )}
 

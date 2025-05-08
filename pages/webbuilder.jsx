@@ -719,7 +719,7 @@ export default function WebBuilder() {
                   <select
                     value={selectedFont}
                     onChange={handleFontChange}
-                    className=" rounded-lg border-2 border-blue-800 px-5 py-2 font-bold bg-white text-blue-800 relative transform transition-all duration-300 ease-in-out 
+                    className=" rounded-lg border-2 border-blue-800 px-5 py-3 font-bold bg-white text-blue-800 relative transform transition-all duration-300 ease-in-out 
              hover:scale-105 hover:font-semibold hover:text-lg"
                   >
                     <option value="Ubuntu">Ubuntu</option>
@@ -793,10 +793,7 @@ export default function WebBuilder() {
             </div>
 
             <div className="flex flex-col md:flex-row flex-grow p-4">
-              <div
-                className="w-[40%] "
-                style={{ backgroundColor: "#323159f5" }}
-              >
+              <div className="w-[40%] " style={{ backgroundColor: "#002a48" }}>
                 <main className="w-full mx-auto md:p-4">
                   <form>{sections[currentSection].component}</form>
                 </main>
@@ -815,11 +812,11 @@ export default function WebBuilder() {
         ) : (
           <div className="flex flex-col">
             <div className="hidden md:flex w-screen px-8 py-4 justify-between items-center bg-white shadow">
-              <div className="flex gap-4">
+              <div className="hidden lg:flex items-center gap-4">
                 <select
                   value={selectedFont}
                   onChange={handleFontChange}
-                  className="rounded-lg border-2 border-blue-800 px-5 py-2 font-bold bg-white text-blue-800 relative transform transition-all duration-300 ease-in-out 
+                  className=" rounded-lg border-2 border-blue-800 px-5 py-3 font-bold bg-white text-blue-800 relative transform transition-all duration-300 ease-in-out 
              hover:scale-105 hover:font-semibold hover:text-lg"
                 >
                   <option value="Ubuntu">Ubuntu</option>
@@ -828,16 +825,19 @@ export default function WebBuilder() {
                   <option value="Roboto">Roboto</option>
                   <option value="Poppins">Poppins</option>
                 </select>
-                <ColorPickers
-                  selectmultiplecolor={backgroundColorss}
-                  onChange={setBgColor}
-                />
-                <TemplateSelector
-                  selectedTemplate={selectedTemplate}
-                  setSelectedTemplate={setSelectedTemplate}
-                  setSelectedPdfType={setSelectedPdfType}
-                  selectedPdfType={selectedPdfType}
-                />
+
+                <div className="flex items-center gap-4">
+                  <ColorPickers
+                    selectmultiplecolor={backgroundColorss}
+                    onChange={setBgColor}
+                  />
+                  <TemplateSelector
+                    selectedTemplate={selectedTemplate}
+                    setSelectedTemplate={setSelectedTemplate}
+                    setSelectedPdfType={setSelectedPdfType}
+                    selectedPdfType={selectedPdfType}
+                  />
+                </div>
               </div>
               <div className="flex gap-4">
                 <button

@@ -136,7 +136,7 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <main className="min-h-screen bg-gradient-to-b from-white to-blue-100 flex items-center justify-center">
         <div className="bg-white rounded-lg shadow-lg p-8 text-center">
           <h1 className="text-2xl font-bold mb-4">
             Welcome to Cover Letter Builder
@@ -150,7 +150,7 @@ export default function Home() {
           <button
             onClick={handleCreateCvLetter}
             className={`px-6 py-3 text-white font-semibold rounded-lg ${
-              loading ? "bg-gray-400" : "bg-blue-600 hover:bg-blue-700"
+              loading ? "bg-gray-400" : "bg-orange-600 hover:bg-orange-500"
             }`}
             disabled={loading}
           >

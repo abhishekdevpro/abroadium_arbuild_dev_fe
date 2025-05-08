@@ -18,7 +18,7 @@ import { ResumeContext } from "../context/ResumeContext";
 
 const TemplateStep = ({ onNext, onBack, onChange, value }) => {
   const router = useRouter();
-  const {resumeData, setResumeData , exp} = useContext(ResumeContext);
+  const { resumeData, setResumeData, exp } = useContext(ResumeContext);
   const [loading, setLoading] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
@@ -35,9 +35,9 @@ const TemplateStep = ({ onNext, onBack, onChange, value }) => {
     },
     {
       name: "Blue",
-      class: "bg-blue-600",
+      class: "bg-[#00b38d]",
       selectedClass: "ring-blue-400",
-      hexCode: "#2563EB",
+      hexCode: "#00b38d",
     },
     {
       name: "Purple",
@@ -87,11 +87,48 @@ const TemplateStep = ({ onNext, onBack, onChange, value }) => {
       selectedClass: "ring-indigo-400",
       hexCode: "#4F46E5",
     },
-    // { name: 'Lime', class: 'bg-lime-500', selectedClass: 'ring-lime-400', hexCode: '#84CC16' },
-    // { name: 'Cyan', class: 'bg-cyan-500', selectedClass: 'ring-cyan-400', hexCode: '#06B6D4' },
-    // { name: 'Amber', class: 'bg-amber-500', selectedClass: 'ring-amber-400', hexCode: '#F59E0B' },
-    // { name: 'Emerald', class: 'bg-emerald-500', selectedClass: 'ring-emerald-400', hexCode: '#10B981' },
-    // { name: 'Rose', class: 'bg-rose-500', selectedClass: 'ring-rose-400', hexCode: '#F43F5E' }
+    {
+      name: "Navy Blue",
+      class: "bg-blue-900",
+      selectedClass: "ring-blue-700",
+      hexCode: "#1E3A8A",
+    },
+    {
+      name: "Light Blue",
+      class: "bg-blue-300",
+      selectedClass: "ring-blue-200",
+      hexCode: "#93C5FD",
+    },
+    {
+      name: "Light Red",
+      class: "bg-red-300",
+      selectedClass: "ring-red-200",
+      hexCode: "#FCA5A5",
+    },
+    {
+      name: "Light Green",
+      class: "bg-green-300",
+      selectedClass: "ring-green-200",
+      hexCode: "#86EFAC",
+    },
+    {
+      name: "Light Yellow",
+      class: "bg-yellow-300",
+      selectedClass: "ring-yellow-200",
+      hexCode: "#FDE047",
+    },
+    {
+      name: "Light Teal",
+      class: "bg-teal-300",
+      selectedClass: "ring-teal-200",
+      hexCode: "#5EEAD4",
+    },
+    {
+      name: "Light Purple",
+      class: "bg-purple-300",
+      selectedClass: "ring-purple-200",
+      hexCode: "#D8B4FE",
+    },
   ];
 
   const templates = [
@@ -99,90 +136,115 @@ const TemplateStep = ({ onNext, onBack, onChange, value }) => {
       key: "template1",
       imageUrl: template1,
       name: "Modern Clean",
-      hasPhoto: true,
+      // hasPhoto: true,
     },
     {
       key: "template3",
       imageUrl: template3,
       name: "Creative",
-      hasPhoto: false,
+      // hasPhoto: false,
     },
     {
       key: "template4",
       imageUrl: template4,
       name: "Executive",
-      hasPhoto: false,
+      // hasPhoto: false,
     },
-    { key: "template5", imageUrl: template5, name: "Minimal", hasPhoto: true },
-    { key: "template6", imageUrl: template6, name: "Classic", hasPhoto: false },
+    {
+      key: "template5",
+      imageUrl: template5,
+      name: "Minimal",
+      // hasPhoto: true
+    },
+    {
+      key: "template6",
+      imageUrl: template6,
+      name: "Classic",
+      // hasPhoto: false
+    },
     {
       key: "template7",
       imageUrl: template7,
       name: "Contemporary",
-      hasPhoto: false,
+      // hasPhoto: false,
     },
     {
       key: "template8",
       imageUrl: template1,
       name: "Modern Clean",
-      hasPhoto: false,
+      // hasPhoto: false,
     },
     {
       key: "template9",
       imageUrl: template3,
       name: "Creative",
-      hasPhoto: false,
+      // hasPhoto: false,
     },
     {
       key: "template10",
       imageUrl: template4,
       name: "Executive",
-      hasPhoto: false,
+      // hasPhoto: false,
     },
-    { key: "template11", imageUrl: template5, name: "Minimal", hasPhoto: true },
-    { key: "template12", imageUrl: template6, name: "Classic", hasPhoto: true },
+    {
+      key: "template11",
+      imageUrl: template5,
+      name: "Minimal",
+      //  hasPhoto: true
+    },
+    {
+      key: "template12",
+      imageUrl: template6,
+      name: "Classic",
+      //  hasPhoto: true
+    },
     {
       key: "template13",
       imageUrl: template7,
       name: "Contemporary",
-      hasPhoto: false,
+      // hasPhoto: false,
     },
     {
       key: "template14",
       imageUrl: template7,
       name: "Contemporary",
-      hasPhoto: true,
+      // hasPhoto: true,
     },
     {
       key: "template15",
       imageUrl: template1,
       name: "Modern Clean",
-      hasPhoto: false,
+      // hasPhoto: false,
     },
     {
       key: "template16",
       imageUrl: template3,
       name: "Creative",
-      hasPhoto: true,
+      // hasPhoto: true,
     },
     {
       key: "template17",
       imageUrl: template4,
       name: "Executive",
-      hasPhoto: true,
+      // hasPhoto: true,
     },
-    { key: "template18", imageUrl: template5, name: "Minimal", hasPhoto: true },
+    {
+      key: "template18",
+      imageUrl: template5,
+      name: "Minimal",
+      // hasPhoto: true
+    },
     {
       key: "template19",
       imageUrl: template6,
       name: "Classic",
-      hasPhoto: false,
+      // hasPhoto: false,
     },
     {
       key: "template20",
       imageUrl: template7,
       name: "Contemporary",
-      hasPhoto: false,
+      // hasPhoto: false,
     },
   ];
 
@@ -290,13 +352,13 @@ const TemplateStep = ({ onNext, onBack, onChange, value }) => {
         })) || [],
       summary: data.summary || "",
       education:
-      resumeData.education?.map((edu) => ({
-        school: edu.school || "",
-        degree: edu.degree || "",
-        startYear: edu.startYear,
-        endYear: edu.endYear,
-        location: edu.location || "",
-      })) || [],
+        resumeData.education?.map((edu) => ({
+          school: edu.school || "",
+          degree: edu.degree || "",
+          startYear: edu.startYear,
+          endYear: edu.endYear,
+          location: edu.location || "",
+        })) || [],
       workExperience:
         data.workExperience?.map((exp) => ({
           company: exp.company || "",
@@ -409,135 +471,223 @@ const TemplateStep = ({ onNext, onBack, onChange, value }) => {
     };
   };
 
+  // return (
+  //   <div className="min-h-screen bg-gray-50 py-12">
+  //     <div className=" mx-auto px-2">
+  //       <div className="text-center mb-12">
+  //         <h2 className="text-4xl font-bold text-gray-900 mb-4">
+  //           Choose Your Perfect Template
+  //         </h2>
+  //         <p className="text-xl text-gray-600">
+  //           Select a design that best represents your professional style
+  //         </p>
+  //       </div>
+
+  //       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+  //         <div className="bg-white rounded-xl shadow-lg p-4 h-fit sticky top-8">
+  //           <div className="mb-10">
+  //             <h3 className="text-xl font-semibold text-gray-900 mb-6">
+  //               Color Theme
+  //             </h3>
+  //             <div className="grid grid-cols-5 gap-4">
+  //               {colors.map((color) => (
+  //                 <div
+  //                   key={color.name}
+  //                   className="flex items-center justify-center"
+  //                 >
+  //                   <button
+  //                     className={`
+  //                       w-8 h-8 rounded-full ${color.class}
+  //                       transform hover:scale-110 transition-all duration-200
+  //                       ${
+  //                         selectedHexCode === color.hexCode
+  //                           ? `ring-2 ring-offset-2 ${color.selectedClass} outline-none focus:outline-none`
+  //                           : "hover:ring-2 hover:ring-offset-2 hover:ring-gray-300"
+  //                       }
+  //                     `}
+  //                     onClick={() =>
+  //                       handleColorChange(color.hexCode, color.name)
+  //                     }
+  //                     title={color.name}
+  //                   />
+  //                 </div>
+  //               ))}
+  //             </div>
+  //           </div>
+
+  //           {/* <div className="mb-10">
+  //             <h3 className="text-xl font-semibold text-gray-900 mb-6">
+  //               Photo Style
+  //             </h3>
+  //             <div className="space-y-4">
+  //               {["With Photo", "Without Photo"].map((option) => (
+  //                 <label
+  //                   key={option}
+  //                   className="flex items-center p-3 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors"
+  //                 >
+  //                   <input
+  //                     type="radio"
+  //                     name="photo"
+  //                     checked={value.hasPhoto === (option === "With Photo")}
+  //                     onChange={() =>
+  //                       handlePhotoPreferenceChange(option === "With Photo")
+  //                     }
+  //                     className="w-5 h-5 text-blue-600 border-gray-300 focus:ring-blue-500"
+  //                   />
+  //                   <span className="ml-3 text-gray-700 font-medium">
+  //                     {option}
+  //                   </span>
+  //                 </label>
+  //               ))}
+  //             </div>
+  //           </div> */}
+  //         </div>
+
+  //         <div className="lg:col-span-3">
+  //           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-6 max-h-[500px] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
+  //             {templates.map((template) => (
+  //               <button
+  //                 key={template.key}
+  //                 onClick={() => onChange({ ...value, template: template.key })}
+  //                 className="group relative bg-white rounded-xl overflow-hidden transition-all duration-300"
+  //                 style={getHoverStyle(template.key)}
+  //               >
+  //                 <div className="w-full">
+  //                   <div className="relative aspect-[3/4] overflow-hidden">
+  //                     <Image
+  //                       src={template.imageUrl}
+  //                       alt={template.name}
+  //                       layout="fill"
+  //                       objectFit="contain"
+  //                       className="transition-transform duration-300 group-hover:scale-105"
+  //                       priority={templates.indexOf(template) < 6}
+  //                     />
+  //                   </div>
+  //                   {/* <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
+  //                     <p className="text-white font-medium text-lg">
+  //                       {template.key}
+  //                     </p>
+  //                      <p className="text-white/80 text-sm">
+  //                       {template.hasPhoto ? 'Supports profile photo' : 'No profile photo'}
+  //                     </p>
+  //                   </div> */}
+  //                 </div>
+  //               </button>
+  //             ))}
+  //           </div>
+  //         </div>
+  //       </div>
+
+  //       <div className="flex justify-between mt-12">
+  //         <button
+  //           onClick={onBack}
+  //           className="px-8 py-3 bg-white border-2 border-gray-300 rounded-xl text-gray-700
+  //             font-medium hover:bg-gray-50 hover:border-gray-400 transition-colors"
+  //         >
+  //           Back
+  //         </button>
+  //         <button
+  //           onClick={handleSaveTemplate}
+  //           disabled={loading}
+  //           style={{ backgroundColor: selectedHexCode }}
+  //           className={`px-8 py-3 text-white rounded-xl font-medium transition-all shadow-lg
+  //   ${
+  //     loading
+  //       ? "opacity-70 cursor-not-allowed"
+  //       : "hover:opacity-90 hover:shadow-xl"
+  //   }`}
+  //         >
+  //           {isLoading ? <SaveLoader loadingText="Saving" /> : "Next"}
+  //         </button>
+  //       </div>
+  //     </div>
+  //   </div>
+  // );
   return (
-    <div className="min-h-screen bg-gray-50 py-12">
-      <div className=" mx-auto px-2">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
-            Choose Your Perfect Template
-          </h2>
-          <p className="text-xl text-gray-600">
-            Select a design that best represents your professional style
-          </p>
-        </div>
+    <div className="min-h-screen bg-gradient-to-b from-white to-blue-100 flex flex-col">
+      {/* Top Bar */}
+      <div className="bg-[#002a48] text-white py-3 px-6 rounded-b-3xl mx-auto mt-4   items-center gap-3 shadow-md">
+        <h2 className="text-3xl font-bold text-white">
+          Choose Your Perfect Template
+        </h2>
+        <p className="text-lg text-white mt-2">
+          Select a design that best represents your professional style
+        </p>
+      </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          <div className="bg-white rounded-xl shadow-lg p-4 h-fit sticky top-8">
-            <div className="mb-10">
-              <h3 className="text-xl font-semibold text-gray-900 mb-6">
-                Color Theme
-              </h3>
-              <div className="grid grid-cols-5 gap-4">
-                {colors.map((color) => (
-                  <div
-                    key={color.name}
-                    className="flex items-center justify-center"
-                  >
-                    <button
-                      className={`
-                        w-8 h-8 rounded-full ${color.class}
-                        transform hover:scale-110 transition-all duration-200
-                        ${
-                          selectedHexCode === color.hexCode
-                            ? `ring-2 ring-offset-2 ${color.selectedClass} outline-none focus:outline-none`
-                            : "hover:ring-2 hover:ring-offset-2 hover:ring-gray-300"
-                        }
-                      `}
-                      onClick={() =>
-                        handleColorChange(color.hexCode, color.name)
-                      }
-                      title={color.name}
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="mb-10">
-              <h3 className="text-xl font-semibold text-gray-900 mb-6">
-                Photo Style
-              </h3>
-              <div className="space-y-4">
-                {["With Photo", "Without Photo"].map((option) => (
-                  <label
-                    key={option}
-                    className="flex items-center p-3 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors"
-                  >
-                    <input
-                      type="radio"
-                      name="photo"
-                      checked={value.hasPhoto === (option === "With Photo")}
-                      onChange={() =>
-                        handlePhotoPreferenceChange(option === "With Photo")
-                      }
-                      className="w-5 h-5 text-blue-600 border-gray-300 focus:ring-blue-500"
-                    />
-                    <span className="ml-3 text-gray-700 font-medium">
-                      {option}
-                    </span>
-                  </label>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div className="lg:col-span-3">
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-6 max-h-[500px] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
-              {filteredTemplates.map((template) => (
-                <button
-                  key={template.key}
-                  onClick={() => onChange({ ...value, template: template.key })}
-                  className="group relative bg-white rounded-xl overflow-hidden transition-all duration-300"
-                  style={getHoverStyle(template.key)}
-                >
-                  <div className="w-full">
-                    <div className="relative aspect-[3/4] overflow-hidden">
-                      <Image
-                        src={template.imageUrl}
-                        alt={template.name}
-                        layout="fill"
-                        objectFit="contain"
-                        className="transition-transform duration-300 group-hover:scale-105"
-                        priority={templates.indexOf(template) < 6}
-                      />
-                    </div>
-                    {/* <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
-                      <p className="text-white font-medium text-lg">
-                        {template.key} 
-                      </p>
-                       <p className="text-white/80 text-sm">
-                        {template.hasPhoto ? 'Supports profile photo' : 'No profile photo'}
-                      </p> 
-                    </div> */}
-                  </div>
-                </button>
-              ))}
-            </div>
+      <div className="flex flex-col lg:flex-row gap-6 px-4 md:px-12 py-10 flex-1 overflow-hidden">
+        {/* Sidebar - Color Theme */}
+        <div className="bg-white rounded-2xl shadow-md p-6 h-fit sticky top-10 w-full lg:max-w-[250px]">
+          <h3 className="text-xl font-semibold text-gray-900 mb-4">
+            Color Theme
+          </h3>
+          <div className="grid grid-cols-5 gap-4">
+            {colors.map((color) => (
+              <button
+                key={color.name}
+                className={`
+                  w-8 h-8 rounded-full ${color.class}
+                  transform hover:scale-110 transition-all duration-200
+                  ${
+                    selectedHexCode === color.hexCode
+                      ? `ring-2 ring-offset-2 ${color.selectedClass}`
+                      : "hover:ring-2 hover:ring-offset-2 hover:ring-gray-300"
+                  }
+                `}
+                onClick={() => handleColorChange(color.hexCode, color.name)}
+                title={color.name}
+              />
+            ))}
           </div>
         </div>
 
-        <div className="flex justify-between mt-12">
-          <button
-            onClick={onBack}
-            className="px-8 py-3 bg-white border-2 border-gray-300 rounded-xl text-gray-700 
-              font-medium hover:bg-gray-50 hover:border-gray-400 transition-colors"
-          >
-            Back
-          </button>
-          <button
-            onClick={handleSaveTemplate}
-            disabled={loading}
-            style={{ backgroundColor: selectedHexCode }}
-            className={`px-8 py-3 text-white rounded-xl font-medium transition-all shadow-lg 
-    ${
-      loading
-        ? "opacity-70 cursor-not-allowed"
-        : "hover:opacity-90 hover:shadow-xl"
-    }`}
-          >
-            {isLoading ? <SaveLoader loadingText="Saving" /> : "Next"}
-          </button>
+        {/* Templates */}
+        <div className="flex-1 overflow-y-auto max-h-[calc(100vh-200px)] scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            {templates.map((template) => (
+              <button
+                key={template.key}
+                onClick={() => onChange({ ...value, template: template.key })}
+                className={`group bg-white rounded-xl shadow-md overflow-hidden border-2 transition-all duration-200 
+                  ${
+                    value.template === template.key
+                      ? "border-blue-500"
+                      : "border-transparent hover:border-gray-300"
+                  }`}
+              >
+                <div className="relative aspect-[3/4] overflow-hidden">
+                  <Image
+                    src={template.imageUrl}
+                    alt={template.name}
+                    layout="fill"
+                    objectFit="contain"
+                    className="transition-transform duration-200 group-hover:scale-105"
+                    priority={templates.indexOf(template) < 6}
+                  />
+                </div>
+              </button>
+            ))}
+          </div>
         </div>
+      </div>
+
+      {/* Bottom Bar */}
+      <div className="sticky bottom-0 bg-white border-t border-gray-200 p-4 flex justify-between items-center shadow-md px-6">
+        <button
+          onClick={onBack}
+          className="text-blue-600 hover:underline text-base font-medium"
+        >
+          Back
+        </button>
+        <button
+          onClick={handleSaveTemplate}
+          disabled={loading}
+          style={{ backgroundColor: selectedHexCode }}
+          className={`px-6 py-2 text-white rounded-xl font-semibold shadow-md transition-all
+            ${loading ? "opacity-70 cursor-not-allowed" : "hover:opacity-90"}`}
+        >
+          {isLoading ? <SaveLoader loadingText="Saving" /> : "Choose Template"}
+        </button>
       </div>
     </div>
   );

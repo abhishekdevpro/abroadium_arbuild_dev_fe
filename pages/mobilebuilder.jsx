@@ -535,7 +535,7 @@ export default function MobileBuilder() {
         keywords="ATS-friendly, Resume optimization..."
       />
 
-      <div className="w-full bg-gray-50">
+      <div className="w-full bg-gradient-to-b from-white to-blue-100 ">
         {!isFinished ? (
           <div className="bg-gray-50 flex flex-col">
             <div className="flex flex-col md:flex-row flex-grow ">
@@ -575,7 +575,7 @@ export default function MobileBuilder() {
               </aside>
               <div
                 className="w-screen flex justify-start min-h-screen "
-                style={{ backgroundColor: "#323159f5" }}
+                style={{ backgroundColor: "#002a48" }}
               >
                 <main className="flex-1 h-full w-full mx-auto p-4 pb-10 mb-8 overflow-visible">
                   <form>{sections[currentSection].component}</form>
@@ -610,7 +610,7 @@ export default function MobileBuilder() {
                 selectedPdfType={selectedPdfType}
               />
             </div>
-            <div className=" ">
+            <div className="bg-gradient-to-b from-white to-blue-100  ">
               <Preview ref={templateRef} selectedTemplate={selectedTemplate} />
             </div>
 

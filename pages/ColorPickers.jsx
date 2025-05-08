@@ -192,7 +192,8 @@ const ColorPicker = ({ selectedColor, onChange }) => {
     <div className="relative flex items-center m-2 z-20">
       <button
         onClick={handleToggleDropdown}
-        className="hidden sm:block rounded-lg border-2 border-blue-800 px-8 p-1 font-bold bg-white text-blue-800"
+        className="hidden sm:block rounded-lg border-2 border-blue-800 px-5 py-2 font-bold bg-white text-blue-800 relative transform transition-all duration-300 ease-in-out 
+             hover:scale-105 hover:font-semibold hover:text-lg"
         style={{ backgroundColor: selectedColor || "transparent" }}
       >
         <span className="">Background Color</span>

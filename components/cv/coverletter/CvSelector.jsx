@@ -71,7 +71,7 @@ const TemplateSelector = ({ selectedTemplate, setSelectedTemplate }) => {
       </button>
 
       {isOpen && (
-        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/75 p-4">
+        <div className="fixed inset-0 flex items-center justify-center z-50 p-4 bg-gradient-to-b from-white to-blue-100">
           <div className="bg-white rounded-xl p-6 w-full max-w-5xl relative shadow-2xl">
             <div className="text-lg font-bold mb-4 text-center border rounded-3xl py-2 text-white bg-gray-800">
               Select a Template

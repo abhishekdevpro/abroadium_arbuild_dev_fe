@@ -24,12 +24,12 @@ export default function UploadStep({ onNext, onBack, onChange, value }) {
   };
 
   return (
-    <div className="space-y-6">
-      <div className="text-center">
-        <h2 className="text-2xl font-bold text-gray-900">
+    <div className="space-y-6 bg-gradient-to-b from-white to-blue-100">
+      <div className="text-center bg-[#002a48] pt-4 pb-4 mb-4">
+        <h2 className="text-2xl font-bold text-white">
           Are you uploading an existing cover letter?
         </h2>
-        <p className="mt-2 text-gray-600">
+        <p className="mt-2 text-white">
           Just review, edit, and update it with new information
         </p>
       </div>
