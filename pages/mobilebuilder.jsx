@@ -175,6 +175,7 @@ export default function MobileBuilder() {
     setisDownloading(true); // Start loading before the async operation
 
     try {
+      const token = localStorage.getItem("token");
       const htmlContent = templateRef.current.innerHTML;
 
       const fullContent = `
@@ -184,23 +185,67 @@ export default function MobileBuilder() {
             ${htmlContent}
         `;
 
-      const response = await axios.post(
-        "https://api.abroadium.com/api/jobseeker/generate-pdf-py",
-        { html: fullContent, pdf_type: selectedPdfType },
+      const response = await axios.get(
+        `https://api.abroadium.com/api/jobseeker/download-resume/${resumeId}?pdf_type=${selectedPdfType}`,
+
         {
           headers: {
-            "Content-Type": "application/json",
             Authorization: token,
+            "Content-Type": "application/pdf",
           },
+          responseType: "blob",
         }
       );
+      console.log(response);
+      if (response.status == 200) {
+        const url = window.URL.createObjectURL(
+          new Blob([response.data], { type: "application/pdf" })
+        );
+        const link = document.createElement("a");
+        link.href = url;
 
-      downloadPDF(); // Call this only if the request is successful
+        link.setAttribute("download", `resume.pdf`);
+        document.body.appendChild(link);
+        link.click();
+
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
+        toast.success(
+          response.data.message || "Resume Downloaded Successfully"
+        );
+      } else {
+        toast.error(response.data.message || "Error while downloading");
+      }
+
+      // downloadPDF();
+      // initiateCheckout(); // Call this only if the request is successful
     } catch (error) {
       console.error("PDF generation error:", error);
-      toast.error(
-        error.response?.data?.message || "Failed to generate and open PDF"
-      );
+
+      if (
+        error?.response?.status === 403 &&
+        error?.response?.data instanceof Blob
+      ) {
+        // Try to read blob content as JSON
+        const reader = new FileReader();
+        reader.onload = () => {
+          try {
+            const errorData = JSON.parse(reader.result);
+            const errorMessage =
+              errorData.message || errorData.error || "Access denied";
+            toast.error(errorMessage);
+          } catch (err) {
+            toast.error("Access denied. Please check your plan.");
+          }
+        };
+        reader.readAsText(error.response.data);
+      } else {
+        const errorMessage =
+          error?.response?.data?.message ||
+          error?.message ||
+          "Failed to generate and open PDF";
+        toast.error(errorMessage);
+      }
     } finally {
       setisDownloading(false); // Ensure loading is stopped after success or failure
     }
@@ -485,12 +530,12 @@ export default function MobileBuilder() {
   return (
     <>
       <Meta
-        title="Resume Intellect - AI Resume Builder"
+        title="Abroadium - AI Resume Builder"
         description="ATSResume is a cutting-edge resume builder that helps job seekers create a professional, ATS-friendly resume in minutes..."
         keywords="ATS-friendly, Resume optimization..."
       />
 
-      <div className="w-full bg-gray-50">
+      <div className="w-full bg-gradient-to-b from-white to-blue-100 ">
         {!isFinished ? (
           <div className="bg-gray-50 flex flex-col">
             <div className="flex flex-col md:flex-row flex-grow ">
@@ -530,7 +575,7 @@ export default function MobileBuilder() {
               </aside>
               <div
                 className="w-screen flex justify-start min-h-screen "
-                style={{ backgroundColor: "#323159f5" }}
+                style={{ backgroundColor: "#002a48" }}
               >
                 <main className="flex-1 h-full w-full mx-auto p-4 pb-10 mb-8 overflow-visible">
                   <form>{sections[currentSection].component}</form>
@@ -565,7 +610,7 @@ export default function MobileBuilder() {
                 selectedPdfType={selectedPdfType}
               />
             </div>
-            <div className=" ">
+            <div className="bg-gradient-to-b from-white to-blue-100  ">
               <Preview ref={templateRef} selectedTemplate={selectedTemplate} />
             </div>
 

@@ -113,32 +113,32 @@
 //               </h3>
 //               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 //                 <Feature
-//                   icon={<CheckCircle className="text-purple-900" />}
+//                   icon={<CheckCircle className="text-orange-600" />}
 //                   title="AI-Powered Job Matching"
 //                   description="Get real-time job recommendations tailored to your skills and experience."
 //                 />
 //                 <Feature
-//                   icon={<RefreshCw className="text-purple-900" />}
+//                   icon={<RefreshCw className="text-orange-600" />}
 //                   title="ATS-Optimized Resumes"
 //                   description="Professionally crafted resumes designed by experts to pass Applicant Tracking Systems (ATS). "
 //                 />
 //                 <Feature
-//                   icon={<Bell className="text-purple-900" />}
+//                   icon={<Bell className="text-orange-600" />}
 //                   title="Instant Job Alerts "
 //                   description="Stay ahead with real-time notifications about new job openings that match your profile."
 //                 />
 //                 <Feature
-//                   icon={<Clock className="text-purple-900" />}
+//                   icon={<Clock className="text-orange-600" />}
 //                   title="Expert Resume Assistance"
 //                   description="Get personalized resume reviews and improvements from industry professionals."
 //                 />
 //                 <Feature
-//                   icon={<DollarSign className="text-purple-900" />}
+//                   icon={<DollarSign className="text-orange-600" />}
 //                   title="Career Community & Networking"
 //                   description="Connect with industry peers, mentors, and recruiters to enhance your career opportunities."
 //                 />
 //                 <Feature
-//                   icon={<CheckCircle className="text-purple-900" />}
+//                   icon={<CheckCircle className="text-orange-600" />}
 //                   title="One-Click Applications"
 //                   description="Apply faster and more efficiently with seamless, single-click job applications."
 //                 />
@@ -250,7 +250,7 @@ export default function Payment() {
   return (
     <>
       <Navbar />
-      <div className="p-6 max-w-7xl w-full mx-auto font-sans">
+      <div className="p-6 max-w-7xl w-full mx-auto font-sans bg-gradient-to-b from-white to-blue-100">
         {/* Intro Section */}
         <div className="bg-orange-100 p-4 rounded-lg text-center">
           <h2 className="text-lg md:text-xl font-semibold">
@@ -355,32 +355,32 @@ export default function Payment() {
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <Feature
-                  icon={<CheckCircle className="text-purple-900" />}
+                  icon={<CheckCircle className="text-orange-600" />}
                   title="AI-Powered Job Matching"
                   description="Get real-time job recommendations tailored to your skills and experience."
                 />
                 <Feature
-                  icon={<RefreshCw className="text-purple-900" />}
+                  icon={<RefreshCw className="text-orange-600" />}
                   title="ATS-Optimized Resumes"
                   description="Professionally crafted resumes designed by experts to pass Applicant Tracking Systems (ATS). "
                 />
                 <Feature
-                  icon={<Bell className="text-purple-900" />}
+                  icon={<Bell className="text-orange-600" />}
                   title="Instant Job Alerts "
                   description="Stay ahead with real-time notifications about new job openings that match your profile."
                 />
                 <Feature
-                  icon={<Clock className="text-purple-900" />}
+                  icon={<Clock className="text-orange-600" />}
                   title="Expert Resume Assistance"
                   description="Get personalized resume reviews and improvements from industry professionals."
                 />
                 <Feature
-                  icon={<DollarSign className="text-purple-900" />}
+                  icon={<DollarSign className="text-orange-600" />}
                   title="Career Community & Networking"
                   description="Connect with industry peers, mentors, and recruiters to enhance your career opportunities."
                 />
                 <Feature
-                  icon={<CheckCircle className="text-purple-900" />}
+                  icon={<CheckCircle className="text-orange-600" />}
                   title="One-Click Applications"
                   description="Apply faster and more efficiently with seamless, single-click job applications."
                 />

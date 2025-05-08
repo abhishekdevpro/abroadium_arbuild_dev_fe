@@ -178,7 +178,7 @@ export default function Notification() {
   return (
     <>
       <Navbar />
-      <div className="p-4 md:p-10 max-w-5xl mx-auto">
+      <div className="p-4 md:p-10 max-w-5xl mx-auto bg-gradient-to-b from-white to-blue-100 ">
         <h2 className="text-2xl font-semibold mb-6">Account Settings</h2>
         <div className="flex flex-col md:flex-row space-y-6 md:space-y-0 md:space-x-6">
           <div className="md:w-1/4 w-full">

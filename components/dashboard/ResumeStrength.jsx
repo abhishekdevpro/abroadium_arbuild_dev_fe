@@ -460,7 +460,7 @@ const TooltipContent = ({ improvements, resumeId, onClose }) => {
       </div> */}
 
       {/* Submit Button */}
-      <Button
+      <button
         onClick={handleATS}
         className={`mt-6 px-6 py-2 w-full bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors ${
           improvements.ats_score === 10 || loading
@@ -474,7 +474,7 @@ const TooltipContent = ({ improvements, resumeId, onClose }) => {
         ) : (
           "Proceed To Improve...."
         )}
-      </Button>
+      </button>
     </div>
   );
 };

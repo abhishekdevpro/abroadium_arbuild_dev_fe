@@ -1,4 +1,3 @@
-
 import React from "react";
 import dynamic from "next/dynamic";
 import DateRange from "../utility/DateRange";
@@ -49,16 +48,19 @@ const ProjectsSection = ({ resumeData, headerColor }) => {
                   ref={provided.innerRef}
                   {...provided.draggableProps}
                   {...provided.dragHandleProps}
-                  className={`hover:scale-105 transition-transform duration-300 mb-1 ${
+                  className={`hover:scale-105 transition-transform duration-300 mb-3 p-2 rounded-md ${
                     snapshot.isDragging &&
                     "outline-dashed outline-2 outline-gray-400 bg-white"
                   }`}
                 >
                   <div className="flex flex-row justify-between space-y-1">
-                    <p className="content i-bold"
+                    <p
+                      className="content i-bold"
                       contentEditable
                       suppressContentEditableWarning
-                    >{item.name}</p>
+                    >
+                      {item.name}
+                    </p>
                     <DateRangeExperience
                       startYear={item.startYear}
                       endYear={item.endYear}
@@ -71,14 +73,14 @@ const ProjectsSection = ({ resumeData, headerColor }) => {
                     rel="noopener noreferrer"
                     className="content"
                     contentEditable
-                     suppressContentEditableWarning
+                    suppressContentEditableWarning
                   >
                     {item.link}
                   </Link>
                   <p
                     className="content"
                     contentEditable
-                     suppressContentEditableWarning
+                    suppressContentEditableWarning
                     dangerouslySetInnerHTML={{
                       __html: item.description,
                     }}

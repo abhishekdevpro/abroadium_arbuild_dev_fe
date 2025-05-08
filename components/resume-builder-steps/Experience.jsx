@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import { SaveLoader } from "../ResumeLoader/SaveLoader";
 import { ResumeContext } from "../context/ResumeContext";
 
-const ExperienceStep = ({ onNext, onBack, onChange, value }) => {
+const ExperienceStep = ({ onBack, onNext, onChange, value }) => {
   const router = useRouter();
   const { resumeData, setResumeData, exp, setExp } = useContext(ResumeContext);
   const [loading, setLoading] = useState(true);
@@ -134,82 +134,150 @@ const ExperienceStep = ({ onNext, onBack, onChange, value }) => {
     return loading || value.experience === "2" || isLoading;
   };
   console.log(value.experience, "value.experience");
+  // return (
+  //   <div className="min-h-screen bg-gray-50 py-12">
+  //     <div className="max-w-4xl mx-auto px-4">
+  //       <div className="text-center mb-12">
+  //         <h2 className="text-4xl font-bold text-gray-900 mb-4">
+  //           Tell Us About Your Experience
+  //         </h2>
+  //         <p className="text-xl text-gray-600">
+  //           We will customize your resume based on your experience level
+  //         </p>
+  //       </div>
+
+  //       <div className="bg-white rounded-xl shadow-lg p-8">
+  //         <div className="space-y-6">
+  //           <div className="text-center mb-8">
+  //             <h3 className="text-2xl font-bold text-gray-900">
+  //               How long have you been working?
+  //             </h3>
+  //             <p className="mt-2 text-gray-600">
+  //               We will find the best templates for your experience level.
+  //             </p>
+  //           </div>
+
+  //           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+  //             {experiences.map((experience) => (
+  //               <button
+  //                 key={experience.id}
+  //                 onClick={() => {
+  //                   onChange({ ...value, experience: experience.id });
+  //                   // Also update the exp in context when a button is clicked
+  //                   setExp(experience.id);
+  //                 }}
+  //                 className={`p-6 rounded-lg border-2 transition-all hover:shadow-md ${
+  //                   value.experience === experience.id
+  //                     ? "border-blue-600 bg-blue-50"
+  //                     : "border-gray-200 hover:border-blue-400"
+  //                 }`}
+  //               >
+  //                 <span className="block text-lg font-medium">
+  //                   {experience.label}
+  //                 </span>
+  //               </button>
+  //             ))}
+  //           </div>
+
+  //           {/* Added warning message for when no experience is selected */}
+  //           {!value.experience && (
+  //             <p className="text-center text-red-500 mt-4">
+  //               Please select an experience level to continue
+  //             </p>
+  //           )}
+  //         </div>
+  //       </div>
+
+  //       <div className="flex justify-end mt-12">
+  //         {/* <button
+  //           onClick={onBack}
+  //           className="px-8 py-3 bg-white border-2 border-gray-300 rounded-xl text-gray-700
+  //             font-medium hover:bg-gray-50 hover:border-gray-400 transition-colors"
+  //         >
+  //           Back
+  //         </button> */}
+  //         <button
+  //           onClick={handleSaveExperience}
+  //           disabled={isNextButtonDisabled()}
+  //           className={`px-8 py-3 rounded-xl font-medium transition-all shadow-lg
+  //             ${
+  //               isNextButtonDisabled()
+  //                 ? "bg-gray-400 opacity-70 cursor-not-allowed"
+  //                 : "bg-blue-600 text-white hover:bg-blue-700 hover:shadow-xl"
+  //             }`}
+  //         >
+  //           {isLoading ? <SaveLoader loadingText="Saving" /> : "Next"}
+  //         </button>
+  //       </div>
+  //     </div>
+  //   </div>
+  // );
   return (
-    <div className="min-h-screen bg-gray-50 py-12">
-      <div className="max-w-4xl mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
-            Tell Us About Your Experience
-          </h2>
-          <p className="text-xl text-gray-600">
-            We will customize your resume based on your experience level
+    <div className="min-h-screen bg-gradient-to-b from-white to-blue-100 flex flex-col">
+      <header className="bg-[#002a48] text-white px-4 py-6 flex items-center justify-between"></header>
+
+      <main className="flex-1 flex flex-col items-center justify-center px-4 py-12">
+        <div className="max-w-xl text-center">
+          <h1 className="text-3xl md:text-4xl font-bold text-[#002a48] mb-4">
+            How Many Years of Experience Do You Have?
+          </h1>
+          <p className="text-md md:text-lg text-[#4b5563] mb-10">
+            Select the option that corresponds to your professional experience
+            level
           </p>
         </div>
 
-        <div className="bg-white rounded-xl shadow-lg p-8">
-          <div className="space-y-6">
-            <div className="text-center mb-8">
-              <h3 className="text-2xl font-bold text-gray-900">
-                How long have you been working?
-              </h3>
-              <p className="mt-2 text-gray-600">
-                We will find the best templates for your experience level.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {experiences.map((experience) => (
-                <button
-                  key={experience.id}
-                  onClick={() => {
-                    onChange({ ...value, experience: experience.id });
-                    // Also update the exp in context when a button is clicked
-                    setExp(experience.id);
-                  }}
-                  className={`p-6 rounded-lg border-2 transition-all hover:shadow-md ${
-                    value.experience === experience.id
-                      ? "border-blue-600 bg-blue-50"
-                      : "border-gray-200 hover:border-blue-400"
-                  }`}
-                >
-                  <span className="block text-lg font-medium">
-                    {experience.label}
-                  </span>
-                </button>
-              ))}
-            </div>
-
-            {/* Added warning message for when no experience is selected */}
-            {!value.experience && (
-              <p className="text-center text-red-500 mt-4">
-                Please select an experience level to continue
-              </p>
-            )}
-          </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-xl w-full">
+          {[
+            { id: "fresher", label: "Less than 1 year" },
+            { id: "1-3", label: "1 – 3 years" },
+            { id: "4-9", label: "4 – 9 years" },
+            { id: "10+", label: "10+ years" },
+          ].map((exp) => (
+            <button
+              key={exp.id}
+              onClick={() => onChange({ ...value, experience: exp.id })}
+              className={`w-full p-6 text-left rounded-xl border-2 flex items-center justify-between text-[#002a48] font-semibold transition-all 
+                ${
+                  value.experience === exp.id
+                    ? "border-[#002a48] bg-[#e6f0f5]"
+                    : "border-[#e5e7eb] hover:border-[#002a48]"
+                }`}
+            >
+              {exp.label}
+              <span className="text-lg">→</span>
+            </button>
+          ))}
         </div>
 
-        <div className="flex justify-end mt-12">
-          {/* <button
+        {!value.experience && (
+          <p className="text-red-500 text-sm mt-4">
+            Please select an experience level to continue
+          </p>
+        )}
+
+        <div className="mt-10 flex justify-center gap-4 ">
+          <button
             onClick={onBack}
             className="px-8 py-3 bg-white border-2 border-gray-300 rounded-xl text-gray-700 
               font-medium hover:bg-gray-50 hover:border-gray-400 transition-colors"
           >
             Back
-          </button> */}
+          </button>
           <button
             onClick={handleSaveExperience}
             disabled={isNextButtonDisabled()}
-            className={`px-8 py-3 rounded-xl font-medium transition-all shadow-lg 
+            className={`px-8 py-3 rounded-lg font-medium transition-all shadow-md 
               ${
                 isNextButtonDisabled()
-                  ? "bg-gray-400 opacity-70 cursor-not-allowed"
-                  : "bg-blue-600 text-white hover:bg-blue-700 hover:shadow-xl"
+                  ? "bg-gray-300 text-gray-600 cursor-not-allowed"
+                  : "bg-[#002a48] text-white hover:bg-[#003a63]"
               }`}
           >
             {isLoading ? <SaveLoader loadingText="Saving" /> : "Next"}
           </button>
         </div>
-      </div>
+      </main>
     </div>
   );
 };

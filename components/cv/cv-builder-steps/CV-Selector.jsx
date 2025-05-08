@@ -10,10 +10,12 @@ import cvletter3 from "../coverletter/cvimgs/cvletter3.png";
 import cvletter4 from "../coverletter/cvimgs/cvletter4.png";
 import cvletter5 from "../coverletter/cvimgs/cvletter5.png";
 import { CoverLetterContext } from "../../context/CoverLetterContext";
+import { SaveLoader } from "../../ResumeLoader/SaveLoader";
 const CVSelector = ({ onNext, onBack, onChange, value }) => {
   const [selectedHexCode, setSelectedHexCode] = useState("#2563EB");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
   // const [coverLetterData, setCoverLetterData] = useState(null);
   const { coverLetterData, setCoverLetterData } =
     useContext(CoverLetterContext);
@@ -28,9 +30,9 @@ const CVSelector = ({ onNext, onBack, onChange, value }) => {
     },
     {
       name: "Blue",
-      class: "bg-blue-600",
+      class: "bg-[#00b38d]",
       selectedClass: "ring-blue-400",
-      hexCode: "#2563EB",
+      hexCode: "#00b38d",
     },
     {
       name: "Purple",
@@ -79,6 +81,48 @@ const CVSelector = ({ onNext, onBack, onChange, value }) => {
       class: "bg-indigo-600",
       selectedClass: "ring-indigo-400",
       hexCode: "#4F46E5",
+    },
+    {
+      name: "Navy Blue",
+      class: "bg-blue-900",
+      selectedClass: "ring-blue-700",
+      hexCode: "#1E3A8A",
+    },
+    {
+      name: "Light Blue",
+      class: "bg-blue-300",
+      selectedClass: "ring-blue-200",
+      hexCode: "#93C5FD",
+    },
+    {
+      name: "Light Red",
+      class: "bg-red-300",
+      selectedClass: "ring-red-200",
+      hexCode: "#FCA5A5",
+    },
+    {
+      name: "Light Green",
+      class: "bg-green-300",
+      selectedClass: "ring-green-200",
+      hexCode: "#86EFAC",
+    },
+    {
+      name: "Light Yellow",
+      class: "bg-yellow-300",
+      selectedClass: "ring-yellow-200",
+      hexCode: "#FDE047",
+    },
+    {
+      name: "Light Teal",
+      class: "bg-teal-300",
+      selectedClass: "ring-teal-200",
+      hexCode: "#5EEAD4",
+    },
+    {
+      name: "Light Purple",
+      class: "bg-purple-300",
+      selectedClass: "ring-purple-200",
+      hexCode: "#D8B4FE",
     },
   ];
 
@@ -135,7 +179,7 @@ const CVSelector = ({ onNext, onBack, onChange, value }) => {
     onChange({
       ...value,
       template: template.key,
-      category: template.category,
+      // category: template.category,
       style: template.style,
     });
   };
@@ -235,7 +279,7 @@ const CVSelector = ({ onNext, onBack, onChange, value }) => {
       toast.error("Please select a CV template before proceeding");
       return;
     }
-
+    setIsLoading(true);
     try {
       const coverletterId = router.query.id || localStorage.getItem("id");
       if (!coverletterId) {
@@ -265,6 +309,8 @@ const CVSelector = ({ onNext, onBack, onChange, value }) => {
     } catch (error) {
       toast.error(error?.message || "Error updating resume!");
       console.error("Error updating resume:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -280,132 +326,105 @@ const CVSelector = ({ onNext, onBack, onChange, value }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
-            Choose Your CV Letter Template
-          </h2>
-          <p className="text-xl text-gray-600">
-            Select a professional template that matches your career goals
-          </p>
+    <div className="min-h-screen bg-gradient-to-b from-white to-blue-100 flex flex-col">
+      <div className="bg-[#002a48] text-white py-3 px-6 rounded-b-3xl mx-auto mt-4   items-center gap-3 shadow-md">
+        <h2 className="text-3xl font-bold text-white">
+          Choose Your Perfect Cover Letter
+        </h2>
+        <p className="text-lg text-white mt-2">
+          Select a design that best represents your professional style
+        </p>
+      </div>
+
+      <div className="flex flex-col lg:flex-row gap-6 px-4 md:px-12 py-10 flex-1 overflow-hidden">
+        {/* Sidebar - Color Theme */}
+        <div className="bg-white rounded-2xl shadow-md p-6 h-fit sticky top-10 w-full lg:max-w-[250px]">
+          <h3 className="text-xl font-semibold text-gray-900 mb-4">
+            Color Theme
+          </h3>
+          <div className="grid grid-cols-5 gap-4">
+            {colors.map((color) => (
+              <button
+                key={color.name}
+                className={`
+                  w-8 h-8 rounded-full ${color.class}
+                  transform hover:scale-110 transition-all duration-200
+                  ${
+                    selectedHexCode === color.hexCode
+                      ? `ring-2 ring-offset-2 ${color.selectedClass}`
+                      : "hover:ring-2 hover:ring-offset-2 hover:ring-gray-300"
+                  }
+                `}
+                onClick={() => handleColorChange(color.hexCode, color.name)}
+                title={color.name}
+              />
+            ))}
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          {/* Sidebar */}
-          <div className="bg-white rounded-xl shadow-lg p-6 h-fit sticky top-8">
-            <div className="mb-8">
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">
-                Color Theme
-              </h3>
-              <div className="grid grid-cols-5 gap-4">
-                {colors.map((color) => (
-                  <div
-                    key={color.name}
-                    className="flex items-center justify-center"
-                  >
-                    <button
-                      className={`
-                        w-8 h-8 rounded-full ${color.class}
-                        transform hover:scale-110 transition-all duration-200
-                        ${
-                          selectedHexCode === color.hexCode
-                            ? `ring-2 ring-offset-2 ${color.selectedClass}`
-                            : "hover:ring-2 hover:ring-offset-2 hover:ring-gray-300"
-                        }
-                      `}
-                      onClick={() =>
-                        handleColorChange(color.hexCode, color.name)
-                      }
-                      title={color.name}
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Categories */}
-            <div className="mb-8">
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">
-                Categories
-              </h3>
-              <div className="space-y-2">
-                {Array.from(new Set(cvTemplates.map((t) => t.category))).map(
-                  (category) => (
-                    <button
-                      key={category}
-                      className={`
-                      w-full text-left px-4 py-2 rounded-lg
-                      ${
-                        value.category === category
-                          ? "bg-blue-50 text-blue-600"
-                          : "text-gray-600 hover:bg-gray-50"
-                      }
-                    `}
-                      onClick={() => onChange({ ...value, category })}
-                    >
-                      {category}
-                    </button>
-                  )
-                )}
-              </div>
-            </div>
-          </div>
-
-          {/* Templates Grid */}
-          <div className="lg:col-span-3">
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-              {cvTemplates
-                .filter((t) => !value.category || t.category === value.category)
-                .map((template) => (
-                  <button
-                    key={template.key}
-                    onClick={() => handleTemplateSelect(template)}
-                    className="group relative bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300"
-                    style={getHoverStyle(template.key)}
-                  >
-                    <div className="w-full">
-                      <div className="relative aspect-[3/4]">
-                        <Image
-                          src={template.imageUrl}
-                          alt={template.name}
-                          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                        />
-                      </div>
-                      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
+        {/* Templates Grid */}
+        <div className="flex-1 overflow-y-auto max-h-[calc(100vh-200px)] scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+            {cvTemplates
+              // .filter((t) => !value.category || t.category === value.category)
+              .map((template) => (
+                <button
+                  key={template.key}
+                  onClick={() => handleTemplateSelect(template)}
+                  className="group bg-white rounded-xl shadow-md overflow-hidden border-2 transition-all duration-200 "
+                  style={getHoverStyle(template.key)}
+                >
+                  <div className="">
+                    <div className="relative aspect-[3/4]">
+                      <Image
+                        src={template.imageUrl}
+                        alt={template.name}
+                        layout="fill"
+                        objectFit="contain"
+                        className="transition-transform duration-200 group-hover:scale-105"
+                      />
+                    </div>
+                    {/* <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
                         <p className="text-white font-medium text-lg">
                           {template.name}
                         </p>
                         <p className="text-white/80 text-sm">
                           {template.description}
                         </p>
-                      </div>
-                    </div>
-                  </button>
-                ))}
-            </div>
+                      </div> */}
+                  </div>
+                </button>
+              ))}
           </div>
         </div>
+      </div>
 
-        {/* Navigation Buttons */}
-        <div className="flex justify-between mt-12">
-          <button
-            onClick={onBack}
-            className="px-8 py-3 bg-white border-2 border-gray-300 rounded-xl text-gray-700 
-              font-medium hover:bg-gray-50 hover:border-gray-400 transition-colors"
-          >
-            Back
-          </button>
-          <button
-            onClick={handleSaveSelection}
-            disabled={loading}
-            style={{ backgroundColor: selectedHexCode }}
-            className="px-8 py-3 text-white rounded-xl font-medium
-              hover:opacity-90 transition-colors shadow-lg hover:shadow-xl disabled:opacity-50"
-          >
-            {loading ? "Saving..." : "Next"}
-          </button>
-        </div>
+      {/* Navigation Buttons */}
+
+      <div className="sticky bottom-0 bg-white border-t border-gray-200 p-4 flex justify-between items-center shadow-md px-6">
+        <button
+          onClick={onBack}
+          className="text-blue-600 hover:underline text-base font-medium"
+        >
+          Back
+        </button>
+        <button
+          onClick={handleSaveSelection}
+          disabled={loading}
+          style={{ backgroundColor: selectedHexCode }}
+          className={`px-6 py-2 text-white rounded-xl font-semibold shadow-md transition-all
+                    ${
+                      loading
+                        ? "opacity-70 cursor-not-allowed"
+                        : "hover:opacity-90"
+                    }`}
+        >
+          {isLoading ? (
+            <SaveLoader loadingText="Saving" />
+          ) : (
+            "Choose Cover Letter"
+          )}
+        </button>
       </div>
     </div>
   );

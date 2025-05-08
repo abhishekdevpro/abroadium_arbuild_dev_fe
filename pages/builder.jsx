@@ -564,7 +564,7 @@
 // //             {/* Form Navigation Bar */}
 // //             <div
 // //               className="w-full bg-gray-200 p-4 shadow-sm"
-// //               style={{ backgroundColor: "#323159f5" }}
+// //               style={{ backgroundColor: "#002a48" }}
 // //             >
 // //               <div className="hidden md:flex flex-col lg:flex-row items-center justify-between gap-4">
 // //                 {/* Navigation Buttons */}
@@ -672,7 +672,7 @@
 // //             {/* Main Content */}
 // //             <div
 // //               className="flex flex-col md:flex-row flex-grow "
-// //               style={{ backgroundColor: "#323159f5" }}
+// //               style={{ backgroundColor: "#002a48" }}
 // //             >
 // //               {/* Form Content */}
 // //               <main className=" w-[40%] mx-auto ">
@@ -726,7 +726,7 @@
 
 // //             {/* Desktop Controls - Hidden on Mobile */}
 // //             <div
-// //               style={{ backgroundColor: "#323159f5" }}
+// //               style={{ backgroundColor: "#002a48" }}
 // //               className="hidden md:flex w-screen px-8 py-4 justify-between items-center  shadow"
 // //             >
 // //               <div className="flex gap-4">

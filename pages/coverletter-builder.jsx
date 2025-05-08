@@ -326,7 +326,7 @@ function CoverLetterBuilder() {
               {/* Editor Section */}
               <div
                 className="w-[40%] overflow-auto"
-                style={{ backgroundColor: "#323159f5" }}
+                style={{ backgroundColor: "#002a48" }}
               >
                 <main className="w-full mx-auto md:p-4">
                   <CoverLetterEditor />
@@ -409,7 +409,7 @@ function CoverLetterBuilder() {
     //       {/* Editor - Full width on mobile, 40% on desktop */}
     //       <div
     //         className="w-full lg:w-[40%] mb-8 lg:mb-0"
-    //         style={{ backgroundColor: "#323159f5" }}
+    //         style={{ backgroundColor: "#002a48" }}
     //       >
     //         <main className="w-full mx-auto p-4">
     //           <CoverLetterEditor />

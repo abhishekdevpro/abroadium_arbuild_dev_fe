@@ -9,6 +9,7 @@ import ExperienceStep from "../../../components/cv/cv-builder-steps/Experience";
 import CVSelector from "../../../components/cv/cv-builder-steps/CV-Selector";
 import UploadStep from "../../../components/cv/cv-builder-steps/Upload-step";
 import FileUploadStep from "../../../components/cv/cv-builder-steps/File-upload";
+import CountrySelection from "../../../components/cv/cv-builder-steps/CountrySelection";
 
 export default function Home() {
   const router = useRouter();
@@ -46,14 +47,24 @@ export default function Home() {
 
         <div className="mt-8 bg-white rounded-lg shadow-lg p-6">
           {currentStep === 1 && (
+            <CountrySelection
+              onSelectCountry={(country) => {
+                updateFormData({ country });
+                handleNext();
+              }}
+              onBack={() => router.back()} // optional: go back to previous page
+            />
+          )}
+          {currentStep === 2 && (
             <ExperienceStep
               onNext={handleNext}
               onChange={(experience) => updateFormData({ experience })}
               value={formData.experience}
+              onBack={handleBack}
             />
           )}
 
-          {currentStep === 2 && (
+          {currentStep === 3 && (
             <CVSelector
               onNext={handleNext}
               onBack={handleBack}
@@ -66,7 +77,7 @@ export default function Home() {
             />
           )}
 
-          {currentStep === 3 && (
+          {currentStep === 4 && (
             <UploadStep
               onNext={handleNext}
               onBack={handleBack}
@@ -75,7 +86,7 @@ export default function Home() {
             />
           )}
 
-          {currentStep === 4 && formData.uploadType === "upload" && (
+          {currentStep === 5 && formData.uploadType === "upload" && (
             <FileUploadStep
               onNext={handleNext}
               onBack={handleBack}
