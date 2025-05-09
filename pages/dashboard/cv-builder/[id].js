@@ -23,6 +23,7 @@ export default function Home() {
     columns: 1,
     uploadType: "",
     file: null,
+    country: "",
   });
 
   const totalSteps = 4;

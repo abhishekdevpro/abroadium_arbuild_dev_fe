@@ -648,7 +648,7 @@ const TemplateStep = ({ onNext, onBack, onChange, value }) => {
               <button
                 key={template.key}
                 onClick={() => onChange({ ...value, template: template.key })}
-                className={`group bg-white rounded-xl shadow-md overflow-hidden border-2 transition-all duration-200 
+                className={`group relative bg-white rounded-xl shadow-md overflow-hidden border-2 transition-all duration-200 
                   ${
                     value.template === template.key
                       ? "border-blue-500"
@@ -664,6 +664,11 @@ const TemplateStep = ({ onNext, onBack, onChange, value }) => {
                     className="transition-transform duration-200 group-hover:scale-105"
                     priority={templates.indexOf(template) < 6}
                   />
+                  <div className="absolute inset-0 flex items-end justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-gradient-to-t from-black/60 to-transparent p-4">
+                    <span className="bg-gradient-to-r from-blue-400 to-white text-black font-semibold px-4 py-2 rounded-full shadow-md">
+                      Use This Template
+                    </span>
+                  </div>
                 </div>
               </button>
             ))}
