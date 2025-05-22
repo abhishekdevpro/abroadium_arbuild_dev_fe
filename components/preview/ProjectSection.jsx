@@ -92,7 +92,7 @@ const ProjectsSection = ({ resumeData, headerColor }) => {
                   >
                     {(provided) => (
                       <ul
-                        className="list-disc ul-padding content"
+                        className="list-disc pl-6 mt-2"
                         {...provided.droppableProps}
                         ref={provided.innerRef}
                       >
