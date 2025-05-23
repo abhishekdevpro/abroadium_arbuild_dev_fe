@@ -307,28 +307,32 @@ export default function WebBuilder() {
   // };
 
   const downloadAsPDF = async () => {
-    handleFinish();
-    if (!templateRef.current) {
-      toast.error("Template reference not found");
-      return;
-    }
-
-    setisDownloading(true); // Start loading before the async operation
+    setisDownloading(true); // Start loading immediately
 
     try {
+      // ✅ Wait for handleFinish to complete
+      await handleFinish();
+
+      if (!templateRef.current) {
+        toast.error("Template reference not found");
+        return;
+      }
+
       const token = localStorage.getItem("token");
       const htmlContent = templateRef.current.innerHTML;
 
       const fullContent = `
-            <style>
-                @import url('https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css');
-            </style>
-            ${htmlContent}
-        `;
+        <style>
+          @import url('https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css');
+        </style>
+        ${htmlContent}
+      `;
+
+      // ✅ Wait 5 seconds if needed
+      // await new Promise((resolve) => setTimeout(resolve, 5000));
 
       const response = await axios.get(
         `https://api.abroadium.com/api/jobseeker/download-resume/${resumeId}?pdf_type=${selectedPdfType}`,
-
         {
           headers: {
             Authorization: token,
@@ -337,29 +341,23 @@ export default function WebBuilder() {
           responseType: "blob",
         }
       );
-      console.log(response);
-      if (response.status == 200) {
+
+      if (response.status === 200) {
         const url = window.URL.createObjectURL(
           new Blob([response.data], { type: "application/pdf" })
         );
         const link = document.createElement("a");
         link.href = url;
-
         link.setAttribute("download", `resume.pdf`);
         document.body.appendChild(link);
         link.click();
-
         document.body.removeChild(link);
         window.URL.revokeObjectURL(url);
-        toast.success(
-          response.data.message || "Resume Downloaded Successfully"
-        );
+
+        toast.success("Resume Downloaded Successfully");
       } else {
         toast.error(response.data.message || "Error while downloading");
       }
-
-      // downloadPDF();
-      // initiateCheckout(); // Call this only if the request is successful
     } catch (error) {
       console.error("PDF generation error:", error);
 
@@ -367,7 +365,6 @@ export default function WebBuilder() {
         error?.response?.status === 403 &&
         error?.response?.data instanceof Blob
       ) {
-        // Try to read blob content as JSON
         const reader = new FileReader();
         reader.onload = () => {
           try {
@@ -388,7 +385,7 @@ export default function WebBuilder() {
         toast.error(errorMessage);
       }
     } finally {
-      setisDownloading(false); // Ensure loading is stopped after success or failure
+      setisDownloading(false); // Stop loader
     }
   };
 
