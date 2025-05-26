@@ -117,7 +117,10 @@ export default function FileUploadStep({ onNext, onBack, onChange, value }) {
   });
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-8 space-y-8">
+    <div className="bg-gradient-to-b from-white to-blue-100">
+    <header className="bg-[#002a48] text-white px-4 py-6 flex items-center justify-between"></header>
+      <div className="max-w-3xl mx-auto px-4 py-8 space-y-8 ">
+      
       {showLoadingAnimation && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
           <SaveLoader loadingText="Processing your resume..." />
@@ -203,6 +206,7 @@ export default function FileUploadStep({ onNext, onBack, onChange, value }) {
           Next
         </button>
       </div>
+    </div>
     </div>
   );
 }

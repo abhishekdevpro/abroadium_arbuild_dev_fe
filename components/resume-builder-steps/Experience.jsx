@@ -234,18 +234,24 @@ const ExperienceStep = ({ onBack, onNext, onChange, value }) => {
             { id: "4-9", label: "4 – 9 years" },
             { id: "10+", label: "10+ years" },
           ].map((exp) => (
+            
             <button
               key={exp.id}
               onClick={() => onChange({ ...value, experience: exp.id })}
-              className={`w-full p-6 text-left rounded-xl border-2 flex items-center justify-between text-[#002a48] font-semibold transition-all 
-                ${
-                  value.experience === exp.id
-                    ? "border-[#002a48] bg-[#e6f0f5]"
-                    : "border-[#e5e7eb] hover:border-[#002a48]"
-                }`}
+              className={`w-full p-5 rounded-2xl shadow-md bg-blue-200 
+    hover:bg-[#002a48] hover:text-white hover:shadow-xl 
+    flex items-center justify-between text-[#002a48] font-semibold
+    transition-all duration-300 ease-in-out transform hover:scale-105 group
+    ${
+      value.experience === exp.id
+        ? "bg-[#002a48] text-[#002a48] border-2 border-[#002a48] shadow-xl scale-105"
+        : ""
+    }`}
             >
-              {exp.label}
-              <span className="text-lg">→</span>
+              <span className="text-lg mb-2">{exp.label}</span>
+              <span className="text-xl transition-transform duration-300 ease-in-out group-hover:translate-x-1">
+                →
+              </span>
             </button>
           ))}
         </div>

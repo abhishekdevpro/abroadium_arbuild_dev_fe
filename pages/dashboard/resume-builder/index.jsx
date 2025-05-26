@@ -1,9 +1,11 @@
-// "use client";
 
+// "use client";
 // import { useState } from "react";
 // import { useRouter } from "next/router";
 // import axios from "axios";
 // import Navbar from "../../Navbar/Navbar";
+// import { SaveLoader } from "../../../components/ResumeLoader/SaveLoader";
+// import Button from "../../../components/buttonUIComponent";
 
 // export default function Home() {
 //   const router = useRouter();
@@ -11,13 +13,15 @@
 //   const [error, setError] = useState("");
 
 //   const handleCreateResume = async () => {
+//     // Prevent multiple clicks
+//     if (loading) return;
+
 //     setLoading(true);
 //     setError("");
 
 //     try {
 //       // Replace this with your actual token
 //       const token = localStorage.getItem("token");
-
 //       const response = await axios.post(
 //         "https://api.abroadium.com/api/jobseeker/resume-create",
 //         {},
@@ -32,7 +36,7 @@
 //       console.log(response);
 //       const { id } = response.data.data;
 
-//       // Navigate to the dynamic route
+//       // Only navigate after successful API response
 //       router.push(`/dashboard/resume-builder/${id}`);
 //     } catch (err) {
 //       console.error("Error creating resume:", err);
@@ -43,29 +47,31 @@
 //   };
 
 //   return (
-//    <>
-//     <Navbar/>
-//         <main className="min-h-screen bg-gray-50 flex items-center justify-center">
-//       <div className="bg-white rounded-lg shadow-lg p-8 text-center">
-//         <h1 className="text-2xl font-bold mb-4">Welcome to Resume Builder</h1>
-//         <p className="mb-6 text-gray-600">
-//           Click the Button below to create your resume.
-//         </p>
-
-//         {error && <p className="text-red-500 mb-4">{error}</p>}
-
-//         <Button
-//           onClick={handleCreateResume}
-//           className={`px-6 py-3 text-white font-semibold rounded-lg ${
-//             loading ? "bg-gray-400" : "bg-orange-500 hover:bg-orange-600"
-//           }`}
-//           disabled={loading}
-//         >
-//           {loading ? "Creating..." : "Create Your Resume"}
-//         </Button>
-//       </div>
-//     </main>
-//    </>
+//     <>
+//       <Navbar />
+//       <main className="min-h-screen bg-gradient-to-b from-white to-blue-100  flex items-center justify-center">
+//         <div className="bg-white rounded-lg shadow-lg p-8 text-center border-red-900">
+//           <h1 className="text-2xl font-bold mb-4 text-[#002a48] hover:text-orange-500">Welcome to Resume Builder</h1>
+//           <p className="mb-6 text-[#002a48] hover:text-orange-500">
+//             Click the Button below to create your resume.
+//           </p>
+//           {error && <p className="text-[#002a48] mb-4">{error}</p>}
+//           <Button
+//             onClick={handleCreateResume}
+//             className={`px-6 py-3 text-white font-semibold rounded-lg ${
+//               loading ? "bg-gray-400" : "bg-orange-500 hover:bg-orange-600"
+//             }`}
+//             disabled={loading}
+//           >
+//             {loading ? (
+//               <SaveLoader loadingText="Creating" />
+//             ) : (
+//               "Create Your Resume"
+//             )}
+//           </Button>
+//         </div>
+//       </main>
+//     </>
 //   );
 // }
 "use client";
@@ -82,14 +88,12 @@ export default function Home() {
   const [error, setError] = useState("");
 
   const handleCreateResume = async () => {
-    // Prevent multiple clicks
     if (loading) return;
 
     setLoading(true);
     setError("");
 
     try {
-      // Replace this with your actual token
       const token = localStorage.getItem("token");
       const response = await axios.post(
         "https://api.abroadium.com/api/jobseeker/resume-create",
@@ -101,11 +105,7 @@ export default function Home() {
         }
       );
 
-      // Assuming the response contains the ID
-      console.log(response);
       const { id } = response.data.data;
-
-      // Only navigate after successful API response
       router.push(`/dashboard/resume-builder/${id}`);
     } catch (err) {
       console.error("Error creating resume:", err);
@@ -118,26 +118,36 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen bg-gradient-to-b from-white to-blue-100  flex items-center justify-center">
-        <div className="bg-white rounded-lg shadow-lg p-8 text-center">
-          <h1 className="text-2xl font-bold mb-4">Welcome to Resume Builder</h1>
-          <p className="mb-6 text-gray-600">
-            Click the Button below to create your resume.
+      <main className="min-h-screen bg-gradient-to-b from-white via-blue-50 to-blue-100 flex items-center justify-center px-4 py-12">
+        <div className="w-full max-w-2xl bg-white rounded-xl shadow-lg border border-gray-200 p-8 md:p-12 text-center">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#002a48] mb-4">
+            Welcome to Resume Builder
+          </h1>
+          <p className="text-sm sm:text-base text-gray-700 mb-6">
+            Click the button below to begin creating your professional resume.
           </p>
-          {error && <p className="text-red-500 mb-4">{error}</p>}
-          <Button
-            onClick={handleCreateResume}
-            className={`px-6 py-3 text-white font-semibold rounded-lg ${
-              loading ? "bg-gray-400" : "bg-orange-500 hover:bg-orange-600"
-            }`}
-            disabled={loading}
-          >
-            {loading ? (
-              <SaveLoader loadingText="Creating" />
-            ) : (
-              "Create Your Resume"
-            )}
-          </Button>
+
+          {error && (
+            <p className="text-red-600 font-medium mb-4">{error}</p>
+          )}
+
+          <div className="flex justify-center mt-4">
+            <Button
+              onClick={handleCreateResume}
+              className={`w-full sm:w-auto px-6 py-3 text-white font-semibold rounded-md transition duration-300 ${
+                loading
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "bg-orange-500 hover:bg-orange-600"
+              }`}
+              disabled={loading}
+            >
+              {loading ? (
+                <SaveLoader loadingText="Creating" />
+              ) : (
+                "Create Your Resume"
+              )}
+            </Button>
+          </div>
         </div>
       </main>
     </>
