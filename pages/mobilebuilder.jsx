@@ -595,6 +595,9 @@ export default function MobileBuilder() {
                 onChange={handleFontChange}
                 className="rounded-lg border-2 border-blue-800 px-5 py-2 font-bold bg-white text-blue-800"
               >
+                <option value="" disabled>
+                  Fonts
+                </option>
                 <option value="Ubuntu">Ubuntu</option>
                 <option value="Calibri">Calibri</option>
                 <option value="Georgia">Georgia</option>

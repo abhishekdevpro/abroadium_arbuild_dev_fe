@@ -25,7 +25,7 @@ export default function Home() {
     country: "",
   });
 
-  const totalSteps = 4;
+  const totalSteps = 5;
 
   const handleNext = () => {
     setCurrentStep((prev) => Math.min(prev + 1, totalSteps));
@@ -40,12 +40,12 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-gray-50 py-8 px-4">
+    <main className="min-h-screen bg-gradient-to-b from-white to-blue-100 py-8 px-4">
       <div className="max-w-7xl mx-auto">
         {/* Example: Display the dynamic ID */}
         {/* <h1 className="text-2xl font-bold mb-4">Resume Builder for ID: {id}</h1> */}
 
-        <div className="mt-8 bg-white rounded-lg shadow-lg p-6">
+        <div className=" bg-white shadow-lg rounded-xl">
           {currentStep === 1 && (
             <CountrySelection
               onSelectCountry={(country) => {

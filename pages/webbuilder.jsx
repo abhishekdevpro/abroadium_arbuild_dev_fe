@@ -705,20 +705,25 @@ export default function WebBuilder() {
                   <Button
                     type="button"
                     onClick={handleNext}
-                    className="w-40 h-10 rounded-lg bg-yellow-500 text-black font-medium transition hover:bg-yellow-400 relative transform transition-all duration-300 ease-in-out 
+                    className="w-40 h-10 rounded-lg bg-orange-500 text-white font-medium hover:bg-orange-600 relative transform transition-all duration-300 ease-in-out 
              hover:scale-105 hover:font-semibold hover:text-xl"
                   >
                     {currentSection === sections.length - 1 ? "Finish" : "Next"}
                   </Button>
                 </div>
 
-                <div className="hidden lg:flex items-center gap-4">
+              
+                <div className="hidden lg:flex items-center gap-6">
+                  {/* Font Selector */}
                   <select
                     value={selectedFont}
                     onChange={handleFontChange}
-                    className=" rounded-lg border-2 border-blue-800 px-5 py-3 font-bold bg-white text-blue-800 relative transform transition-all duration-300 ease-in-out 
-             hover:scale-105 hover:font-semibold hover:text-lg"
+                    className="hidden sm:block rounded-lg border-2 border-[#002a48] px-5 py-2 bg-white text-[#002a48]font-medium 
+transition-transform duration-200 ease-in-out hover:scale-[1.02] hover:bg-blue-50 hover:text-[#002a48]"
                   >
+                    <option value="" disabled>
+                      Fonts
+                    </option>
                     <option value="Ubuntu">Ubuntu</option>
                     <option value="Calibri">Calibri</option>
                     <option value="Georgia">Georgia</option>
@@ -726,7 +731,8 @@ export default function WebBuilder() {
                     <option value="Poppins">Poppins</option>
                   </select>
 
-                  <div className="flex items-center gap-4">
+                  {/* Color Picker and Template Selector */}
+                  <div className="flex items-center gap-4 shrink-0">
                     <ColorPickers
                       selectmultiplecolor={backgroundColorss}
                       onChange={setBgColor}
@@ -734,8 +740,8 @@ export default function WebBuilder() {
                     <TemplateSelector
                       selectedTemplate={selectedTemplate}
                       setSelectedTemplate={setSelectedTemplate}
-                      setSelectedPdfType={setSelectedPdfType}
                       selectedPdfType={selectedPdfType}
+                      setSelectedPdfType={setSelectedPdfType}
                     />
                   </div>
                 </div>
@@ -759,13 +765,16 @@ export default function WebBuilder() {
                         {sections.map((section, index) => (
                           <li
                             key={index}
-                            className={`flex items-center justify-between gap-2 px-4 py-2 cursor-pointer transition-all duration-200 rounded-lg border-2 hover:scale-105 hover:font-semibold hover:text-lg 
-                  disabled:opacity-50 disabled:cursor-not-allowed hover:bg-blue-950 hover:text-white
-    ${
-      currentSection === index
-        ? "border-blue-800 bg-blue-950 text-white font-semibold shadow-md"
-        : "border-blue-800 bg-white text-blue-800 hover:bg-blue-100"
-    }`}
+                            className={`flex items-center justify-between gap-2 px-4 py-2 
+  cursor-pointer transition-all duration-200 rounded-lg border-2 
+  hover:scale-[1.02] hover:font-semibold hover:text-base 
+  disabled:opacity-50 disabled:cursor-not-allowed
+
+  ${
+    currentSection === index
+      ? "border-[#002a48] bg-[#002a48] text-white font-semibold shadow-md"
+      : "border-[#002a48] bg-white text-[#002a48] hover:bg-[#e6f0f5]"
+  }`}
                             onClick={() => handleSectionClick(index)}
                           >
                             <span>{section.label}</span>
@@ -813,9 +822,10 @@ export default function WebBuilder() {
                 <select
                   value={selectedFont}
                   onChange={handleFontChange}
-                  className=" rounded-lg border-2 border-blue-800 px-5 py-3 font-bold bg-white text-blue-800 relative transform transition-all duration-300 ease-in-out 
-             hover:scale-105 hover:font-semibold hover:text-lg"
+                  className="hidden sm:block rounded-lg border-2 border-[#002a48] px-5 py-2 bg-white text-[#002a48]font-medium 
+transition-transform duration-200 ease-in-out hover:scale-[1.02] hover:bg-blue-50 hover:text-[#002a48]"
                 >
+                  <option value="">Font</option>
                   <option value="Ubuntu">Ubuntu</option>
                   <option value="Calibri">Calibri</option>
                   <option value="Georgia">Georgia</option>
@@ -823,7 +833,7 @@ export default function WebBuilder() {
                   <option value="Poppins">Poppins</option>
                 </select>
 
-                <div className="flex items-center gap-4">
+                <div className="flex items-center">
                   <ColorPickers
                     selectmultiplecolor={backgroundColorss}
                     onChange={setBgColor}
@@ -852,8 +862,8 @@ export default function WebBuilder() {
                   onClick={downloadAsPDF}
                   className={`px-6 py-2 rounded-lg flex items-center justify-center gap-2 ${
                     loading
-                      ? "bg-yellow-800 cursor-not-allowed"
-                      : "bg-yellow-500 hover:bg-yellow-600 active:bg-yellow-600"
+                      ? "bg-orange-800 cursor-not-allowed"
+                      : "bg-orange-500 hover:bg-orange-600 active:bg-orange-600"
                   } text-white transition-colors duration-200`}
                   disabled={loading}
                 >

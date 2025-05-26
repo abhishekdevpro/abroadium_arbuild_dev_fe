@@ -30,9 +30,9 @@ const Modal = ({ isOpen, onClose, children }) => {
       <div className="bg-white rounded-lg shadow-xl max-w-4xl w-full mx-4 relative">
         <Button
           onClick={onClose}
-          className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
+          className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
         >
-          <X className="w-6 h-6" />
+          <X className="w-6 h-6 text-red-600" />
         </Button>
         {children}
       </div>
@@ -321,18 +321,19 @@ const TooltipContent = ({ improvements, resumeId, onClose }) => {
   };
 
   return (
-    <div className="h-[600px] overflow-y-auto p-6 bg-gray-50 rounded-lg shadow-md">
+    <div className="h-[600px] bg-gradient-to-b from-white to-blue-100 overflow-y-auto p-6 bg-gray-50 rounded-lg shadow-md">
       {/* Grid Layout for Improvements and Formatting Checklist */}
-      <div className="flex flex-col">
+      <header className="bg-[#002a48] text-white px-4 py-6 flex items-center justify-between"></header>
+      <div className="flex flex-col bg-gradient-to-b from-white to-blue-100 ">
         {/* Improvements Section */}
-        <div className="p-6 bg-white rounded-lg shadow-sm">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">
+        <div className="p-6 rounded-lg">
+          <h3 className="text-lg font-semibold text-[#002a48] mb-4">
             Areas for Improvement
           </h3>
           <ul className="space-y-3">
             {improvements?.areas_for_improvement?.file_format && (
               <li className="flex items-start gap-3">
-                <div className="w-2 h-2 mt-2 bg-blue-500 rounded-full" />
+                <div className="w-2 h-2 mt-2 bg-[#002a48] rounded-full" />
                 <p className="text-gray-700">
                   <span className="font-bold text-black">
                     File Formatting:{" "}
@@ -343,7 +344,7 @@ const TooltipContent = ({ improvements, resumeId, onClose }) => {
             )}
             {improvements?.areas_for_improvement?.keyword_optimization && (
               <li className="flex items-start gap-3">
-                <div className="w-2 h-2 mt-2 bg-blue-500 rounded-full" />
+                <div className="w-2 h-2 mt-2 bg-[#002a48] rounded-full" />
                 <p className="text-gray-700">
                   <span className="font-bold text-black">
                     Keyword Optimization:{" "}
@@ -354,7 +355,7 @@ const TooltipContent = ({ improvements, resumeId, onClose }) => {
             )}
             {improvements?.areas_for_improvement?.section_order && (
               <li className="flex items-start gap-3">
-                <div className="w-2 h-2 mt-2 bg-blue-500 rounded-full" />
+                <div className="w-2 h-2 mt-2 bg-[#002a48] rounded-full" />
                 <p className="text-gray-700">
                   <span className="font-bold text-black">Section Order: </span>
                   {improvements.areas_for_improvement.section_order}
@@ -365,7 +366,7 @@ const TooltipContent = ({ improvements, resumeId, onClose }) => {
         </div>
 
         {/* Formatting Checklist */}
-        <div className="p-6 bg-white rounded-lg shadow-sm">
+        <div className="p-6 rounded-lg shadow-sm">
           <h3 className="text-lg font-semibold text-gray-900 mb-4">
             Formatting Checklist
           </h3>
@@ -373,7 +374,7 @@ const TooltipContent = ({ improvements, resumeId, onClose }) => {
             {formatItems.map((item, index) => (
               <li
                 key={index}
-                className="flex items-center gap-3 bg-gray-100 p-3 rounded-lg"
+                className="flex items-center gap-3 p-3 rounded-lg"
               >
                 <div
                   className={`rounded-full p-1.5 ${
@@ -385,7 +386,7 @@ const TooltipContent = ({ improvements, resumeId, onClose }) => {
                   {item.value ? (
                     <Check className="w-5 h-5" />
                   ) : (
-                    <X className="w-5 h-5" />
+                    <X className="w-5 h-5 text-red-900" />
                   )}
                 </div>
                 <div>
@@ -427,7 +428,7 @@ const TooltipContent = ({ improvements, resumeId, onClose }) => {
       </div>
 
       {/* Overall Comments */}
-      <div className="bg-gradient-to-r from-blue-600 to-blue-800 rounded-xl p-6 mt-6 text-white">
+      <div className="bg-gradient-to-b from-blue-100 to-blue-200 rounded-xl p-6 mt-6 text-[#002a48]">
         <h3 className="text-lg font-bold">Overall Comments</h3>
         <p>{improvements.overall_comments}</p>
       </div>

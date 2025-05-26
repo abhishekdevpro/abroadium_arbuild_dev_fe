@@ -9,7 +9,7 @@ export const ResumeProvider = ({ children }) => {
   const [exp,setExp] = useState()
   const [headerColor, setHeaderColor] = useState("");
   const [backgroundColorss, setBgColor] = useState("");
-  const [selectedFont, setSelectedFont] = useState("Ubuntu");
+  const [selectedFont, setSelectedFont] = useState("");
 
   const handleProfilePicture = (e) => {
     const file = e.target.files[0];
