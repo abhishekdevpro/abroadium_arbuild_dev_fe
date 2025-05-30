@@ -11,15 +11,19 @@ const SkillsWrapper = ({
   className = "",
   layout,
 }) => {
-  const {backgroundColorss} =  useContext(ResumeContext)
+  const { backgroundColorss } = useContext(ResumeContext);
   return (
     <div className={`skills-section ${className}`}>
       <h2
-         style={{
-          color: `${headerColor == "black" ? `${backgroundColorss}` : headerColor}`,
-          borderBottom: `2px solid ${headerColor == "black" ? `${backgroundColorss}` : headerColor}`,
+        style={{
+          color: `${
+            headerColor == "black" ? `${backgroundColorss}` : headerColor
+          }`,
+          borderBottom: `1px solid ${
+            headerColor == "black" ? `${backgroundColorss}` : headerColor
+          }`,
         }}
-        className="text-xl font-bold mb-1 "
+        className="text-lg font-semibold mb-1 "
         contentEditable
         suppressContentEditableWarning
       >
@@ -42,14 +46,14 @@ const SkillsWrapper = ({
                       {...provided.dragHandleProps}
                       className={`hover:scale-105 transition-transform duration-300 mb-1 ${
                         snapshot.isDragging
-                          ? "outline-dashed outline-2 outline-gray-400 bg-white"
+                          ? "outline-dashed outline-2 outline-gray-400 bg-white text-base"
                           : ""
                       }`}
                     >
                       <Skills
                         title={skill.title}
                         skills={skill.skills}
-                        color={headerColor= "white"}
+                        color={(headerColor = "white")}
                         layout={layout}
                       />
                     </div>

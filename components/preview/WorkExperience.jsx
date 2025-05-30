@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Droppable, Draggable } from "react-beautiful-dnd";
 import DateRangeExperience from "../utility/DateRangeExperience";
@@ -28,12 +27,12 @@ const WorkExperience = ({
           style={style}
         >
           <h2
-            className={`${itemClassNames.title || ""}`}
+            className={`${itemClassNames.title || "font-semibold"}`}
             contentEditable
             suppressContentEditableWarning
             style={{
               color: headerColor,
-              borderBottom: `2px solid ${headerColor}`,
+              borderBottom: `1px solid ${headerColor}`,
             }}
           >
             Work Experience
@@ -50,7 +49,7 @@ const WorkExperience = ({
                   ref={provided.innerRef}
                   {...provided.draggableProps}
                   {...provided.dragHandleProps}
-                  className={`hover:scale-105 transition-transform duration-300 mb-3 p-2 rounded-md ${
+                  className={`hover:scale-105 transition-transform duration-300 mb-3 pr-2 pt-2 pb-2 rounded-md ${
                     itemClassNames.content || ""
                   } ${
                     snapshot.isDragging
@@ -62,7 +61,7 @@ const WorkExperience = ({
                     <p
                       contentEditable
                       suppressContentEditableWarning
-                      className="font-semibold"
+                      className="font-medium "
                     >
                       {item.company}
                     </p>
@@ -75,13 +74,14 @@ const WorkExperience = ({
 
                   <div className="flex flex-row justify-between space-y-1">
                     <p
-                      className="font-medium"
+                      className="font-normal "
                       contentEditable
                       suppressContentEditableWarning
                     >
                       {item.position}
                     </p>
                     <p
+                      className="font-normal "
                       contentEditable
                       suppressContentEditableWarning
                     >
@@ -90,7 +90,7 @@ const WorkExperience = ({
                   </div>
 
                   <p
-                    className="hover:outline-dashed hover:outline-2 hover:outline-gray-400"
+                    className="hover:outline-dashed hover:outline-2 hover:outline-gray-400 font-light content"
                     contentEditable
                     suppressContentEditableWarning
                     dangerouslySetInnerHTML={{ __html: item.description }}
@@ -104,36 +104,40 @@ const WorkExperience = ({
                       >
                         {(provided) => (
                           <ul
-                            className="list-disc pl-6 mt-2"
+                            className="list-disc pl-4 mt-2 font-light content"
                             {...provided.droppableProps}
                             ref={provided.innerRef}
                           >
-                            {item.keyAchievements.map((achievement, subIndex) => (
-                              <Draggable
-                                key={`ACHIEVEMENT-${index}-${subIndex}`}
-                                draggableId={`ACHIEVEMENT-${index}-${subIndex}`}
-                                index={subIndex}
-                              >
-                                {(provided, snapshot) => (
-                                  <li
-                                    ref={provided.innerRef}
-                                    {...provided.draggableProps}
-                                    {...provided.dragHandleProps}
-                                    className={`hover:scale-105 transition-transform duration-300 hover:outline-dashed hover:outline-2 hover:outline-gray-400 ${
-                                      snapshot.isDragging
-                                        ? "outline-dashed outline-2 outline-gray-400 bg-white"
-                                        : ""
-                                    }`}
-                                  >
-                                    <div
-                                      dangerouslySetInnerHTML={{ __html: achievement }}
-                                      contentEditable
-                                      suppressContentEditableWarning
-                                    />
-                                  </li>
-                                )}
-                              </Draggable>
-                            ))}
+                            {item.keyAchievements.map(
+                              (achievement, subIndex) => (
+                                <Draggable
+                                  key={`ACHIEVEMENT-${index}-${subIndex}`}
+                                  draggableId={`ACHIEVEMENT-${index}-${subIndex}`}
+                                  index={subIndex}
+                                >
+                                  {(provided, snapshot) => (
+                                    <li
+                                      ref={provided.innerRef}
+                                      {...provided.draggableProps}
+                                      {...provided.dragHandleProps}
+                                      className={`hover:scale-105 transition-transform duration-300 hover:outline-dashed hover:outline-2 hover:outline-gray-400 ${
+                                        snapshot.isDragging
+                                          ? "outline-dashed outline-2 outline-gray-400 bg-white"
+                                          : ""
+                                      }`}
+                                    >
+                                      <div
+                                        dangerouslySetInnerHTML={{
+                                          __html: achievement,
+                                        }}
+                                        contentEditable
+                                        suppressContentEditableWarning
+                                      />
+                                    </li>
+                                  )}
+                                </Draggable>
+                              )
+                            )}
                             {provided.placeholder}
                           </ul>
                         )}

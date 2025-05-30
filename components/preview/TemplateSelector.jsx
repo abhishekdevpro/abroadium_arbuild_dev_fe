@@ -34,7 +34,7 @@ const TemplateSelector = ({
   // Default PDF type
 
   const templates = [
-    { key: "template1", imageUrl: template1, pdfType: 2 },
+    { key: "template1", imageUrl: template1, pdfType: 1 },
     { key: "template3", imageUrl: template3, pdfType: 3 },
     { key: "template4", imageUrl: template4, pdfType: 3 },
     { key: "template5", imageUrl: template5, pdfType: 3 },
@@ -115,15 +115,16 @@ transition-transform duration-200 ease-in-out hover:scale-[1.02] hover:bg-blue-5
           Template
         </button> */}
         <button
-  onClick={openModal}
-  className="flex items-center gap-2 rounded-lg border-2 border-[#002a48] px-5 py-2 bg-white text-[#002a48] font-medium 
+          onClick={openModal}
+          className="flex items-center gap-2 rounded-lg border-2 border-[#002a48] px-5 py-2 bg-white text-[#002a48] font-medium 
     transition-transform duration-200 ease-in-out hover:scale-[1.02] hover:bg-blue-50 hover:text-blue-900"
->
-  <FileText size={18} />
-  <span className="hidden md:inline">
-    {templateId.charAt(0).toUpperCase() + templateId.slice(1) || "Template1"}
-  </span>
-</button>
+        >
+          <FileText size={18} />
+          <span className="hidden md:inline">
+            {templateId.charAt(0).toUpperCase() + templateId.slice(1) ||
+              "Template1"}
+          </span>
+        </button>
         {/* <div className="rounded-lg border-2 border-blue-800 px-5 py-2 font-bold bg-white text-blue-800">
           PDF Type: {selectedPdfType}
         </div> */}
