@@ -1,4 +1,3 @@
-
 // import React, { useContext } from "react";
 // import { ResumeContext } from "../context/ResumeContext";
 
@@ -56,7 +55,8 @@ import React, { useContext } from "react";
 import { ResumeContext } from "../context/ResumeContext";
 
 const Skills = ({ title, skills, color = "black", layout }) => {
-  const { resumeData, setResumeData, backgroundColorss } = useContext(ResumeContext);
+  const { resumeData, setResumeData, backgroundColorss } =
+    useContext(ResumeContext);
 
   // console.log(backgroundColorss, "backgroundColorss");
 
@@ -85,7 +85,7 @@ const Skills = ({ title, skills, color = "black", layout }) => {
           style={{
             color: layout === "row" || !backgroundColorss ? "black" : color,
           }}
-          className="text-md font-semibold mb-2 editable"
+          className="text-base font-medium mb-2 editable"
           contentEditable
           suppressContentEditableWarning
           onBlur={handleTitleChange}
@@ -104,7 +104,7 @@ const Skills = ({ title, skills, color = "black", layout }) => {
         ) : (
           <ul
             style={{ color: backgroundColorss ? color : "black" }}
-            className="list-disc ml-6"
+            className="list-disc ml-6 font-light content"
           >
             {skills.map((skill, index) => (
               <li

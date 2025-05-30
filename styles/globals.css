@@ -102,16 +102,11 @@
 
 .content {
   font-size: 14px;
-  font-weight: 400;
 }
 
 .sub-content {
   font-size: 12px;
   font-weight: 400;
-}
-
-.i-bold {
-  font-weight: 700 !important;
 }
 
 /* @media print {

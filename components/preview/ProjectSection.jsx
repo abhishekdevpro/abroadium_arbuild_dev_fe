@@ -27,12 +27,12 @@ const ProjectsSection = ({ resumeData, headerColor }) => {
       {(provided) => (
         <div {...provided.droppableProps} ref={provided.innerRef}>
           <h2
-            className="text-lg font-bold mb-1 border-b-2 border-gray-300 editable"
+            className="text-lg font-semibold mb-1 border-b-2 border-gray-300 editable"
             contentEditable
             suppressContentEditableWarning
             style={{
               color: headerColor,
-              borderBottom: `2px solid ${headerColor}`,
+              borderBottom: `1px solid ${headerColor}`,
             }}
           >
             Projects
@@ -48,14 +48,14 @@ const ProjectsSection = ({ resumeData, headerColor }) => {
                   ref={provided.innerRef}
                   {...provided.draggableProps}
                   {...provided.dragHandleProps}
-                  className={`hover:scale-105 transition-transform duration-300 mb-3 p-2 rounded-md ${
+                  className={`hover:scale-105 transition-transform duration-300 mb-3 pr-2 pb-2 pt-2 rounded-md ${
                     snapshot.isDragging &&
                     "outline-dashed outline-2 outline-gray-400 bg-white"
                   }`}
                 >
                   <div className="flex flex-row justify-between space-y-1">
                     <p
-                      className="content i-bold"
+                      className=" font-medium"
                       contentEditable
                       suppressContentEditableWarning
                     >
@@ -78,7 +78,7 @@ const ProjectsSection = ({ resumeData, headerColor }) => {
                     {item.link}
                   </Link>
                   <p
-                    className="content"
+                    className="content font-light"
                     contentEditable
                     suppressContentEditableWarning
                     dangerouslySetInnerHTML={{
@@ -92,7 +92,7 @@ const ProjectsSection = ({ resumeData, headerColor }) => {
                   >
                     {(provided) => (
                       <ul
-                        className="list-disc pl-6 mt-2"
+                        className="list-disc pl-4 mt-2 font-light content"
                         {...provided.droppableProps}
                         ref={provided.innerRef}
                       >

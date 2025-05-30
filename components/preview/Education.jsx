@@ -1,4 +1,3 @@
-
 // import React, { useContext } from "react";
 // import DateRange from "../utility/DateRange";
 // import { ResumeContext } from "../context/ResumeContext";
@@ -9,17 +8,23 @@
 //   className = "",
 //   layout = "column", // "column" or "row"
 // }) => {
-//   const {backgroundColorss}= useContext(ResumeContext)
+//   const { backgroundColorss } = useContext(ResumeContext);
 //   if (!educationData || educationData.length === 0) return null;
 
 //   return (
 //     <div className={`mb-1 ${className}`}>
 //       <h2
 //         style={{
-//           color: `${headerColor == "black" ? `${backgroundColorss}` : headerColor}`,
-//           borderBottom: `2px solid ${headerColor == "black" ? `${backgroundColorss}` : headerColor}`,
+//           color: `${
+//             headerColor == "black" ? `${backgroundColorss}` : headerColor
+//           }`,
+//           borderBottom: `1px solid ${
+//             headerColor == "black" ? `${backgroundColorss}` : headerColor
+//           }`,
 //         }}
-//         className="text-xl font-bold mb-1"
+//         className="text-lg font-semibold mb-1"
+//         contentEditable
+//         suppressContentEditableWarning
 //       >
 //         Education
 //       </h2>
@@ -34,21 +39,49 @@
 //         >
 //           <div>
 //             <p
-//               className="font-semibold"
-//               style={{ color: layout === "row" || headerColor == "black" ? "black" : "white" }}
+//               contentEditable
+//               suppressContentEditableWarning
+//               className="font-medium"
+//               style={{
+//                 color:
+//                   layout === "row" || headerColor == "black"
+//                     ? "black"
+//                     : "white",
+//               }}
 //             >
 //               {item.degree}
 //             </p>
 //             <p
-//               style={{ color: layout === "row" || headerColor == "black" ? "black" : "white" }}
+//               contentEditable
+//               suppressContentEditableWarning
+//               className="font-medium"
+//               style={{
+//                 color:
+//                   layout === "row" || headerColor == "black"
+//                     ? "black"
+//                     : "white",
+//               }}
 //             >
 //               {item.school}
 //             </p>
 //           </div>
 //           <div>
-//             <DateRange layout={layout} startYear={item.startYear} endYear={item.endYear} />
+//             <DateRange
+//               layout={layout}
+//               startYear={item.startYear}
+//               endYear={item.endYear}
+//               // className="font-normal"
+//             />
 //             <p
-//               style={{ color: layout === "row" || headerColor == "black" ? "black" : "white" }}
+//               // className="font-normal"
+//               contentEditable
+//               suppressContentEditableWarning
+//               style={{
+//                 color:
+//                   layout === "row" || headerColor == "black"
+//                     ? "black"
+//                     : "white",
+//               }}
 //             >
 //               {item.location}
 //             </p>
@@ -60,6 +93,7 @@
 // };
 
 // export default EducationSection;
+
 import React, { useContext } from "react";
 import DateRange from "../utility/DateRange";
 import { ResumeContext } from "../context/ResumeContext";
@@ -70,19 +104,23 @@ const EducationSection = ({
   className = "",
   layout = "column", // "column" or "row"
 }) => {
-  const {backgroundColorss}= useContext(ResumeContext)
+  const { backgroundColorss } = useContext(ResumeContext);
   if (!educationData || educationData.length === 0) return null;
 
   return (
     <div className={`mb-1 ${className}`}>
       <h2
         style={{
-          color: `${headerColor == "black" ? `${backgroundColorss}` : headerColor}`,
-          borderBottom: `2px solid ${headerColor == "black" ? `${backgroundColorss}` : headerColor}`,
+          color: `${
+            headerColor == "black" ? `${backgroundColorss}` : headerColor
+          }`,
+          borderBottom: `1px solid ${
+            headerColor == "black" ? `${backgroundColorss}` : headerColor
+          }`,
         }}
-        className="text-xl font-bold mb-1"
+        className="text-lg font-semibold mb-1"
         contentEditable
-  suppressContentEditableWarning
+        suppressContentEditableWarning
       >
         Education
       </h2>
@@ -97,27 +135,49 @@ const EducationSection = ({
         >
           <div>
             <p
-             contentEditable
-             suppressContentEditableWarning
-              className="font-semibold"
-              style={{ color: layout === "row" || headerColor == "black" ? "black" : "white" }}
+              contentEditable
+              suppressContentEditableWarning
+              className="font-medium"
+              style={{
+                color:
+                  layout === "row" || headerColor == "black"
+                    ? "black"
+                    : "white",
+              }}
             >
               {item.degree}
             </p>
             <p
-             contentEditable
-             suppressContentEditableWarning
-              style={{ color: layout === "row" || headerColor == "black" ? "black" : "white" }}
+              contentEditable
+              suppressContentEditableWarning
+              className="font-medium"
+              style={{
+                color:
+                  layout === "row" || headerColor == "black"
+                    ? "black"
+                    : "white",
+              }}
             >
               {item.school}
             </p>
           </div>
           <div>
-            <DateRange layout={layout} startYear={item.startYear} endYear={item.endYear} />
+            <DateRange
+              layout={layout}
+              startYear={item.startYear}
+              endYear={item.endYear}
+              // className="font-normal"
+            />
             <p
-             contentEditable
-             suppressContentEditableWarning
-              style={{ color: layout === "row" || headerColor == "black" ? "black" : "white" }}
+              // className="font-normal"
+              contentEditable
+              suppressContentEditableWarning
+              style={{
+                color:
+                  layout === "row" || headerColor == "black"
+                    ? "black"
+                    : "white",
+              }}
             >
               {item.location}
             </p>
