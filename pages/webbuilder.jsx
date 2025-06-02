@@ -712,7 +712,6 @@ export default function WebBuilder() {
                   </Button>
                 </div>
 
-              
                 <div className="hidden lg:flex items-center gap-6">
                   {/* Font Selector */}
                   <select
