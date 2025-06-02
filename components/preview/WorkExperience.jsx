@@ -65,11 +65,21 @@ const WorkExperience = ({
                     >
                       {item.company}
                     </p>
-                    <DateRangeExperience
-                      startYear={item.startYear}
-                      endYear={item.endYear}
-                      id={`work-experience-start-end-date-${index}`}
-                    />
+
+                    {/* <p
+                      className="font-medium "
+                      contentEditable
+                      suppressContentEditableWarning
+                    >
+                      {item.location}
+                    </p> */}
+                    <p
+                      className="font-medium"
+                      contentEditable
+                      suppressContentEditableWarning
+                    >
+                      {item.location?.split(",")[0]?.trim()}
+                    </p>
                   </div>
 
                   <div className="flex flex-row justify-between space-y-1">
@@ -80,13 +90,11 @@ const WorkExperience = ({
                     >
                       {item.position}
                     </p>
-                    <p
-                      className="font-normal "
-                      contentEditable
-                      suppressContentEditableWarning
-                    >
-                      {item.location}
-                    </p>
+                    <DateRangeExperience
+                      startYear={item.startYear}
+                      endYear={item.endYear}
+                      id={`work-experience-start-end-date-${index}`}
+                    />
                   </div>
 
                   <p

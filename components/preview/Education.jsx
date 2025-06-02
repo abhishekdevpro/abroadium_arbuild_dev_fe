@@ -166,10 +166,10 @@ const EducationSection = ({
               layout={layout}
               startYear={item.startYear}
               endYear={item.endYear}
-              // className="font-normal"
+              className="font-normal"
             />
             <p
-              // className="font-normal"
+              className="font-normal"
               contentEditable
               suppressContentEditableWarning
               style={{
@@ -179,7 +179,8 @@ const EducationSection = ({
                     : "white",
               }}
             >
-              {item.location}
+              {/* {item.location} */}
+              {item.location?.split(",")[0]?.trim()}
             </p>
           </div>
         </div>

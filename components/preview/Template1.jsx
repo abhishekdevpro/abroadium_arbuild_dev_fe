@@ -99,7 +99,7 @@ const Template1 = () => {
         />
       </div>
 
-      <div className="container mx-auto flex">
+      <div className=" mx-auto flex">
         {/* Left Column */}
         <div className="left-column w-8/12 p-4 border-r border-gray-300">
           {/* Header Section with TextWrapper and conditional ImageWrapper */}

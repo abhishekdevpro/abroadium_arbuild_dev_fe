@@ -19,11 +19,11 @@ const EducationSection1 = ({
           color: `${
             headerColor == "black" ? `${backgroundColorss}` : headerColor
           }`,
-          borderBottom: `2px solid ${
+          borderBottom: `1px solid ${
             headerColor == "black" ? `${backgroundColorss}` : headerColor
           }`,
         }}
-        className="text-xl font-bold mb-1"
+        className="text-lg font-semibold mb-1"
         contentEditable
         suppressContentEditableWarning
       >
@@ -42,7 +42,7 @@ const EducationSection1 = ({
             <p
               contentEditable
               suppressContentEditableWarning
-              className="font-semibold"
+              className="font-medium"
               style={{
                 color:
                   layout === "row" || headerColor == "black"
@@ -55,6 +55,7 @@ const EducationSection1 = ({
             <p
               contentEditable
               suppressContentEditableWarning
+              className="font-medium"
               style={{
                 color:
                   layout === "row" || headerColor == "black"
@@ -67,11 +68,13 @@ const EducationSection1 = ({
           </div>
           <div>
             <DateRangeExperience
+              className="font-normal"
               layout={layout}
               startYear={item.startYear}
               endYear={item.endYear}
             />
             <p
+              className="font-normal"
               contentEditable
               suppressContentEditableWarning
               style={{
@@ -81,7 +84,8 @@ const EducationSection1 = ({
                     : "white",
               }}
             >
-              {item.location}
+              {/* {item.location} */}
+              {item.location?.split(",")[0]?.trim()}
             </p>
           </div>
         </div>
