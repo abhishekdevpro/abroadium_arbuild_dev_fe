@@ -447,12 +447,12 @@ const TemplateSelector = ({
                         : "border-transparent hover:border-blue-300"
                     }`}
                   >
-                    <div className="relative w-full aspect-[3/4] overflow-hidden rounded-lg shadow-md">
+                    <div className="relative w-full h-full  aspect-[3/4] overflow-hidden rounded-lg shadow-md">
                       <Image
                         src={template.imageUrl}
                         alt={template.key}
                         fill
-                        className="object-cover"
+                        className="object-fill"
                       />
                     </div>
                     <div
