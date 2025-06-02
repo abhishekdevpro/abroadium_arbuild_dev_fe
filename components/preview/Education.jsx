@@ -150,7 +150,7 @@ const EducationSection = ({
             <p
               contentEditable
               suppressContentEditableWarning
-              className="font-medium"
+              className="font-normal"
               style={{
                 color:
                   layout === "row" || headerColor == "black"
@@ -162,14 +162,8 @@ const EducationSection = ({
             </p>
           </div>
           <div>
-            <DateRange
-              layout={layout}
-              startYear={item.startYear}
-              endYear={item.endYear}
-              // className="font-normal"
-            />
             <p
-              // className="font-normal"
+              className="font-medium"
               contentEditable
               suppressContentEditableWarning
               style={{
@@ -179,8 +173,15 @@ const EducationSection = ({
                     : "white",
               }}
             >
-              {item.location}
+              {/* {item.location} */}
+              {item.location?.split(",")[0]?.trim()}
             </p>
+            <DateRange
+              layout={layout}
+              startYear={item.startYear}
+              endYear={item.endYear}
+              className="font-normal"
+            />
           </div>
         </div>
       ))}

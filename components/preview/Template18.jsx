@@ -70,12 +70,11 @@ const Template18 = () => {
   ];
 
   return (
-    <div
-      ref={templateRef}
-      className=""
-    >
-      
-          <div className="header text-start mb-6 px-6 py-4"  style={{ borderBottom: `2px solid ${backgroundColorss}` }}>
+    <div ref={templateRef} className="">
+      <div
+        className="header text-start mb-6 px-6 py-4"
+        style={{ borderBottom: `2px solid ${backgroundColorss}` }}
+      >
         <div className="flex justify-start items-center gap-4">
           {resumeData?.profilePicture && (
             <ImageWrapper
@@ -83,14 +82,14 @@ const Template18 = () => {
               alt="Profile Picture"
             />
           )}
-           <TextWrapper
-          name={resumeData.name}
-          position={resumeData.position}
-          headerColor={backgroundColorss}
-          orientation="column" // Use "column" for stacked layout
-        />
+          <TextWrapper
+            name={resumeData.name}
+            position={resumeData.position}
+            headerColor={backgroundColorss}
+            orientation="column" // Use "column" for stacked layout
+          />
         </div>
-       
+
         {/* <h1 className="text-2xl mb-1.5" style={{ color: headerColor }}>{resumeData.name}</h1> */}
         <ContactAndSocialMedia
           contactData={{
@@ -106,28 +105,27 @@ const Template18 = () => {
           className="justify-start gap-4 mt-4"
         />
       </div>
-         
-      <div className="container mx-auto flex bg-white shadow-lg">
+
+      <div className="container mx-auto flex bg-white ">
         {/* Left Column */}
         <div
           className="right-column w-4/12 bg-gray-100 p-8"
           style={{ backgroundColor: backgroundColorss }}
         >
           <div className="flex flex-col gap-4">
-           
-             <div className="education mb-8">
-            <EducationSection
-              itemClassNames={{
-                school: "",
-                degree: "",
-                location: "",
-              }}
-              layout="column"
-              educationData={resumeData?.education}
-              headerColor={backgroundColorss ? "white" : "black"}
-            />
-          </div>
-          <Language
+            <div className="education mb-8">
+              <EducationSection
+                itemClassNames={{
+                  school: "",
+                  degree: "",
+                  location: "",
+                }}
+                layout="column"
+                educationData={resumeData?.education}
+                headerColor={backgroundColorss ? "white" : "black"}
+              />
+            </div>
+            <Language
               title="Languages"
               languages={resumeData.languages}
               headerColor={backgroundColorss ? "white" : "black"}
@@ -139,7 +137,7 @@ const Template18 = () => {
               className="mt-4"
               layout="column"
             />
-            
+
             <Certification
               title="Certifications"
               certifications={resumeData.certifications}
@@ -147,15 +145,11 @@ const Template18 = () => {
               headerColor={backgroundColorss ? "white" : "black"}
             />
           </div>
-
-         
         </div>
-        
 
         {/* Right Column */}
         <div className="left-column w-8/12 p-8 border-r border-gray-300">
           {/* Header Section with TextWrapper and conditional ImageWrapper */}
-          
 
           {/* Rest of the left column content */}
           <div className="flex flex-col gap-4">
@@ -164,7 +158,7 @@ const Template18 = () => {
                 summary={resumeData.summary}
                 headerColor={"black"}
                 editable={true}
-                className="mt-4"
+                className="mt-1"
               />
               <WorkExperience
                 itemClassNames={{
