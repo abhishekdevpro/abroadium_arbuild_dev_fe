@@ -95,7 +95,7 @@ const Skills = ({ title, skills, color = "black", layout }) => {
         {layout === "row" ? (
           <div
             style={{ color: "black" }}
-            className="hover:outline-dashed hover:outline-2 hover:outline-gray-400"
+            className="hover:outline-dashed hover:outline-2 hover:outline-gray-400 font-normal"
             contentEditable
             suppressContentEditableWarning
           >
@@ -109,7 +109,7 @@ const Skills = ({ title, skills, color = "black", layout }) => {
             {skills.map((skill, index) => (
               <li
                 key={index}
-                className="hover:outline-dashed hover:outline-2 hover:outline-gray-400 hover:scale-105 transition-transform duration-300"
+                className="hover:outline-dashed hover:outline-2 hover:outline-gray-400 hover:scale-105 transition-transform duration-300 font-normal"
               >
                 <span
                   contentEditable

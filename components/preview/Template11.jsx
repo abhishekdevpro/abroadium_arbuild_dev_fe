@@ -74,7 +74,7 @@ const Template11 = () => {
     <div ref={templateRef} className="">
       <div
         style={{ borderBottom: `2px solid ${backgroundColorss}` }}
-        className={`mb-6 ${
+        className={`mb-4 ${
           resumeData?.profilePicture
             ? "flex justify-start items-center gap-4"
             : "flex justify-center items-center "
@@ -100,7 +100,7 @@ const Template11 = () => {
         />
       </div>
 
-      <div className="container mx-auto flex bg-white shadow-lg">
+      <div className="container mx-auto flex bg-white ">
         {/* Left Column */}
         <div
           className="right-column w-4/12 bg-gray-100 p-8"
@@ -148,7 +148,7 @@ const Template11 = () => {
                 summary={resumeData.summary}
                 headerColor={"black"}
                 editable={true}
-                className="mt-4"
+                className=""
               />
               <WorkExperience
                 itemClassNames={{

@@ -55,7 +55,7 @@ const EducationSection1 = ({
             <p
               contentEditable
               suppressContentEditableWarning
-              className="font-medium"
+              className="font-normal"
               style={{
                 color:
                   layout === "row" || headerColor == "black"
@@ -67,14 +67,8 @@ const EducationSection1 = ({
             </p>
           </div>
           <div>
-            <DateRangeExperience
-              className="font-normal"
-              layout={layout}
-              startYear={item.startYear}
-              endYear={item.endYear}
-            />
             <p
-              className="font-normal"
+              className="font-medium"
               contentEditable
               suppressContentEditableWarning
               style={{
@@ -87,6 +81,12 @@ const EducationSection1 = ({
               {/* {item.location} */}
               {item.location?.split(",")[0]?.trim()}
             </p>
+            <DateRangeExperience
+              className="font-normal"
+              layout={layout}
+              startYear={item.startYear}
+              endYear={item.endYear}
+            />
           </div>
         </div>
       ))}

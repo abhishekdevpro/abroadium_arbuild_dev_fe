@@ -70,11 +70,8 @@ const Template19 = () => {
   ];
 
   return (
-    <div
-      ref={templateRef}
-      className=" "
-    >
-      <div className="container mx-auto flex bg-white shadow-lg">
+    <div ref={templateRef} className=" ">
+      <div className="container mx-auto flex bg-white ">
         {/* Left Column */}
         <div className="left-column w-8/12 p-8 border-r border-gray-300">
           <TextWrapper
@@ -85,20 +82,18 @@ const Template19 = () => {
             orientation="column" // Use "column" for stacked layout
           />
 
-
           {/* Job 1 */}
           <div className="flex flex-col gap-4">
             <div className="col-span-2 space-y-2">
               <SummaryWrapper
-                          summary={resumeData.summary}
-                          headerColor={"black"}
-                          editable={true} // Set to false if editing is not required
-                          className="mt-4"
-                        />
+                summary={resumeData.summary}
+                headerColor={"black"}
+                editable={true} // Set to false if editing is not required
+                className="mt-4"
+              />
               <WorkExperience
                 itemClassNames={{
-                  title:
-                    "text-lg font-bold mb-1  editable",
+                  title: "text-lg font-bold mb-1  editable",
                   company: "",
                   position: "",
                   location: "",
@@ -119,10 +114,9 @@ const Template19 = () => {
           className="right-column w-4/12 bg-gray-100 p-8"
           style={{ backgroundColor: backgroundColorss }}
         >
-
           <div className=" flex flex-col gap-4">
-          <ContactAndSocialMedia
-            title="Contacts"
+            <ContactAndSocialMedia
+              title="Contacts"
               contactData={{
                 teldata: resumeData.contactInformation,
                 emaildata: resumeData.email,
@@ -133,44 +127,41 @@ const Template19 = () => {
               layout="column" // or "row"
               contactClass=""
               socialMediaClass=""
-               textColor="text-white"
+              textColor="text-white"
             />
             <div className="education mb-8">
-            <EducationSection
-              itemClassNames={{
-                school: "",
-                degree: "",
-                location: "",
-              }}
-              layout="column"
-              educationData={resumeData?.education}
-              headerColor={backgroundColorss?"white":"black"}
-            />
-              <Language title="Languages" languages={resumeData.languages}
-             headerColor= {backgroundColorss?"white":"black"}
-            />
-            {/* <button onClick={extractHtml}>Log HTML Content</button> */}
-          </div>
+              <EducationSection
+                itemClassNames={{
+                  school: "",
+                  degree: "",
+                  location: "",
+                }}
+                layout="column"
+                educationData={resumeData?.education}
+                headerColor={backgroundColorss ? "white" : "black"}
+              />
+              <Language
+                title="Languages"
+                languages={resumeData.languages}
+                headerColor={backgroundColorss ? "white" : "black"}
+              />
+              {/* <button onClick={extractHtml}>Log HTML Content</button> */}
+            </div>
             <SkillsWrapper
               skills={resumeData.skills}
-              headerColor={backgroundColorss?"white":"black"}
+              headerColor={backgroundColorss ? "white" : "black"}
               droppableId="skills-section-1"
               className="mt-4"
               layout="column"
             />
-            
-          
-            
 
             <Certification
               title="Certifications"
               certifications={resumeData.certifications}
               hasBullet={true}
-              headerColor= {backgroundColorss?"white":"black"}
+              headerColor={backgroundColorss ? "white" : "black"}
             />
           </div>
-
-          
         </div>
       </div>
     </div>
