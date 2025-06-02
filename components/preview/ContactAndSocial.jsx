@@ -322,9 +322,11 @@ const ContactAndSocialMedia = ({
 
     return (
       <div
-        className={`flex items-center gap-2 text-base ${contactClass} hover:outline-dashed hover:outline-2 hover:outline-gray-400 hover:scale-105 transition-transform duration-300`}
+        className={`flex items-center gap-2 text-lg font-medium ${contactClass} hover:outline-dashed hover:outline-2 hover:outline-gray-400 hover:scale-105 transition-transform duration-300`}
       >
-        <span className={`${finalTextColor} `}>{getIcon(icon)}</span>
+        <span className={`${finalTextColor} text-lg font-medium`}>
+          {getIcon(icon)}
+        </span>
 
         <span
           className={finalTextColor}
@@ -354,14 +356,14 @@ const ContactAndSocialMedia = ({
         title={socialMedia.socialMedia}
         target="_blank"
         rel="noreferrer"
-        className={`flex items-center text-base  ${socialMediaClass} hover:outline-dashed hover:outline-2 hover:outline-gray-400 hover:scale-105 transition-transform duration-300`}
+        className={`flex items-center text-lg font-medium  ${socialMediaClass} hover:outline-dashed hover:outline-2 hover:outline-gray-400 hover:scale-105 transition-transform duration-300`}
       >
         <span className={` ${finalTextColor} text-sm`}>
           {getIcon(socialMedia.socialMedia.toLowerCase())}
         </span>
         &nbsp;
         <span
-          className={`truncate ${finalTextColor} text-base`}
+          className={`truncate ${finalTextColor} text-lg font-medium`}
           contentEditable
           suppressContentEditableWarning
         >
@@ -381,7 +383,7 @@ const ContactAndSocialMedia = ({
     >
       {title && (
         <h3
-          className={` text-lg font-semibold mb-1  border-b-2 ${
+          className={` text-xl font-semibold mb-1  border-b-2 ${
             finalTextColor === "text-black" ? "border-black" : "border-white"
           } ${finalTextColor}`}
           style={{

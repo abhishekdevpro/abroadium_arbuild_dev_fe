@@ -123,10 +123,7 @@ const Sidebar = ({ score, resumeId }) => {
         <>
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-lg font-semibold">{resumeTitle}</h2>
-            <Link
-              href="/dashboard/resumelist"
-              className="text-blue-600 hover:text-blue-700"
-            >
+            <Link href="/dashboard/resumelist" className="text-[#002a48] ">
               View All
             </Link>
           </div>
@@ -137,7 +134,7 @@ const Sidebar = ({ score, resumeId }) => {
               //   Loading...
               // </div>
               <div className="flex items-center justify-center h-full">
-                <div className="w-10 h-10 border-4 border-gray-300 border-t-blue-500 rounded-full animate-spin"></div>
+                <div className="w-10 h-10 border-4 border-gray-300 border-[#002a48] rounded-full animate-spin"></div>
               </div>
             ) : (
               <DashboardPreview
@@ -178,7 +175,7 @@ const Sidebar = ({ score, resumeId }) => {
             <div className="flex justify-between items-center mb-2">
               <span className="text-sm font-medium">Resume Strength:</span>
               <div className="flex items-center gap-2">
-                <span className="bg-teal-100 text-teal-800 px-2 py-1 rounded-full text-sm">
+                <span className="bg-orange-100 text-orange-600 px-2 py-1 rounded-full text-sm">
                   {score}
                 </span>
                 {/* <Button className="text-blue-600 hover:text-blue-700 text-sm">
@@ -190,7 +187,7 @@ const Sidebar = ({ score, resumeId }) => {
 
           <Button
             onClick={handleCreate}
-            className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-[#002a48] text-white rounded-lg "
           >
             <Plus />
             Create New Resume

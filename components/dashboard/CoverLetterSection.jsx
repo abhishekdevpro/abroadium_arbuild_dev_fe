@@ -22,8 +22,8 @@ const CoverLetterSection = ({ letterCount }) => {
 
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div className="flex items-center gap-3">
-          <div className="p-2 bg-green-100 rounded-lg shrink-0">
-            <Mail className="w-5 h-5 md:w-6 md:h-6 text-green-600" />
+          <div className="p-2 bg-orange-100 rounded-lg shrink-0">
+            <Mail className="w-5 h-5 md:w-6 md:h-6 text-orange-600" />
           </div>
           <div>
             <h3 className="text-lg font-semibold">Your Cover Letters</h3>
@@ -37,7 +37,7 @@ const CoverLetterSection = ({ letterCount }) => {
         </div>
         <Button
           onClick={handleClick}
-          className="px-4 py-2 md:px-6 md:py-2 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 text-sm md:text-base whitespace-nowrap self-start sm:self-auto mt-2 sm:mt-0"
+          className="px-4 py-2 md:px-6 md:py-2 border border-[#002a48] text-[#002a48] rounded-lg hover:bg-blue-50 text-sm md:text-base whitespace-nowrap self-start sm:self-auto mt-2 sm:mt-0"
         >
           View Cover Letters
         </Button>

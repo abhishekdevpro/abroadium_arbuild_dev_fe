@@ -70,7 +70,7 @@ const Language = ({ title, languages, headerColor }) => {
             }}
             contentEditable
             suppressContentEditableWarning
-            className="text-lg font-semibold mb-1"
+            className="text-xl font-semibold mb-1"
           >
             {title}
           </h2>
@@ -78,7 +78,7 @@ const Language = ({ title, languages, headerColor }) => {
         {/* Languages List */}
         <ul
           style={{ color: headerColor }}
-          className="list-disc ml-6 font-medium content"
+          className="list-disc ml-6 font-medium text-lg"
         >
           {languages.map((lang, index) => (
             <li

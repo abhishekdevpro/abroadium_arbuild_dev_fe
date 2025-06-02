@@ -59,18 +59,18 @@ const TemplateSelector = ({ selectedTemplate, setSelectedTemplate }) => {
     <div className="font-sans">
       <button
         onClick={openModal}
-        className="hidden md:block rounded-lg border-2 m-2 border-blue-800 px-5 py-2 font-bold bg-white text-blue-800"
+        className="hidden md:block rounded-lg border-2 m-2 border-[#002a48] px-5 py-2 font-bold bg-white text-[#002a48]"
       >
         <span>Selected: {templateId || "template1"}</span>
       </button>
       <button
         onClick={openModal}
-        className="block md:hidden rounded-lg border-2 m-2 border-blue-800 px-5 py-2 font-bold bg-white text-blue-800"
+        className="block md:hidden rounded-lg border-2 m-2 border-[#002a48] px-5 py-2 font-bold bg-white text-[#002a48]"
       >
         Template
       </button>
 
-      {isOpen && (
+      {/* {isOpen && (
         <div className="fixed inset-0 flex items-center justify-center z-50 p-4 bg-gradient-to-b from-white to-blue-100">
           <div className="bg-white rounded-xl p-6 w-full max-w-5xl relative shadow-2xl">
             <div className="text-lg font-bold mb-4 text-center border rounded-3xl py-2 text-white bg-gray-800">
@@ -105,7 +105,7 @@ const TemplateSelector = ({ selectedTemplate, setSelectedTemplate }) => {
                         w-64 p-2 rounded-lg transition-all duration-300
                         ${
                           template.key === templateId
-                            ? "bg-blue-100 ring-4 ring-blue-500 ring-offset-2"
+                            ? "bg-blue-100 ring-4 ring-[#002a48] ring-offset-2"
                             : "hover:bg-gray-50"
                         }
                       `}
@@ -126,7 +126,7 @@ const TemplateSelector = ({ selectedTemplate, setSelectedTemplate }) => {
                             `}
                           />
                           {template.key === templateId && (
-                            <div className="absolute inset-0 border-4 border-blue-500 rounded-lg pointer-events-none" />
+                            <div className="absolute inset-0 border-4 border-[#002a48] rounded-lg pointer-events-none" />
                           )}
                         </div>
                         <div
@@ -134,8 +134,8 @@ const TemplateSelector = ({ selectedTemplate, setSelectedTemplate }) => {
                           mt-2 text-center py-2 px-4 rounded-md transition-colors duration-300
                           ${
                             template.key === templateId
-                              ? "bg-blue-500 text-white font-semibold"
-                              : "text-gray-600 group-hover:text-blue-600"
+                              ? "bg-[#002a48] text-white font-semibold"
+                              : "text-gray-600 group-hover:text-[#002a48]"
                           }
                         `}
                         >
@@ -161,6 +161,64 @@ const TemplateSelector = ({ selectedTemplate, setSelectedTemplate }) => {
             >
               Close
             </button>
+          </div>
+        </div>
+      )} */}
+      {isOpen && (
+        <div className="fixed inset-0 flex items-center justify-center z-50 p-4 bg-gradient-to-b from-white to-blue-100">
+          <div className="bg-white rounded-xl p-6 w-full max-w-5xl relative shadow-2xl max-h-[90vh] overflow-y-auto">
+            <div className="text-lg font-bold mb-6 text-center border rounded-3xl py-2 text-white bg-gray-800">
+              Select a Template
+            </div>
+
+            {/* Grid Layout */}
+            <div className="max-h-[70vh] overflow-y-auto px-4 py-2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+              {templates.map((template) => (
+                <div
+                  key={template.key}
+                  onClick={() => handleTemplateClick(template.key)}
+                  className={`cursor-pointer transition-transform duration-200 ${
+                    template.key === templateId
+                      ? "scale-105"
+                      : "hover:scale-105"
+                  }`}
+                >
+                  <div
+                    className={`rounded-xl p-2 border-2 transition-colors duration-300 ${
+                      template.key === templateId
+                        ? "border-[#002a48] bg-blue-100"
+                        : "border-transparent hover:border-blue-300"
+                    }`}
+                  >
+                    <div className="relative w-full aspect-[3/4] overflow-hidden rounded-lg shadow-md">
+                      <Image
+                        src={template.imageUrl}
+                        alt={template.key}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                    <div
+                      className={`mt-2 text-center py-2 px-4 rounded-md transition-colors duration-300 ${
+                        template.key === templateId
+                          ? "bg-[#002a48] text-white font-semibold"
+                          : "text-gray-600 group-hover:text-[#002a48]"
+                      }`}
+                    >
+                      {template.key}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Close Button */}
+            {/* <button
+              onClick={closeModal}
+              className="mt-6 w-full sm:w-auto px-6 py-2.5 bg-gray-800 text-white font-semibold rounded-lg hover:bg-gray-700 transition-colors duration-200 flex items-center justify-center mx-auto"
+            >
+              Close
+            </button> */}
           </div>
         </div>
       )}

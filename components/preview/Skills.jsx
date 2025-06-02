@@ -85,7 +85,7 @@ const Skills = ({ title, skills, color = "black", layout }) => {
           style={{
             color: layout === "row" || !backgroundColorss ? "black" : color,
           }}
-          className="text-base font-medium mb-2 editable"
+          className="text-lg font-medium  editable"
           contentEditable
           suppressContentEditableWarning
           onBlur={handleTitleChange}
@@ -95,7 +95,7 @@ const Skills = ({ title, skills, color = "black", layout }) => {
         {layout === "row" ? (
           <div
             style={{ color: "black" }}
-            className="hover:outline-dashed hover:outline-2 hover:outline-gray-400 font-normal"
+            className="hover:outline-dashed hover:outline-2 hover:outline-gray-400 font-normal text-base mb-4"
             contentEditable
             suppressContentEditableWarning
           >
@@ -104,12 +104,12 @@ const Skills = ({ title, skills, color = "black", layout }) => {
         ) : (
           <ul
             style={{ color: backgroundColorss ? color : "black" }}
-            className="list-disc ml-6 font-light content"
+            className="list-disc ml-6 font-light text-sm"
           >
             {skills.map((skill, index) => (
               <li
                 key={index}
-                className="hover:outline-dashed hover:outline-2 hover:outline-gray-400 hover:scale-105 transition-transform duration-300 font-normal"
+                className="hover:outline-dashed hover:outline-2 hover:outline-gray-400 hover:scale-105 transition-transform duration-300 font-normal text-base"
               >
                 <span
                   contentEditable
