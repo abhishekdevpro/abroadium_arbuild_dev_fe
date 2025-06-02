@@ -23,6 +23,7 @@ import { Menu, X } from "lucide-react";
 import Image from "next/image";
 import { ResumeContext } from "../components/context/ResumeContext";
 import { SaveLoader } from "../components/ResumeLoader/SaveLoader";
+import Highlightmenubar from "../components/preview/highlightmenu";
 
 const Print = dynamic(() => import("../components/utility/WinPrint"), {
   ssr: false,
@@ -612,6 +613,7 @@ export default function MobileBuilder() {
               />
             </div>
             <div className="bg-gradient-to-b from-white to-blue-100  ">
+              <Highlightmenubar />
               <Preview ref={templateRef} selectedTemplate={selectedTemplate} />
             </div>
 

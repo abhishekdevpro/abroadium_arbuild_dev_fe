@@ -31,6 +31,7 @@ import { ResumeContext } from "../components/context/ResumeContext";
 import ResumeLoader from "../components/ResumeLoader/Loader";
 import { SaveLoader } from "../components/ResumeLoader/SaveLoader";
 import Button from "../components/buttonUIComponent";
+import Highlightmenubar from "../components/preview/highlightmenu";
 
 const Print = dynamic(() => import("../components/utility/WinPrint"), {
   ssr: false,
@@ -883,6 +884,7 @@ transition-transform duration-200 ease-in-out hover:scale-[1.02] hover:bg-blue-5
             </div>
 
             <div className="z-10">
+              <Highlightmenubar />
               <Preview ref={templateRef} selectedTemplate={selectedTemplate} />
             </div>
           </div>

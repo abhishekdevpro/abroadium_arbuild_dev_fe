@@ -227,7 +227,7 @@
 //   // useKeyboardShortcut("u", true, toggleUnderline);
 
 //   return (
-  
+
 //       <A4PageWrapper>
 //         <div ref={ref} className="preview" style={{ fontFamily: selectedFont }}>
 //           <HighlightMenu
@@ -300,7 +300,7 @@
 //           </DragDropContext>
 //         </div>
 //       </A4PageWrapper>
-   
+
 //   );
 // });
 
@@ -322,7 +322,7 @@
 
 //   return (
 //     <div className="a4-wrapper"
-  
+
 //     onLoad={alertA4Size}>
 //       {children}
 //     </div>
@@ -401,7 +401,7 @@ const Draggable = dynamic(
   { ssr: false }
 );
 const A4_HEIGHT_PX = 1123; // A4 height in pixels at 96 DPI
-const PAGE_MARGIN = 0; 
+const PAGE_MARGIN = 0;
 // Margin between pages in pixels
 // Function to check grammar using a hypothetical API
 const checkGrammar = () => {
@@ -516,10 +516,12 @@ const Preview = forwardRef(({ selectedTemplate }, ref) => {
     if (source.droppableId.includes("WORK_EXPERIENCE_KEY_ACHIEVEMENT")) {
       const newWorkExperience = [...resumeData.workExperience];
       const workExperienceIndex = parseInt(source.droppableId.split("-")[1]);
-      const keyAchievements = newWorkExperience[workExperienceIndex].keyAchievements.split("\n");
+      const keyAchievements =
+        newWorkExperience[workExperienceIndex].keyAchievements.split("\n");
       const [removed] = keyAchievements.splice(source.index, 1);
       keyAchievements.splice(destination.index, 0, removed);
-      newWorkExperience[workExperienceIndex].keyAchievements = keyAchievements.join("\n");
+      newWorkExperience[workExperienceIndex].keyAchievements =
+        keyAchievements.join("\n");
       setResumeData({ ...resumeData, workExperience: newWorkExperience });
     }
 
@@ -540,7 +542,8 @@ const Preview = forwardRef(({ selectedTemplate }, ref) => {
     if (source.droppableId.includes("PROJECTS_KEY_ACHIEVEMENT")) {
       const newProjects = [...resumeData.projects];
       const projectIndex = parseInt(source.droppableId.split("-")[1]);
-      const keyAchievements = newProjects[projectIndex].keyAchievements.split("\n");
+      const keyAchievements =
+        newProjects[projectIndex].keyAchievements.split("\n");
       const [removed] = keyAchievements.splice(source.index, 1);
       keyAchievements.splice(destination.index, 0, removed);
       newProjects[projectIndex].keyAchievements = keyAchievements.join("\n");
@@ -579,83 +582,82 @@ const Preview = forwardRef(({ selectedTemplate }, ref) => {
   // useKeyboardShortcut("u", true, toggleUnderline);
 
   return (
-  
-      // <A4PageWrapper>
-      //   <div ref={ref} className="preview" style={{ fontFamily: selectedFont }}>
-      //     <HighlightMenu
-      //       styles={{
-      //         borderColor: "",
-      //         backgroundColor: "#c5c9c9",
-      //         boxShadow: "0px 5px 5px 0px rgba(0, 0, 0, 0.15)",
-      //         zIndex: 10,
-      //         borderRadius: "5px",
-      //         padding: "3px",
-      //       }}
-      //       target="body"
-      //       menu={() => (
-      //         <>
-      //           <MenuButton
-      //             title="Bold (Ctrl+B)"
-      //             icon={<FaBold />}
-      //             onClick={toggleBold}
-      //           />
-      //           <MenuButton
-      //             title="Italic (Ctrl+I)"
-      //             icon={<FaItalic />}
-      //             onClick={toggleItalic}
-      //           />
-      //           <MenuButton
-      //             title="Underline (Ctrl+U)"
-      //             icon={<FaUnderline />}
-      //             onClick={toggleUnderline}
-      //           />
-      //           <MenuButton
-      //             title="Increase Font Size"
-      //             icon={<FaPlus />}
-      //             onClick={() => changeFontSize(4)}
-      //           />
-      //           <MenuButton
-      //             title="Decrease Font Size"
-      //             icon={<FaMinus />}
-      //             onClick={() => changeFontSize(2)}
-      //           />
-      //           <MenuButton
-      //             title="Align Left"
-      //             icon={<FaAlignLeft />}
-      //             onClick={() => alignText("Left")}
-      //           />
-      //           <MenuButton
-      //             title="Align Center"
-      //             icon={<FaAlignCenter />}
-      //             onClick={() => alignText("Center")}
-      //           />
-      //           <MenuButton
-      //             title="Align Right"
-      //             icon={<FaAlignRight />}
-      //             onClick={() => alignText("Right")}
-      //           />
-      //           <MenuButton
-      //             title="Add Link"
-      //             icon={<FaLink />}
-      //             onClick={toggleLink}
-      //           />
-      //           <MenuButton
-      //             title="Check Grammar"
-      //             icon={<FaSpellCheck />}
-      //             onClick={checkGrammar}
-      //           />
-      //         </>
-      //       )}
-      //     />
-      //     <DragDropContext onDragEnd={onDragEnd}>
-      //       {templates[selectedTemplate]}
-      //     </DragDropContext>
-      //   </div>
-      // </A4PageWrapper>
+    // <A4PageWrapper>
+    //   <div ref={ref} className="preview" style={{ fontFamily: selectedFont }}>
+    //     <HighlightMenu
+    //       styles={{
+    //         borderColor: "",
+    //         backgroundColor: "#c5c9c9",
+    //         boxShadow: "0px 5px 5px 0px rgba(0, 0, 0, 0.15)",
+    //         zIndex: 10,
+    //         borderRadius: "5px",
+    //         padding: "3px",
+    //       }}
+    //       target="body"
+    //       menu={() => (
+    //         <>
+    //           <MenuButton
+    //             title="Bold (Ctrl+B)"
+    //             icon={<FaBold />}
+    //             onClick={toggleBold}
+    //           />
+    //           <MenuButton
+    //             title="Italic (Ctrl+I)"
+    //             icon={<FaItalic />}
+    //             onClick={toggleItalic}
+    //           />
+    //           <MenuButton
+    //             title="Underline (Ctrl+U)"
+    //             icon={<FaUnderline />}
+    //             onClick={toggleUnderline}
+    //           />
+    //           <MenuButton
+    //             title="Increase Font Size"
+    //             icon={<FaPlus />}
+    //             onClick={() => changeFontSize(4)}
+    //           />
+    //           <MenuButton
+    //             title="Decrease Font Size"
+    //             icon={<FaMinus />}
+    //             onClick={() => changeFontSize(2)}
+    //           />
+    //           <MenuButton
+    //             title="Align Left"
+    //             icon={<FaAlignLeft />}
+    //             onClick={() => alignText("Left")}
+    //           />
+    //           <MenuButton
+    //             title="Align Center"
+    //             icon={<FaAlignCenter />}
+    //             onClick={() => alignText("Center")}
+    //           />
+    //           <MenuButton
+    //             title="Align Right"
+    //             icon={<FaAlignRight />}
+    //             onClick={() => alignText("Right")}
+    //           />
+    //           <MenuButton
+    //             title="Add Link"
+    //             icon={<FaLink />}
+    //             onClick={toggleLink}
+    //           />
+    //           <MenuButton
+    //             title="Check Grammar"
+    //             icon={<FaSpellCheck />}
+    //             onClick={checkGrammar}
+    //           />
+    //         </>
+    //       )}
+    //     />
+    //     <DragDropContext onDragEnd={onDragEnd}>
+    //       {templates[selectedTemplate]}
+    //     </DragDropContext>
+    //   </div>
+    // </A4PageWrapper>
     <A4PageWrapper>
-        <div className="relative">
-      <div ref={ref} className="preview" style={{ fontFamily: selectedFont }}>
-        <HighlightMenu
+      <div className="relative">
+        <div ref={ref} className="preview" style={{ fontFamily: selectedFont }}>
+          {/* <HighlightMenu
           styles={{
             borderColor: "",
             backgroundColor: "#c5c9c9",
@@ -679,42 +681,43 @@ const Preview = forwardRef(({ selectedTemplate }, ref) => {
               <MenuButton title="Check Grammar" icon={<FaSpellCheck />} onClick={checkGrammar} />
             </>
           )}
-        />
-        <DragDropContext onDragEnd={onDragEnd}>
-          {/* Templates rendering */}
-          {templates[selectedTemplate]}
-          
-          {/* Page break indicators */}
-          {showPageIndicators && Array.from({ length: pageCount - 1 }).map((_, index) => (
-            <div
-              key={`page-break-${index}`}
-              className="w-full flex flex-col items-center"
-              style={{
-                position: 'absolute',
-                top: `${(index + 1) * A4_HEIGHT_PX}px`,
-                left: 0,
-                right: 0,
-                marginTop: `-${PAGE_MARGIN/2}px`
-              }}
-            >
-              <div className="w-full border-b-2 border-dashed border-red-400" />
-              
-              <div 
-                className="absolute top-1/2 transform -translate-y-1/2 px-4 py-2 rounded-r-md text-black/50 text-center"
-                style={{ zIndex: 2 }}
-              >
-                Page {index + 2}
-              </div>
-            </div>
-          ))}
-        </DragDropContext>
+        /> */}
+          <DragDropContext onDragEnd={onDragEnd}>
+            {/* Templates rendering */}
+            {templates[selectedTemplate]}
+
+            {/* Page break indicators */}
+            {showPageIndicators &&
+              Array.from({ length: pageCount - 1 }).map((_, index) => (
+                <div
+                  key={`page-break-${index}`}
+                  className="w-full flex flex-col items-center"
+                  style={{
+                    position: "absolute",
+                    top: `${(index + 1) * A4_HEIGHT_PX}px`,
+                    left: 0,
+                    right: 0,
+                    marginTop: `-${PAGE_MARGIN / 2}px`,
+                  }}
+                >
+                  <div className="w-full border-b-2 border-dashed border-red-400" />
+
+                  <div
+                    className="absolute top-1/2 transform -translate-y-1/2 px-4 py-2 rounded-r-md text-black/50 text-center"
+                    style={{ zIndex: 2 }}
+                  >
+                    Page {index + 2}
+                  </div>
+                </div>
+              ))}
+          </DragDropContext>
+        </div>
       </div>
-    </div>
     </A4PageWrapper>
   );
 });
 
-Preview.displayName = "Preview"
+Preview.displayName = "Preview";
 
 const A4PageWrapper = ({ children }) => {
   const alertA4Size = () => {
@@ -731,9 +734,7 @@ const A4PageWrapper = ({ children }) => {
   };
 
   return (
-    <div className="a4-wrapper"
-  
-    onLoad={alertA4Size}>
+    <div className="a4-wrapper" onLoad={alertA4Size}>
       {children}
     </div>
   );

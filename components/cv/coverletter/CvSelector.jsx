@@ -195,7 +195,7 @@ const TemplateSelector = ({ selectedTemplate, setSelectedTemplate }) => {
                         src={template.imageUrl}
                         alt={template.key}
                         fill
-                        className="object-cover"
+                        className="object-fill"
                       />
                     </div>
                     <div
