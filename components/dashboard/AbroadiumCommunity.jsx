@@ -39,16 +39,16 @@
 // };
 
 // export default AbroadiumCommunity;
-import React from 'react';
-import { MessageSquare } from 'lucide-react';
+import React from "react";
+import { MessageSquare } from "lucide-react";
 
 const AbroadiumCommunity = () => {
   return (
     <div className="border border-gray-200 rounded-lg p-4 md:p-6 mb-6 w-full">
       <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
-          <div className="p-2 bg-purple-100 rounded-lg shrink-0">
-            <MessageSquare className="w-5 h-5 md:w-6 md:h-6 text-purple-600" />
+          <div className="p-2 bg-orange-100 rounded-lg shrink-0">
+            <MessageSquare className="w-5 h-5 md:w-6 md:h-6 text-orange-600" />
           </div>
           <div>
             <h3 className="text-lg font-semibold">
@@ -62,7 +62,7 @@ const AbroadiumCommunity = () => {
             </p>
           </div>
         </div>
-        <button className="px-4 py-2 md:px-6 md:py-2 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 text-sm md:text-base whitespace-nowrap self-start sm:self-center md:self-auto mt-2 sm:mt-0">
+        <button className="px-4 py-2 md:px-6 md:py-2 border border-[#002a48] text-[#002a48] rounded-lg hover:bg-blue-50 text-sm md:text-base whitespace-nowrap self-start sm:self-center md:self-auto mt-2 sm:mt-0">
           I m In!
         </button>
       </div>

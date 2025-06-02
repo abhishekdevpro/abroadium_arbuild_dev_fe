@@ -230,7 +230,7 @@ const TextWrapper = ({
       <h1
         contentEditable
         suppressContentEditableWarning
-        className="text-3xl font-extrabold"
+        className="text-5xl font-extrabold"
         style={{ color: headerColor }}
       >
         {name}
@@ -238,7 +238,7 @@ const TextWrapper = ({
       <p
         contentEditable
         suppressContentEditableWarning
-        className="text-xl font-bold text-gray-700"
+        className="text-3xl font-bold text-gray-700"
       >
         {position}
       </p>
@@ -283,14 +283,14 @@ const SummaryWrapper = ({
           }}
           contentEditable
           suppressContentEditableWarning
-          className="text-lg font-semibold mb-1 "
+          className="text-xl font-semibold mb-1 "
         >
           Summary
         </h2>
 
         <p
           style={{ color: headerColor }}
-          className="break-words hover:outline-dashed hover:scale-105 hover:outline-2 hover:outline-gray-400 text-base"
+          className="break-words hover:outline-dashed hover:scale-105 hover:outline-2 hover:outline-gray-400 text-lg"
           contentEditable
           suppressContentEditableWarning
           dangerouslySetInnerHTML={{ __html: summary }}

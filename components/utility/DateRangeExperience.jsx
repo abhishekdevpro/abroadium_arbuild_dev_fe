@@ -10,7 +10,7 @@ const DateRangeExperience = ({ startYear, endYear, id, layout }) => {
   const start = new Date(startYear);
   const end = new Date(endYear);
   return (
-    <p className="font-normal">
+    <p className="font-normal text-base">
       {start.toLocaleString("default", { month: "short" })}{" "}
       {start.getFullYear()} -{" "}
       {end != "Invalid Date"

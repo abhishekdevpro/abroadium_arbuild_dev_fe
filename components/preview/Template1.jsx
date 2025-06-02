@@ -115,7 +115,7 @@ const Template1 = () => {
               />
               <WorkExperience
                 itemClassNames={{
-                  title: "text-lg font-semibold mb-1 editable",
+                  title: "text-xl font-semibold mb-1 editable",
                   company: "",
                   position: "",
                   location: "",
@@ -149,7 +149,7 @@ const Template1 = () => {
               layout="column"
               contactClass=""
               socialMediaClass=""
-              textColor="text-white"
+              textColor="text-white "
             />
             <SkillsWrapper
               skills={resumeData.skills}

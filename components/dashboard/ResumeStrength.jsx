@@ -599,7 +599,7 @@ const ResumeStrength = ({ score, strength, resumeId }) => {
           <div>
             <h2 className="text-xl font-semibold mb-1">Resume Strength</h2>
             <div className="flex items-center gap-2">
-              <span className="bg-teal-100 text-teal-800 px-3 py-1 rounded-full text-lg font-semibold">
+              <span className="bg-orange-100 text-orange-600 px-3 py-1 rounded-full text-lg font-semibold">
                 {score}%
               </span>
             </div>
@@ -621,7 +621,7 @@ const ResumeStrength = ({ score, strength, resumeId }) => {
               <Button
                 onClick={handleImproveResume}
                 disabled={!resumeId}
-                className={`px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors ${
+                className={`px-6 py-2 bg-[#002a48] text-white rounded-lg  transition-colors ${
                   !resumeId ? "opacity-50 cursor-not-allowed" : ""
                 }`}
               >

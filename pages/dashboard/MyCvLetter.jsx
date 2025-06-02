@@ -140,7 +140,7 @@ const MyCvLetter = () => {
         <h1 className="text-2xl font-bold text-gray-800">My Cover Letters</h1>
         <Button
           onClick={handleCreate}
-          className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 font-medium shadow-sm"
+          className="flex items-center px-4 py-2 bg-[#002a48] text-white rounded-lg  transition-colors duration-200 font-medium shadow-sm"
         >
           <Plus className="w-5 h-5 mr-2" /> Create New Cover Letters
         </Button>
@@ -182,7 +182,7 @@ const MyCvLetter = () => {
                         </span>
                         <Button
                           onClick={() => handleOpenEditModal(coverletter)}
-                          className="text-blue-600 hover:text-blue-800"
+                          className="text-[#002a48] "
                         >
                           🖍
                         </Button>
@@ -200,7 +200,7 @@ const MyCvLetter = () => {
                       <div className="flex items-center space-x-3">
                         <Button
                           onClick={() => handleEdit(coverletter.id)}
-                          className="text-blue-600 hover:text-blue-800"
+                          className="text-[#002a48] "
                         >
                           <Edit className="w-5 h-5" />
                         </Button>
@@ -271,7 +271,7 @@ const MyCvLetter = () => {
             </h2>
             <input
               type="text"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#002a48]"
               value={newCoverLetterTitle}
               onChange={(e) => setNewCoverLetterTitle(e.target.value)}
               placeholder="Enter new cover letter title"
@@ -285,7 +285,7 @@ const MyCvLetter = () => {
               </Button>
               <Button
                 onClick={handleUpdateCvLetterTitle}
-                className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700"
+                className="px-4 py-2 text-sm font-medium text-white bg-[#002a48] rounded-md "
               >
                 Save
               </Button>

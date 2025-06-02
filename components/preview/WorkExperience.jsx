@@ -61,20 +61,13 @@ const WorkExperience = ({
                     <p
                       contentEditable
                       suppressContentEditableWarning
-                      className="font-medium "
+                      className="font-medium text-lg"
                     >
                       {item.company}
                     </p>
 
-                    {/* <p
-                      className="font-medium "
-                      contentEditable
-                      suppressContentEditableWarning
-                    >
-                      {item.location}
-                    </p> */}
                     <p
-                      className="font-medium"
+                      className="font-medium text-lg"
                       contentEditable
                       suppressContentEditableWarning
                     >
@@ -84,7 +77,7 @@ const WorkExperience = ({
 
                   <div className="flex flex-row justify-between space-y-1">
                     <p
-                      className="font-normal "
+                      className="font-normal text-base "
                       contentEditable
                       suppressContentEditableWarning
                     >
@@ -98,7 +91,7 @@ const WorkExperience = ({
                   </div>
 
                   <p
-                    className="hover:outline-dashed hover:outline-2 hover:outline-gray-400 font-light content"
+                    className="hover:outline-dashed hover:outline-2 hover:outline-gray-400 font-light text-sm"
                     contentEditable
                     suppressContentEditableWarning
                     dangerouslySetInnerHTML={{ __html: item.description }}
@@ -112,7 +105,7 @@ const WorkExperience = ({
                       >
                         {(provided) => (
                           <ul
-                            className="list-disc pl-4 mt-2 font-light content"
+                            className="list-disc pl-4 mt-2 font-light text-sm"
                             {...provided.droppableProps}
                             ref={provided.innerRef}
                           >

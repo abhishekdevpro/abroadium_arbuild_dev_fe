@@ -120,7 +120,7 @@ const Certification = ({
                 headerColor === "black" ? `${backgroundColorss}` : headerColor
               }`,
             }}
-            className={`text-lg font-semibold mb-2 ${
+            className={`text-xl font-semibold mb-2 ${
               itemClassNames.title || ""
             }`}
             contentEditable
@@ -130,7 +130,7 @@ const Certification = ({
           </h2>
           <ul
             style={{ color: headerColor }}
-            className={`pl-2 p-1 font-medium ${
+            className={`pl-2 p-1 font-medium text-lg ${
               hasBullet ? "list-disc pl-6 p-2" : ""
             }`}
           >

@@ -147,7 +147,7 @@ const MyResume = () => {
           My Resumes
         </h1>
         <Link href={"/dashboard/resume-builder"}>
-          <Button className="flex text-sm items-center px-2 md:px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 font-medium shadow-sm">
+          <Button className="flex text-sm items-center px-2 md:px-4 py-2 bg-[#002a48] text-white rounded-lg  transition-colors duration-200 font-medium shadow-sm">
             <Plus className="w-5 h-5 mr-2" />
             Create New Resume
           </Button>
@@ -197,7 +197,7 @@ const MyResume = () => {
                           </span>
                           <Button
                             onClick={() => handleOpenEditModal(resume)}
-                            className="text-blue-600 hover:text-blue-800"
+                            className="text-[#002a48] "
                           >
                             🖍
                           </Button>
@@ -237,7 +237,7 @@ const MyResume = () => {
                             aria-checked={isChecked}
                             onClick={handleToggle}
                             className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 ${
-                              isChecked ? "bg-blue-600" : "bg-gray-200"
+                              isChecked ? "bg-[#002a48]" : "bg-gray-200"
                             }`}
                           >
                             <span
@@ -252,7 +252,7 @@ const MyResume = () => {
                         <div className="flex items-center space-x-3">
                           <Button
                             onClick={() => handleEdit(resume.resume_id)}
-                            className="text-blue-600 hover:text-blue-800 transition-colors duration-200"
+                            className="text-[#002a48]  transition-colors duration-200"
                           >
                             <Edit className="w-5 h-5" />
                           </Button>
@@ -322,7 +322,7 @@ const MyResume = () => {
             </h2>
             <input
               type="text"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-3 py-2 border border-gry-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#002a48] focus:border-[#002a48]"
               value={newResumeTitle}
               onChange={(e) => setNewResumeTitle(e.target.value)}
               placeholder="Enter new resume title"
@@ -336,7 +336,7 @@ const MyResume = () => {
               </Button>
               <Button
                 onClick={handleUpdateResumeTitle}
-                className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                className="px-4 py-2 text-sm font-medium text-white bg-bg-[#002a48] rounded-md  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#002a48]"
               >
                 Save
               </Button>

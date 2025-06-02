@@ -23,10 +23,126 @@ const CVSelector = ({ onNext, onBack, onChange, value }) => {
     typeof window !== "undefined" ? localStorage.getItem("token") : null;
   const colors = [
     {
+      name: "Black",
+      class: "bg-black",
+      selectedClass: "ring-black",
+      hexCode: "#000000",
+    },
+    {
+      name: "Navy Blue",
+      class: "bg-blue-900",
+      selectedClass: "ring-blue-900",
+      hexCode: "#00008B",
+    },
+    {
+      name: "Dark Gray",
+      class: "bg-gray-800",
+      selectedClass: "ring-gray-800",
+      hexCode: "#333333",
+    },
+    {
+      name: "Purple",
+      class: "bg-purple-700",
+      selectedClass: "ring-purple-700",
+      hexCode: "#6A0DAD",
+    },
+    {
+      name: "Brown",
+      class: "bg-[#8B3A3A]",
+      selectedClass: "ring-[#8B3A3A]",
+      hexCode: "#8B3A3A",
+    },
+    {
+      name: "Periwinkle",
+      class: "bg-[#6666FF]",
+      selectedClass: "ring-[#6666FF]",
+      hexCode: "#6666FF",
+    },
+
+    {
+      name: "Red",
+      class: "bg-red-600",
+      selectedClass: "ring-red-600",
+      hexCode: "#FF0000",
+    },
+    {
+      name: "Teal Green",
+      class: "bg-[#3B8070]",
+      selectedClass: "ring-[#3B8070]",
+      hexCode: "#3B8070",
+    },
+    {
+      name: "Slate Gray",
+      class: "bg-gray-600",
+      selectedClass: "ring-gray-600",
+      hexCode: "#666666",
+    },
+    {
+      name: "Olive",
+      class: "bg-[#999900]",
+      selectedClass: "ring-[#999900]",
+      hexCode: "#999900",
+    },
+    {
+      name: "Orange Red",
+      class: "bg-[#F2542D]",
+      selectedClass: "ring-[#F2542D]",
+      hexCode: "#F2542D",
+    },
+    {
+      name: "Bright Blue",
+      class: "bg-[#3399FF]",
+      selectedClass: "ring-[#3399FF]",
+      hexCode: "#3399FF",
+    },
+
+    {
+      name: "Coral Pink",
+      class: "bg-[#F88379]",
+      selectedClass: "ring-[#F88379]",
+      hexCode: "#F88379",
+    },
+    {
+      name: "Brown Orange",
+      class: "bg-[#D2691E]",
+      selectedClass: "ring-[#D2691E]",
+      hexCode: "#D2691E",
+    },
+    {
+      name: "Lavender Pink",
+      class: "bg-[#DA70D6]",
+      selectedClass: "ring-[#DA70D6]",
+      hexCode: "#DA70D6",
+    },
+    {
+      name: "Steel Blue",
+      class: "bg-[#6A7BA2]",
+      selectedClass: "ring-[#6A7BA2]",
+      hexCode: "#6A7BA2",
+    },
+    {
+      name: "Light Coral",
+      class: "bg-[#F08080]",
+      selectedClass: "ring-[#F08080]",
+      hexCode: "#F08080",
+    },
+    {
+      name: "Bright Orange",
+      class: "bg-[#FFA500]",
+      selectedClass: "ring-[#FFA500]",
+      hexCode: "#FFA500",
+    },
+    {
       name: "Gray",
       class: "bg-gray-200",
       selectedClass: "ring-gray-400",
       hexCode: "#6D7278",
+    },
+    {
+      name: "Charcoal Gray",
+      class: "bg-[#374151]",
+      selectedClass: "ring-[#4B5563]",
+      hexCode: "#374151",
     },
     {
       name: "Blue",
@@ -35,16 +151,40 @@ const CVSelector = ({ onNext, onBack, onChange, value }) => {
       hexCode: "#00b38d",
     },
     {
+      name: "Navy Blue",
+      class: "bg-[#1E3A8A]",
+      selectedClass: "ring-[#1E3A8A]",
+      hexCode: "#1E3A8A",
+    },
+    {
+      name: "Slate Blue",
+      class: "bg-[#475569]",
+      selectedClass: "ring-[#64748B]",
+      hexCode: "#475569",
+    },
+    {
       name: "Purple",
       class: "bg-purple-600",
       selectedClass: "ring-purple-400",
       hexCode: "#9333EA",
     },
     {
-      name: "Green",
-      class: "bg-green-600",
-      selectedClass: "ring-green-400",
-      hexCode: "#16A34A",
+      name: "Classic Blue",
+      class: "bg-[#2563EB]",
+      selectedClass: "ring-[#3B82F6]",
+      hexCode: "#2563EB",
+    },
+    {
+      name: "Forest Green",
+      class: "bg-[#166534]",
+      selectedClass: "ring-[#22C55E]",
+      hexCode: "#166534",
+    },
+    {
+      name: "Deep Teal",
+      class: "bg-[#0F766E]",
+      selectedClass: "ring-[#0D9488]",
+      hexCode: "#0F766E",
     },
     {
       name: "Red",
@@ -81,48 +221,6 @@ const CVSelector = ({ onNext, onBack, onChange, value }) => {
       class: "bg-indigo-600",
       selectedClass: "ring-indigo-400",
       hexCode: "#4F46E5",
-    },
-    {
-      name: "Navy Blue",
-      class: "bg-blue-900",
-      selectedClass: "ring-blue-700",
-      hexCode: "#1E3A8A",
-    },
-    {
-      name: "Light Blue",
-      class: "bg-blue-300",
-      selectedClass: "ring-blue-200",
-      hexCode: "#93C5FD",
-    },
-    {
-      name: "Light Red",
-      class: "bg-red-300",
-      selectedClass: "ring-red-200",
-      hexCode: "#FCA5A5",
-    },
-    {
-      name: "Light Green",
-      class: "bg-green-300",
-      selectedClass: "ring-green-200",
-      hexCode: "#86EFAC",
-    },
-    {
-      name: "Light Yellow",
-      class: "bg-yellow-300",
-      selectedClass: "ring-yellow-200",
-      hexCode: "#FDE047",
-    },
-    {
-      name: "Light Teal",
-      class: "bg-teal-300",
-      selectedClass: "ring-teal-200",
-      hexCode: "#5EEAD4",
-    },
-    {
-      name: "Light Purple",
-      class: "bg-purple-300",
-      selectedClass: "ring-purple-200",
-      hexCode: "#D8B4FE",
     },
   ];
 

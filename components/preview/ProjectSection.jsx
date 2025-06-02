@@ -27,7 +27,7 @@ const ProjectsSection = ({ resumeData, headerColor }) => {
       {(provided) => (
         <div {...provided.droppableProps} ref={provided.innerRef}>
           <h2
-            className="text-lg font-semibold mb-1 border-b-2 border-gray-300 editable"
+            className="text-xl font-semibold mb-1 border-b-2 border-gray-300 editable"
             contentEditable
             suppressContentEditableWarning
             style={{
@@ -55,7 +55,7 @@ const ProjectsSection = ({ resumeData, headerColor }) => {
                 >
                   <div className="flex flex-row justify-between space-y-1">
                     <p
-                      className=" font-medium"
+                      className=" font-medium text-lg"
                       contentEditable
                       suppressContentEditableWarning
                     >
@@ -78,7 +78,7 @@ const ProjectsSection = ({ resumeData, headerColor }) => {
                     {item.link}
                   </Link>
                   <p
-                    className="content font-light"
+                    className="text-sm font-light"
                     contentEditable
                     suppressContentEditableWarning
                     dangerouslySetInnerHTML={{
@@ -92,7 +92,7 @@ const ProjectsSection = ({ resumeData, headerColor }) => {
                   >
                     {(provided) => (
                       <ul
-                        className="list-disc pl-4 mt-2 font-light content"
+                        className="list-disc pl-4 mt-2 font-light text-sm"
                         {...provided.droppableProps}
                         ref={provided.innerRef}
                       >
