@@ -77,14 +77,14 @@ const ProjectsSection = ({ resumeData, headerColor }) => {
                   >
                     {item.link}
                   </Link>
-                  <p
+                  <div
                     className="text-sm font-light"
                     contentEditable
                     suppressContentEditableWarning
                     dangerouslySetInnerHTML={{
                       __html: item.description,
                     }}
-                  ></p>
+                  ></div>
 
                   <Droppable
                     droppableId={`PROJECTS_KEY_ACHIEVEMENT-${index}`}
