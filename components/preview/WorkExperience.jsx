@@ -90,7 +90,7 @@ const WorkExperience = ({
                     />
                   </div>
 
-                  <p
+                  <div
                     className="hover:outline-dashed hover:outline-2 hover:outline-gray-400 font-light text-sm"
                     contentEditable
                     suppressContentEditableWarning

@@ -288,13 +288,13 @@ const SummaryWrapper = ({
           Summary
         </h2>
 
-        <p
+        <div
           style={{ color: headerColor }}
-          className="break-words hover:outline-dashed hover:scale-105 hover:outline-2 hover:outline-gray-400 text-lg"
+          className=" hover:outline-dashed hover:scale-105 hover:outline-2 hover:outline-gray-400 text-lg"
           contentEditable
           suppressContentEditableWarning
           dangerouslySetInnerHTML={{ __html: summary }}
-        />
+        ></div>
       </div>
     )
   );
