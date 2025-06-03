@@ -71,7 +71,7 @@ const ProjectsSection = ({ resumeData, headerColor }) => {
                     href={item.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="content"
+                    className=" text-base font-normal"
                     contentEditable
                     suppressContentEditableWarning
                   >
