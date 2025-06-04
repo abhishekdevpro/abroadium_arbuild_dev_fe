@@ -290,7 +290,7 @@ const SummaryWrapper = ({
 
         <div
           style={{ color: headerColor }}
-          className=" hover:outline-dashed hover:scale-105 hover:outline-2 hover:outline-gray-400 text-lg"
+          className=" hover:outline-dashed hover:scale-105 hover:outline-2 hover:outline-gray-400 font-light text-sm"
           contentEditable
           suppressContentEditableWarning
           dangerouslySetInnerHTML={{ __html: summary }}

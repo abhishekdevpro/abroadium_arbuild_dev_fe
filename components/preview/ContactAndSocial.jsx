@@ -276,18 +276,30 @@ import {
   Instagram,
   Facebook,
 } from "lucide-react";
+import {
+  FaPhone,
+  FaEnvelope,
+  FaMapMarkerAlt,
+  FaGithub,
+  FaLinkedin,
+  FaTwitter,
+  FaGlobe,
+  FaInstagram,
+  FaFacebook,
+} from "react-icons/fa";
+
 import { ResumeContext } from "../context/ResumeContext";
 
 const ICON_COMPONENTS = {
-  phone: Phone,
-  email: Mail,
-  location: MapPin,
-  github: Github,
-  linkedin: Linkedin,
-  twitter: Twitter,
-  website: Globe,
-  instagram: Instagram,
-  facebook: Facebook,
+  phone: FaPhone,
+  email: FaEnvelope,
+  location: FaMapMarkerAlt,
+  github: FaGithub,
+  linkedin: FaLinkedin,
+  twitter: FaTwitter,
+  website: FaGlobe,
+  instagram: FaInstagram,
+  facebook: FaFacebook,
 };
 
 const ContactAndSocialMedia = ({
@@ -363,7 +375,7 @@ const ContactAndSocialMedia = ({
         </span>
         &nbsp;
         <span
-          className={`truncate ${finalTextColor} text-lg font-medium`}
+          className={`truncate ${finalTextColor} text-lg font-medium ml-1`}
           contentEditable
           suppressContentEditableWarning
         >
