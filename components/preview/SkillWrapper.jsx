@@ -9,11 +9,13 @@ const SkillsWrapper = ({
   headerColor = "black",
   droppableId = "skills",
   className = "",
+  textColor = "white",
+
   layout,
 }) => {
   const { backgroundColorss } = useContext(ResumeContext);
   return (
-    <div className={`skills-section ${className}`}>
+    <div className={`skills-section `}>
       <h2
         style={{
           color: `${
@@ -31,7 +33,11 @@ const SkillsWrapper = ({
       </h2>
       <Droppable droppableId={droppableId} type="SKILLS">
         {(provided) => (
-          <div {...provided.droppableProps} ref={provided.innerRef}>
+          <div
+            {...provided.droppableProps}
+            ref={provided.innerRef}
+            className={`${className}`}
+          >
             {Array.isArray(skills) ? (
               skills.map((skill, index) => (
                 <Draggable
@@ -44,7 +50,7 @@ const SkillsWrapper = ({
                       ref={provided.innerRef}
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
-                      className={`hover:scale-105 transition-transform duration-300 mb-1 ${
+                      className={`hover:scale-105 transition-transform duration-300 mb-1  ${
                         snapshot.isDragging
                           ? "outline-dashed outline-2 outline-gray-400 bg-white text-base"
                           : ""
@@ -55,6 +61,7 @@ const SkillsWrapper = ({
                         skills={skill.skills}
                         color={(headerColor = "white")}
                         layout={layout}
+                        textColor={textColor}
                       />
                     </div>
                   )}

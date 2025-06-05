@@ -130,8 +130,8 @@ const Certification = ({
           </h2>
           <ul
             style={{ color: headerColor }}
-            className={`pl-2 p-1 font-medium text-lg ${
-              hasBullet ? "list-disc pl-6 p-2" : ""
+            className={` font-medium text-lg ${
+              hasBullet ? "list-disc pl-4 p-1" : ""
             }`}
           >
             {certifications.map((certification, index) => (

@@ -71,7 +71,7 @@ const Template4 = () => {
 
   return (
     <div ref={templateRef} className=" ">
-      <div className="container mx-auto flex bg-white ">
+      <div className="flex  ">
         {/* Left Column */}
         <div className="left-column w-8/12 p-8 border-r border-gray-300">
           <TextWrapper

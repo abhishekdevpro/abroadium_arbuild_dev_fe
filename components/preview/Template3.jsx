@@ -63,145 +63,59 @@ const Template3 = () => {
   ];
 
   return (
-    // <div className=" ">
-    //   <header className="mb-6">
-    //     <TextWrapper
-    //       name={resumeData.name}
-    //       position={resumeData.position}
-    //       headerColor={backgroundColorss}
-    //       orientation="column" // Use "column" for stacked layout
-    //     />
-    //     <ContactAndSocialMedia
-    //       contactData={{
-    //         teldata: resumeData.contactInformation,
-    //         emaildata: resumeData.email,
-    //         addressdata: resumeData.address,
-    //       }}
-    //       socialMediaData={resumeData.socialMedia}
-    //       icons={icons}
-    //       layout="row" // or "row"
-    //       contactClass=""
-    //       socialMediaClass=""
-    //       className="items-start justify-start"
-    //     />
-    //   </header>
-
-    //   <section className="mb-6">
-    //     <SummaryWrapper
-    //       summary={resumeData.summary}
-    //       headerColor={"black"}
-    //       editable={true} // Set to false if editing is not required
-    //       className="mt-4"
-    //     />
-    //   </section>
-
-    //   <section className="mb-6">
-
-    //     <div className="col-span-2 space-y-2">
-    //       <WorkExperience
-    //         itemClassNames={{
-    //           title:
-    //             "text-lg font-bold mb-1 border-b-2 border-gray-300 editable",
-    //           company: "font-semibold",
-    //           position: "",
-    //           location: "",
-    //         }}
-    //         resumeData={resumeData}
-    //         headerColor={backgroundColorss}
-    //       />
-
-    //       <ProjectsSection resumeData={resumeData} headerColor={backgroundColorss} />
-    //     </div>
-    //   </section>
-    //   <section className="mb-6">
-
-    //     <EducationSection
-    //       itemClassNames={{
-    //         school: "text-gray-600",
-    //         degree: "text-xl font-semibold text-gray-800",
-    //         location: "text-gray-800",
-    //       }}
-    //       headerColor={backgroundColorss}
-    //       educationData={resumeData?.education}
-    //       layout="row"
-    //     />
-    //   </section>
-
-    //   <SkillsWrapper
-    //     skills={resumeData.skills}
-    //     headerColor={"black"}
-    //     droppableId="skills-section-1"
-    //     className="mt-4"
-    //     layout="row"
-    //   />
-    //   {/* {console.log(backgroundColorss,"fhgjh")} */}
-    //   <Language title="Languages" languages={resumeData.languages}
-    //          headerColor= {"black"}
-    //         />
-
-    //         <Certification
-    //           title="Certifications"
-    //           certifications={resumeData.certifications}
-    //           hasBullet={false}
-    //           headerColor= {"black"}
-    //         />
-    // </div>
     <div className="flex flex-col gap-4">
-        <TextWrapper
-          name={resumeData.name}
-          position={resumeData.position}
-          headerColor={backgroundColorss}
-          orientation="column" // Use "column" for stacked layout
-        />
-        <ContactAndSocialMedia
-          contactData={{
-            teldata: resumeData.contactInformation,
-            emaildata: resumeData.email,
-            addressdata: resumeData.address,
-          }}
-          socialMediaData={resumeData.socialMedia}
-          icons={icons}
-          layout="row" // or "row"
-          contactClass=""
-          socialMediaClass=""
-          className="items-start justify-start"
-        />
+      <TextWrapper
+        name={resumeData.name}
+        position={resumeData.position}
+        headerColor={backgroundColorss}
+        orientation="column" // Use "column" for stacked layout
+      />
+      <ContactAndSocialMedia
+        contactData={{
+          teldata: resumeData.contactInformation,
+          emaildata: resumeData.email,
+          addressdata: resumeData.address,
+        }}
+        socialMediaData={resumeData.socialMedia}
+        icons={icons}
+        layout="row" // or "row"
+        contactClass=""
+        socialMediaClass=""
+        className="items-start justify-start"
+      />
 
-        <SummaryWrapper
-          summary={resumeData.summary}
-          headerColor={"black"}
-          editable={true} // Set to false if editing is not required
-          className="mt-4"
-        />
+      <SummaryWrapper
+        summary={resumeData.summary}
+        headerColor={"black"}
+        editable={true} // Set to false if editing is not required
+        className="mt-4"
+      />
 
-   
-          <WorkExperience
-            itemClassNames={{
-              title:
-                "text-lg font-bold mb-1 border-b-2 border-gray-300 editable",
-              company: "font-semibold",
-              position: "",
-              location: "",
-            }}
-            resumeData={resumeData}
-            headerColor={backgroundColorss}
-          />
-          <ProjectsSection
-            resumeData={resumeData}
-            headerColor={backgroundColorss}
-          />
-       
+      <WorkExperience
+        itemClassNames={{
+          title: "text-lg font-bold mb-1 border-b-2 border-gray-300 editable",
+          company: "font-semibold",
+          position: "",
+          location: "",
+        }}
+        resumeData={resumeData}
+        headerColor={backgroundColorss}
+      />
+      <ProjectsSection
+        resumeData={resumeData}
+        headerColor={backgroundColorss}
+      />
 
-        <EducationSection
-          itemClassNames={{
-            school: "text-gray-600",
-            degree: "text-xl font-semibold text-gray-800",
-            location: "text-gray-800",
-          }}
-          headerColor={backgroundColorss}
-          educationData={resumeData?.education}
-          layout="row"
-        />
+      <EducationSection
+        itemClassNames={{
+          school: "text-gray-600",
+          degree: "text-xl font-semibold text-gray-800",
+          location: "text-gray-800",
+        }}
+        headerColor={backgroundColorss}
+        educationData={resumeData?.education}
+        layout="row"
+      />
 
       <SkillsWrapper
         skills={resumeData.skills}
@@ -209,6 +123,7 @@ const Template3 = () => {
         droppableId="skills-section-1"
         className="mt-4"
         layout="row"
+        textColor="black"
       />
 
       <Language
@@ -223,23 +138,6 @@ const Template3 = () => {
         hasBullet={false}
         headerColor={"black"}
       />
-    </div>
-  );
-};
-
-const A4PageWrapper = ({ children }) => {
-  const alertA4Size = () => {
-    const preview = document.querySelector(".preview");
-    const previewHeight = preview.offsetHeight;
-    console.log(previewHeight);
-    if (previewHeight > 1122) {
-      alert("A4 size exceeded");
-    }
-  };
-
-  return (
-    <div className="w-8.5in border p-3" onLoad={alertA4Size}>
-      {children}
     </div>
   );
 };

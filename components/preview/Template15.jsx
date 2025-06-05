@@ -50,7 +50,8 @@ const Draggable = dynamic(
   { ssr: false }
 );
 const Template15 = () => {
-  const { resumeData, setResumeData, headerColor,backgroundColorss } = useContext(ResumeContext);
+  const { resumeData, setResumeData, headerColor, backgroundColorss } =
+    useContext(ResumeContext);
   const icons = [
     { name: "github", icon: <FaGithub /> },
     { name: "linkedin", icon: <FaLinkedin /> },
@@ -95,7 +96,6 @@ const Template15 = () => {
       </section>
 
       <section className="mb-6">
-       
         <div className="col-span-2 space-y-2">
           <WorkExperience
             itemClassNames={{
@@ -109,12 +109,13 @@ const Template15 = () => {
             headerColor={backgroundColorss}
           />
 
-          <ProjectsSection resumeData={resumeData} headerColor={backgroundColorss} />
+          <ProjectsSection
+            resumeData={resumeData}
+            headerColor={backgroundColorss}
+          />
         </div>
       </section>
       <section className="mb-6">
-        
-
         <EducationSection
           itemClassNames={{
             school: "text-gray-600",
@@ -133,23 +134,23 @@ const Template15 = () => {
         droppableId="skills-section-1"
         className="mt-4"
         layout="row"
+        textColor="black"
       />
-      {console.log(backgroundColorss,"fhgjh")}
-      <Language title="Languages" languages={resumeData.languages}
-             headerColor= {"black"}
-            />
-            
+      {console.log(backgroundColorss, "fhgjh")}
+      <Language
+        title="Languages"
+        languages={resumeData.languages}
+        headerColor={"black"}
+      />
 
-            <Certification
-              title="Certifications"
-              certifications={resumeData.certifications}
-              hasBullet={false}
-              headerColor= {"black"}
-            />
+      <Certification
+        title="Certifications"
+        certifications={resumeData.certifications}
+        hasBullet={false}
+        headerColor={"black"}
+      />
     </div>
   );
 };
-
-
 
 export default Template15;

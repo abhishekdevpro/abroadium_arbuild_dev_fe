@@ -301,7 +301,13 @@ import template17 from "./template/template17.png";
 import template18 from "./template/template18.png";
 import template19 from "./template/template19.png";
 import template20 from "./template/template20.png";
-
+import template21 from "./template/template21.png";
+import template22 from "./template/template22.png";
+import template23 from "./template/template23.png";
+import template24 from "./template/template24.png";
+import template25 from "./template/template25.png";
+import template26 from "./template/template26.png";
+import template27 from "./template/template27.png";
 const TemplateSelector = ({
   selectedTemplate,
   setSelectedTemplate,
@@ -315,6 +321,7 @@ const TemplateSelector = ({
 
   const templates = [
     { key: "template1", imageUrl: template1, pdfType: 1 },
+    { key: "template2", imageUrl: template2, pdfType: 3 },
     { key: "template3", imageUrl: template3, pdfType: 3 },
     { key: "template4", imageUrl: template4, pdfType: 1 },
     { key: "template5", imageUrl: template5, pdfType: 3 },
@@ -333,6 +340,13 @@ const TemplateSelector = ({
     { key: "template18", imageUrl: template18, pdfType: 2 },
     { key: "template19", imageUrl: template19, pdfType: 1 },
     { key: "template20", imageUrl: template20, pdfType: 1 },
+    { key: "template21", imageUrl: template21, pdfType: 2 },
+    { key: "template22", imageUrl: template22, pdfType: 3 },
+    { key: "template23", imageUrl: template23, pdfType: 2 },
+    { key: "template24", imageUrl: template24, pdfType: 3 },
+    { key: "template25", imageUrl: template25, pdfType: 1 },
+    { key: "template26", imageUrl: template26, pdfType: 3 },
+    { key: "template27", imageUrl: template27, pdfType: 3 },
   ];
 
   useEffect(() => {

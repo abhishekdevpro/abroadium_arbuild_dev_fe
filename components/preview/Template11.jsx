@@ -103,10 +103,18 @@ const Template11 = () => {
       <div className="container mx-auto flex bg-white ">
         {/* Left Column */}
         <div
-          className="right-column w-4/12 bg-gray-100 p-8"
+          className="right-column w-5/12 bg-gray-100 p-8"
           style={{ backgroundColor: backgroundColorss }}
         >
           <div className="flex flex-col gap-4">
+            <div>
+              <SummaryWrapper
+                summary={resumeData.summary}
+                headerColor={"white"}
+                editable={true}
+                className=""
+              />
+            </div>
             <ContactAndSocialMedia
               title="Contacts"
               contactData={{
@@ -121,7 +129,7 @@ const Template11 = () => {
               socialMediaClass=""
               textColor="text-white"
             />
-            <div></div>
+
             <SkillsWrapper
               skills={resumeData.skills}
               headerColor={backgroundColorss ? "white" : "black"}
@@ -138,18 +146,12 @@ const Template11 = () => {
         </div>
 
         {/* Right Column */}
-        <div className="left-column w-8/12 p-8 border-r border-gray-300">
+        <div className="left-column w-7/12 p-8 border-r border-gray-300">
           {/* Header Section with TextWrapper and conditional ImageWrapper */}
 
           {/* Rest of the left column content */}
           <div className="flex flex-col gap-4">
             <div className="col-span-2 space-y-2">
-              <SummaryWrapper
-                summary={resumeData.summary}
-                headerColor={"black"}
-                editable={true}
-                className=""
-              />
               <WorkExperience
                 itemClassNames={{
                   title: "text-lg font-bold mb-1 editable",

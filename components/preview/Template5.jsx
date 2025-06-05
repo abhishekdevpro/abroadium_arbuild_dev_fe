@@ -73,10 +73,7 @@ const Template5 = () => {
     { name: "website", icon: <CgWebsite /> },
   ];
   return (
-    <div
-      ref={templateRef}
-      className=""
-    >
+    <div ref={templateRef} className="">
       <div className="header text-center mb-6">
         <div className="flex justify-center items-center">
           {resumeData?.profilePicture && (
@@ -130,14 +127,16 @@ const Template5 = () => {
             resumeData={resumeData}
             headerColor={backgroundColorss}
           />
-          <ProjectsSection resumeData={resumeData} headerColor={backgroundColorss} />
+          <ProjectsSection
+            resumeData={resumeData}
+            headerColor={backgroundColorss}
+          />
         </div>
       </section>
 
       <section className="education mb-6">
-        { (
+        {
           <div className="mb-1">
-           
             <EducationSection
               itemClassNames={{
                 school: "",
@@ -149,7 +148,7 @@ const Template5 = () => {
               headerColor={backgroundColorss}
             />
           </div>
-        )}
+        }
       </section>
 
       <section className="skills mb-6">
@@ -188,25 +187,9 @@ const Template5 = () => {
           droppableId="skills-section-1"
           className="mt-4"
           layout="row"
+          textColor="black"
         />
       </section>
-    </div>
-  );
-};
-
-const A4PageWrapper = ({ children }) => {
-  const alertA4Size = () => {
-    const preview = document.querySelector(".preview");
-    const previewHeight = preview.offsetHeight;
-    console.log(previewHeight);
-    if (previewHeight > 1122) {
-      alert("A4 size exceeded");
-    }
-  };
-
-  return (
-    <div className="w-8.5in border p-3" onLoad={alertA4Size}>
-      {children}
     </div>
   );
 };
