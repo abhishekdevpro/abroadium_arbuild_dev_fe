@@ -70,11 +70,8 @@ const Template6 = () => {
   ];
 
   return (
-    <div
-      ref={templateRef}
-      className=" "
-    >
-      <div className="container mx-auto flex">
+    <div ref={templateRef} className=" ">
+      <div className=" flex">
         {/* Left Column */}
         <div className="left-column w-8/12 p-4 border-r border-gray-300">
           <TextWrapper
@@ -85,20 +82,18 @@ const Template6 = () => {
             orientation="column" // Use "column" for stacked layout
           />
 
-
           {/* Job 1 */}
           <div className="flex flex-col gap-4">
             <div className="col-span-2 space-y-2">
               <SummaryWrapper
-                          summary={resumeData.summary}
-                          headerColor={"black"}
-                          editable={true} // Set to false if editing is not required
-                          className="mt-4"
-                        />
+                summary={resumeData.summary}
+                headerColor={"black"}
+                editable={true} // Set to false if editing is not required
+                className="mt-4"
+              />
               <WorkExperience
                 itemClassNames={{
-                  title:
-                    "text-lg font-bold mb-1  editable",
+                  title: "text-lg font-bold mb-1  editable",
                   company: "",
                   position: "",
                   location: "",
@@ -119,10 +114,9 @@ const Template6 = () => {
           className="right-column w-4/12 bg-gray-100 p-4"
           style={{ backgroundColor: backgroundColorss }}
         >
-
           <div className=" flex flex-col gap-4">
-          <ContactAndSocialMedia
-            title="Contacts"
+            <ContactAndSocialMedia
+              title="Contacts"
               contactData={{
                 teldata: resumeData.contactInformation,
                 emaildata: resumeData.email,
@@ -133,26 +127,27 @@ const Template6 = () => {
               layout="column" // or "row"
               contactClass=""
               socialMediaClass=""
-               textColor="text-white"
+              textColor="text-white"
             />
             <SkillsWrapper
               skills={resumeData.skills}
-              headerColor={backgroundColorss?"white":"black"}
+              headerColor={backgroundColorss ? "white" : "black"}
               droppableId="skills-section-1"
               className="mt-4"
               layout="column"
             />
-            
-            <Language title="Languages" languages={resumeData.languages}
-             headerColor= {backgroundColorss?"white":"black"}
+
+            <Language
+              title="Languages"
+              languages={resumeData.languages}
+              headerColor={backgroundColorss ? "white" : "black"}
             />
-            
 
             <Certification
               title="Certifications"
               certifications={resumeData.certifications}
               hasBullet={true}
-              headerColor= {backgroundColorss?"white":"black"}
+              headerColor={backgroundColorss ? "white" : "black"}
             />
           </div>
 
@@ -165,7 +160,7 @@ const Template6 = () => {
               }}
               layout="column"
               educationData={resumeData?.education}
-              headerColor={backgroundColorss?"white":"black"}
+              headerColor={backgroundColorss ? "white" : "black"}
             />
             {/* <button onClick={extractHtml}>Log HTML Content</button> */}
           </div>

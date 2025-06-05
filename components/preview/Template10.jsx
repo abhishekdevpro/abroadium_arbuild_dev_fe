@@ -256,7 +256,6 @@
 
 // export default Template10;
 
-
 // import React from "react";
 import { useContext, useRef } from "react";
 // import { ResumeContext } from "../../pages/builder";
@@ -333,12 +332,8 @@ const Template10 = () => {
   ];
 
   return (
-    <div
-      ref={templateRef}
-      className=""
-    >
+    <div ref={templateRef} className="">
       <div className="header text-center mb-6">
-       
         <TextWrapper
           name={resumeData.name}
           position={resumeData.position}
@@ -383,7 +378,10 @@ const Template10 = () => {
             resumeData={resumeData}
             headerColor={backgroundColorss}
           />
-          <ProjectsSection resumeData={resumeData} headerColor={backgroundColorss} />
+          <ProjectsSection
+            resumeData={resumeData}
+            headerColor={backgroundColorss}
+          />
         </div>
       </section>
 
@@ -450,12 +448,11 @@ const Template10 = () => {
           droppableId="skills-section-1"
           className="mt-4"
           layout="row"
+          textColor="black"
         />
       </section>
     </div>
   );
 };
-
-
 
 export default Template10;

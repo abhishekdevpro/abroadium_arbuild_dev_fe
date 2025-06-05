@@ -8,11 +8,33 @@ import { toast } from "react-toastify";
 
 // Import all templates
 import template1 from "../preview/template/template1.png";
+import template2 from "../preview/template/template2.png";
 import template3 from "../preview/template/template3.png";
 import template4 from "../preview/template/template4.png";
 import template5 from "../preview/template/template5.png";
 import template6 from "../preview/template/template6.png";
 import template7 from "../preview/template/template7.png";
+import template8 from "../preview/template/template8.png";
+import template9 from "../preview/template/template9.png";
+import template10 from "../preview/template/template10.png";
+import template11 from "../preview/template/template11.png";
+import template12 from "../preview/template/template12.png";
+import template13 from "../preview/template/template13.png";
+import template14 from "../preview/template/template14.png";
+import template15 from "../preview/template/template15.png";
+import template16 from "../preview/template/template16.png";
+import template17 from "../preview/template/template17.png";
+import template18 from "../preview/template/template18.png";
+import template19 from "../preview/template/template19.png";
+import template20 from "../preview/template/template20.png";
+import template21 from "../preview/template/template21.png";
+import template22 from "../preview/template/template22.png";
+import template23 from "../preview/template/template23.png";
+import template24 from "../preview/template/template24.png";
+import template25 from "../preview/template/template25.png";
+import template26 from "../preview/template/template26.png";
+import template27 from "../preview/template/template27.png";
+
 import { SaveLoader } from "../ResumeLoader/SaveLoader";
 import { ResumeContext } from "../context/ResumeContext";
 
@@ -237,6 +259,12 @@ const TemplateStep = ({ onNext, onBack, onChange, value }) => {
       // hasPhoto: true,
     },
     {
+      key: "template2",
+      imageUrl: template2,
+      name: "Creative",
+      // hasPhoto: false,
+    },
+    {
       key: "template3",
       imageUrl: template3,
       name: "Creative",
@@ -268,79 +296,121 @@ const TemplateStep = ({ onNext, onBack, onChange, value }) => {
     },
     {
       key: "template8",
-      imageUrl: template1,
+      imageUrl: template8,
       name: "Modern Clean",
       // hasPhoto: false,
     },
     {
       key: "template9",
-      imageUrl: template3,
+      imageUrl: template9,
       name: "Creative",
       // hasPhoto: false,
     },
     {
       key: "template10",
-      imageUrl: template4,
+      imageUrl: template10,
       name: "Executive",
       // hasPhoto: false,
     },
     {
       key: "template11",
-      imageUrl: template5,
+      imageUrl: template11,
       name: "Minimal",
       //  hasPhoto: true
     },
     {
       key: "template12",
-      imageUrl: template6,
+      imageUrl: template12,
       name: "Classic",
       //  hasPhoto: true
     },
     {
       key: "template13",
-      imageUrl: template7,
+      imageUrl: template13,
       name: "Contemporary",
       // hasPhoto: false,
     },
     {
       key: "template14",
-      imageUrl: template7,
+      imageUrl: template14,
       name: "Contemporary",
       // hasPhoto: true,
     },
     {
       key: "template15",
-      imageUrl: template1,
+      imageUrl: template15,
       name: "Modern Clean",
       // hasPhoto: false,
     },
     {
       key: "template16",
-      imageUrl: template3,
+      imageUrl: template16,
       name: "Creative",
       // hasPhoto: true,
     },
     {
       key: "template17",
-      imageUrl: template4,
+      imageUrl: template17,
       name: "Executive",
       // hasPhoto: true,
     },
     {
       key: "template18",
-      imageUrl: template5,
+      imageUrl: template18,
       name: "Minimal",
       // hasPhoto: true
     },
     {
       key: "template19",
-      imageUrl: template6,
+      imageUrl: template19,
       name: "Classic",
       // hasPhoto: false,
     },
     {
       key: "template20",
-      imageUrl: template7,
+      imageUrl: template20,
+      name: "Contemporary",
+      // hasPhoto: false,
+    },
+    {
+      key: "template21",
+      imageUrl: template21,
+      name: "Contemporary",
+      // hasPhoto: true,
+    },
+    {
+      key: "template22",
+      imageUrl: template22,
+      name: "Modern Clean",
+      // hasPhoto: false,
+    },
+    {
+      key: "template23",
+      imageUrl: template23,
+      name: "Creative",
+      // hasPhoto: true,
+    },
+    {
+      key: "template24",
+      imageUrl: template24,
+      name: "Executive",
+      // hasPhoto: true,
+    },
+    {
+      key: "template25",
+      imageUrl: template25,
+      name: "Minimal",
+      // hasPhoto: true
+    },
+    {
+      key: "template26",
+      imageUrl: template26,
+      name: "Classic",
+      // hasPhoto: false,
+    },
+    {
+      key: "template27",
+      imageUrl: template27,
       name: "Contemporary",
       // hasPhoto: false,
     },

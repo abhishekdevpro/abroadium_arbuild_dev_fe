@@ -54,7 +54,7 @@
 import React, { useContext } from "react";
 import { ResumeContext } from "../context/ResumeContext";
 
-const Skills = ({ title, skills, color = "black", layout }) => {
+const Skills = ({ title, skills, color = "black", layout, textColor }) => {
   const { resumeData, setResumeData, backgroundColorss } =
     useContext(ResumeContext);
 
@@ -80,11 +80,11 @@ const Skills = ({ title, skills, color = "black", layout }) => {
 
   return (
     skills.length > 0 && (
-      <div className="">
+      <div className={`text-${textColor}`}>
         <h2
-          style={{
-            color: layout === "row" || !backgroundColorss ? "black" : color,
-          }}
+          // style={{
+          //   color: layout === "row" || !backgroundColorss ? "black" : color,
+          // }}
           className="text-lg font-medium  editable"
           contentEditable
           suppressContentEditableWarning
@@ -104,12 +104,12 @@ const Skills = ({ title, skills, color = "black", layout }) => {
         ) : (
           <ul
             style={{ color: backgroundColorss ? color : "black" }}
-            className="list-disc ml-6 font-light text-sm"
+            className="list-disc pl-4 font-light text-sm"
           >
             {skills.map((skill, index) => (
               <li
                 key={index}
-                className="hover:outline-dashed hover:outline-2 hover:outline-gray-400 hover:scale-105 transition-transform duration-300 font-normal text-base"
+                className={`hover:outline-dashed hover:outline-2 hover:outline-gray-400 hover:scale-105 transition-transform duration-300 font-normal text-base  text-${textColor}`}
               >
                 <span
                   contentEditable

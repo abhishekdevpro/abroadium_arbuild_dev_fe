@@ -78,7 +78,7 @@ const Language = ({ title, languages, headerColor }) => {
         {/* Languages List */}
         <ul
           style={{ color: headerColor }}
-          className="list-disc ml-6 font-medium text-lg"
+          className="list-disc pl-5 font-medium text-lg"
         >
           {languages.map((lang, index) => (
             <li

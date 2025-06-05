@@ -74,10 +74,7 @@ const Template12 = () => {
   ];
 
   return (
-    <div
-      ref={templateRef}
-      className=""
-    >
+    <div ref={templateRef} className="">
       <div className="header text-start mb-6">
         <div className="flex justify-start items-center gap-4">
           {resumeData?.profilePicture && (
@@ -86,14 +83,14 @@ const Template12 = () => {
               alt="Profile Picture"
             />
           )}
-           <TextWrapper
-          name={resumeData.name}
-          position={resumeData.position}
-          headerColor={backgroundColorss}
-          orientation="column" // Use "column" for stacked layout
-        />
+          <TextWrapper
+            name={resumeData.name}
+            position={resumeData.position}
+            headerColor={backgroundColorss}
+            orientation="column" // Use "column" for stacked layout
+          />
         </div>
-       
+
         {/* <h1 className="text-2xl mb-1.5" style={{ color: headerColor }}>{resumeData.name}</h1> */}
         <ContactAndSocialMedia
           contactData={{
@@ -109,7 +106,7 @@ const Template12 = () => {
           className="justify-start gap-4 mt-4"
         />
       </div>
-      
+
       <SummaryWrapper
         summary={resumeData.summary}
         headerColor={"black"}
@@ -132,7 +129,10 @@ const Template12 = () => {
             resumeData={resumeData}
             headerColor={backgroundColorss}
           />
-          <ProjectsSection resumeData={resumeData} headerColor={backgroundColorss} />
+          <ProjectsSection
+            resumeData={resumeData}
+            headerColor={backgroundColorss}
+          />
         </div>
       </section>
 
@@ -164,47 +164,17 @@ const Template12 = () => {
       </section>
 
       <section className="skills mb-6">
-        {/* <Droppable droppableId="skills" type="SKILLS"> */}
-        {/* {(provided) => (
-          <ul
-            className="pl-5 "
-            {...provided.droppableProps}
-            ref={provided.innerRef}
-          >
-            {resumeData.skills.map((skill, index) => (
-              <Draggable
-                key={`SKILLS-${index}`}
-                draggableId={`SKILLS-${index}`}
-                index={index}
-              >
-                {(provided, snapshot) => (
-                  <li
-                    ref={provided.innerRef}
-                    {...provided.draggableProps}
-                    {...provided.dragHandleProps}
-                    className={`hover:scale-105 transition-transform duration-300 text-sm mb-1.5 ${snapshot.isDragging &&
-                      "outline-dashed outline-2 outline-gray-400 bg-white"
-                      }`}
-                  >
-                    <Skills title={skill.title} skills={skill.skills} />
-                  </li>
-                )}
-              </Draggable>
-            ))}
-            {provided.placeholder}
-          </ul> */}
         <SkillsWrapper
           skills={resumeData.skills}
           headerColor={backgroundColorss}
           droppableId="skills-section-1"
-          className="mt-4"
+          className="mt-4 "
           layout="row"
+          textColor="black"
         />
       </section>
     </div>
   );
 };
-
-
 
 export default Template12;

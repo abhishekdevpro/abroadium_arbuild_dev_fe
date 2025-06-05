@@ -266,6 +266,7 @@ const SummaryWrapper = ({
   headerColor = "black",
   editable = true,
   className = "",
+  summaryclassName = "",
 }) => {
   const { backgroundColorss } = useContext(ResumeContext);
   return (
@@ -290,7 +291,7 @@ const SummaryWrapper = ({
 
         <div
           style={{ color: headerColor }}
-          className=" hover:outline-dashed hover:scale-105 hover:outline-2 hover:outline-gray-400 font-light text-sm"
+          className={` hover:outline-dashed hover:scale-105 hover:outline-2 hover:outline-gray-400 font-light mt-2 text-sm  `}
           contentEditable
           suppressContentEditableWarning
           dangerouslySetInnerHTML={{ __html: summary }}

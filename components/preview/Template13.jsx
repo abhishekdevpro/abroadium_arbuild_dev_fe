@@ -66,13 +66,11 @@
 //           >{resumeData.summary}</p>
 //         </div>
 
-     
-
 //         <div className="mb-5">
-          
+
 //           <div className="text-lg font-semibold text-red-800 border-b-2 border-red-800 pb-1 mb-3" style={{ color: headerColor ,borderColor: backgroundColorss}}>Skills</div>
 //           <ul className="list-disc ml-5">
-         
+
 //           <Droppable droppableId="skills" type="SKILLS">
 //                   {(provided) => (
 //                     <div {...provided.droppableProps} ref={provided.innerRef}>
@@ -100,7 +98,7 @@
 //                     </div>
 //                   )}
 //                 </Droppable>
-        
+
 //           </ul>
 //         </div>
 
@@ -111,7 +109,7 @@
 //                   <Droppable droppableId="work-experience" type="WORK_EXPERIENCE">
 //                     {(provided) => (
 //                       <div {...provided.droppableProps} ref={provided.innerRef}>
-                       
+
 //                         {resumeData.workExperience.map((item, index) => (
 //                           <Draggable
 //                             key={`${item.company}-${index}`}
@@ -136,7 +134,7 @@
 //                                   />
 //                                 </div>
 //                                 <p className="font-medium">{item.position}</p>
-//                                 <p 
+//                                 <p
 //                                 contentEditable="true"
 //                                 suppressContentEditableWarning={true}
 //                                 className=" text-sm hover:outline-dashed hover:outline-2 hover:outline-gray-400">
@@ -321,7 +319,7 @@
 //           <div className="text-lg font-semibold text-red-800 border-b-2 border-red-800 pb-1 mb-3" style={{ color: headerColor }}>Languages/Certifications</div>
 //           <Language  languages={resumeData.languages} />
 //                 <Certification
-                  
+
 //                   certifications={resumeData.certifications}
 //                 />
 //         </div>
@@ -348,7 +346,6 @@
 // };
 
 // export default Template13;
-
 
 // import React from "react";
 import { useContext, useRef } from "react";
@@ -426,12 +423,8 @@ const Template13 = () => {
   ];
 
   return (
-    <div
-      ref={templateRef}
-      className=""
-    >
+    <div ref={templateRef} className="">
       <div className="header text-start mb-6">
-       
         <TextWrapper
           name={resumeData.name}
           position={resumeData.position}
@@ -460,7 +453,7 @@ const Template13 = () => {
         editable={true} // Set to false if editing is not required
         className="mt-4"
       />
- <section className="skills mb-6">
+      <section className="skills mb-6">
         {/* <Droppable droppableId="skills" type="SKILLS"> */}
         {/* {(provided) => (
           <ul
@@ -496,6 +489,7 @@ const Template13 = () => {
           droppableId="skills-section-1"
           className="mt-4"
           layout="row"
+          textColor="black"
         />
       </section>
       <section className="experience mb-6">
@@ -513,7 +507,10 @@ const Template13 = () => {
             resumeData={resumeData}
             headerColor={backgroundColorss}
           />
-          <ProjectsSection resumeData={resumeData} headerColor={backgroundColorss} />
+          <ProjectsSection
+            resumeData={resumeData}
+            headerColor={backgroundColorss}
+          />
         </div>
       </section>
 
@@ -543,12 +540,8 @@ const Template13 = () => {
           </div>
         )}
       </section>
-
-     
     </div>
   );
 };
-
-
 
 export default Template13;
