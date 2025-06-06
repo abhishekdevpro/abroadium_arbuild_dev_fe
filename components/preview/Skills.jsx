@@ -80,7 +80,7 @@ const Skills = ({ title, skills, color = "black", layout, textColor }) => {
 
   return (
     skills.length > 0 && (
-      <div className={`text-${textColor}`}>
+      <div className={`mb-4 text-${textColor}`}>
         <h2
           // style={{
           //   color: layout === "row" || !backgroundColorss ? "black" : color,
@@ -109,7 +109,7 @@ const Skills = ({ title, skills, color = "black", layout, textColor }) => {
             {skills.map((skill, index) => (
               <li
                 key={index}
-                className={`hover:outline-dashed hover:outline-2 hover:outline-gray-400 hover:scale-105 transition-transform duration-300 font-normal text-base  text-${textColor}`}
+                className={`hover:outline-dashed hover:outline-2 hover:outline-gray-400 hover:scale-105 transition-transform duration-300 font-light text-sm  text-${textColor}`}
               >
                 <span
                   contentEditable

@@ -265,17 +265,7 @@
 // export default ContactAndSocialMedia;
 
 import React, { useContext } from "react";
-import {
-  Phone,
-  Mail,
-  MapPin,
-  Github,
-  Linkedin,
-  Twitter,
-  Globe,
-  Instagram,
-  Facebook,
-} from "lucide-react";
+
 import {
   FaPhone,
   FaEnvelope,
