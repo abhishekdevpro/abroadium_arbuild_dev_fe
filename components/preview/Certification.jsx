@@ -130,7 +130,7 @@ const Certification = ({
           </h2>
           <ul
             style={{ color: headerColor }}
-            className={` font-medium text-lg ${
+            className={` font-normal text-base ${
               hasBullet ? "list-disc pl-4 p-1" : ""
             }`}
           >

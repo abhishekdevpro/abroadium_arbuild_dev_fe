@@ -347,6 +347,7 @@ const TemplateSelector = ({
     { key: "template25", imageUrl: template25, pdfType: 1 },
     { key: "template26", imageUrl: template26, pdfType: 3 },
     { key: "template27", imageUrl: template27, pdfType: 3 },
+    { key: "template28", imageUrl: template21, pdfType: 2 },
   ];
 
   useEffect(() => {
