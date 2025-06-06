@@ -137,7 +137,7 @@ const EducationSection = ({
             <p
               contentEditable
               suppressContentEditableWarning
-              className="font-medium text-lg"
+              className="font-normal text-base"
               style={{
                 color:
                   layout === "row" || headerColor == "black"
@@ -150,7 +150,7 @@ const EducationSection = ({
             <p
               contentEditable
               suppressContentEditableWarning
-              className="font-normal text-base"
+              className="font-light text-sm"
               style={{
                 color:
                   layout === "row" || headerColor == "black"
@@ -163,7 +163,7 @@ const EducationSection = ({
           </div>
           <div>
             <p
-              className="font-medium text-lg"
+              className="font-normal text-base"
               contentEditable
               suppressContentEditableWarning
               style={{
@@ -180,7 +180,7 @@ const EducationSection = ({
               layout={layout}
               startYear={item.startYear}
               endYear={item.endYear}
-              className="font-normal text-base"
+              className="font-light text-sm"
             />
           </div>
         </div>

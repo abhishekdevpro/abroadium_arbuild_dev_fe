@@ -12,7 +12,7 @@ const DateRange = ({ startYear, endYear, id, layout }) => {
   return (
     <p
       style={{ color: layout == "row" ? "black" : "white" }}
-      className="font-normal text-base"
+      className="font-light text-sm"
     >
       {start.toLocaleString("default", { month: "short" })}{" "}
       {start.getFullYear()} -{" "}

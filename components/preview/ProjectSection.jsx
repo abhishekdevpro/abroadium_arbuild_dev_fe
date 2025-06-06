@@ -55,7 +55,7 @@ const ProjectsSection = ({ resumeData, headerColor }) => {
                 >
                   <div className="flex flex-row justify-between space-y-1">
                     <p
-                      className=" font-medium text-lg"
+                      className=" text-base font-normal"
                       contentEditable
                       suppressContentEditableWarning
                     >

@@ -42,7 +42,7 @@ const EducationSection1 = ({
             <p
               contentEditable
               suppressContentEditableWarning
-              className="font-medium text-lg"
+              className="font-normal text-base"
               style={{
                 color:
                   layout === "row" || headerColor == "black"
@@ -55,7 +55,7 @@ const EducationSection1 = ({
             <p
               contentEditable
               suppressContentEditableWarning
-              className="font-normal text-base"
+              className="font-light text-sm"
               style={{
                 color:
                   layout === "row" || headerColor == "black"
@@ -68,7 +68,7 @@ const EducationSection1 = ({
           </div>
           <div>
             <p
-              className="font-medium text-lg"
+              className="font-normal text-base"
               contentEditable
               suppressContentEditableWarning
               style={{
@@ -82,7 +82,7 @@ const EducationSection1 = ({
               {item.location?.split(",")[0]?.trim()}
             </p>
             <DateRangeExperience
-              className="font-normal text-base"
+              className="font-light text-sm"
               layout={layout}
               startYear={item.startYear}
               endYear={item.endYear}

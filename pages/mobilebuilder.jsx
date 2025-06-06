@@ -385,15 +385,15 @@ export default function MobileBuilder() {
           })) || [],
         workExperience:
           resumeData.workExperience?.map((exp) => ({
-            company: exp.company || "",
-            position: exp.position || "",
+            company: exp.company,
+            position: exp.position,
             description: exp.description,
             KeyAchievements: Array.isArray(exp.keyAchievements)
               ? exp.keyAchievements
               : [exp.keyAchievements],
             startYear: exp.startYear,
             endYear: exp.endYear,
-            location: exp.location || "",
+            location: exp.location,
           })) || [],
         projects:
           resumeData.projects?.map((project) => ({

@@ -101,7 +101,7 @@
 // //     >
 // //       {title && (
 // //         <h3
-// //           className={`text-xl font-bold mb-2 border-b-2 ${
+// //           className={`text-xl font-light mb-2 border-b-2 ${
 // //             finalTextColor === "text-black" ? "border-black" : "border-white"
 // //           } ${finalTextColor}`}
 // //         >
@@ -239,7 +239,7 @@
 //     >
 //       {title && (
 //         <h3
-//           className={`text-xl font-bold mb-2 border-b-2 ${
+//           className={`text-xl font-light mb-2 border-b-2 ${
 //             finalTextColor === "text-black" ? "border-black" : "border-white"
 //           } ${finalTextColor}`}
 //           contentEditable
@@ -324,14 +324,14 @@ const ContactAndSocialMedia = ({
 
     return (
       <div
-        className={`flex items-center gap-2 text-lg font-medium ${contactClass} hover:outline-dashed hover:outline-2 hover:outline-gray-400 hover:scale-105 transition-transform duration-300`}
+        className={`flex items-center gap-2 text-sm text-bold ${contactClass} hover:outline-dashed hover:outline-2 hover:outline-gray-400 hover:scale-105 transition-transform duration-300`}
       >
-        <span className={`${finalTextColor} text-lg font-medium`}>
+        <span className={`${finalTextColor} text-sm font-light`}>
           {getIcon(icon)}
         </span>
 
         <span
-          className={finalTextColor}
+          className={`${finalTextColor} text-sm font-light`}
           contentEditable
           suppressContentEditableWarning
         >
@@ -358,14 +358,14 @@ const ContactAndSocialMedia = ({
         title={socialMedia.socialMedia}
         target="_blank"
         rel="noreferrer"
-        className={`flex items-center text-lg font-medium  ${socialMediaClass} hover:outline-dashed hover:outline-2 hover:outline-gray-400 hover:scale-105 transition-transform duration-300`}
+        className={`flex items-center text-sm font-light ${socialMediaClass} hover:outline-dashed hover:outline-2 hover:outline-gray-400 hover:scale-105 transition-transform duration-300`}
       >
-        <span className={` ${finalTextColor} text-sm`}>
+        <span className={` ${finalTextColor} text-sm font-light`}>
           {getIcon(socialMedia.socialMedia.toLowerCase())}
         </span>
         &nbsp;
         <span
-          className={`truncate ${finalTextColor} text-lg font-medium ml-1`}
+          className={`truncate ${finalTextColor} text-sm font-light ml-1`}
           contentEditable
           suppressContentEditableWarning
         >

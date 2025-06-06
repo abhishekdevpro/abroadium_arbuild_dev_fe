@@ -100,7 +100,7 @@ const Template11 = () => {
         />
       </div>
 
-      <div className="container mx-auto flex bg-white ">
+      <div className=" flex  ">
         {/* Left Column */}
         <div
           className="right-column w-5/12 bg-gray-100 p-8"
@@ -146,7 +146,7 @@ const Template11 = () => {
         </div>
 
         {/* Right Column */}
-        <div className="left-column w-7/12 p-8 border-r border-gray-300">
+        <div className="left-column w-7/12 p-8  ">
           {/* Header Section with TextWrapper and conditional ImageWrapper */}
 
           {/* Rest of the left column content */}
