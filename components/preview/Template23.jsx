@@ -506,7 +506,7 @@ const Template23 = () => {
         </div>
 
         {/* Right Column */}
-        <div className="right-column w-8/12 p-4 border-r border-gray-300">
+        <div className="right-column w-8/12 p-4 ">
           {/* Header Section with TextWrapper and conditional ImageWrapper */}
           <div
             style={{ borderBottom: `2px solid ${backgroundColorss}` }}

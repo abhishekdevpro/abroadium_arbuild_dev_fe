@@ -537,6 +537,7 @@ const TemplateStep = ({ onNext, onBack, onChange, value }) => {
             : [exp.keyAchievements || ""],
           startYear: exp.startYear || "",
           endYear: exp.endYear || "",
+          location: exp.location,
         })) || [],
       projects:
         data.projects?.map((project) => ({

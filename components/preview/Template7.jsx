@@ -72,7 +72,7 @@ const Template7 = () => {
     <div ref={templateRef} className="">
       <section className="flex justify-between">
         <div className="w-8/12 p-4">
-          <header className=" border-b-2 border-gray-200 pb-5 mb-5">
+          <header className="   pb-4 ">
             <TextWrapper
               name={resumeData.name}
               position={resumeData.position}

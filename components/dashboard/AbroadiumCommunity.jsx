@@ -41,6 +41,7 @@
 // export default AbroadiumCommunity;
 import React from "react";
 import { MessageSquare } from "lucide-react";
+import Link from "next/link";
 
 const AbroadiumCommunity = () => {
   return (
@@ -62,9 +63,11 @@ const AbroadiumCommunity = () => {
             </p>
           </div>
         </div>
-        <button className="px-4 py-2 md:px-6 md:py-2 border border-[#002a48] text-[#002a48] rounded-lg hover:bg-blue-50 text-sm md:text-base whitespace-nowrap self-start sm:self-center md:self-auto mt-2 sm:mt-0">
-          I m In!
-        </button>
+        <Link href="https://abroadium-arbuild-fe.vercel.app/community">
+          <button className="px-4 py-2 md:px-6 md:py-2 border border-[#002a48] text-[#002a48] rounded-lg hover:bg-blue-50 text-sm md:text-base whitespace-nowrap self-start sm:self-center md:self-auto mt-2 sm:mt-0">
+            I m In!
+          </button>
+        </Link>
       </div>
     </div>
   );
