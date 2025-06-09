@@ -336,7 +336,7 @@ const TemplateSelector = ({
     { key: "template14", imageUrl: template14, pdfType: 3 },
     { key: "template15", imageUrl: template15, pdfType: 3 },
     { key: "template16", imageUrl: template16, pdfType: 2 },
-    { key: "template17", imageUrl: template17, pdfType: 3 },
+    { key: "template17", imageUrl: template17, pdfType: 4 },
     { key: "template18", imageUrl: template18, pdfType: 2 },
     { key: "template19", imageUrl: template19, pdfType: 1 },
     { key: "template20", imageUrl: template20, pdfType: 1 },
