@@ -95,7 +95,7 @@ const Skills = ({ title, skills, color = "black", layout, textColor }) => {
         {layout === "row" ? (
           <div
             style={{ color: "black" }}
-            className="hover:outline-dashed hover:outline-2 hover:outline-gray-400 font-normal text-base mb-4"
+            className="hover:outline-dashed hover:outline-2 hover:outline-gray-400 font-light text-sm mb-4"
             contentEditable
             suppressContentEditableWarning
           >
