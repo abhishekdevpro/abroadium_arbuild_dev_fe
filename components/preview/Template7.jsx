@@ -30,7 +30,7 @@ import {
 import { MdEmail, MdLocationOn, MdPhone } from "react-icons/md";
 import dynamic from "next/dynamic";
 import ContactAndSocialMedia from "./ContactAndSocial";
-import { SummaryWrapper, TextWrapper } from "./Common";
+import { ImageWrapper, SummaryWrapper, TextWrapper } from "./Common";
 import WorkExperience from "./WorkExperience";
 import ProjectsSection from "./ProjectSection";
 import { SkillsWrapper } from "./SkillWrapper";
@@ -70,60 +70,43 @@ const Template7 = () => {
 
   return (
     <div ref={templateRef} className="">
-      <section className="flex justify-between">
-        <div className="w-8/12 p-4">
-          <header className="   pb-4 ">
+      <div className="header text-start mb-6">
+        <div className="flex justify-center items-center gap-4">
+          {resumeData?.profilePicture && (
+            <ImageWrapper
+              src={resumeData.profilePicture}
+              alt="Profile Picture"
+            />
+          )}
+          <div>
             <TextWrapper
               name={resumeData.name}
               position={resumeData.position}
-              className="justify-start items-start"
               headerColor={backgroundColorss}
               orientation="column" // Use "column" for stacked layout
             />
-            <SummaryWrapper
-              summary={resumeData.summary}
-              headerColor={"black"}
-              editable={true} // Set to false if editing is not required
-              className="mt-4"
-            />
-          </header>
-          <WorkExperience
-            itemClassNames={{
-              title: "text-lg font-bold mb-1  editable",
-              company: "",
-              position: "",
-              location: "",
-            }}
-            resumeData={resumeData}
-            headerColor={backgroundColorss}
-          />
-          <ProjectsSection
-            resumeData={resumeData}
-            headerColor={backgroundColorss}
-          />
+          </div>
         </div>
 
+        <ContactAndSocialMedia
+          contactData={{
+            teldata: resumeData.contactInformation,
+            emaildata: resumeData.email,
+            addressdata: resumeData.address,
+          }}
+          socialMediaData={resumeData.socialMedia}
+          icons={icons}
+          layout="row" // or "row"
+          contactClass=""
+          socialMediaClass=""
+          className="justify-center gap-4 mt-4"
+        />
+      </div>
+      <section className="flex justify-between">
         <aside
-          className="w-4/12 bg-[#d4d4d8] p-4"
+          className="w-4/12  p-4"
           style={{ backgroundColor: backgroundColorss }}
         >
-          <div className="mb-5">
-            <ContactAndSocialMedia
-              title="Contacts"
-              contactData={{
-                teldata: resumeData.contactInformation,
-                emaildata: resumeData.email,
-                addressdata: resumeData.address,
-              }}
-              socialMediaData={resumeData.socialMedia}
-              icons={icons}
-              layout="column" // or "row"
-              contactClass=""
-              socialMediaClass=""
-              textColor="text-white"
-            />
-          </div>
-
           <div className="mb-5">
             <SkillsWrapper
               skills={resumeData.skills}
@@ -162,24 +145,31 @@ const Template7 = () => {
             />
           </div>
         </aside>
+        <div className="w-8/12 p-4">
+          <header className="  pb-5">
+            <SummaryWrapper
+              summary={resumeData.summary}
+              headerColor={"black"}
+              editable={true} // Set to false if editing is not required
+              className=""
+            />
+          </header>
+          <WorkExperience
+            itemClassNames={{
+              title: "text-lg font-bold mb-1  editable",
+              company: "",
+              position: "",
+              location: "",
+            }}
+            resumeData={resumeData}
+            headerColor={backgroundColorss}
+          />
+          <ProjectsSection
+            resumeData={resumeData}
+            headerColor={backgroundColorss}
+          />
+        </div>
       </section>
-    </div>
-  );
-};
-
-const A4PageWrapper = ({ children }) => {
-  const alertA4Size = () => {
-    const preview = document.querySelector(".preview");
-    const previewHeight = preview.offsetHeight;
-    console.log(previewHeight);
-    if (previewHeight > 1122) {
-      alert("A4 size exceeded");
-    }
-  };
-
-  return (
-    <div className="w-8.5in border p-3" onLoad={alertA4Size}>
-      {children}
     </div>
   );
 };

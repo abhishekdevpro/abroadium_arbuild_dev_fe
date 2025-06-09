@@ -152,35 +152,6 @@ const Template5 = () => {
       </section>
 
       <section className="skills mb-6">
-        {/* <Droppable droppableId="skills" type="SKILLS"> */}
-        {/* {(provided) => (
-          <ul
-            className="pl-5 "
-            {...provided.droppableProps}
-            ref={provided.innerRef}
-          >
-            {resumeData.skills.map((skill, index) => (
-              <Draggable
-                key={`SKILLS-${index}`}
-                draggableId={`SKILLS-${index}`}
-                index={index}
-              >
-                {(provided, snapshot) => (
-                  <li
-                    ref={provided.innerRef}
-                    {...provided.draggableProps}
-                    {...provided.dragHandleProps}
-                    className={`hover:scale-105 transition-transform duration-300 text-sm mb-1.5 ${snapshot.isDragging &&
-                      "outline-dashed outline-2 outline-gray-400 bg-white"
-                      }`}
-                  >
-                    <Skills title={skill.title} skills={skill.skills} />
-                  </li>
-                )}
-              </Draggable>
-            ))}
-            {provided.placeholder}
-          </ul> */}
         <SkillsWrapper
           skills={resumeData.skills}
           headerColor={backgroundColorss}
@@ -188,6 +159,21 @@ const Template5 = () => {
           className="mt-4"
           layout="row"
           textColor="black"
+        />
+      </section>
+      <section className="certification mb-6">
+        <Certification
+          title="Certifications"
+          certifications={resumeData.certifications}
+          hasBullet={false}
+          headerColor={"black"}
+        />
+      </section>
+      <section className="language mb-6">
+        <Language
+          title="Languages"
+          languages={resumeData.languages}
+          headerColor={"black"}
         />
       </section>
     </div>

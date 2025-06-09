@@ -172,9 +172,9 @@ const TemplateStep = ({ onNext, onBack, onChange, value }) => {
       hexCode: "#374151",
     },
     {
-      name: "Blue",
+      name: "Green",
       class: "bg-[#00b38d]",
-      selectedClass: "ring-blue-400",
+      selectedClass: "ring-[#00b38d]",
       hexCode: "#00b38d",
     },
     {
@@ -425,7 +425,7 @@ const TemplateStep = ({ onNext, onBack, onChange, value }) => {
   // Set default color hex code if none selected
   useEffect(() => {
     if (!value.hexCode) {
-      const defaultColor = colors.find((c) => c.name === "Blue");
+      const defaultColor = colors.find((c) => c.name === "Navy Blue");
       handleColorChange(defaultColor.hexCode, defaultColor.name);
     }
   }, []);
@@ -467,7 +467,7 @@ const TemplateStep = ({ onNext, onBack, onChange, value }) => {
               parsedAIData.templateData.templateDetails.backgroundColor;
             const colorObj =
               colors.find((c) => c.hexCode === backgroundColor) ||
-              colors.find((c) => c.name === "Blue");
+              colors.find((c) => c.name === "Navy Blue");
             handleColorChange(colorObj.hexCode, colorObj.name);
           }
 

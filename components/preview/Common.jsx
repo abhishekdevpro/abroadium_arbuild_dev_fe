@@ -220,6 +220,8 @@ const TextWrapper = ({
   headerColor = "black",
   orientation = "column",
   className = "",
+  nameclassName = "",
+  positionclassName = "",
 }) => {
   return (
     <div
@@ -230,7 +232,7 @@ const TextWrapper = ({
       <h1
         contentEditable
         suppressContentEditableWarning
-        className="text-5xl font-extrabold"
+        className={`text-5xl font-extrabold  ${nameclassName}`}
         style={{ color: headerColor }}
       >
         {name}
@@ -238,7 +240,7 @@ const TextWrapper = ({
       <p
         contentEditable
         suppressContentEditableWarning
-        className="text-3xl font-bold text-gray-700"
+        className={`text-3xl font-bold text-gray-700 ${positionclassName}`}
       >
         {position}
       </p>
