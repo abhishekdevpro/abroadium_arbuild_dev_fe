@@ -331,7 +331,7 @@ const ContactAndSocialMedia = ({
         </span>
 
         <span
-          className={`${finalTextColor} text-sm font-light`}
+          className={`${finalTextColor} text-sm font-light break-all`}
           contentEditable
           suppressContentEditableWarning
         >

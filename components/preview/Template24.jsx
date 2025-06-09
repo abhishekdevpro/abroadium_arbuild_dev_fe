@@ -95,6 +95,7 @@ const Template24 = () => {
           />
         </div>
       </div>
+
       <ContactAndSocialMedia
         contactData={{
           teldata: resumeData.contactInformation,
@@ -108,7 +109,7 @@ const Template24 = () => {
         socialMediaClass=""
         className="items-start justify-start"
       />
-      <div class="border-solid border-2 border-black mb-5 "></div>
+      <div class="border-solid border-2 border-black mb-5 mt-4 "></div>
 
       <div className="mb-5">
         <SummaryWrapper

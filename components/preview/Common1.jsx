@@ -81,7 +81,7 @@ const TextWrapper = ({
       <p
         contentEditable
         suppressContentEditableWarning
-        className={`text-3xl font-bold text-gray-700 ${positionclassName}`}
+        className={`text-3xl font-bold ${positionclassName}`}
       >
         {position}
       </p>
