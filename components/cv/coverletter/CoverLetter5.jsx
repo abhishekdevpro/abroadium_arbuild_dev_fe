@@ -62,9 +62,9 @@ const CoverLetter5 = () => {
       <div className="px-4">
         {/* Introduction and Body Section */}
         <IntroductionBodyWrapper
-          introduction={coverLetterData.introduction}
+          // introduction={coverLetterData.introduction}
           body={coverLetterData.body}
-          closing={coverLetterData.closing}
+          // closing={coverLetterData.closing}
           gratitude={coverLetterData.gratitude}
           signature={coverLetterData.signature}
           editable={true}
