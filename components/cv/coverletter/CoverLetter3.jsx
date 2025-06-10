@@ -5,6 +5,7 @@ import { CoverLetterContext } from "../../context/CoverLetterContext";
 import PersonalInfoWrapper from "./PersonalInfoWrapper";
 import LetterDetailsWrapper from "./LetterDetailsWrapper";
 import IntroductionBodyWrapper from "./IntroductionBodyWrapper";
+import SocialInfo from "./SocialInfo";
 
 const CoverLetter3 = ({}) => {
   const templateRef = useRef(null);
@@ -17,39 +18,54 @@ const CoverLetter3 = ({}) => {
   };
 
   return (
-    <div
-      ref={templateRef}
-      className="max-w-4xl mx-auto bg-white border border-gray-200 shadow-lg"
-    >
+    <div ref={templateRef} className="">
       <div
-        className="container mx-auto flex flex-col p-4 gap-8"
+        className=" mx-auto p-4 "
         // style={{ backgroundColor: backgroundColorss || "white" }}
       >
         {/* Personal Information Section */}
+        <div
+          className=" flex justify-between p-4 gap-2 "
+          style={{
+            borderBottom: `2px solid ${backgroundColorss}`,
+          }}
+        >
+          {/* Personal Information Section */}
+          <div>
+            <PersonalInfoWrapper
+              personalDetails={coverLetterData?.personalDetails || {}}
+              // headerColor={backgroundColorss ? "white" : "black"}
+            />
+          </div>
 
-        <PersonalInfoWrapper
-          personalDetails={coverLetterData?.personalDetails || {}}
+          <div>
+            <SocialInfo
+              personalDetails={coverLetterData?.personalDetails || {}}
+              // headerColor={backgroundColorss ? "white" : "black"}
+            />
+          </div>
+        </div>
+      </div>
+      <div className="px-4">
+        {/* Letter Details Section */}
+        <LetterDetailsWrapper
+          letterDetails={coverLetterData?.letterDetails || {}}
           // editable={true}
-          // headerColor={backgroundColorss ? "white" : "black"}
+          headerColor={"black"}
+          className="p-4"
+        />
+
+        {/* Introduction and Body Section */}
+        <IntroductionBodyWrapper
+          introduction={coverLetterData.introduction}
+          body={coverLetterData.body}
+          closing={coverLetterData.closing}
+          gratitude={coverLetterData.gratitude}
+          signature={coverLetterData.signature}
+          editable={true}
+          headerColor={backgroundColorss ? "white" : "black"}
         />
       </div>
-      {/* Letter Details Section */}
-      <LetterDetailsWrapper
-        letterDetails={coverLetterData?.letterDetails || {}}
-        // editable={true}
-        headerColor={backgroundColorss ? "white" : "black"}
-      />
-
-      {/* Introduction and Body Section */}
-      <IntroductionBodyWrapper
-        introduction={coverLetterData.introduction}
-        body={coverLetterData.body}
-        closing={coverLetterData.closing}
-        gratitude={coverLetterData.gratitude}
-        signature={coverLetterData.signature}
-        editable={true}
-        headerColor={backgroundColorss ? "white" : "black"}
-      />
     </div>
   );
 };

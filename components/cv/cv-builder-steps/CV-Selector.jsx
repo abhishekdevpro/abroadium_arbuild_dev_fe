@@ -360,9 +360,11 @@ const CVSelector = ({ onNext, onBack, onChange, value }) => {
       },
       personalDetails: {
         name: data.personalDetails?.name || "",
+        position: data.personalDetails?.position || "",
         address: data.personalDetails?.address || "",
         email: data.personalDetails?.email || "",
         contact: data.personalDetails?.contact || "",
+        photo: data.photo,
       },
     };
   };

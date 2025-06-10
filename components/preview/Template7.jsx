@@ -70,7 +70,7 @@ const Template7 = () => {
 
   return (
     <div ref={templateRef} className="">
-      <div className="header text-start mb-6">
+      <div className="header text-start mb-6 mt-6">
         <div className="flex justify-center items-center gap-4">
           {resumeData?.profilePicture && (
             <ImageWrapper

@@ -91,7 +91,6 @@ const Template12 = () => {
           />
         </div>
 
-        {/* <h1 className="text-2xl mb-1.5" style={{ color: headerColor }}>{resumeData.name}</h1> */}
         <ContactAndSocialMedia
           contactData={{
             teldata: resumeData.contactInformation,
@@ -103,7 +102,7 @@ const Template12 = () => {
           layout="row" // or "row"
           contactClass=""
           socialMediaClass=""
-          className="justify-start gap-4 mt-4"
+          className="justify-start gap-4 mt-6"
         />
       </div>
 

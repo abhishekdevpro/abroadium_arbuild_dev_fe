@@ -340,20 +340,21 @@ const Template10 = () => {
           headerColor={backgroundColorss}
           orientation="column" // Use "column" for stacked layout
         />
-        {/* <h1 className="text-2xl mb-1.5" style={{ color: headerColor }}>{resumeData.name}</h1> */}
-        <ContactAndSocialMedia
-          contactData={{
-            teldata: resumeData.contactInformation,
-            emaildata: resumeData.email,
-            addressdata: resumeData.address,
-          }}
-          socialMediaData={resumeData.socialMedia}
-          icons={icons}
-          layout="row" // or "row"
-          contactClass=""
-          socialMediaClass=""
-          className="justify-center gap-4"
-        />
+        <div className="mt-6">
+          <ContactAndSocialMedia
+            contactData={{
+              teldata: resumeData.contactInformation,
+              emaildata: resumeData.email,
+              addressdata: resumeData.address,
+            }}
+            socialMediaData={resumeData.socialMedia}
+            icons={icons}
+            layout="row" // or "row"
+            contactClass=""
+            socialMediaClass=""
+            className="justify-center gap-4"
+          />
+        </div>
       </div>
 
       <SummaryWrapper
