@@ -10,6 +10,7 @@ export const CoverLetterProvider = ({ children }) => {
   const [headerColor, setHeaderColor] = useState("");
   const [backgroundColorss, setBgColor] = useState("");
   const [selectedFont, setSelectedFont] = useState("Ubuntu");
+  // const[photo, setPhoto]= useState("")
   const handleChange = (e) => {
     setCoverLetterData({ ...coverLetterData, [e.target.name]: e.target.value });
   };
@@ -46,6 +47,8 @@ export const CoverLetterProvider = ({ children }) => {
         setBgColor,
         selectedFont,
         setSelectedFont,
+        // photo,
+        // setPhoto
       }}
     >
       {children}

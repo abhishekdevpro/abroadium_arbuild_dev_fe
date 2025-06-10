@@ -18,6 +18,8 @@ function CoverLetterBuilder() {
     setSelectedFont,
     setBgColor,
     setHeaderColor,
+    setPhoto,
+    photo,
   } = useContext(CoverLetterContext);
   const router = useRouter();
   const templateRef = useRef(null);
@@ -62,13 +64,14 @@ function CoverLetterBuilder() {
               },
             }
           );
-          console.log(coverLetterData, ">>>coverlettersdatafgfbgfb");
+          console.log(coverLetterData, ">>>coverlettersdata");
+
           if (response.data.status === "success") {
             const { data } = response.data;
             // console.log(data,"rnd");
 
             const parsedData = data.cover_letter_obj;
-
+            console.log(parsedData, ">>>parsedData");
             setCoverLetterData(parsedData.coverletterInfo);
 
             if (parsedData?.coverletterInfo?.templateDetails) {
@@ -82,6 +85,7 @@ function CoverLetterBuilder() {
                 parsedData.coverletterInfo.templateDetails.templateId ||
                   "template1"
               );
+              // setPhoto(data.photo);
             }
           }
         } catch (error) {
@@ -128,6 +132,7 @@ function CoverLetterBuilder() {
         contact: data.personalDetails?.contact || "",
         photo: data.photo || "",
       },
+      photo: data.photo || "",
       templateDetails: {
         templateId: selectedTemplate,
         backgroundColor: backgroundColorss || "",

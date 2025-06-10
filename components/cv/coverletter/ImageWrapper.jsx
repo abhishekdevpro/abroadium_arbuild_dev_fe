@@ -10,7 +10,7 @@ const ImageWrapper = ({
   borderColor = "black",
 }) => {
   const finalSize = size || defaultSize; // Use dynamic size if provided, otherwise use default size
-
+  console.log(src, ">>>>>imagewrapper.jsx");
   return (
     <div
       className="rounded-full overflow-hidden"
