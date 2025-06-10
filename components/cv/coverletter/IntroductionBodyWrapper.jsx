@@ -32,7 +32,7 @@ const IntroductionBodyWrapper = ({
 
       {/* Body Section */}
 
-      <div className="space-y-4">
+      <div className="">
         {body.map((paragraph, index) => (
           <div key={index} className="mb-4">
             <h4
@@ -69,37 +69,25 @@ const IntroductionBodyWrapper = ({
         )} */}
 
         {/* Gratitude Section */}
-        {/* {gratitude && (
-          <div className="mb-6">
-            <p
-              className={`text-gray-800 ${
-                editable
-                  ? "hover:outline-dashed hover:outline-2 hover:outline-gray-400"
-                  : ""
-              }`}
-              contentEditable={editable}
-              suppressContentEditableWarning={true}
-            >
-              {gratitude}
-            </p>
-          </div>
-        )} */}
+        {gratitude && (
+          <p
+            className={`text-gray-800 font-bold mt-4 `}
+            contentEditable={editable}
+            suppressContentEditableWarning={true}
+          >
+            {gratitude}
+          </p>
+        )}
 
         {/* Signature Section */}
         {signature && (
-          <div>
-            <p
-              className={`text-gray-800 font-bold ${
-                editable
-                  ? "hover:outline-dashed hover:outline-2 hover:outline-gray-400"
-                  : ""
-              }`}
-              contentEditable={editable}
-              suppressContentEditableWarning={true}
-            >
-              {signature}
-            </p>
-          </div>
+          <p
+            className={`text-gray-800 font-bold  `}
+            contentEditable={editable}
+            suppressContentEditableWarning={true}
+          >
+            {signature}
+          </p>
         )}
       </div>
     </div>

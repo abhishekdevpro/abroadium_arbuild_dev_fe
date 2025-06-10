@@ -18,6 +18,8 @@ function CoverLetterBuilder() {
     setSelectedFont,
     setBgColor,
     setHeaderColor,
+    setPhoto,
+    photo,
   } = useContext(CoverLetterContext);
   const router = useRouter();
   const templateRef = useRef(null);
@@ -25,7 +27,7 @@ function CoverLetterBuilder() {
   const [coverletterId, setCoverLetterId] = useState(null);
   const [selectedTemplate, setSelectedTemplate] = useState("template1");
   const [isMobile, setIsMobile] = useState(false);
-
+  const [selectedPdfType, setSelectedPdfType] = useState("1");
   useEffect(() => {
     const checkIsMobile = () => {
       setIsMobile(window.innerWidth < 768); // 768px is typical tablet/mobile breakpoint
@@ -62,13 +64,14 @@ function CoverLetterBuilder() {
               },
             }
           );
+          console.log(coverLetterData, ">>>coverlettersdata");
 
           if (response.data.status === "success") {
             const { data } = response.data;
             // console.log(data,"rnd");
 
             const parsedData = data.cover_letter_obj;
-
+            console.log(parsedData, ">>>parsedData");
             setCoverLetterData(parsedData.coverletterInfo);
 
             if (parsedData?.coverletterInfo?.templateDetails) {
@@ -82,6 +85,7 @@ function CoverLetterBuilder() {
                 parsedData.coverletterInfo.templateDetails.templateId ||
                   "template1"
               );
+              // setPhoto(data.photo);
             }
           }
         } catch (error) {
@@ -122,10 +126,13 @@ function CoverLetterBuilder() {
       },
       personalDetails: {
         name: data.personalDetails?.name || "",
+        position: data.personalDetails?.position || "",
         address: data.personalDetails?.address || "",
         email: data.personalDetails?.email || "",
         contact: data.personalDetails?.contact || "",
+        photo: data.photo || "",
       },
+      photo: data.photo || "",
       templateDetails: {
         templateId: selectedTemplate,
         backgroundColor: backgroundColorss || "",
@@ -222,7 +229,7 @@ function CoverLetterBuilder() {
   const downloadPDF = async () => {
     try {
       const response = await axios.get(
-        `https://api.abroadium.com/api/jobseeker/download-coverletter/${coverletterId}`,
+        `https://api.abroadium.com/api/jobseeker/download-coverletter/${coverletterId}?pdf_type=${selectedPdfType}`,
 
         {
           headers: {
@@ -300,6 +307,8 @@ function CoverLetterBuilder() {
                   <TemplateSelector
                     selectedTemplate={selectedTemplate}
                     setSelectedTemplate={setSelectedTemplate}
+                    selectedPdfType={selectedPdfType}
+                    setSelectedPdfType={setSelectedPdfType}
                   />
                 </div>
 

@@ -11,7 +11,7 @@ const PersonalInfoWrapper = ({
   const { backgroundColorss } = useContext(CoverLetterContext);
 
   return (
-    <div className={`mb-4 ${className}`}>
+    <div className={` ${className}`}>
       <div className="space-y-2">
         {personalDetails.name && (
           <div>
@@ -20,57 +20,32 @@ const PersonalInfoWrapper = ({
                 color: `${
                   headerColor === "black" ? backgroundColorss : headerColor
                 }`,
-                borderBottom: `2px solid ${
-                  headerColor === "black" ? backgroundColorss : headerColor
-                }`,
+                // borderBottom: `2px solid ${
+                //   headerColor === "black" ? backgroundColorss : headerColor
+                // }`,
               }}
-              className="text-4xl font-bold mb-2 "
+              className="text-4xl font-extrabold mb-2 "
             >
               {personalDetails.name}
             </h2>
           </div>
         )}
-        {personalDetails.email && (
-          <p
-            style={{ color: headerColor }}
-            className={`break-words ${
-              editable
-                ? "hover:outline-dashed hover:outline-2 hover:outline-gray-400"
-                : ""
-            }`}
-            contentEditable={editable}
-            suppressContentEditableWarning={true}
-          >
-            <strong>Email:</strong> {personalDetails.email}
-          </p>
-        )}
-        {personalDetails.address && (
-          <p
-            style={{ color: headerColor }}
-            className={`break-words ${
-              editable
-                ? "hover:outline-dashed hover:outline-2 hover:outline-gray-400"
-                : ""
-            }`}
-            contentEditable={editable}
-            suppressContentEditableWarning={true}
-          >
-            <strong>Address:</strong> {personalDetails.address}
-          </p>
-        )}
-        {personalDetails.contact && (
-          <p
-            style={{ color: headerColor }}
-            className={`break-words ${
-              editable
-                ? "hover:outline-dashed hover:outline-2 hover:outline-gray-400"
-                : ""
-            }`}
-            contentEditable={editable}
-            suppressContentEditableWarning={true}
-          >
-            <strong>Contact:</strong> {personalDetails.contact}
-          </p>
+        {personalDetails.position && (
+          <div>
+            <p
+              style={{
+                color: `${
+                  headerColor === "black" ? backgroundColorss : headerColor
+                }`,
+                // borderBottom: `2px solid ${
+                //   headerColor === "black" ? backgroundColorss : headerColor
+                // }`,
+              }}
+              className="text-2xl font-bold mb-2 "
+            >
+              {personalDetails.position}
+            </p>
+          </div>
         )}
       </div>
     </div>
@@ -80,6 +55,7 @@ const PersonalInfoWrapper = ({
 PersonalInfoWrapper.propTypes = {
   personalDetails: PropTypes.shape({
     name: PropTypes.string,
+    position: PropTypes.string,
     email: PropTypes.string,
     address: PropTypes.string,
     contact: PropTypes.string,

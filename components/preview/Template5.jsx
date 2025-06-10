@@ -75,7 +75,7 @@ const Template5 = () => {
   return (
     <div ref={templateRef} className="">
       <div className="header text-center mb-6">
-        <div className="flex justify-center items-center">
+        <div className="flex justify-center items-center mb-4">
           {resumeData?.profilePicture && (
             <ImageWrapper
               src={resumeData.profilePicture}
@@ -83,13 +83,15 @@ const Template5 = () => {
             />
           )}
         </div>
-        <TextWrapper
-          name={resumeData.name}
-          position={resumeData.position}
-          headerColor={backgroundColorss}
-          orientation="column" // Use "column" for stacked layout
-        />
-        {/* <h1 className="text-2xl mb-1.5" style={{ color: headerColor }}>{resumeData.name}</h1> */}
+        <div className="mb-4">
+          <TextWrapper
+            name={resumeData.name}
+            position={resumeData.position}
+            headerColor={backgroundColorss}
+            orientation="column" // Use "column" for stacked layout
+          />
+        </div>
+
         <ContactAndSocialMedia
           contactData={{
             teldata: resumeData.contactInformation,

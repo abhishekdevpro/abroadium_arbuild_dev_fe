@@ -2,9 +2,11 @@
 import React, { useContext, useRef } from "react";
 import { CoverLetterContext } from "../../context/CoverLetterContext";
 
-import PersonalInfoWrapper from "./PersonalInfoWrapper";
+import PersonalInfoWrapper, { TextWrapper } from "./PersonalInfoWrapper";
 import LetterDetailsWrapper from "./LetterDetailsWrapper";
 import IntroductionBodyWrapper from "./IntroductionBodyWrapper";
+import ImageWrapper from "./ImageWrapper";
+import SocialInfo from "./SocialInfo";
 
 const CoverLetter1 = () => {
   const templateRef = useRef(null);
@@ -15,29 +17,48 @@ const CoverLetter1 = () => {
     console.log(htmlContent);
     return htmlContent;
   };
-
+  console.log(coverLetterData, ">>>>>cv1.jsx");
   return (
-    <div
-      ref={templateRef}
-      className="max-w-4xl mx-auto bg-white border border-gray-200 shadow-lg"
-    >
+    <div ref={templateRef} className="">
       <div
-        className="container mx-auto flex flex-col p-4 gap-8 bg-gray-100"
+        className=" flex justify-between p-4 gap-2 "
         style={{ backgroundColor: backgroundColorss }}
       >
-        {/* Personal Information Section */}
+        <div
+          className={`${
+            coverLetterData?.photo ? "flex justify-start gap-8" : ""
+          }`}
+        >
+          <div>
+            {coverLetterData?.photo && (
+              <ImageWrapper
+                src={coverLetterData.photo}
+                className="w-32 h-32 rounded-full"
+              />
+            )}
+          </div>
 
-        <PersonalInfoWrapper
-          personalDetails={coverLetterData?.personalDetails || {}}
-          // editable={true}
-          headerColor={backgroundColorss ? "white" : "black"}
-        />
+          {/* Personal Information Section */}
+          <div>
+            <PersonalInfoWrapper
+              personalDetails={coverLetterData?.personalDetails || {}}
+              headerColor={backgroundColorss ? "white" : "black"}
+            />
+          </div>
+        </div>
+        <div>
+          <SocialInfo
+            personalDetails={coverLetterData?.personalDetails || {}}
+            headerColor={backgroundColorss ? "white" : "black"}
+          />
+        </div>
       </div>
       {/* Letter Details Section */}
       <LetterDetailsWrapper
         letterDetails={coverLetterData?.letterDetails || {}}
         // editable={true}
-        headerColor={backgroundColorss ? "white" : "black"}
+        headerColor={"black"}
+        className="p-4"
       />
 
       {/* Introduction and Body Section */}

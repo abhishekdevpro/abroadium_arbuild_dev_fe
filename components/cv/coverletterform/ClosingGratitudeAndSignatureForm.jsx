@@ -14,9 +14,7 @@ const ClosingGratitudeAndSignatureForm = () => {
 
   return (
     <div className="p-4 md:p-8  rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold mb-6 text-white">
-      Signature Section
-      </h2>
+      <h2 className="text-2xl font-bold mb-6 text-white">Signature Section</h2>
 
       {/* Closing Section */}
       {/* <div className="mb-6">
@@ -47,10 +45,18 @@ const ClosingGratitudeAndSignatureForm = () => {
         <label className="block text-white font-medium mb-2">Signature</label>
         <input
           type="text"
+          value={coverLetterData.gratitude}
+          onChange={(e) => handleChange("gratitude", e.target.value)}
+          className="w-full p-2 mb-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="Sincerely"
+        />
+
+        <input
+          type="text"
           value={coverLetterData.signature}
           onChange={(e) => handleChange("signature", e.target.value)}
           className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          placeholder="Enter your signature (e.g., Sincerely, John Doe)"
+          placeholder="Enter your signature (e.g. John Doe)"
         />
       </div>
     </div>

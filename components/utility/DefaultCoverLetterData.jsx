@@ -1,6 +1,7 @@
 const DefaultCoverLetterData = {
   personalDetails: {
     name: "Firstname Lastname",
+    position: "HR",
     address: "Jalandhar, PB, 144003",
     email: "consciousfoundation@gmail.com",
     contact: "4546576878",
@@ -24,7 +25,7 @@ const DefaultCoverLetterData = {
   closing: "Thankyou for your time and consideration ",
   gratitude: "Sincerely,",
 
-  signature: "Saurav Jangir",
+  signature: "FirstName LastName",
 };
 
 export default DefaultCoverLetterData;

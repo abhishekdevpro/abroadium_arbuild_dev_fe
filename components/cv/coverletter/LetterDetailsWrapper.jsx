@@ -8,11 +8,12 @@ const LetterDetailsWrapper = ({
   className = "",
 }) => {
   return (
-    <div className={`p-4   ${className}`}>
+    <div className={`  ${className}`}>
       <div className="space-y-4">
         {/* Date */}
         {letterDetails.date && (
           <p
+            style={{ color: headerColor }}
             className={`text-gray-800 ${
               editable
                 ? "hover:outline-dashed hover:outline-2 hover:outline-gray-400"
@@ -29,6 +30,7 @@ const LetterDetailsWrapper = ({
           {/* Job Title */}
           {letterDetails.jobTitle && (
             <p
+              style={{ color: headerColor }}
               className={`text-gray-800 ${
                 editable
                   ? "hover:outline-dashed hover:outline-2 hover:outline-gray-400"
@@ -44,6 +46,7 @@ const LetterDetailsWrapper = ({
           {/* Reference */}
           {letterDetails.reference && (
             <p
+              style={{ color: headerColor }}
               className={`text-gray-800 ${
                 editable
                   ? "hover:outline-dashed hover:outline-2 hover:outline-gray-400"
@@ -59,6 +62,7 @@ const LetterDetailsWrapper = ({
         {/* Company Name */}
         {letterDetails.companyName && (
           <p
+            style={{ color: headerColor }}
             className={`text-gray-800 ${
               editable
                 ? "hover:outline-dashed hover:outline-2 hover:outline-gray-400"
@@ -73,6 +77,7 @@ const LetterDetailsWrapper = ({
         {/* Salutation */}
         {letterDetails.salutation && (
           <p
+            style={{ color: headerColor }}
             className={`text-gray-800 ${
               editable
                 ? "hover:outline-dashed hover:outline-2 hover:outline-gray-400"

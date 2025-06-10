@@ -6,16 +6,21 @@ import cvletter2 from "./cvimgs/cvletter2.png";
 import cvletter3 from "./cvimgs/cvletter3.png";
 import cvletter4 from "./cvimgs/cvletter4.png";
 import cvletter5 from "./cvimgs/cvletter5.png";
-const TemplateSelector = ({ selectedTemplate, setSelectedTemplate }) => {
+const TemplateSelector = ({
+  selectedTemplate,
+  setSelectedTemplate,
+  selectedPdfType,
+  setSelectedPdfType,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [templateId, setTemplateId] = useState(selectedTemplate);
   const templates = [
-    { key: "template1", imageUrl: cvletter1 },
-    { key: "template2", imageUrl: cvletter2 },
-    { key: "template3", imageUrl: cvletter3 },
-    { key: "template4", imageUrl: cvletter4 },
-    { key: "template5", imageUrl: cvletter5 },
+    { key: "template1", imageUrl: cvletter1, pdfType: 4 },
+    { key: "template2", imageUrl: cvletter2, pdfType: 2 },
+    { key: "template3", imageUrl: cvletter3, pdfType: 3 },
+    { key: "template4", imageUrl: cvletter4, pdfType: 3 },
+    { key: "template5", imageUrl: cvletter5, pdfType: 4 },
   ];
 
   useEffect(() => {
@@ -23,6 +28,7 @@ const TemplateSelector = ({ selectedTemplate, setSelectedTemplate }) => {
       (template) => template.key == selectedTemplate
     );
     if (selectedIndex !== -1) {
+      setSelectedPdfType(templates[selectedIndex].pdfType);
       setCurrentIndex(selectedIndex);
     }
     setTemplateId(selectedTemplate);
@@ -34,6 +40,7 @@ const TemplateSelector = ({ selectedTemplate, setSelectedTemplate }) => {
   const handleTemplateClick = (templateKey) => {
     setSelectedTemplate(templateKey);
     setTemplateId(templateKey);
+    setSelectedPdfType(templateKey.pdfType);
     closeModal();
   };
 
@@ -70,100 +77,6 @@ const TemplateSelector = ({ selectedTemplate, setSelectedTemplate }) => {
         Template
       </button>
 
-      {/* {isOpen && (
-        <div className="fixed inset-0 flex items-center justify-center z-50 p-4 bg-gradient-to-b from-white to-blue-100">
-          <div className="bg-white rounded-xl p-6 w-full max-w-5xl relative shadow-2xl">
-            <div className="text-lg font-bold mb-4 text-center border rounded-3xl py-2 text-white bg-gray-800">
-              Select a Template
-            </div>
-
-            <div className="relative flex items-center mb-6">
-              <button
-                onClick={goToPrevious}
-                className="absolute -left-3 z-10 flex items-center justify-center w-10 h-10 bg-white rounded-full shadow-lg border border-gray-200 hover:bg-gray-50 transition-colors duration-200"
-              >
-                <ChevronLeft className="w-6 h-6 text-gray-600" />
-              </button>
-
-              <div className="flex justify-center w-full overflow-hidden px-8">
-                <div className="flex gap-4">
-                  {getDisplayedTemplates().map((template) => (
-                    <div
-                      key={template.key}
-                      onClick={() => handleTemplateClick(template.key)}
-                      className={`
-                        relative group cursor-pointer transition-all duration-300
-                        ${
-                          template.key === templateId
-                            ? "transform scale-105"
-                            : "hover:scale-102"
-                        }
-                      `}
-                    >
-                      <div
-                        className={`
-                        w-64 p-2 rounded-lg transition-all duration-300
-                        ${
-                          template.key === templateId
-                            ? "bg-blue-100 ring-4 ring-[#002a48] ring-offset-2"
-                            : "hover:bg-gray-50"
-                        }
-                      `}
-                      >
-                        <div className="relative">
-                          <Image
-                            src={template.imageUrl}
-                            alt={template.key}
-                            width={300}
-                            height={400}
-                            className={`
-                              w-full h-80 object-cover rounded-lg shadow-md transition-transform duration-300
-                              ${
-                                template.key === templateId
-                                  ? "ring-2 ring-blue-400"
-                                  : "group-hover:ring-2 group-hover:ring-blue-300"
-                              }
-                            `}
-                          />
-                          {template.key === templateId && (
-                            <div className="absolute inset-0 border-4 border-[#002a48] rounded-lg pointer-events-none" />
-                          )}
-                        </div>
-                        <div
-                          className={`
-                          mt-2 text-center py-2 px-4 rounded-md transition-colors duration-300
-                          ${
-                            template.key === templateId
-                              ? "bg-[#002a48] text-white font-semibold"
-                              : "text-gray-600 group-hover:text-[#002a48]"
-                          }
-                        `}
-                        >
-                          {template.key}
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <button
-                onClick={goToNext}
-                className="absolute -right-3 z-10 flex items-center justify-center w-10 h-10 bg-white rounded-full shadow-lg border border-gray-200 hover:bg-gray-50 transition-colors duration-200"
-              >
-                <ChevronRight className="w-6 h-6 text-gray-600" />
-              </button>
-            </div>
-
-            <button
-              onClick={closeModal}
-              className="w-full sm:w-auto px-6 py-2.5 bg-gray-800 text-white font-semibold rounded-lg hover:bg-gray-700 transition-colors duration-200 flex items-center justify-center mx-auto"
-            >
-              Close
-            </button>
-          </div>
-        </div>
-      )} */}
       {isOpen && (
         <div className="fixed inset-0 flex items-center justify-center z-50 p-4 bg-gradient-to-b from-white to-blue-100">
           <div className="bg-white rounded-xl p-6 w-full max-w-5xl relative shadow-2xl max-h-[90vh] overflow-y-auto">

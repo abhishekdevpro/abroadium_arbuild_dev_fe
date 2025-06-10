@@ -89,7 +89,7 @@ const Template20 = () => {
           layout="row" // or "row"
           contactClass=""
           socialMediaClass=""
-          className="items-center justify-center"
+          className="items-center justify-center mt-6 mb-6"
         />
         <SummaryWrapper
           summary={resumeData.summary}

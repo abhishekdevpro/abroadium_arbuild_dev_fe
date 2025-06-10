@@ -102,7 +102,7 @@ const Template18 = () => {
           layout="row" // or "row"
           contactClass=""
           socialMediaClass=""
-          className="justify-start gap-4 mt-4"
+          className="justify-start gap-4 mt-6"
         />
       </div>
 

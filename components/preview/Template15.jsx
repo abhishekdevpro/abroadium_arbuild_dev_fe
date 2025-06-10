@@ -82,7 +82,7 @@ const Template15 = () => {
           layout="row" // or "row"
           contactClass=""
           socialMediaClass=""
-          className="items-start justify-start"
+          className="items-start justify-start mt-6"
         />
       </header>
 

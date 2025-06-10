@@ -5,71 +5,71 @@ import { CoverLetterContext } from "../../context/CoverLetterContext";
 import PersonalInfoWrapper from "./PersonalInfoWrapper";
 import LetterDetailsWrapper from "./LetterDetailsWrapper";
 import IntroductionBodyWrapper from "./IntroductionBodyWrapper";
+import SocialInfo from "./SocialInfo";
+import ImageWrapper from "./ImageWrapper";
 
 const CoverLetter5 = () => {
   const { coverLetterData, backgroundColorss, headerColor } =
     useContext(CoverLetterContext);
 
   return (
-    <div className="max-w-4xl mx-auto bg-white border border-gray-200 ">
-      <div
-        className="mx-auto flex justify-center items-center p-4"
-        style={{
-          borderBottom: `2px solid ${backgroundColorss}`,
-        }}
-      >
-        <h2
-          style={{
-            color: `${backgroundColorss}`,
-          }}
-          className="text-4xl font-bold mb-2 "
-        >
-          {coverLetterData?.personalDetails.name}
-        </h2>
-      </div>
-      <div className="container mx-auto flex bg-white shadow-lg mt-2">
-        {/* Left Column */}
+    <div className="">
+      <div className="  p-4  " style={{ backgroundColor: backgroundColorss }}>
         <div
-          className="right-column w-4/12 bg-gray-100 p-4"
-          style={{ backgroundColor: backgroundColorss }}
+          className={`${
+            coverLetterData?.photo
+              ? "flex justify-start gap-8"
+              : "flex justify-center items-center text-center"
+          }`}
         >
-          <p
-            style={{
-              color: backgroundColorss ? "white" : "black",
-            }}
-          >
-            <strong>Email:</strong> {coverLetterData.personalDetails.email}
-          </p>
-          <p style={{ color:backgroundColorss ? "white" : "black"} }>
-            <strong>Address:</strong> {coverLetterData.personalDetails.address}
-          </p>
-          <p style={{ color: backgroundColorss ? "white" : "black" }}>
-            <strong>Contact:</strong> {coverLetterData.personalDetails.contact}
-          </p>
-        </div>
+          <div>
+            {coverLetterData?.photo && (
+              <ImageWrapper
+                src={coverLetterData.photo}
+                alt="Profile Picture"
+                className="w-32 h-32 rounded-full"
+              />
+            )}
+          </div>
 
-        {/* Right Column */}
-        <div className="left-column w-8/12 p-2 border-r border-gray-300">
-          {/* Job 1 */}
-          <div className="flex flex-col gap-4">
-            <div className="col-span-2 space-y-2">
-              <LetterDetailsWrapper
-                letterDetails={coverLetterData?.letterDetails || {}}
-                editable={true}
-                headerColor={backgroundColorss ? "white" : "black"}
-              />
-              <IntroductionBodyWrapper
-                introduction={coverLetterData.introduction}
-                body={coverLetterData.body}
-                closing={coverLetterData.closing}
-                gratitude={coverLetterData.gratitude}
-                signature={coverLetterData.signature}
-                editable={true}
-                headerColor={backgroundColorss ? "white" : "black"}
-              />
-            </div>
+          {/* Personal Information Section */}
+          <div className="">
+            <PersonalInfoWrapper
+              personalDetails={coverLetterData?.personalDetails || {}}
+              headerColor={backgroundColorss ? "white" : "black"}
+            />
           </div>
         </div>
+      </div>
+
+      <div className=" flex justify-between p-4 gap-2 ">
+        <div>
+          {/* Letter Details Section */}
+          <LetterDetailsWrapper
+            letterDetails={coverLetterData?.letterDetails || {}}
+            // editable={true}
+            headerColor={"black"}
+            className="p-4"
+          />
+        </div>
+        <div className="p-4">
+          <SocialInfo
+            personalDetails={coverLetterData?.personalDetails || {}}
+            // headerColor={backgroundColorss ? "white" : "black"}
+          />
+        </div>
+      </div>
+      <div className="px-4">
+        {/* Introduction and Body Section */}
+        <IntroductionBodyWrapper
+          introduction={coverLetterData.introduction}
+          body={coverLetterData.body}
+          closing={coverLetterData.closing}
+          gratitude={coverLetterData.gratitude}
+          signature={coverLetterData.signature}
+          editable={true}
+          headerColor={backgroundColorss ? "white" : "black"}
+        />
       </div>
     </div>
   );
