@@ -14,7 +14,7 @@ const IntroductionBodyWrapper = ({
   return (
     <div className={`p-4  ${className}`}>
       {/* Introduction Section */}
-      {introduction && (
+      {/* {introduction && (
         <div className="mb-6">
           <p
             className={`text-gray-800 ${
@@ -28,7 +28,7 @@ const IntroductionBodyWrapper = ({
             {introduction}
           </p>
         </div>
-      )}
+      )} */}
 
       {/* Body Section */}
 
@@ -95,9 +95,9 @@ const IntroductionBodyWrapper = ({
 };
 
 IntroductionBodyWrapper.propTypes = {
-  introduction: PropTypes.string.isRequired,
+  // introduction: PropTypes.string.isRequired,
   body: PropTypes.arrayOf(PropTypes.string).isRequired,
-  closing: PropTypes.string.isRequired,
+  // closing: PropTypes.string.isRequired,
   gratitude: PropTypes.string.isRequired,
   signature: PropTypes.string.isRequired,
   editable: PropTypes.bool,

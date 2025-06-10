@@ -176,6 +176,7 @@ import { CoverLetterContext } from "../../context/CoverLetterContext";
 import dynamic from "next/dynamic";
 import "react-quill/dist/quill.snow.css";
 import { Plus, X } from "lucide-react";
+import axios from "axios";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
@@ -194,7 +195,7 @@ const IntroductionAndBodyForm = () => {
       return { ...prevData, body: updatedBody };
     });
   };
-  const token = localStorage.getItem("token");
+
   const handleAIAssist = async (index) => {
     setLoadingIndex(index);
     setActiveIndex(index);
@@ -231,7 +232,6 @@ const IntroductionAndBodyForm = () => {
     }
 
     try {
-      // ✅ Get token from localStorage
       const token = localStorage.getItem("token");
 
       if (!token) {
@@ -241,25 +241,26 @@ const IntroductionAndBodyForm = () => {
         return;
       }
 
-      const res = await fetch(endpoint, {
-        method: "POST",
+      const response = await axios.post(endpoint, payload, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: token, // ✅ Add token to request header
+          Authorization: token,
         },
-        body: JSON.stringify(payload),
       });
 
-      if (!res.ok) {
-        const errorData = await res.json();
-        throw new Error(errorData.message || "Unauthorized or failed request.");
-      }
+      const data = response.data.data;
+      setPopupContent(
+        data?.cover_letter_analysis?.professional_summaries?.join("\n\n") ||
+          "No content received."
+      );
 
-      const data = await res.json();
-      setPopupContent(data?.summary || "No content received.");
       setPopupVisible(true);
     } catch (error) {
-      setPopupContent(error.message || "Something went wrong.");
+      const message =
+        error.response?.data?.message ||
+        error.message ||
+        "Something went wrong.";
+      setPopupContent(message);
       setPopupVisible(true);
       console.error(error);
     } finally {
