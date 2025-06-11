@@ -48,7 +48,7 @@
 //   { ssr: false }
 // );
 // const Template2 = () => {
-//   const { resumeData, setResumeData, headerColor, backgroundColorss } =
+// const { resumeData, setResumeData, headerColor, backgroundColorss  ,selectedFont } =
 //     useContext(ResumeContext);
 //   const icons = [
 //     { name: "github", icon: <FaGithub /> },
@@ -464,8 +464,13 @@ import WorkExperience from "./WorkExperience";
 import ProjectsSection from "./ProjectSection";
 
 const Template2 = () => {
-  const { resumeData, setResumeData, headerColor, backgroundColorss } =
-    useContext(ResumeContext);
+  const {
+    resumeData,
+    setResumeData,
+    headerColor,
+    backgroundColorss,
+    selectedFont,
+  } = useContext(ResumeContext);
   const icons = [
     { name: "github", icon: <FaGithub /> },
     { name: "linkedin", icon: <FaLinkedin /> },
@@ -477,7 +482,10 @@ const Template2 = () => {
   ];
 
   return (
-    <div className="flex flex-col gap-4">
+    <div
+      className="flex flex-col gap-4"
+      style={{ fontFamily: `${selectedFont}` }}
+    >
       <TextWrapper
         name={resumeData.name}
         position={resumeData.position}

@@ -54,8 +54,13 @@ const Draggable = dynamic(
   { ssr: false }
 );
 const Template14 = () => {
-  const { resumeData, setResumeData, headerColor, backgroundColorss } =
-    useContext(ResumeContext);
+  const {
+    resumeData,
+    setResumeData,
+    headerColor,
+    backgroundColorss,
+    selectedFont,
+  } = useContext(ResumeContext);
   const templateRef = useRef(null);
 
   const extractHtml = () => {
@@ -74,7 +79,11 @@ const Template14 = () => {
   ];
 
   return (
-    <div ref={templateRef} className="">
+    <div
+      ref={templateRef}
+      className=""
+      style={{ fontFamily: `${selectedFont}` }}
+    >
       <div className="header text-start mb-6">
         <div className="flex justify-between items-center gap-4">
           {resumeData?.profilePicture && (

@@ -112,6 +112,9 @@ export default function WebBuilder() {
                 parsedData.templateData.templateDetails.templateId ||
                   "template1"
               );
+              setSelectedFont(
+                parsedData.templateData.templateDetails.font || "Ubuntu"
+              );
             }
           }
         } catch (error) {
@@ -729,6 +732,17 @@ transition-transform duration-200 ease-in-out hover:scale-[1.02] hover:bg-blue-5
                     <option value="Georgia">Georgia</option>
                     <option value="Roboto">Roboto</option>
                     <option value="Poppins">Poppins</option>
+                    <option value="Arial">Arial</option>
+                    <option value="Times New Roman">Times New Roman</option>
+                    <option value="Helvetica">Helvetica</option>
+                    <option value="Courier New">Courier New</option>
+                    <option value="Tahoma">Tahoma</option>
+                    <option value="Verdana">Verdana</option>
+                    <option value="Trebuchet MS">Trebuchet MS</option>
+                    <option value="Lucida Console">Lucida Console</option>
+                    <option value="Comic Sans MS">Comic Sans MS</option>
+                    <option value="Source Sans Pro">Source Sans Pro</option>
+                    <option value="Inter">Inter</option>
                   </select>
 
                   {/* Color Picker and Template Selector */}
@@ -740,8 +754,8 @@ transition-transform duration-200 ease-in-out hover:scale-[1.02] hover:bg-blue-5
                     <TemplateSelector
                       selectedTemplate={selectedTemplate}
                       setSelectedTemplate={setSelectedTemplate}
-                      selectedPdfType={selectedPdfType}
                       setSelectedPdfType={setSelectedPdfType}
+                      selectedPdfType={selectedPdfType}
                     />
                   </div>
                 </div>
@@ -831,6 +845,17 @@ transition-transform duration-200 ease-in-out hover:scale-[1.02] hover:bg-blue-5
                   <option value="Georgia">Georgia</option>
                   <option value="Roboto">Roboto</option>
                   <option value="Poppins">Poppins</option>
+                  <option value="Arial">Arial</option>
+                  <option value="Times New Roman">Times New Roman</option>
+                  <option value="Helvetica">Helvetica</option>
+                  <option value="Courier New">Courier New</option>
+                  <option value="Tahoma">Tahoma</option>
+                  <option value="Verdana">Verdana</option>
+                  <option value="Trebuchet MS">Trebuchet MS</option>
+                  <option value="Lucida Console">Lucida Console</option>
+                  <option value="Comic Sans MS">Comic Sans MS</option>
+                  <option value="Source Sans Pro">Source Sans Pro</option>
+                  <option value="Inter">Inter</option>
                 </select>
 
                 <div className="flex items-center">

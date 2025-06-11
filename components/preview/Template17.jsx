@@ -25,8 +25,13 @@ import Certification from "./Certification";
 import Language from "./Language";
 
 const Template17 = () => {
-  const { resumeData, setResumeData, headerColor, backgroundColorss } =
-    useContext(ResumeContext);
+  const {
+    resumeData,
+    setResumeData,
+    headerColor,
+    backgroundColorss,
+    selectedFont,
+  } = useContext(ResumeContext);
   const templateRef = useRef(null);
 
   const icons = [
@@ -39,7 +44,11 @@ const Template17 = () => {
     { name: "website", icon: <CgWebsite /> },
   ];
   return (
-    <div ref={templateRef} className="">
+    <div
+      ref={templateRef}
+      className=""
+      style={{ fontFamily: `${selectedFont}` }}
+    >
       <div className="p-4" style={{ backgroundColor: backgroundColorss }}>
         <div
           style={{ borderBottom: `2px solid ${backgroundColorss}` }}

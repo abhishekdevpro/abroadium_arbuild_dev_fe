@@ -9,7 +9,8 @@ import SocialInfo from "./SocialInfo";
 
 const CoverLetter3 = ({}) => {
   const templateRef = useRef(null);
-  const { coverLetterData, backgroundColorss } = useContext(CoverLetterContext);
+  const { coverLetterData, backgroundColorss, selectedFont } =
+    useContext(CoverLetterContext);
 
   const extractHtml = () => {
     const htmlContent = templateRef.current?.outerHTML;
@@ -18,7 +19,11 @@ const CoverLetter3 = ({}) => {
   };
 
   return (
-    <div ref={templateRef} className="">
+    <div
+      ref={templateRef}
+      className=""
+      style={{ fontFamily: `${selectedFont}` }}
+    >
       <div
         className=" mx-auto p-4 "
         // style={{ backgroundColor: backgroundColorss || "white" }}

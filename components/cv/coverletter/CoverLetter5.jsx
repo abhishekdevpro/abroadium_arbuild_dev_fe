@@ -9,11 +9,11 @@ import SocialInfo from "./SocialInfo";
 import ImageWrapper from "./ImageWrapper";
 
 const CoverLetter5 = () => {
-  const { coverLetterData, backgroundColorss, headerColor } =
+  const { coverLetterData, backgroundColorss, headerColor, selectedFont } =
     useContext(CoverLetterContext);
 
   return (
-    <div className="">
+    <div className="" style={{ fontFamily: `${selectedFont}` }}>
       <div className="  p-4  " style={{ backgroundColor: backgroundColorss }}>
         <div
           className={`${

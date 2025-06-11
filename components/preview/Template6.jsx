@@ -26,8 +26,13 @@ import ProjectsSection from "./ProjectSection";
 import EducationSection from "./Education";
 
 const Template6 = () => {
-  const { resumeData, setResumeData, headerColor, backgroundColorss } =
-    useContext(ResumeContext);
+  const {
+    resumeData,
+    setResumeData,
+    headerColor,
+    backgroundColorss,
+    selectedFont,
+  } = useContext(ResumeContext);
   // const { resumeData, setResumeData, headerColor } = useContext(ResumeContext);
   const icons = [
     { name: "github", icon: <FaGithub /> },
@@ -40,7 +45,7 @@ const Template6 = () => {
   ];
 
   return (
-    <div className="">
+    <div className="" style={{ fontFamily: `${selectedFont}` }}>
       <section className="flex justify-between">
         <aside
           className="w-1/12 bg-[#d4d4d8] p-4"

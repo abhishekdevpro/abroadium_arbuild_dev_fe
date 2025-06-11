@@ -50,8 +50,13 @@ const Draggable = dynamic(
   { ssr: false }
 );
 const Template15 = () => {
-  const { resumeData, setResumeData, headerColor, backgroundColorss } =
-    useContext(ResumeContext);
+  const {
+    resumeData,
+    setResumeData,
+    headerColor,
+    backgroundColorss,
+    selectedFont,
+  } = useContext(ResumeContext);
   const icons = [
     { name: "github", icon: <FaGithub /> },
     { name: "linkedin", icon: <FaLinkedin /> },
@@ -63,7 +68,7 @@ const Template15 = () => {
   ];
 
   return (
-    <div className=" ">
+    <div className=" " style={{ fontFamily: `${selectedFont}` }}>
       <header className="mb-6">
         <TextWrapper
           name={resumeData.name}

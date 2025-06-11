@@ -187,6 +187,7 @@ const IntroductionAndBodyForm = () => {
   const [popupVisible, setPopupVisible] = useState(false);
   const [popupContent, setPopupContent] = useState("");
   const [activeIndex, setActiveIndex] = useState(null);
+  const [selectedSuggestionIndex, setSelectedSuggestionIndex] = useState(0);
 
   const handleBodyChange = (index, value) => {
     setCoverLetterData((prevData) => {
@@ -199,6 +200,7 @@ const IntroductionAndBodyForm = () => {
   const handleAIAssist = async (index) => {
     setLoadingIndex(index);
     setActiveIndex(index);
+    setSelectedSuggestionIndex(0); // default to the first suggestion
 
     const { personalDetails } = coverLetterData;
     const { letterDetails } = coverLetterData;
@@ -268,12 +270,22 @@ const IntroductionAndBodyForm = () => {
     }
   };
 
+  // const insertToParagraph = () => {
+  //   if (activeIndex !== null) {
+  //     handleBodyChange(activeIndex, popupContent);
+  //     setPopupVisible(false);
+  //   }
+  // };
   const insertToParagraph = () => {
-    if (activeIndex !== null) {
-      handleBodyChange(activeIndex, popupContent);
+    if (activeIndex !== null && Array.isArray(splitContent)) {
+      const selectedText = splitContent[selectedSuggestionIndex];
+      handleBodyChange(activeIndex, selectedText || "");
       setPopupVisible(false);
     }
   };
+  const splitContent = popupContent
+    .split("\n\n")
+    .filter((s) => s.trim() !== "");
 
   return (
     <div className="p-4 md:p-8 rounded-lg shadow-md">
@@ -319,9 +331,22 @@ const IntroductionAndBodyForm = () => {
               <X className="w-5 h-5" />
             </button>
             <h3 className="text-lg font-semibold mb-4">AI Suggested Content</h3>
-            <div className="max-h-60 overflow-y-auto border p-3 rounded text-sm whitespace-pre-line">
-              {popupContent}
-            </div>
+            {splitContent.map((text, idx) => (
+              <label
+                key={idx}
+                className="flex items-start gap-2 cursor-pointer"
+              >
+                <input
+                  type="radio"
+                  name="ai-suggestion"
+                  value={idx}
+                  checked={selectedSuggestionIndex === idx}
+                  onChange={() => setSelectedSuggestionIndex(idx)}
+                  className="mt-1"
+                />
+                <span className="whitespace-pre-line">{text}</span>
+              </label>
+            ))}
             <div className="mt-4 flex justify-end">
               <button
                 onClick={insertToParagraph}

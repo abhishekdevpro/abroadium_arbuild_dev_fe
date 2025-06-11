@@ -49,8 +49,13 @@ const Draggable = dynamic(
   { ssr: false }
 );
 const Template8 = () => {
-  const { resumeData, setResumeData, headerColor, backgroundColorss } =
-    useContext(ResumeContext);
+  const {
+    resumeData,
+    setResumeData,
+    headerColor,
+    backgroundColorss,
+    selectedFont,
+  } = useContext(ResumeContext);
   const templateRef = useRef(null);
   useEffect(() => {
     if (templateRef.current) {
@@ -86,7 +91,11 @@ const Template8 = () => {
   ];
 
   return (
-    <div ref={templateRef} className="">
+    <div
+      ref={templateRef}
+      className=""
+      style={{ fontFamily: `${selectedFont}` }}
+    >
       <section className="flex justify-between">
         <aside
           className="w-4/12 bg-[#d4d4d8] p-4"
@@ -216,7 +225,7 @@ export default Template8;
 // const Draggable = dynamic(() => import("react-beautiful-dnd").then((mod) => mod.Draggable), { ssr: false });
 
 // const Template8 = () => {
-//     const { resumeData, setResumeData, headerColor, backgroundColorss } = useContext(ResumeContext);
+//   const { resumeData, setResumeData, headerColor, backgroundColorss  ,selectedFont } = useContext(ResumeContext);
 //     const templateRef = useRef(null);
 
 //     useEffect(() => {
