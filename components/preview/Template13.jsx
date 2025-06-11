@@ -403,8 +403,13 @@ const Draggable = dynamic(
   { ssr: false }
 );
 const Template13 = () => {
-  const { resumeData, setResumeData, headerColor, backgroundColorss } =
-    useContext(ResumeContext);
+  const {
+    resumeData,
+    setResumeData,
+    headerColor,
+    backgroundColorss,
+    selectedFont,
+  } = useContext(ResumeContext);
   const templateRef = useRef(null);
 
   const extractHtml = () => {
@@ -423,7 +428,11 @@ const Template13 = () => {
   ];
 
   return (
-    <div ref={templateRef} className="">
+    <div
+      ref={templateRef}
+      className=""
+      style={{ fontFamily: `${selectedFont}` }}
+    >
       <div className="header text-start mb-6">
         <TextWrapper
           name={resumeData.name}

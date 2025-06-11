@@ -118,7 +118,7 @@ const TemplateSelector = ({
     });
   };
   return (
-    <div className="font-sans ">
+    <div className=" ">
       <div className="flex flex-col md:flex-row gap-2 m-2">
         <button
           onClick={openModal}

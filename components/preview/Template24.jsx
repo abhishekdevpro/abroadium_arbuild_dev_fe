@@ -56,8 +56,13 @@ const Template24 = () => {
     return htmlContent;
   };
 
-  const { resumeData, setResumeData, headerColor, backgroundColorss } =
-    useContext(ResumeContext);
+  const {
+    resumeData,
+    setResumeData,
+    headerColor,
+    backgroundColorss,
+    selectedFont,
+  } = useContext(ResumeContext);
 
   const icons = [
     { name: "github", icon: <FaGithub /> },
@@ -69,7 +74,7 @@ const Template24 = () => {
     { name: "website", icon: <CgWebsite /> },
   ];
   return (
-    <div className="   ">
+    <div className="   " style={{ fontFamily: `${selectedFont}` }}>
       <div class="flex gap-1 items-start ">
         <div class="border-solid border-cyan-900 mb-5 w-1/3">
           {resumeData?.profilePicture && (

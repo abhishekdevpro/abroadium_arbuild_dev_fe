@@ -50,8 +50,13 @@ const Draggable = dynamic(
   { ssr: false }
 );
 const Template3 = () => {
-  const { resumeData, setResumeData, headerColor, backgroundColorss } =
-    useContext(ResumeContext);
+  const {
+    resumeData,
+    setResumeData,
+    headerColor,
+    backgroundColorss,
+    selectedFont,
+  } = useContext(ResumeContext);
   const icons = [
     { name: "github", icon: <FaGithub /> },
     { name: "linkedin", icon: <FaLinkedin /> },
@@ -63,7 +68,10 @@ const Template3 = () => {
   ];
 
   return (
-    <div className="flex flex-col gap-4">
+    <div
+      className="flex flex-col gap-4"
+      style={{ fontFamily: `${selectedFont}` }}
+    >
       <TextWrapper
         name={resumeData.name}
         position={resumeData.position}

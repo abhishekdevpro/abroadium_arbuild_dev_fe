@@ -8,10 +8,11 @@ import IntroductionBodyWrapper from "./IntroductionBodyWrapper";
 import SocialInfo from "./SocialInfo";
 
 const CoverLetter3 = () => {
-  const { coverLetterData, backgroundColorss } = useContext(CoverLetterContext);
+  const { coverLetterData, backgroundColorss, selectedFont } =
+    useContext(CoverLetterContext);
 
   return (
-    <div className=" ">
+    <div className=" " style={{ fontFamily: `${selectedFont}` }}>
       <div className=" mx-auto flex ">
         {/* Left Column */}
         <div

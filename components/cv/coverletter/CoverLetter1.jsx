@@ -10,7 +10,8 @@ import SocialInfo from "./SocialInfo";
 
 const CoverLetter1 = () => {
   const templateRef = useRef(null);
-  const { coverLetterData, backgroundColorss } = useContext(CoverLetterContext);
+  const { coverLetterData, backgroundColorss, selectedFont } =
+    useContext(CoverLetterContext);
 
   const extractHtml = () => {
     const htmlContent = templateRef.current?.outerHTML;
@@ -19,7 +20,11 @@ const CoverLetter1 = () => {
   };
   console.log(coverLetterData, ">>>>>cv1.jsx");
   return (
-    <div ref={templateRef} className="">
+    <div
+      ref={templateRef}
+      className=""
+      style={{ fontFamily: `${selectedFont}` }}
+    >
       <div
         className=" flex justify-between p-4 gap-2 "
         style={{ backgroundColor: backgroundColorss }}

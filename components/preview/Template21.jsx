@@ -433,8 +433,13 @@ const Template21 = () => {
     return htmlContent;
   };
 
-  const { resumeData, setResumeData, headerColor, backgroundColorss } =
-    useContext(ResumeContext);
+  const {
+    resumeData,
+    setResumeData,
+    headerColor,
+    backgroundColorss,
+    selectedFont,
+  } = useContext(ResumeContext);
 
   const icons = [
     { name: "github", icon: <FaGithub /> },
@@ -447,7 +452,11 @@ const Template21 = () => {
   ];
 
   return (
-    <div ref={templateRef} className="">
+    <div
+      ref={templateRef}
+      className=""
+      style={{ fontFamily: `${selectedFont}` }}
+    >
       <div className=" mx-auto flex">
         {/* Left Column */}
         <div

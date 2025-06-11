@@ -63,7 +63,7 @@ const TemplateSelector = ({
   };
 
   return (
-    <div className="font-sans">
+    <div className="">
       <button
         onClick={openModal}
         className="hidden md:block rounded-lg border-2 m-2 border-[#002a48] px-5 py-2 font-bold bg-white text-[#002a48]"

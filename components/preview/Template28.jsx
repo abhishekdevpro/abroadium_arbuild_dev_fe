@@ -27,8 +27,13 @@ import EducationSection from "./Education";
 const Template28 = () => {
   const templateRef = useRef(null);
 
-  const { resumeData, setResumeData, headerColor, backgroundColorss } =
-    useContext(ResumeContext);
+  const {
+    resumeData,
+    setResumeData,
+    headerColor,
+    backgroundColorss,
+    selectedFont,
+  } = useContext(ResumeContext);
 
   const icons = [
     { name: "github", icon: <FaGithub /> },
@@ -41,7 +46,11 @@ const Template28 = () => {
   ];
 
   return (
-    <div ref={templateRef} className="">
+    <div
+      ref={templateRef}
+      className=""
+      style={{ fontFamily: `${selectedFont}` }}
+    >
       <div className="  flex">
         {/* Left Column */}
         <div

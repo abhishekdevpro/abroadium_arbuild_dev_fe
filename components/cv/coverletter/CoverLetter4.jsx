@@ -9,10 +9,11 @@ import ImageWrapper from "./ImageWrapper";
 import SocialInfo from "./SocialInfo";
 
 const CoverLetter4 = () => {
-  const { coverLetterData, backgroundColorss } = useContext(CoverLetterContext);
+  const { coverLetterData, backgroundColorss, selectedFont } =
+    useContext(CoverLetterContext);
 
   return (
-    <div className="">
+    <div className="" style={{ fontFamily: `${selectedFont}` }}>
       <div
         className=" mx-auto p-4 "
         // style={{ backgroundColor: backgroundColorss || "white" }}

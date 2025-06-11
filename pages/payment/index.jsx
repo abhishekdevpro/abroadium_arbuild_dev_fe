@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { CheckCircle, DollarSign, Bell, Clock, RefreshCw } from "lucide-react";
 
@@ -47,7 +46,7 @@ export default function Payment() {
   return (
     <>
       <Navbar />
-      <div className="p-6 max-w-7xl w-full mx-auto font-sans bg-gradient-to-b from-white to-blue-100">
+      <div className="p-6 max-w-7xl w-full mx-auto  bg-gradient-to-b from-white to-blue-100">
         {/* Intro Section */}
         <div className="bg-orange-100 p-4 rounded-lg text-center">
           <h2 className="text-lg md:text-xl font-semibold">
@@ -76,7 +75,7 @@ export default function Payment() {
               {plans.map((planId) => {
                 const plan = pricingData[planId];
                 //  {console.log(plan,"plan")}
-                 if (plan.title === "Free Plan") return null;
+                if (plan.title === "Free Plan") return null;
                 return (
                   <div
                     key={planId}
@@ -92,7 +91,7 @@ export default function Payment() {
                         {t(pricingData.bestValueLabel)}
                       </div>
                     )} */}
-                    
+
                     <div className="flex items-center justify-between mb-2">
                       <h3 className="font-bold text-lg">{plan.title}</h3>
                       <input

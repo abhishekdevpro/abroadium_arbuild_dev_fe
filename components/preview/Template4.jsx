@@ -57,8 +57,13 @@ const Template4 = () => {
     console.log(htmlContent);
     return htmlContent;
   };
-  const { resumeData, setResumeData, headerColor, backgroundColorss } =
-    useContext(ResumeContext);
+  const {
+    resumeData,
+    setResumeData,
+    headerColor,
+    backgroundColorss,
+    selectedFont,
+  } = useContext(ResumeContext);
   const icons = [
     { name: "github", icon: <FaGithub /> },
     { name: "linkedin", icon: <FaLinkedin /> },
@@ -70,7 +75,11 @@ const Template4 = () => {
   ];
 
   return (
-    <div ref={templateRef} className=" ">
+    <div
+      ref={templateRef}
+      className=" "
+      style={{ fontFamily: `${selectedFont}` }}
+    >
       <div className="flex  ">
         {/* Left Column */}
         <div className="left-column w-8/12 p-8 border-r border-gray-300">

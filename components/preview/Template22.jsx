@@ -492,8 +492,13 @@ const Template22 = () => {
     return htmlContent;
   };
 
-  const { resumeData, setResumeData, headerColor, backgroundColorss } =
-    useContext(ResumeContext);
+  const {
+    resumeData,
+    setResumeData,
+    headerColor,
+    backgroundColorss,
+    selectedFont,
+  } = useContext(ResumeContext);
 
   const icons = [
     { name: "github", icon: <FaGithub /> },
@@ -506,7 +511,7 @@ const Template22 = () => {
   ];
 
   return (
-    <div ref={templateRef}>
+    <div ref={templateRef} style={{ fontFamily: `${selectedFont}` }}>
       <div
         className="p-4 flex justify-between"
         style={{ borderBottom: `2px solid ${backgroundColorss}` }}
