@@ -147,7 +147,10 @@ const MyResume = () => {
           My Resumes
         </h1>
         <Link href={"/dashboard/resume-builder"}>
-          <Button className="flex text-sm items-center px-2 md:px-4 py-2 bg-[#002a48] text-white rounded-lg  transition-colors duration-200 font-medium shadow-sm">
+          <Button
+            variant="primary"
+            className="flex text-sm items-center px-2 md:px-4 py-2  text-white rounded-full hover:bg-primary/90  transition-colors duration-200 font-medium shadow-sm"
+          >
             <Plus className="w-5 h-5 mr-2" />
             Create New Resume
           </Button>
@@ -197,7 +200,7 @@ const MyResume = () => {
                           </span>
                           <Button
                             onClick={() => handleOpenEditModal(resume)}
-                            className="text-[#002a48] "
+                            className="text-primary "
                           >
                             🖍
                           </Button>
@@ -252,7 +255,7 @@ const MyResume = () => {
                         <div className="flex items-center space-x-3">
                           <Button
                             onClick={() => handleEdit(resume.resume_id)}
-                            className="text-[#002a48]  transition-colors duration-200"
+                            className="text-primary  transition-colors duration-200"
                           >
                             <Edit className="w-5 h-5" />
                           </Button>

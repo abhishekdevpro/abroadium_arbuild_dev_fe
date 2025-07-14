@@ -171,7 +171,10 @@ export default function Subscription() {
 
                   <div className="flex space-x-4">
                     <Link href="/payment">
-                      <Button className="mt-3 md:mt-0 px-4 py-2 bg-blue-600 text-white rounded-md">
+                      <Button
+                        variant="primary"
+                        className="mt-3 md:mt-0 px-4 py-2  text-white rounded-full"
+                      >
                         Upgrade
                       </Button>
                     </Link>
@@ -180,7 +183,7 @@ export default function Subscription() {
                       disabled={
                         userData?.plan_id === 1 || !userData?.is_active_plan
                       } // Disable if Free Plan
-                      className={`mt-3 md:mt-0 px-4 py-2 rounded-md ${
+                      className={`mt-3 md:mt-0 px-4 py-2 rounded-full ${
                         userData?.plan_id === 1 || !userData?.is_active_plan
                           ? "bg-gray-400 cursor-not-allowed" // Disabled styling
                           : "bg-red-600 text-white hover:bg-red-700" // Active styling

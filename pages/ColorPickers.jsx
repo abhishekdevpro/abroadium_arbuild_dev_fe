@@ -367,7 +367,7 @@ const ColorPicker = ({ selectedColor, onChange }) => {
     // <div ref={dropdownRef} className="relative flex items-center m-2 z-20">
     //   <button
     //     onClick={handleToggleDropdown}
-    //     className="rounded-lg border-2 border-[#002a48] px-5 py-2 bg-white text-[#002a48] font-medium
+    //     className="rounded-lg border-2 border-[#002a48] px-5 py-2 bg-white text-primary font-medium
     //     transition-transform duration-200 ease-in-out hover:scale-[1.02] hover:bg-blue-50 hover:text-blue-900"
     //     style={{ backgroundColor: selectedColor || "transparent" }}
     //   >
@@ -402,9 +402,9 @@ const ColorPicker = ({ selectedColor, onChange }) => {
     <div ref={dropdownRef} className="relative flex items-center m-2 z-20">
       <button
         onClick={handleToggleDropdown}
-        className="rounded-lg border-2 border-[#002a48] px-4 py-2 bg-white text-[#002a48] font-medium 
-    transition-transform duration-200 ease-in-out hover:scale-[1.02] hover:bg-blue-50 hover:text-blue-900 flex items-center gap-2"
-        style={{ backgroundColor: selectedColor || "transparent" }}
+        className="rounded-full border-2 border-primary px-4 py-2 bg-white text-primary font-medium hover:bg-primary/20
+    transition-transform duration-200 ease-in-out hover:scale-[1.02]  hover:text-primary flex items-center gap-2"
+        style={{ backgroundColor: selectedColor }}
       >
         <Palette size={18} />
         <span className="hidden md:inline">Color Theme</span>
@@ -422,8 +422,8 @@ const ColorPicker = ({ selectedColor, onChange }) => {
                   className={`w-7 h-7 rounded-full cursor-pointer border transition-all duration-200 ease-in-out 
                 ${
                   isSelected
-                    ? "border-[#002a48] shadow-md shadow-blue-300"
-                    : "border-[#002a48]"
+                    ? "border-primary shadow-md shadow-primary/30"
+                    : "border-primary"
                 }
                 hover:scale-110`}
                   style={{ backgroundColor: color.value || "white" }}

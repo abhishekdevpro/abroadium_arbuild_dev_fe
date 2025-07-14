@@ -155,7 +155,7 @@ const Modal = ({ isOpen, onClose, children }) => {
 //                 <div
 //                   className={`rounded-full p-1.5 ${
 //                     item.value
-//                       ? "bg-green-100 text-green-600"
+//                       ? "bg-green-100 text-success"
 //                       : "bg-red-100 text-red-600"
 //                   }`}
 //                 >
@@ -235,7 +235,7 @@ const Modal = ({ isOpen, onClose, children }) => {
 //       </div>
 //       <Button
 //         onClick={handleATS}
-//         className={`mt-6 px-6 py-2 w-full bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors ${
+//         className={`mt-6 px-6 py-2 w-full bg-success text-white rounded-lg hover:bg-green-700 transition-colors ${
 //           improvements.ats_score === 10 || Loading
 //             ? "opacity-50 cursor-not-allowed"
 //             : ""
@@ -323,17 +323,17 @@ const TooltipContent = ({ improvements, resumeId, onClose }) => {
   return (
     <div className="h-[600px] bg-gradient-to-b from-white to-blue-100 overflow-y-auto p-6 bg-gray-50 rounded-lg shadow-md">
       {/* Grid Layout for Improvements and Formatting Checklist */}
-      <header className="bg-[#002a48] text-white px-4 py-6 flex items-center justify-between"></header>
+      <header className="bg-primary text-white px-4 py-6 flex items-center justify-between"></header>
       <div className="flex flex-col bg-gradient-to-b from-white to-blue-100 ">
         {/* Improvements Section */}
         <div className="p-6 rounded-lg">
-          <h3 className="text-lg font-semibold text-[#002a48] mb-4">
+          <h3 className="text-lg font-semibold text-primary mb-4">
             Areas for Improvement
           </h3>
           <ul className="space-y-3">
             {improvements?.areas_for_improvement?.file_format && (
               <li className="flex items-start gap-3">
-                <div className="w-2 h-2 mt-2 bg-[#002a48] rounded-full" />
+                <div className="w-2 h-2 mt-2 bg-primary rounded-full" />
                 <p className="text-gray-700">
                   <span className="font-bold text-black">
                     File Formatting:{" "}
@@ -344,7 +344,7 @@ const TooltipContent = ({ improvements, resumeId, onClose }) => {
             )}
             {improvements?.areas_for_improvement?.keyword_optimization && (
               <li className="flex items-start gap-3">
-                <div className="w-2 h-2 mt-2 bg-[#002a48] rounded-full" />
+                <div className="w-2 h-2 mt-2 bg-primary rounded-full" />
                 <p className="text-gray-700">
                   <span className="font-bold text-black">
                     Keyword Optimization:{" "}
@@ -355,7 +355,7 @@ const TooltipContent = ({ improvements, resumeId, onClose }) => {
             )}
             {improvements?.areas_for_improvement?.section_order && (
               <li className="flex items-start gap-3">
-                <div className="w-2 h-2 mt-2 bg-[#002a48] rounded-full" />
+                <div className="w-2 h-2 mt-2 bg-primary rounded-full" />
                 <p className="text-gray-700">
                   <span className="font-bold text-black">Section Order: </span>
                   {improvements.areas_for_improvement.section_order}
@@ -379,7 +379,7 @@ const TooltipContent = ({ improvements, resumeId, onClose }) => {
                 <div
                   className={`rounded-full p-1.5 ${
                     item.value
-                      ? "bg-green-100 text-green-600"
+                      ? "bg-success/10 text-success"
                       : "bg-red-100 text-red-600"
                   }`}
                 >
@@ -401,7 +401,7 @@ const TooltipContent = ({ improvements, resumeId, onClose }) => {
 
       {/* Keywords Section */}
       <div className="w-full flex flex-col md:flex-row justify-between items-start gap-2 md:gap-6 mt-6">
-        <div className="w-full md:w-1/2 p-4 bg-green-100 text-green-700 rounded-lg">
+        <div className="w-full md:w-1/2 p-4 bg-success/20 text-success rounded-lg">
           <h4 className="font-bold text-lg">Keywords Found</h4>
           {improvements.keywords_found?.length > 0 ? (
             <ul className="list-disc list-inside">
@@ -428,7 +428,7 @@ const TooltipContent = ({ improvements, resumeId, onClose }) => {
       </div>
 
       {/* Overall Comments */}
-      <div className="bg-gradient-to-b from-blue-100 to-blue-200 rounded-xl p-6 mt-6 text-[#002a48]">
+      <div className="bg-gradient-to-b from-blue-100 to-blue-200 rounded-xl p-6 mt-6 text-primary">
         <h3 className="text-lg font-bold">Overall Comments</h3>
         <p>{improvements.overall_comments}</p>
       </div>
@@ -463,7 +463,7 @@ const TooltipContent = ({ improvements, resumeId, onClose }) => {
       {/* Submit Button */}
       <button
         onClick={handleATS}
-        className={`mt-6 px-6 py-2 w-full bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors ${
+        className={`mt-6 px-6 py-2 w-full bg-success text-white rounded-lg hover:bg-success/90 transition-colors ${
           improvements.ats_score === 10 || loading
             ? "opacity-50 cursor-not-allowed"
             : ""
@@ -599,7 +599,7 @@ const ResumeStrength = ({ score, strength, resumeId }) => {
           <div>
             <h2 className="text-xl font-semibold mb-1">Resume Strength</h2>
             <div className="flex items-center gap-2">
-              <span className="bg-orange-100 text-orange-600 px-3 py-1 rounded-full text-lg font-semibold">
+              <span className="bg-primary/20 text-primary px-3 py-1 rounded-full text-lg font-semibold">
                 {score}%
               </span>
             </div>
@@ -619,9 +619,10 @@ const ResumeStrength = ({ score, strength, resumeId }) => {
             </p>
             <div className="flex flex-col md:flex-row gap-2">
               <Button
+                variant="primary"
                 onClick={handleImproveResume}
                 disabled={!resumeId}
-                className={`px-6 py-2 bg-[#002a48] text-white rounded-lg  transition-colors ${
+                className={`px-6 py-2  text-white rounded-full  transition-colors hover:bg-primary/90 ${
                   !resumeId ? "opacity-50 cursor-not-allowed" : ""
                 }`}
               >
@@ -632,7 +633,7 @@ const ResumeStrength = ({ score, strength, resumeId }) => {
                   strength.ats_score === 10 || !resumeData?.position || !resumeId
                 }
                 onClick={() => setIsModalOpen(true)}
-                className={`px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors ${
+                className={`px-6 py-2 bg-success text-white rounded-lg hover:bg-green-700 transition-colors ${
                   strength.ats_score === 10 || !resumeId
                     ? "opacity-50 cursor-not-allowed"
                     : ""
@@ -642,6 +643,7 @@ const ResumeStrength = ({ score, strength, resumeId }) => {
               </Button> */}
 
               <Button
+                variant="success"
                 disabled={strength.ats_score === 10 || !resumeId}
                 onClick={() => {
                   if (!resumeData?.position) {
@@ -654,7 +656,7 @@ const ResumeStrength = ({ score, strength, resumeId }) => {
                   }
                   setIsModalOpen(true);
                 }}
-                className={`px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors ${
+                className={`px-6 py-2  text-white rounded-full hover:bg-success/90 transition-colors ${
                   strength.ats_score === 10 || !resumeId
                     ? "opacity-50 cursor-not-allowed"
                     : ""

@@ -1,4 +1,3 @@
-
 // "use client";
 
 // import { FaUpload, FaFileAlt } from "react-icons/fa";
@@ -33,7 +32,7 @@
 //     <>
 //       {showLoader && <FullScreenLoader />}
 //       <div className="space-y-6 bg-gradient-to-b from-white to-blue-100 ">
-//         <header className="bg-[#002a48] text-white px-4 py-6 flex items-center justify-between"></header>
+//         <header className="bg-primary text-white px-4 py-6 flex items-center justify-between"></header>
 //         <div className="text-centerpt-4 pb-4 mb-4">
 //           <h2 className="text-2xl font-bold text-white">
 //             Are you uploading an existing resume?
@@ -89,7 +88,6 @@
 //   );
 // }
 
-
 "use client";
 
 import { FaUpload, FaFileAlt } from "react-icons/fa";
@@ -126,11 +124,11 @@ export default function UploadStep({ onNext, onBack, onChange, value }) {
       {showLoader && <FullScreenLoader />}
 
       <div className="min-h-screen bg-gradient-to-b from-white to-blue-100 flex flex-col">
-        <header className="bg-[#002a48] text-white px-4 py-6 flex items-center justify-between"></header>
+        <header className="bg-primary text-white px-4 py-6 flex items-center justify-between"></header>
 
         <main className="flex-1 flex flex-col items-center justify-center px-4 py-12">
           <div className="text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#002a48] mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
               Are you uploading an existing resume?
             </h2>
             <p className="text-md md:text-lg text-[#4b5563] mb-10">
@@ -146,8 +144,8 @@ export default function UploadStep({ onNext, onBack, onChange, value }) {
                 onNext();
               }}
               className="w-full p-6 rounded-2xl shadow-md bg-blue-200 
-              hover:bg-[#002a48] hover:text-white hover:shadow-xl 
-              flex flex-col items-center text-[#002a48] font-semibold
+              hover:bg-primary hover:text-white hover:shadow-xl 
+              flex flex-col items-center text-primary font-semibold
               transition-all duration-300 ease-in-out transform hover:scale-105 group"
             >
               <div className="w-16 h-16 mb-4 bg-blue-100 rounded-full flex items-center justify-center">
@@ -163,8 +161,8 @@ export default function UploadStep({ onNext, onBack, onChange, value }) {
             <button
               onClick={handleStartFromScratch}
               className="w-full p-6 rounded-2xl shadow-md bg-blue-200 
-              hover:bg-[#002a48] hover:text-white hover:shadow-xl 
-              flex flex-col items-center text-[#002a48] font-semibold
+              hover:bg-primary hover:text-white hover:shadow-xl 
+              flex flex-col items-center text-primary font-semibold
               transition-all duration-300 ease-in-out transform hover:scale-105 group"
             >
               <div className="w-16 h-16 mb-4 bg-blue-100 rounded-full flex items-center justify-center">

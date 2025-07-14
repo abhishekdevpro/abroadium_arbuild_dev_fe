@@ -31,7 +31,7 @@ const FullScreenLoader = () => {
         {/* Resume Preview Card */}
         <div className="bg-white shadow-lg rounded-lg p-6 mx-auto mb-8 relative">
           {/* Blue header bar */}
-          <div className="bg-[#002a48] h-12 absolute top-0 left-0 right-0 rounded-t-lg"></div>
+          <div className="bg-primary h-12 absolute top-0 left-0 right-0 rounded-t-lg"></div>
 
           {/* Resume Content Preview */}
           <div className="mt-16 space-y-4">
@@ -48,7 +48,7 @@ const FullScreenLoader = () => {
         <div className="space-y-4">
           {/* Progress Bar */}
           <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
-            <div className="h-full bg-[#002a48] rounded-full animate-progress"></div>
+            <div className="h-full bg-primary rounded-full animate-progress"></div>
           </div>
 
           {/* Loading Text */}

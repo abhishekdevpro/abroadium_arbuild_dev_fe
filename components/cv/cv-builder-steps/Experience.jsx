@@ -40,11 +40,11 @@ export default function ExperienceStep({ onNext, onBack, onChange, value }) {
     //   </div>
     // </div>
     <div className="min-h-screen bg-gradient-to-b from-white to-blue-100 flex flex-col">
-      <header className="bg-[#002a48] text-white px-4 py-6 flex items-center justify-between"></header>
+      <header className="bg-primary text-white px-4 py-6 flex items-center justify-between"></header>
 
       <main className="flex-1 flex flex-col items-center justify-center px-4 py-12">
         <div className="max-w-xl text-center">
-          <h1 className="text-3xl md:text-4xl font-bold text-[#002a48] mb-4">
+          <h1 className="text-3xl md:text-4xl font-bold text-primary mb-4">
             How Many Years of Experience Do You Have?
           </h1>
           <p className="text-md md:text-lg text-[#4b5563] mb-10">
@@ -63,11 +63,11 @@ export default function ExperienceStep({ onNext, onBack, onChange, value }) {
             <button
               key={exp.id}
               onClick={() => onChange({ ...value, experience: exp.id })}
-              className={`w-full p-6 text-left rounded-xl border-2 flex items-center justify-between text-[#002a48] font-semibold transition-all 
+              className={`w-full p-6 text-left rounded-xl border-2 flex items-center justify-between text-primary font-semibold transition-all 
                     ${
                       value.experience === exp.id
-                        ? "border-[#002a48] bg-[#e6f0f5]"
-                        : "border-[#e5e7eb] hover:border-[#002a48]"
+                        ? "border-primary bg-[#e6f0f5]"
+                        : "border-[#e5e7eb] hover:border-primary"
                     }`}
             >
               {exp.label}

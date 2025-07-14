@@ -427,7 +427,7 @@ const CVSelector = ({ onNext, onBack, onChange, value }) => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-blue-100 flex flex-col">
-      <div className="bg-[#002a48] text-white py-3 px-6 rounded-b-3xl mx-auto mt-4   items-center gap-3 shadow-md">
+      <div className="bg-primary text-white py-3 px-6 rounded-b-3xl mx-auto mt-4   items-center gap-3 shadow-md">
         <h2 className="text-3xl font-bold text-white">
           Choose Your Perfect Cover Letter
         </h2>

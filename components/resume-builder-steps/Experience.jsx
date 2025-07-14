@@ -214,14 +214,14 @@ const ExperienceStep = ({ onBack, onNext, onChange, value }) => {
   // );
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-blue-100 flex flex-col">
-      <header className="bg-[#002a48] text-white px-4 py-6 flex items-center justify-between"></header>
+      <header className="bg-primary text-white px-4 py-6 flex items-center justify-between"></header>
 
       <main className="flex-1 flex flex-col items-center justify-center px-4 py-12">
         <div className="max-w-xl text-center">
-          <h1 className="text-3xl md:text-4xl font-bold text-[#002a48] mb-4">
+          <h1 className="text-3xl md:text-4xl font-bold text-primary mb-4">
             How Many Years of Experience Do You Have?
           </h1>
-          <p className="text-md md:text-lg text-[#4b5563] mb-10">
+          <p className="text-md md:text-lg text-primary mb-10">
             Select the option that corresponds to your professional experience
             level
           </p>
@@ -234,17 +234,16 @@ const ExperienceStep = ({ onBack, onNext, onChange, value }) => {
             { id: "4-9", label: "4 – 9 years" },
             { id: "10+", label: "10+ years" },
           ].map((exp) => (
-            
             <button
               key={exp.id}
               onClick={() => onChange({ ...value, experience: exp.id })}
               className={`w-full p-5 rounded-2xl shadow-md bg-blue-200 
-    hover:bg-[#002a48] hover:text-white hover:shadow-xl 
-    flex items-center justify-between text-[#002a48] font-semibold
+    hover:bg-primary hover:text-white hover:shadow-xl 
+    flex items-center justify-between text-primary font-semibold
     transition-all duration-300 ease-in-out transform hover:scale-105 group
     ${
       value.experience === exp.id
-        ? "bg-[#002a48] text-[#002a48] border-2 border-[#002a48] shadow-xl scale-105"
+        ? "bg-primary text-primary border-2 border-primary shadow-xl scale-105 text-white"
         : ""
     }`}
             >
@@ -277,7 +276,7 @@ const ExperienceStep = ({ onBack, onNext, onChange, value }) => {
               ${
                 isNextButtonDisabled()
                   ? "bg-gray-300 text-gray-600 cursor-not-allowed"
-                  : "bg-[#002a48] text-white hover:bg-[#003a63]"
+                  : "bg-primary text-white hover:bg-primary/90"
               }`}
           >
             {isLoading ? <SaveLoader loadingText="Saving" /> : "Next"}

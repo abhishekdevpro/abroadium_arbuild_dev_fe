@@ -543,7 +543,7 @@ export default function MobileBuilder() {
             <div className="flex flex-col md:flex-row flex-grow ">
               <button
                 onClick={toggleMobileSidebar}
-                className="fixed z-10 bottom-20 right-4  bg-blue-950 text-white p-3 rounded-full shadow-lg"
+                className="fixed z-10 bottom-20 right-4  bg-primary text-white p-3 rounded-full shadow-lg"
               >
                 {isMobileSidebarOpen ? (
                   <X className="h-6 w-6 stroke-2" />
@@ -597,7 +597,7 @@ export default function MobileBuilder() {
               <select
                 value={selectedFont}
                 onChange={handleFontChange}
-                className="rounded-lg border-2 border-blue-800 px-5 py-2 font-bold bg-white text-blue-800"
+                className="rounded-full border-2 border-primary px-5 py-2 font-bold bg-white text-primary"
               >
                 <option value="" disabled>
                   Fonts
@@ -636,8 +636,8 @@ export default function MobileBuilder() {
                 onClick={handleClick}
                 className={`px-6 py-2 rounded-lg flex items-center justify-center gap-2 ${
                   loading
-                    ? "bg-blue-800 cursor-not-allowed"
-                    : "bg-blue-950 hover:bg-blue-900 active:bg-blue-800"
+                    ? "bg-primary/30 cursor-not-allowed"
+                    : "bg-primary hover:bg-primary/90 active:bg-primary"
                 } text-white transition-colors duration-200`}
                 disabled={loading}
               >
@@ -648,8 +648,8 @@ export default function MobileBuilder() {
                 onClick={downloadAsPDF}
                 className={`px-6 py-2 rounded-lg flex items-center justify-center gap-2 ${
                   loading
-                    ? "bg-yellow-800 cursor-not-allowed"
-                    : "bg-yellow-500 hover:bg-yellow-600 active:bg-yellow-600"
+                    ? "bg-success/30 cursor-not-allowed"
+                    : "bg-success hover:bg-success/90 active:bg-success/90"
                 } text-white transition-colors duration-200`}
                 disabled={loading}
               >
@@ -662,7 +662,7 @@ export default function MobileBuilder() {
 
               <button
                 onClick={handleBackToEditor}
-                className="bg-blue-950 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors bottom-btns"
+                className="bg-primary text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors bottom-btns"
               >
                 Edit
               </button>

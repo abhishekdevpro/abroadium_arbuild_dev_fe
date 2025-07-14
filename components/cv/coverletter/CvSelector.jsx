@@ -66,13 +66,13 @@ const TemplateSelector = ({
     <div className="">
       <button
         onClick={openModal}
-        className="hidden md:block rounded-lg border-2 m-2 border-[#002a48] px-5 py-2 font-bold bg-white text-[#002a48]"
+        className="hidden md:block rounded-full border-2 m-2 border-primary px-5 py-2 font-bold bg-white text-primary hover:bg-primary/20"
       >
         <span>Selected: {templateId || "template1"}</span>
       </button>
       <button
         onClick={openModal}
-        className="block md:hidden rounded-lg border-2 m-2 border-[#002a48] px-5 py-2 font-bold bg-white text-[#002a48]"
+        className="block md:hidden rounded-lg border-2 m-2 border-primary px-5 py-2 font-bold bg-white text-primary"
       >
         Template
       </button>
@@ -99,7 +99,7 @@ const TemplateSelector = ({
                   <div
                     className={`rounded-xl p-2 border-2 transition-colors duration-300 ${
                       template.key === templateId
-                        ? "border-[#002a48] bg-blue-100"
+                        ? "border-primary bg-blue-100"
                         : "border-transparent hover:border-blue-300"
                     }`}
                   >
@@ -114,8 +114,8 @@ const TemplateSelector = ({
                     <div
                       className={`mt-2 text-center py-2 px-4 rounded-md transition-colors duration-300 ${
                         template.key === templateId
-                          ? "bg-[#002a48] text-white font-semibold"
-                          : "text-gray-600 group-hover:text-[#002a48]"
+                          ? "bg-primary text-white font-semibold"
+                          : "text-gray-600 group-hover:text-primary"
                       }`}
                     >
                       {template.key}

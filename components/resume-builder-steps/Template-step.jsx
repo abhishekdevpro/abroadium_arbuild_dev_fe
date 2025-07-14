@@ -642,13 +642,13 @@ const TemplateStep = ({ onNext, onBack, onChange, value }) => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-blue-100 flex flex-col">
-      <header className="bg-[#002a48] text-white px-4 py-6 flex items-center justify-between"></header>
+      <header className="bg-primary text-white px-4 py-6 flex items-center justify-between"></header>
       {/* Top Bar */}
       <div className="text-center py-6">
-        <h2 className="text-3xl md:text-4xl font-bold text-[#002a48] hover:text-orange-500 mb-4 ">
+        <h2 className="text-3xl md:text-4xl font-bold text-success hover:text-success/90 mb-4 ">
           Choose Your Perfect Template
         </h2>
-        <p className="text-md md:text-lg text-[#4b5563] hover:text-orange-500">
+        <p className="text-md md:text-lg text-success hover:text-success/90">
           Select a design that best represents your professional style
         </p>
       </div>
@@ -709,7 +709,7 @@ const TemplateStep = ({ onNext, onBack, onChange, value }) => {
                     priority={templates.indexOf(template) < 6}
                   />
                   <div className="absolute inset-0 flex items-end justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-gradient-to-t from-black/60 to-transparent p-4">
-                    <span className="bg-gradient-to-r from-[#002a48] via-blue-600 to-cyan-400 text-white font-semibold px-5 py-2 rounded-full shadow-md hover:shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out">
+                    <span className="bg-gradient-to-r from-[#002a48] via-primary to-success text-white font-semibold px-5 py-2 rounded-full shadow-md hover:shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out">
                       Use This Template
                     </span>
                   </div>
