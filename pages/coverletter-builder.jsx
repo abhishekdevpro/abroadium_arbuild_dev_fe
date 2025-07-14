@@ -289,7 +289,7 @@ function CoverLetterBuilder() {
                   <select
                     value={selectedFont}
                     onChange={handleFontChange}
-                    className="w-48 h-10 rounded-lg border border-blue-800 px-4 font-bold text-blue-800 bg-white focus:ring-2 focus:ring-blue-800"
+                    className="w-48 h-10 rounded-full border border-primary px-4 font-bold text-primary bg-white focus:ring-2 focus:ring-primary hover:bg-primary/20"
                   >
                     <option value="Ubuntu">Ubuntu</option>
                     <option value="Calibri">Calibri</option>
@@ -325,13 +325,13 @@ function CoverLetterBuilder() {
                 <div className="flex gap-4">
                   <button
                     onClick={handleFinish}
-                    className="bg-blue-950 text-white px-6 py-2 rounded-lg"
+                    className="bg-primary text-white px-6 py-2 rounded-full"
                   >
                     Save Cover Letter
                   </button>
                   <button
                     onClick={downloadAsPDF}
-                    className="bg-yellow-500 text-black px-6 py-2 rounded-lg"
+                    className="bg-success text-white px-6 py-2 rounded-full"
                   >
                     Pay & Download
                   </button>
@@ -342,10 +342,7 @@ function CoverLetterBuilder() {
             {/* Scrollable Main Content */}
             <div className="flex flex-col md:flex-row flex-grow p-4">
               {/* Editor Section */}
-              <div
-                className="w-[40%] overflow-auto"
-                style={{ backgroundColor: "#002a48" }}
-              >
+              <div className="w-[40%] overflow-auto bg-primary">
                 <main className="w-full mx-auto md:p-4">
                   <CoverLetterEditor />
                 </main>

@@ -38,14 +38,14 @@ const countries = [
 export default function CountrySelection({ onBack, onSelectCountry }) {
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-blue-100 flex flex-col">
-      <header className="bg-[#002a48] text-white px-4 py-6 flex items-center justify-between"></header>
+      <header className="bg-primar text-white px-4 py-6 flex items-center justify-between"></header>
       <main className="flex-1 flex flex-col items-center px-4 py-10">
         <div className="max-w-3xl text-center mb-10">
-          <h1 className="text-3xl md:text-4xl font-bold text-[#002a48] hover:text-orange-500 leading-snug mb-2">
+          <h1 className="text-3xl md:text-4xl font-bold text-primary hover:text-primary/90 leading-snug mb-2">
             For which country to tailor your resume to its specific
             requirements.
           </h1>
-          <p className="text-md md:text-lg text-[#002a48] hover:text-orange-500 ">
+          <p className="text-md md:text-lg text-success hover:text-success/90 ">
             Select the country to tailor your resume to its specific
             requirements.
           </p>
@@ -60,20 +60,20 @@ export default function CountrySelection({ onBack, onSelectCountry }) {
               <button
                 key={country.id}
                 onClick={() => onSelectCountry(country.id)}
-                className="p-5 rounded-2xl shadow-md border border-gray-200 bg-blue-200 hover:bg-[#002a48] hover:text-white hover:shadow-xl flex flex-col items-center transition-all duration-200 group"
+                className="p-5 rounded-2xl shadow-md border border-gray-200 bg-primary/20 hover:bg-primary hover:text-white hover:shadow-xl flex flex-col items-center transition-all duration-200 group"
               >
                 <Image
                   src={country.flag}
                   alt={country.name}
                   width={100}
                   height={100}
-                   loading="lazy"
+                  loading="lazy"
                   className="mb-4 transition-transform duration-200 group-hover:scale-105"
                 />
-                <span className="text-[#002a48] group-hover:text-white font-semibold text-lg mb-2 transition-colors duration-200">
+                <span className="text-primary group-hover:text-white font-semibold text-lg mb-2 transition-colors duration-200">
                   {country.name}
                 </span>
-                <span className="text-xl text-gray-400 group-hover:text-orange-400 transition-colors duration-200">
+                <span className="text-xl text-gray-400 group-hover:text-success transition-colors duration-200">
                   →
                 </span>
               </button>

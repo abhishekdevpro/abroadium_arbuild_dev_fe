@@ -122,8 +122,8 @@ const TemplateSelector = ({
       <div className="flex flex-col md:flex-row gap-2 m-2">
         <button
           onClick={openModal}
-          className="flex items-center gap-2 rounded-lg border-2 border-[#002a48] px-5 py-2 bg-white text-[#002a48] font-medium 
-    transition-transform duration-200 ease-in-out hover:scale-[1.02] hover:bg-blue-50 hover:text-[#002a48]0"
+          className="flex items-center gap-2 rounded-full border-2 border-primary px-5 py-2 bg-white text-primary font-medium 
+    transition-transform duration-200 ease-in-out hover:scale-[1.02] hover:bg-primary/30 hover:text-primary"
         >
           <FileText size={18} />
           <span className="hidden md:inline">
@@ -136,7 +136,7 @@ const TemplateSelector = ({
       {isOpen && (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/75 p-4 ">
           <div className="bg-gradient-to-b from-white to-blue-100 rounded-xl p-6 w-full max-w-5xl relative shadow-2xl ">
-            <div className="text-lg font-bold mb-4 text-center border rounded-3xl py-2 text-white bg-[#002a48]">
+            <div className="text-lg font-bold mb-4 text-center border rounded-3xl py-2 text-white bg-primary">
               Select a Template
             </div>
 
@@ -154,8 +154,8 @@ const TemplateSelector = ({
                   <div
                     className={`rounded-xl p-2 border-2 transition-colors duration-300 ${
                       template.key === templateId
-                        ? "border-[#002a48] bg-blue-100"
-                        : "border-transparent hover:border-blue-300"
+                        ? "border-primary bg-primary/10"
+                        : "border-transparent hover:border-primary/30"
                     }`}
                   >
                     <div className="relative w-full h-full  aspect-[3/4] overflow-hidden rounded-lg shadow-md">
@@ -169,7 +169,7 @@ const TemplateSelector = ({
                     <div
                       className={`text-center mt-2 font-medium ${
                         template.key === templateId
-                          ? "text-[#002a48]"
+                          ? "text-primary"
                           : "text-gray-600"
                       }`}
                     >

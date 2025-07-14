@@ -5,7 +5,8 @@ import { Bell, LayoutDashboard, LogOut, User, Settings } from "lucide-react";
 import axios from "axios";
 import AbroadiumId from "./AbroadiumId";
 import { BsDash } from "react-icons/bs";
-
+import logo from "./logo.png";
+import Image from "next/image";
 // Create axios instance with interceptor
 const axiosInstance = axios.create();
 
@@ -119,49 +120,49 @@ const Navbar = () => {
 
   return (
     <nav
-      className="bg-[#002a48] border-b border-gray-200"
+      className="bg-transparent shadow-sm"
       // style={{ backgroundColor: "#4C3957" }}
     >
       <div className="mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex-shrink-0 flex items-center">
             <Link href="/">
-              <img
-                src="https://abroadiumlandingemployee.vercel.app/assets/logo-c5bcd0df.png"
-                alt="logo"
-                className="h-10 w-40"
+              <Image
+                src={logo}
+                alt="abrodium logo"
+                className="h-12 w-[200px]"
               />
             </Link>
           </div>
           <div className="hidden md:flex justify-center items-center space-x-4">
             <Link
               href="/dashboard"
-              className="text-white px-3 py-2 rounded-md text-lg font-semibold hover:text-orange-500"
+              className="text-[18px] font-semibold text-black hover:text-primary"
             >
               Dashboard
             </Link>
             <Link
               href="/dashboard/resumelist"
-              className="text-white px-3 py-2 rounded-md text-lg font-semibold hover:text-orange-500"
+              className="text-[18px] font-semibold text-black hover:text-primary"
             >
               My Resumes
             </Link>
             <Link
               href="/dashboard/cvletterlist"
-              className="text-white px-3 py-2 rounded-md text-lg font-semibold hover:text-orange-500"
+              className="text-[18px] font-semibold text-black hover:text-primary"
             >
               CoverLetter
             </Link>
             <Link
               href="https://abroadium-arbuild-fe.vercel.app/job-list"
-              className="text-white px-3 py-2 rounded-md text-lg font-semibold hover:text-orange-500"
+              className="text-[18px] font-semibold text-black hover:text-primary"
             >
               Jobs
             </Link>
             <Link
               href=""
               onClick={handleOpenPopup}
-              className="text-white px-3 py-2 rounded-md text-lg font-semibold hover:text-orange-500"
+              className="text-[18px] font-semibold text-black hover:text-primary"
             >
               Abroadium ID
             </Link>
@@ -172,7 +173,8 @@ const Navbar = () => {
               <div className="relative">
                 <button
                   onClick={toggleDropdown}
-                  className="flex items-center bg-orange-500 text-white px-4 py-2 text-md font-semibold border-2 border-orange-500 rounded-xl hover:bg-orange-600 transition duration-300 z-50"
+                  className="flex items-center  px-4 py-2 text-md font-semibold border-2  rounded-full  transition-all duration-300 z-50
+                   justify-center  bg-primary text-white hover:bg-primary/90 "
                 >
                   <User />
                   <span className="ml-2">
@@ -200,8 +202,8 @@ const Navbar = () => {
                       className="flex items-center px-4 py-3 hover:bg-gray-100 transition-colors duration-200 group"
                       onClick={() => setIsDropdownOpen(false)}
                     >
-                      <LayoutDashboard className="mr-3 w-5 h-5 text-gray-500 group-hover:text-orange-500" />
-                      <span className="text-gray-800 group-hover:text-orange-500">
+                      <LayoutDashboard className="mr-3 w-5 h-5 text-gray-500 group-hover:text-primary" />
+                      <span className="text-gray-800 group-hover:text-primary">
                         Dashboard
                       </span>
                     </Link>
@@ -210,8 +212,8 @@ const Navbar = () => {
                       className="flex items-center px-4 py-3 hover:bg-gray-100 transition-colors duration-200 group"
                       onClick={() => setIsDropdownOpen(false)}
                     >
-                      <Settings className="mr-3 w-5 h-5 text-gray-500 group-hover:text-orange-500" />
-                      <span className="text-gray-800 group-hover:text-orange-500">
+                      <Settings className="mr-3 w-5 h-5 text-gray-500 group-hover:text-primary" />
+                      <span className="text-gray-800 group-hover:text-primary">
                         Settings
                       </span>
                     </Link>
@@ -251,8 +253,8 @@ const Navbar = () => {
                       className="flex items-center px-4 py-3 hover:bg-gray-100 transition-colors duration-200 group"
                       onClick={() => setIsDropdownOpen(false)}
                     >
-                      <LayoutDashboard className="mr-3 w-5 h-5 text-gray-500 group-hover:text-orange-500" />
-                      <span className="text-gray-800 group-hover:text-orange-500">
+                      <LayoutDashboard className="mr-3 w-5 h-5 text-gray-500 group-hover:text-primary" />
+                      <span className="text-gray-800 group-hover:text-primary">
                         Dashboard
                       </span>
                     </Link>
@@ -262,8 +264,8 @@ const Navbar = () => {
                       className="flex items-center px-4 py-3 hover:bg-gray-100 transition-colors duration-200 group"
                       onClick={() => setIsDropdownOpen(false)}
                     >
-                      <Settings className="mr-3 w-5 h-5 text-gray-500 group-hover:text-orange-500" />
-                      <span className="text-gray-800 group-hover:text-orange-500">
+                      <Settings className="mr-3 w-5 h-5 text-gray-500 group-hover:text-primary" />
+                      <span className="text-gray-800 group-hover:text-primary">
                         Settings
                       </span>
                     </Link>
@@ -287,13 +289,13 @@ const Navbar = () => {
               <>
                 <Link
                   href="/login2"
-                  className="text-white px-4 py-2 text-md font-semibold border-2 rounded-xl"
+                  className="text-black px-4 py-2 text-md font-semibold border-2 rounded-xl"
                 >
                   Log in
                 </Link>
                 <Link
                   href="/signup"
-                  className="text-white px-4 py-2 text-md font-semibold border-2 rounded-xl"
+                  className="text-black px-4 py-2 text-md font-semibold border-2 rounded-xl "
                 >
                   Sign up
                 </Link>
@@ -303,7 +305,7 @@ const Navbar = () => {
           <div className="md:hidden flex items-center">
             <button
               onClick={handleMenuClick}
-              className="text-white hover:text-gray-700 focus:outline-none px-3 py-2 rounded-md text-sm font-medium"
+              className="flex items-center justify-center w-10 h-10 rounded-full bg-primary text-white hover:bg-primary/90 transition-all duration-300"
             >
               <User />
             </button>
@@ -314,28 +316,28 @@ const Navbar = () => {
             <div className="px-2 pt-2 pb-3 space-y-1">
               <Link
                 href="/dashboard/aibuilder"
-                className="text-white block px-3 py-2 rounded-md text-base font-semibold"
+                className="text-black block px-3 py-2 rounded-md text-base font-semibold hover:bg-primary"
                 onClick={handleLinkClick}
               >
                 AI Resume Builder
               </Link>
               <Link
                 href="/dashboard/resumelist"
-                className="text-white block px-3 py-2 rounded-md text-base font-semibold"
+                className="text-black block px-3 py-2 rounded-md text-base font-semibold hover:bg-primary"
                 onClick={handleLinkClick}
               >
                 My Resumes
               </Link>
               <Link
                 href=""
-                className="text-white block px-3 py-2 rounded-md text-base font-semibold"
+                className="text-black block px-3 py-2 rounded-md text-base font-semibold hover:bg-primary"
                 onClick={handleLinkClick}
               >
                 About Us
               </Link>
               <Link
                 href=""
-                className="text-white block px-3 py-2 rounded-md text-base font-semibold"
+                className="text-black block px-3 py-2 rounded-md text-base font-semibold hover:bg-primary"
                 onClick={handleLinkClick}
               >
                 Blog
@@ -344,7 +346,7 @@ const Navbar = () => {
               {isLoggedIn ? (
                 <Link
                   href="/"
-                  className="text-white block px-3 py-2 rounded-md text-base font-semibold"
+                  className="text-black block px-3 py-2 rounded-md text-base font-semibold"
                   onClick={() => {
                     handleLogout();
                     handleLinkClick();
@@ -356,14 +358,14 @@ const Navbar = () => {
                 <>
                   <Link
                     href="/login2"
-                    className="text-white block px-3 py-2 rounded-md text-base font-semibold"
+                    className="text-black block px-3 py-2 rounded-md text-base font-semibold"
                     onClick={handleLinkClick}
                   >
                     Log in
                   </Link>
                   <Link
                     href="/signup"
-                    className="text-white block px-3 py-2 rounded-md text-base font-semibold"
+                    className="text-black block px-3 py-2 rounded-md text-base font-semibold"
                     onClick={handleLinkClick}
                   >
                     Sign up

@@ -25,7 +25,7 @@ export default function UploadStep({ onNext, onBack, onChange, value }) {
 
   return (
     <div className="space-y-6 bg-gradient-to-b from-white to-blue-100">
-      <div className="text-center bg-[#002a48] pt-4 pb-4 mb-4">
+      <div className="text-center bg-primary pt-4 pb-4 mb-4">
         <h2 className="text-2xl font-bold text-white">
           Are you uploading an existing cover letter?
         </h2>
@@ -68,10 +68,10 @@ export default function UploadStep({ onNext, onBack, onChange, value }) {
       <div className="flex justify-center items-center">
         <button
           onClick={handleStartFromScratch}
-          className="p-6 border-2 rounded-lg text-center hover:border-blue-400"
+          className="p-6 border-2 rounded-lg text-center hover:border-primary"
         >
           <div className="w-16 h-16 mx-auto mb-4 bg-blue-100 rounded-full flex items-center justify-center">
-            <FaFileAlt className="text-blue-600 w-8 h-8" />
+            <FaFileAlt className="text-primary w-8 h-8" />
           </div>
           <h3 className="font-bold mb-2">No, start from scratch</h3>
           <p className="text-gray-600 text-sm">

@@ -182,7 +182,7 @@ const MyCvLetter = () => {
                         </span>
                         <Button
                           onClick={() => handleOpenEditModal(coverletter)}
-                          className="text-[#002a48] "
+                          className="text-primary "
                         >
                           🖍
                         </Button>
@@ -200,7 +200,7 @@ const MyCvLetter = () => {
                       <div className="flex items-center space-x-3">
                         <Button
                           onClick={() => handleEdit(coverletter.id)}
-                          className="text-[#002a48] "
+                          className="text-primary "
                         >
                           <Edit className="w-5 h-5" />
                         </Button>

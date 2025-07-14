@@ -696,20 +696,22 @@ export default function WebBuilder() {
               <div className="hidden md:flex flex-col lg:flex-row items-center justify-between gap-4">
                 <div className="flex w-full lg:w-auto gap-4">
                   <Button
+                    variant="primary"
                     type="button"
                     onClick={handlePrevious}
                     disabled={currentSection === 0}
-                    className="w-40 h-10 rounded-lg bg-blue-950 text-white font-medium relative transform transition-all duration-300 ease-in-out 
-             hover:scale-105 hover:font-semibold hover:text-xl hover:bg-blue-900 
+                    className="w-40 h-10 rounded-full  text-white font-medium relative transform transition-all duration-300 ease-in-out 
+             hover:scale-105 hover:font-semibold hover:text-xl hover:bg-primary/90 
              disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     Previous
                   </Button>
 
                   <Button
+                    variant="success"
                     type="button"
                     onClick={handleNext}
-                    className="w-40 h-10 rounded-lg bg-orange-500 text-white font-medium hover:bg-orange-600 relative transform transition-all duration-300 ease-in-out 
+                    className="w-40 h-10 rounded-full  text-white font-medium hover:bg-success/90 relative transform transition-all duration-300 ease-in-out 
              hover:scale-105 hover:font-semibold hover:text-xl"
                   >
                     {currentSection === sections.length - 1 ? "Finish" : "Next"}
@@ -721,8 +723,8 @@ export default function WebBuilder() {
                   <select
                     value={selectedFont}
                     onChange={handleFontChange}
-                    className="hidden sm:block rounded-lg border-2 border-[#002a48] px-5 py-2 bg-white text-[#002a48]font-medium 
-transition-transform duration-200 ease-in-out hover:scale-[1.02] hover:bg-blue-50 hover:text-[#002a48]"
+                    className="hidden sm:block rounded-full border-2 border-primary px-5 py-2 bg-white text-primaryfont-medium 
+transition-transform duration-200 ease-in-out hover:scale-[1.02] hover:bg-primary/20 hover:text-primary text-primary"
                   >
                     <option value="" disabled>
                       Fonts
@@ -764,11 +766,11 @@ transition-transform duration-200 ease-in-out hover:scale-[1.02] hover:bg-blue-5
 
             <div className="sticky top-0 z-10 w-full bg-white shadow-sm">
               <div className="hidden md:flex justify-center items-center p-4">
-                <nav className="bg-gray-100 rounded-lg p-2">
+                <nav className="bg-gray-100 rounded-full p-2">
                   <div className="flex items-center">
                     <Button
                       onClick={() => prevSection()}
-                      className="p-2 hover:bg-gray-200 rounded-lg "
+                      className="p-2 hover:bg-gray-200 rounded-full "
                       disabled={currentSection === 0}
                     >
                       {/* Chevron Left Icon Here */}
@@ -780,14 +782,14 @@ transition-transform duration-200 ease-in-out hover:scale-[1.02] hover:bg-blue-5
                           <li
                             key={index}
                             className={`flex items-center justify-between gap-2 px-4 py-2 
-  cursor-pointer transition-all duration-200 rounded-lg border-2 
+  cursor-pointer transition-all duration-200 rounded-full border-2 
   hover:scale-[1.02] hover:font-semibold hover:text-base 
   disabled:opacity-50 disabled:cursor-not-allowed
 
   ${
     currentSection === index
-      ? "border-[#002a48] bg-[#002a48] text-white font-semibold shadow-md"
-      : "border-[#002a48] bg-white text-[#002a48] hover:bg-[#e6f0f5]"
+      ? "border-primary bg-primary text-white font-semibold shadow-md"
+      : "border-primary bg-white text-primary hover:bg-success hover:text-white"
   }`}
                             onClick={() => handleSectionClick(index)}
                           >
@@ -802,7 +804,7 @@ transition-transform duration-200 ease-in-out hover:scale-[1.02] hover:bg-blue-5
 
                     <Button
                       onClick={() => nextSection()}
-                      className="p-2 hover:bg-gray-200 rounded-lg "
+                      className="p-2 hover:bg-gray-200 rounded-full "
                       disabled={currentSection === sections.length - 1}
                     >
                       {/* Chevron Right Icon Here */}
@@ -813,7 +815,7 @@ transition-transform duration-200 ease-in-out hover:scale-[1.02] hover:bg-blue-5
             </div>
 
             <div className="flex flex-col md:flex-row flex-grow p-4">
-              <div className="w-[40%] " style={{ backgroundColor: "#002a48" }}>
+              <div className="w-[40%] bg-primary">
                 <main className="w-full mx-auto md:p-4">
                   <form>{sections[currentSection].component}</form>
                 </main>
@@ -836,8 +838,8 @@ transition-transform duration-200 ease-in-out hover:scale-[1.02] hover:bg-blue-5
                 <select
                   value={selectedFont}
                   onChange={handleFontChange}
-                  className="hidden sm:block rounded-lg border-2 border-[#002a48] px-5 py-2 bg-white text-[#002a48]font-medium 
-transition-transform duration-200 ease-in-out hover:scale-[1.02] hover:bg-blue-50 hover:text-[#002a48]"
+                  className="hidden sm:block rounded-full border-2 border-primary px-5 py-2 bg-white text-primary font-medium 
+transition-transform duration-200 ease-in-out hover:scale-[1.02] hover:bg-primary/20 hover:text-primary"
                 >
                   <option value="">Font</option>
                   <option value="Ubuntu">Ubuntu</option>
@@ -874,10 +876,10 @@ transition-transform duration-200 ease-in-out hover:scale-[1.02] hover:bg-blue-5
               <div className="flex gap-4">
                 <button
                   onClick={handleClick}
-                  className={`px-6 py-2 rounded-lg flex items-center justify-center gap-2 ${
+                  className={`px-6 py-2 rounded-full flex items-center justify-center gap-2 ${
                     loading
-                      ? "bg-blue-800 cursor-not-allowed"
-                      : "bg-blue-950 hover:bg-blue-900 active:bg-blue-800"
+                      ? "bg-success/30 cursor-not-allowed"
+                      : "bg-success hover:bg-success/90 active:bg-success"
                   } text-white transition-colors duration-200`}
                   disabled={loading}
                 >
@@ -885,10 +887,10 @@ transition-transform duration-200 ease-in-out hover:scale-[1.02] hover:bg-blue-5
                 </button>
                 <button
                   onClick={downloadAsPDF}
-                  className={`px-6 py-2 rounded-lg flex items-center justify-center gap-2 ${
+                  className={`px-6 py-2 rounded-full flex items-center justify-center gap-2 ${
                     loading
-                      ? "bg-orange-800 cursor-not-allowed"
-                      : "bg-orange-500 hover:bg-orange-600 active:bg-orange-600"
+                      ? "bg-primary/30 cursor-not-allowed"
+                      : "bg-primary hover:bg-primary/90 active:bg-primary"
                   } text-white transition-colors duration-200`}
                   disabled={loading}
                 >
@@ -901,7 +903,7 @@ transition-transform duration-200 ease-in-out hover:scale-[1.02] hover:bg-blue-5
 
                 <button
                   onClick={handleBackToEditor}
-                  className="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors"
+                  className="bg-gray-700 text-white px-4 py-2 rounded-full hover:bg-gray-600 transition-colors"
                 >
                   Edit Resume
                 </button>

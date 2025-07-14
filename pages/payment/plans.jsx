@@ -93,7 +93,7 @@ export default function PaymentPage() {
       <div className="flex flex-col items-center justify-center bg-gradient-to-b from-white to-blue-100 p-6">
         <Button
           onClick={() => router.back()}
-          className="flex items-start text-gray-600 hover:text-orange-600 mb-6 transition duration-200"
+          className="flex items-start text-gray-600 hover:text-primary mb-6 transition duration-200"
         >
           <ArrowLeft size={16} className="mr-2" />
           Back to plans
@@ -107,7 +107,7 @@ export default function PaymentPage() {
             </p>
 
             {plan.bestValue === "true" && (
-              <div className="bg-blue-100 text-orange-600 text-xs font-medium px-2 py-1 rounded mt-1 inline-block">
+              <div className="bg-blue-100 text-primary text-xs font-medium px-2 py-1 rounded mt-1 inline-block">
                 {pricingData.bestValueLabel}
               </div>
             )}
@@ -115,14 +115,14 @@ export default function PaymentPage() {
             <ul className="mt-4 space-y-2">
               {features.map((feature, index) => (
                 <li key={index} className="flex items-center text-sm">
-                  <CheckCircle className="text-orange-600 mr-2" size={16} />
+                  <CheckCircle className="text-primary mr-2" size={16} />
                   {feature}
                 </li>
               ))}
             </ul>
 
             {/* Total Price */}
-            <div className="mt-6 bg-orange-600 text-white p-4 rounded-xl text-center text-lg font-semibold">
+            <div className="mt-6 bg-success text-white p-4 rounded-xl text-center text-lg font-semibold">
               Total due today <br />
               <span className="text-2xl">{formattedPrice}</span>
             </div>
@@ -131,7 +131,7 @@ export default function PaymentPage() {
             <Button
               onClick={handleConfirmClick}
               disabled={loading}
-              className={`w-full mt-6 bg-[#002a48] hover:bg-[#234d6b] text-white py-4 px-4 rounded-lg font-medium transition duration-200 flex items-center justify-center ${
+              className={`w-full mt-6 bg-primary hover:bg-primary/90 text-white py-4 px-4 rounded-full font-medium transition duration-200 flex items-center justify-center ${
                 loading ? "opacity-75" : ""
               }`}
             >
@@ -175,7 +175,7 @@ export default function PaymentPage() {
               </Button>
               <Button
                 onClick={handleCheckout}
-                className="py-2 px-4 bg-orange-600 text-white rounded-lg hover:bg-[#002a48] transition duration-200 flex items-center justify-center"
+                className="py-2 px-4 bg-primary text-white rounded-lg hover:bg-primary/90 transition duration-200 flex items-center justify-center"
               >
                 <Lock className="mr-2" size={16} />
                 Proceed

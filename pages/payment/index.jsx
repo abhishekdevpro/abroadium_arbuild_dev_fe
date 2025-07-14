@@ -48,7 +48,7 @@ export default function Payment() {
       <Navbar />
       <div className="p-6 max-w-7xl w-full mx-auto  bg-gradient-to-b from-white to-blue-100">
         {/* Intro Section */}
-        <div className="bg-orange-100 p-4 rounded-lg text-center">
+        <div className="bg-success/20 p-4 rounded-lg text-center">
           <h2 className="text-lg md:text-xl font-semibold">
             ✨ Cast a wider net - 10x your job applications
           </h2>
@@ -81,7 +81,7 @@ export default function Payment() {
                     key={planId}
                     className={`border rounded-lg p-4 flex flex-col w-full md:w-64 relative ${
                       selectedPlan === planId
-                        ? "border-orange-500 bg-orange-50"
+                        ? "border-success bg-success/20"
                         : "bg-white"
                     }`}
                     onClick={() => handlePlanSelection(planId)}
@@ -98,7 +98,7 @@ export default function Payment() {
                         type="checkbox"
                         checked={selectedPlan === planId}
                         onChange={() => {}}
-                        className="h-5 w-5 text-orange-500"
+                        className="h-5 w-5 text-success/90"
                       />
                     </div>
 
@@ -122,7 +122,7 @@ export default function Payment() {
                       <ul className="space-y-2 text-sm">
                         {getPlanFeatures(planId).map((feature, idx) => (
                           <li key={idx} className="flex items-start">
-                            <CheckCircle className="h-4 w-4 text-orange-500 mr-2 mt-1 flex-shrink-0" />
+                            <CheckCircle className="h-4 w-4 text-success/90 mr-2 mt-1 flex-shrink-0" />
                             <span>{feature}</span>
                           </li>
                         ))}
@@ -154,39 +154,39 @@ export default function Payment() {
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <Feature
-                  icon={<CheckCircle className="text-orange-600" />}
+                  icon={<CheckCircle className="text-primary" />}
                   title="AI-Powered Job Matching"
                   description="Get real-time job recommendations tailored to your skills and experience."
                 />
                 <Feature
-                  icon={<RefreshCw className="text-orange-600" />}
+                  icon={<RefreshCw className="text-primary" />}
                   title="ATS-Optimized Resumes"
                   description="Professionally crafted resumes designed by experts to pass Applicant Tracking Systems (ATS). "
                 />
                 <Feature
-                  icon={<Bell className="text-orange-600" />}
+                  icon={<Bell className="text-primary" />}
                   title="Instant Job Alerts "
                   description="Stay ahead with real-time notifications about new job openings that match your profile."
                 />
                 <Feature
-                  icon={<Clock className="text-orange-600" />}
+                  icon={<Clock className="text-primary" />}
                   title="Expert Resume Assistance"
                   description="Get personalized resume reviews and improvements from industry professionals."
                 />
                 <Feature
-                  icon={<DollarSign className="text-orange-600" />}
+                  icon={<DollarSign className="text-primary" />}
                   title="Career Community & Networking"
                   description="Connect with industry peers, mentors, and recruiters to enhance your career opportunities."
                 />
                 <Feature
-                  icon={<CheckCircle className="text-orange-600" />}
+                  icon={<CheckCircle className="text-primary" />}
                   title="One-Click Applications"
                   description="Apply faster and more efficiently with seamless, single-click job applications."
                 />
               </div>
               <div className=" mt-6">
                 <Link href={`/payment/plans/?selectedPlan=${selectedPlan}`}>
-                  <Button className="w-full bg-orange-600 text-white text-lg font-semibold py-3 rounded-xl hover:bg-orange-700">
+                  <Button className="w-full bg-primary text-white text-lg font-semibold py-3 rounded-xl hover:bg-primary/90">
                     Next
                   </Button>
                 </Link>
@@ -197,7 +197,7 @@ export default function Payment() {
                   You may cancel via email at{" "}
                   <a
                     href="mailto:customersupport@Abroadium.com"
-                    className="text-blue-500 underline"
+                    className="text-primary underline"
                   >
                     customersupport@Abroadium.com
                   </a>

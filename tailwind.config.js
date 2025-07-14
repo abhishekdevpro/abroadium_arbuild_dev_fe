@@ -5,7 +5,16 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        spartan: ['"League Spartan"', "sans-serif"],
+      },
+      colors: {
+        primary: "#0C448F",
+        success: "#47B756",
+        background: "#F4F8FF",
+      },
+    },
   },
   plugins: [],
-}
+};

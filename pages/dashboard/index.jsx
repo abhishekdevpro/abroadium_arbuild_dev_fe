@@ -117,20 +117,23 @@ export default function DashboardPage() {
           <main className="flex-1 p-2 md:p-6 overflow-y-auto">
             <div className="flex flex-col gap-2 w-full md:flex-row  justify-between items-center mb-8">
               <Button
+                variant="success"
                 onClick={handleCreateResume}
-                className="w-full flex justify-center items-center px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors duration-200 font-medium shadow-sm"
+                className="w-full flex justify-center items-center px-4 py-2  text-white rounded-full hover:bg-success/90 transition-colors duration-200 font-medium shadow-sm"
               >
                 <Plus className="w-5 h-5 mr-2" /> Create New Resume
               </Button>
               <Button
+                variant="primary"
                 onClick={handleCreateCoverLetter}
-                className="w-full flex justify-center items-center px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600  transition-colors duration-200 font-medium shadow-sm"
+                className="w-full flex justify-center items-center px-4 py-2  text-white rounded-full hover:bg-primary/90  transition-colors duration-200 font-medium shadow-sm"
               >
                 <Plus className="w-5 h-5 mr-2" /> Create New Cover Letters
               </Button>
               <Button
+                variant="success"
                 onClick={handleMyDashboard}
-                className="w-full flex justify-center items-center px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600  transition-colors duration-200 font-medium shadow-sm "
+                className="w-full flex justify-center items-center px-4 py-2  text-white rounded-full hover:bg-success/90  transition-colors duration-200 font-medium shadow-sm "
               >
                 <User className="w-5 h-5 mr-2" />
                 My Profile Dashboard
