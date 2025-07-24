@@ -169,125 +169,76 @@ export default function MobileBuilder() {
     setSelectedFont(e.target.value);
   };
 
-  const downloadAsPDF = async () => {
-    setisDownloading(true); // Start loading immediately
+  const downloadAsBackend = async () => {
+    setisDownloading(true);
+
+    if (!templateRef.current) {
+      toast.error("Template reference not found");
+      setisDownloading(false);
+      return;
+    }
 
     try {
-      // ✅ Wait for handleFinish to complete
-      await handleFinish();
-
-      if (!templateRef.current) {
-        toast.error("Template reference not found");
-        return;
-      }
-
       const token = localStorage.getItem("token");
       const htmlContent = templateRef.current.innerHTML;
 
-      const fullContent = `
-        <style>
-          @import url('https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css');
-        </style>
-        ${htmlContent}
-      `;
+      const fullHtml = `
+      <style>
+        @import url('https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css');
+      </style>
+      ${htmlContent}
+    `;
 
-      // ✅ Wait 5 seconds if needed
-      // await new Promise((resolve) => setTimeout(resolve, 5000));
-
-      const response = await axios.get(
+      const response = await axios.post(
         `https://api.abroadium.com/api/jobseeker/download-resume/${resumeId}?pdf_type=${selectedPdfType}`,
+
+        {
+          html: fullHtml,
+          pdf_type: selectedPdfType, // ✅ Move pdf_type here
+        },
         {
           headers: {
             Authorization: token,
-            "Content-Type": "application/pdf",
+            "Content-Type": "application/json",
           },
           responseType: "blob",
         }
       );
 
-      if (response.status === 200) {
-        const url = window.URL.createObjectURL(
-          new Blob([response.data], { type: "application/pdf" })
-        );
-        const link = document.createElement("a");
-        link.href = url;
-        link.setAttribute("download", `resume.pdf`);
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        window.URL.revokeObjectURL(url);
-
-        toast.success("Resume Downloaded Successfully");
-      } else {
-        toast.error(response.data.message || "Error while downloading");
-      }
+      const url = window.URL.createObjectURL(
+        new Blob([response.data], { type: "application/pdf" })
+      );
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", `resume.pdf`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
     } catch (error) {
       console.error("PDF generation error:", error);
 
-      if (
-        error?.response?.status === 403 &&
-        error?.response?.data instanceof Blob
-      ) {
-        const reader = new FileReader();
-        reader.onload = () => {
-          try {
-            const errorData = JSON.parse(reader.result);
-            const errorMessage =
-              errorData.message || errorData.error || "Access denied";
-            toast.error(errorMessage);
-          } catch (err) {
-            toast.error("Access denied. Please check your plan.");
-          }
-        };
-        reader.readAsText(error.response.data);
+      const apiError = error.response?.data;
+      const statusCode = error.response?.status;
+
+      if (statusCode === 403) {
+        setShowUpgradeModal(true); // Show upgrade popup
+      } else if (apiError?.error) {
+        toast.error(apiError.error);
+      } else if (apiError?.message) {
+        toast.error(apiError.message);
       } else {
-        const errorMessage =
-          error?.response?.data?.message ||
-          error?.message ||
-          "Failed to generate and open PDF";
-        toast.error(errorMessage);
+        toast.error("Something went wrong. Please try again.");
       }
     } finally {
-      setisDownloading(false); // Stop loader
+      setisDownloading(false);
     }
   };
 
-  // const downloadAsPDF = async () => {
-  //   handleFinish();
-  //   if (!templateRef.current) {
-  //     toast.error("Template reference not found");
-  //     return;
-  //   }
-
-  //   try {
-  //     const htmlContent = templateRef.current.innerHTML;
-
-  //     const fullContent = `
-  //       <style>
-  //         @import url('https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css');
-  //       </style>
-  //       ${htmlContent}
-  //     `;
-
-  //     const response = await axios.post(
-  //       "https://api.abroadium.com/api/jobseeker/generate-pdf-py",
-  //       { html: fullContent },
-  //       {
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           Authorization: token,
-  //         },
-  //       }
-  //     );
-
-  //     downloadPDF();
-  //   } catch (error) {
-  //     console.error("PDF generation error:", error);
-  //     toast.error(
-  //       error.response?.data?.message || "Failed to generate and open PDF"
-  //     );
-  //   }
-  // };
+  const downloadAsPDF = () => {
+    downloadAsBackend();
+    handleFinish();
+  };
   const downloadPDF = async () => {
     try {
       const response = await axios.get(
