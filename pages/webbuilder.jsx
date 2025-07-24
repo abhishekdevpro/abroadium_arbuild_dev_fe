@@ -57,6 +57,7 @@ export default function WebBuilder() {
   const [loading, setLoading] = useState(false);
   const [isDownloading, setisDownloading] = useState(false);
   const { improve } = router.query;
+  const [showUpgradeModal, setShowUpgradeModal] = useState(false);
   const templateRef = useRef(null);
   const {
     resumeData,
@@ -986,6 +987,33 @@ transition-transform duration-200 ease-in-out hover:scale-[1.02] hover:bg-primar
           </div>
         )}
       </div>
+      {showUpgradeModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full text-center">
+            <h2 className="text-xl font-semibold mb-4 text-gray-800">
+              Upgrade Required
+            </h2>
+            <p className="text-gray-600 mb-6">
+              You’ve reached your download limit. Please upgrade your plan to
+              continue.
+            </p>
+            <div className="flex justify-center gap-4">
+              <button
+                onClick={() => setShowUpgradeModal(false)}
+                className="px-4 py-2 border border-gray-400 rounded-md text-gray-700 hover:bg-gray-100"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => router.push("/payment")}
+                className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90"
+              >
+                Upgrade Plan
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }
