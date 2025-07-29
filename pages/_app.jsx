@@ -42,7 +42,7 @@ export default function App({ Component, pageProps }) {
     <>
       {!isExcluded && (
         <Head>
-          <script
+          {/* <script
             dangerouslySetInnerHTML={{
               __html: `
                 window.chtlConfig = { chatbotId: "1256619196" };
@@ -55,7 +55,7 @@ export default function App({ Component, pageProps }) {
             id="chatling-embed-script"
             type="text/javascript"
             src="https://chatling.ai/js/embed.js"
-          />
+          /> */}
         </Head>
       )}
       <Meta
