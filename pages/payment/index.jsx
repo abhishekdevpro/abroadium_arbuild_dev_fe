@@ -1,15 +1,28 @@
 import { useState } from "react";
-import { CheckCircle, DollarSign, Bell, Clock, RefreshCw } from "lucide-react";
+import {
+  CheckCircle,
+  DollarSign,
+  Bell,
+  Clock,
+  RefreshCw,
+  XCircle,
+  Loader,
+  Lock,
+} from "lucide-react";
 
 import { useRouter } from "next/router";
 import Navbar from "../Navbar/Navbar";
 import Link from "next/link";
 import { pricingData } from "../../components/Data/PlanData";
 import Button from "../../components/buttonUIComponent";
+import { toast } from "react-toastify";
+import axios from "axios";
 // Pricing data from your JSON
 
 export default function Payment() {
   const [selectedPlan, setSelectedPlan] = useState("freePlan");
+  const [loading, setLoading] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
 
   const router = useRouter();
 
@@ -17,16 +30,54 @@ export default function Payment() {
     setSelectedPlan(planId);
   };
 
-  const goToNextPage = () => {
-    // Pass the selected plan to the next page as a query parameter
-    router.push({
-      pathname: "/payment/plans",
-      query: { plan: selectedPlan },
-    });
+  const handleConfirmClick = () => {
+    setShowPopup(true);
+  };
+
+  const handleCancelPopup = () => {
+    setShowPopup(false);
+  };
+
+  const handleCheckout = async () => {
+    setShowPopup(false);
+    setLoading(true);
+    const token = localStorage.getItem("token");
+    const plan = pricingData[selectedPlan];
+
+    try {
+      const response = await axios.post(
+        `https://api.abroadium.com/api/jobseeker/payment/checkout`,
+        {
+          plan_id: plan.planId,
+        },
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        if (response.data?.payment_url) {
+          toast.success("Payment successful! Redirecting...");
+          window.location.href = response.data.payment_url;
+        } else {
+          console.error("No URL found in response:", response.data);
+          toast.error("Unexpected response from the server. No URL returned.");
+        }
+      } else {
+        throw new Error("Unexpected response from the server.");
+      }
+    } catch (error) {
+      console.error("Payment Error:", error);
+      toast.error(error.response?.data?.message || "Error processing payment.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   // Extract plans from the pricing data
-  const plans = ["freePlan", "singlePass", "aiProMonth", "aiProYearly"];
+  const plans = ["freePlan", "singlePass", "aiProMonth"];
 
   // Get features for a plan
   const getPlanFeatures = (planId) => {
@@ -42,6 +93,9 @@ export default function Payment() {
 
     return features;
   };
+
+  // Check if selected plan is free
+  const isFreePlan = selectedPlan === "freePlan";
 
   return (
     <>
@@ -75,7 +129,7 @@ export default function Payment() {
               {plans.map((planId) => {
                 const plan = pricingData[planId];
                 //  {console.log(plan,"plan")}
-                if (plan.title === "Free Plan") return null;
+                // if (plan.title === "Free Plan") return null;
                 return (
                   <div
                     key={planId}
@@ -108,7 +162,9 @@ export default function Payment() {
                         : `CAD${plan.price}${
                             plan.billingCycle !== "single"
                               ? `/${
-                                  plan.billingCycle === "month" ? "mo" : "yr"
+                                  plan.billingCycle === "Month"
+                                    ? "mo"
+                                    : "one-time"
                                 }`
                               : ""
                           }`}
@@ -120,10 +176,22 @@ export default function Payment() {
 
                     <div className="flex-grow">
                       <ul className="space-y-2 text-sm">
-                        {getPlanFeatures(planId).map((feature, idx) => (
+                        {/* {getPlanFeatures(planId).map((feature, idx) => (
                           <li key={idx} className="flex items-start">
                             <CheckCircle className="h-4 w-4 text-success/90 mr-2 mt-1 flex-shrink-0" />
+                            <XCircle className="h-4 w-4 text-red-500 mr-2 mt-1 flex-shrink-0" />
+
                             <span>{feature}</span>
+                          </li>
+                        ))} */}
+                        {getPlanFeatures(planId).map((feature, idx) => (
+                          <li key={idx} className="flex items-start mb-2">
+                            {feature.available ? (
+                              <CheckCircle className="h-4 w-4 text-success/90 mr-2 mt-1 flex-shrink-0" />
+                            ) : (
+                              <XCircle className="h-4 w-4 text-red-500 mr-2 mt-1 flex-shrink-0" />
+                            )}
+                            <span>{feature.label}</span>
                           </li>
                         ))}
                       </ul>
@@ -185,11 +253,32 @@ export default function Payment() {
                 />
               </div>
               <div className=" mt-6">
-                <Link href={`/payment/plans/?selectedPlan=${selectedPlan}`}>
-                  <Button className="w-full bg-primary text-white text-lg font-semibold py-3 rounded-xl hover:bg-primary/90">
-                    Next
+                {isFreePlan ? (
+                  <Button
+                    disabled={true}
+                    className="w-full bg-gray-400 text-white text-lg font-semibold py-3 rounded-xl cursor-not-allowed opacity-50"
+                  >
+                    Free Plan Selected
                   </Button>
-                </Link>
+                ) : (
+                  <Button
+                    onClick={handleConfirmClick}
+                    disabled={loading}
+                    className="w-full bg-primary text-white text-lg font-semibold py-3 rounded-xl hover:bg-primary/90 flex items-center justify-center"
+                  >
+                    {loading ? (
+                      <span className="flex items-center">
+                        <Loader className="mr-2 animate-spin" size={18} />
+                        Processing...
+                      </span>
+                    ) : (
+                      <>
+                        <Lock className="mr-2" size={18} />
+                        Proceed to Secure Checkout
+                      </>
+                    )}
+                  </Button>
+                )}
                 <p className="text-gray-600 text-center mt-4">
                   <strong>Got questions?</strong> Contact our customer support.
                 </p>
@@ -210,6 +299,37 @@ export default function Payment() {
           </div>
         </div>
       </div>
+
+      {/* Confirmation Popup */}
+      {showPopup && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-xl p-6 max-w-md mx-4 shadow-xl">
+            <h3 className="text-xl font-semibold mb-4">Confirm Payment</h3>
+            <p className="text-gray-700 mb-6">
+              You are about to proceed with the payment for{" "}
+              {pricingData[selectedPlan].title} plan for CAD
+              {pricingData[selectedPlan].price}
+              {pricingData[selectedPlan].billingCycle === "Month" ? "/mo" : ""}.
+              Would you like to continue?
+            </p>
+            <div className="flex flex-col sm:flex-row sm:justify-end gap-3">
+              <Button
+                onClick={handleCancelPopup}
+                className="py-2 px-4 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-100 transition duration-200"
+              >
+                Cancel
+              </Button>
+              <Button
+                onClick={handleCheckout}
+                className="py-2 px-4 bg-primary text-white rounded-lg hover:bg-primary/90 transition duration-200 flex items-center justify-center"
+              >
+                <Lock className="mr-2" size={16} />
+                Proceed
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }
