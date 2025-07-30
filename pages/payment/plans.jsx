@@ -5,19 +5,27 @@ import { useRouter } from "next/router";
 import { pricingData } from "../../components/Data/PlanData";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Button from "../../components/buttonUIComponent";
+
+// Force dynamic rendering to prevent static generation issues
+export const dynamic = "force-dynamic";
 
 export default function PaymentPage() {
   const router = useRouter();
   const { selectedPlan } = router.query;
   const [loading, setLoading] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   // Convert features from the individual properties to an array
   const getFeatureArray = (plan) => {
     const features = [];
-    for (let i = 1; i <= 10; i++) {
+    for (let i = 1; i <= 13; i++) {
       const featureKey = `feature${i}`;
       if (plan[featureKey]) {
         features.push(plan[featureKey]);
@@ -26,17 +34,17 @@ export default function PaymentPage() {
     return features;
   };
 
-  // Default to 'aiProYearly' if no plan is selected or plan doesn't exist
+  // Default to 'aiProMonth' if no plan is selected or plan doesn't exist
   const planKey =
-    selectedPlan && pricingData[selectedPlan] ? selectedPlan : "aiProYearly";
+    selectedPlan && pricingData[selectedPlan] ? selectedPlan : "aiProMonth";
   const plan = pricingData[planKey];
 
   // Format price with currency
   const formattedPrice = `CAD ${plan.price}${
     plan.billingCycle === "month"
       ? "/mo"
-      : plan.billingCycle === "year"
-      ? "/yr"
+      : plan.billingCycle === "onetime"
+      ? "/one-time"
       : ""
   }`;
 
@@ -51,6 +59,13 @@ export default function PaymentPage() {
   const handleCheckout = async () => {
     setShowPopup(false);
     setLoading(true);
+
+    if (!isClient) {
+      toast.error("Please wait for the page to load completely.");
+      setLoading(false);
+      return;
+    }
+
     const token = localStorage.getItem("token");
     try {
       const response = await axios.post(
@@ -87,6 +102,21 @@ export default function PaymentPage() {
   // Get features as array
   const features = getFeatureArray(plan);
 
+  // Don't render until client-side
+  if (!isClient) {
+    return (
+      <>
+        <Navbar />
+        <div className="flex flex-col items-center justify-center bg-gradient-to-b from-white to-blue-100 p-6 min-h-screen">
+          <div className="flex items-center">
+            <Loader className="mr-2 animate-spin" size={18} />
+            Loading...
+          </div>
+        </div>
+      </>
+    );
+  }
+
   return (
     <>
       <Navbar />
@@ -116,7 +146,7 @@ export default function PaymentPage() {
               {features.map((feature, index) => (
                 <li key={index} className="flex items-center text-sm">
                   <CheckCircle className="text-primary mr-2" size={16} />
-                  {feature}
+                  {feature.label || feature}
                 </li>
               ))}
             </ul>
