@@ -111,9 +111,9 @@ const Navbar = () => {
 
   const planName = {
     1: "Free",
-    2: "Single Pass",
+    2: "Pay & Download",
     3: "AI Pro Month",
-    4: "AI Pro Yearly",
+    // 4: "AI Pro Yearly",
   };
 
   const currentPlan = user?.plan_id ? planName[user.plan_id] : "Free";
