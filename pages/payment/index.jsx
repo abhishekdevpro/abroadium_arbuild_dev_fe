@@ -84,7 +84,7 @@ export default function Payment() {
     const plan = pricingData[planId];
     const features = [];
 
-    for (let i = 1; i <= 11; i++) {
+    for (let i = 1; i <= 20; i++) {
       const featureKey = `feature${i}`;
       if (plan[featureKey]) {
         features.push(plan[featureKey]);
