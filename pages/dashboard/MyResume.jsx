@@ -339,7 +339,7 @@ const MyResume = () => {
               </Button>
               <Button
                 onClick={handleUpdateResumeTitle}
-                className="px-4 py-2 text-sm font-medium text-white bg-bg-[#002a48] rounded-md  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#002a48]"
+                className="px-4 py-2 text-sm font-medium text-white bg-[#002a48] rounded-md  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#002a48]"
               >
                 Save
               </Button>

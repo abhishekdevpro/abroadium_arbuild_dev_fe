@@ -179,6 +179,12 @@ const TemplateSelector = ({
                 </div>
               ))}
             </div>
+            <button
+              onClick={closeModal}
+              className="w-full sm:w-auto px-6 py-2.5 my-4 bg-gray-800 text-white font-semibold rounded-lg hover:bg-gray-700 transition-colors duration-200 flex items-center justify-center mx-auto"
+            >
+              Close
+            </button>
           </div>
         </div>
       )}
