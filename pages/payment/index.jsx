@@ -22,27 +22,22 @@ import axios from "axios";
 export default function Payment() {
   const [selectedPlan, setSelectedPlan] = useState("freePlan");
   const [loading, setLoading] = useState(false);
-  const [showPopup, setShowPopup] = useState(false);
 
   const router = useRouter();
 
-  const handlePlanSelection = (planId) => {
+  const handlePlanSelection = async (planId) => {
     setSelectedPlan(planId);
+
+    // If it's not a free plan, automatically proceed to payment
+    if (planId !== "freePlan") {
+      await handlePayment(planId);
+    }
   };
 
-  const handleConfirmClick = () => {
-    setShowPopup(true);
-  };
-
-  const handleCancelPopup = () => {
-    setShowPopup(false);
-  };
-
-  const handleCheckout = async () => {
-    setShowPopup(false);
+  const handlePayment = async (planId) => {
     setLoading(true);
     const token = localStorage.getItem("token");
-    const plan = pricingData[selectedPlan];
+    const plan = pricingData[planId];
 
     try {
       const response = await axios.post(
@@ -59,10 +54,23 @@ export default function Payment() {
 
       if (response.status === 200) {
         if (response.data?.payment_url) {
-          toast.success("Payment successful! Redirecting...");
+          toast.success("Redirecting to payment...");
           window.location.href = response.data.payment_url;
+        } else if (response.data?.message) {
+          // Handle case where user already has subscription
+          if (response.data.message.includes("subscription active")) {
+            toast.info("You already have an active subscription!");
+            // Optionally redirect to dashboard or stay on page
+            setTimeout(() => {
+              router.push("/dashboard");
+            }, 2000);
+          } else {
+            toast.success(
+              response.data.message || "Request processed successfully"
+            );
+          }
         } else {
-          console.error("No URL found in response:", response.data);
+          console.error("No URL or message found in response:", response.data);
           toast.error("Unexpected response from the server. No URL returned.");
         }
       } else {
@@ -70,7 +78,11 @@ export default function Payment() {
       }
     } catch (error) {
       console.error("Payment Error:", error);
-      toast.error(error.response?.data?.message || "Error processing payment.");
+      if (error.response?.data?.message) {
+        toast.error(error.response.data.message);
+      } else {
+        toast.error("Error processing payment.");
+      }
     } finally {
       setLoading(false);
     }
@@ -96,6 +108,18 @@ export default function Payment() {
 
   // Check if selected plan is free
   const isFreePlan = selectedPlan === "freePlan";
+
+  // Format price with currency
+  const formatPrice = (plan) => {
+    if (plan.price === "0") return "Free";
+    return `$${plan.price}${
+      plan.billingCycle === "Month"
+        ? "/mo"
+        : plan.billingCycle === "One Time"
+        ? "/one-time"
+        : ""
+    }`;
+  };
 
   return (
     <>
@@ -128,8 +152,6 @@ export default function Payment() {
             <div className="flex flex-col md:flex-row justify-center gap-4 flex-wrap">
               {plans.map((planId) => {
                 const plan = pricingData[planId];
-                //  {console.log(plan,"plan")}
-                // if (plan.title === "Free Plan") return null;
                 return (
                   <div
                     key={planId}
@@ -140,12 +162,6 @@ export default function Payment() {
                     }`}
                     onClick={() => handlePlanSelection(planId)}
                   >
-                    {/* {plan.bestValue === "true" && (
-                      <div className="absolute -top-3 right-4 bg-yellow-400 text-xs font-bold px-3 py-1 rounded-full">
-                        {t(pricingData.bestValueLabel)}
-                      </div>
-                    )} */}
-
                     <div className="flex items-center justify-between mb-2">
                       <h3 className="font-bold text-lg">{plan.title}</h3>
                       <input
@@ -157,17 +173,7 @@ export default function Payment() {
                     </div>
 
                     <div className="text-2xl font-bold mb-1">
-                      {plan.price === "0"
-                        ? pricingData.freeLabel
-                        : `CAD${plan.price}${
-                            plan.billingCycle !== "single"
-                              ? `/${
-                                  plan.billingCycle === "Month"
-                                    ? "mo"
-                                    : "one-time"
-                                }`
-                              : ""
-                          }`}
+                      {formatPrice(plan)}
                     </div>
 
                     <div className="text-sm text-gray-500 mb-4">
@@ -176,14 +182,6 @@ export default function Payment() {
 
                     <div className="flex-grow">
                       <ul className="space-y-2 text-sm">
-                        {/* {getPlanFeatures(planId).map((feature, idx) => (
-                          <li key={idx} className="flex items-start">
-                            <CheckCircle className="h-4 w-4 text-success/90 mr-2 mt-1 flex-shrink-0" />
-                            <XCircle className="h-4 w-4 text-red-500 mr-2 mt-1 flex-shrink-0" />
-
-                            <span>{feature}</span>
-                          </li>
-                        ))} */}
                         {getPlanFeatures(planId).map((feature, idx) => (
                           <li key={idx} className="flex items-start mb-2">
                             {feature.available ? (
@@ -200,19 +198,8 @@ export default function Payment() {
                 );
               })}
             </div>
-
-            {/* Selected Plan Features */}
-            {/* <div className="border p-6 mt-6 rounded-lg bg-gray-100">
-              <h3 className="font-semibold mb-4">{t("Selected Plan Features")}</h3>
-              <ul className="list-disc pl-6 text-gray-700 space-y-2 text-sm md:text-base">
-                {getPlanFeatures(selectedPlan).map((feature, idx) => (
-                  <li key={idx}>{t(feature)}</li>
-                ))}
-              </ul>
-            </div> */}
           </div>
 
-          {/* Features & Payment Section */}
           {/* Features & Payment Section */}
           <div className="flex flex-col md:flex-row gap-6 mt-8">
             {/* Features List */}
@@ -254,30 +241,34 @@ export default function Payment() {
               </div>
               <div className=" mt-6">
                 {isFreePlan ? (
-                  <Button
-                    disabled={true}
-                    className="w-full bg-gray-400 text-white text-lg font-semibold py-3 rounded-xl cursor-not-allowed opacity-50"
-                  >
-                    Free Plan Selected
-                  </Button>
+                  <div className="text-center">
+                    <div className="bg-gray-100 p-4 rounded-lg">
+                      <p className="text-gray-600 font-medium">
+                        Free Plan Selected
+                      </p>
+                      <p className="text-sm text-gray-500 mt-1">
+                        You can start using the basic features immediately
+                      </p>
+                    </div>
+                  </div>
                 ) : (
-                  <Button
-                    onClick={handleConfirmClick}
-                    disabled={loading}
-                    className="w-full bg-primary text-white text-lg font-semibold py-3 rounded-xl hover:bg-primary/90 flex items-center justify-center"
-                  >
+                  <div className="text-center">
                     {loading ? (
-                      <span className="flex items-center">
-                        <Loader className="mr-2 animate-spin" size={18} />
-                        Processing...
-                      </span>
+                      <div className="bg-primary/10 p-4 rounded-lg">
+                        <div className="flex items-center justify-center">
+                          <Loader className="mr-2 animate-spin" size={18} />
+                          <span>Processing payment...</span>
+                        </div>
+                      </div>
                     ) : (
-                      <>
-                        <Lock className="mr-2" size={18} />
-                        Proceed to Secure Checkout
-                      </>
+                      <div className="bg-success/10 p-4 rounded-lg">
+                        <p className="text-success font-medium">
+                          Plan selected - Payment will be processed
+                          automatically
+                        </p>
+                      </div>
                     )}
-                  </Button>
+                  </div>
                 )}
                 <p className="text-gray-600 text-center mt-4">
                   <strong>Got questions?</strong> Contact our customer support.
@@ -285,10 +276,10 @@ export default function Payment() {
                 <p className="text-gray-600 text-center">
                   You may cancel via email at{" "}
                   <a
-                    href="mailto:customersupport@Abroadium.com"
+                    href="mailto:support@Abroadium.com"
                     className="text-primary underline"
                   >
-                    customersupport@Abroadium.com
+                    support@Abroadium.com
                   </a>
                   .
                 </p>
@@ -299,37 +290,6 @@ export default function Payment() {
           </div>
         </div>
       </div>
-
-      {/* Confirmation Popup */}
-      {showPopup && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-xl p-6 max-w-md mx-4 shadow-xl">
-            <h3 className="text-xl font-semibold mb-4">Confirm Payment</h3>
-            <p className="text-gray-700 mb-6">
-              You are about to proceed with the payment for{" "}
-              {pricingData[selectedPlan].title} plan for CAD
-              {pricingData[selectedPlan].price}
-              {pricingData[selectedPlan].billingCycle === "Month" ? "/mo" : ""}.
-              Would you like to continue?
-            </p>
-            <div className="flex flex-col sm:flex-row sm:justify-end gap-3">
-              <Button
-                onClick={handleCancelPopup}
-                className="py-2 px-4 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-100 transition duration-200"
-              >
-                Cancel
-              </Button>
-              <Button
-                onClick={handleCheckout}
-                className="py-2 px-4 bg-primary text-white rounded-lg hover:bg-primary/90 transition duration-200 flex items-center justify-center"
-              >
-                <Lock className="mr-2" size={16} />
-                Proceed
-              </Button>
-            </div>
-          </div>
-        </div>
-      )}
     </>
   );
 }

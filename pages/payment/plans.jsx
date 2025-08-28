@@ -40,7 +40,7 @@ export default function PaymentPage() {
   const plan = pricingData[planKey];
 
   // Format price with currency
-  const formattedPrice = `CAD ${plan.price}${
+  const formattedPrice = `$ ${plan.price}${
     plan.billingCycle === "month"
       ? "/mo"
       : plan.billingCycle === "onetime"

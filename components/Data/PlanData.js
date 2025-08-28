@@ -39,7 +39,7 @@ export const pricingData = {
   singlePass: {
     planId: 2,
     title: "Pay & Download",
-    price: "49",
+    price: "9",
     billingCycle: "One Time",
     bestValue: "false",
     buttonText: "Get Started",
@@ -75,7 +75,7 @@ export const pricingData = {
   aiProMonth: {
     planId: 3,
     title: "AI Pro Month",
-    price: "199",
+    price: "49",
     billingCycle: "Month",
     bestValue: "false",
     buttonText: "Get Started",
