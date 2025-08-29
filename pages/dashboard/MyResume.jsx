@@ -231,7 +231,7 @@ const MyResume = () => {
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="flex items-center space-x-2">
+                        {/* <div className="flex items-center space-x-2">
                           <span className="text-sm text-gray-700">
                             Include your Abroadium Id
                           </span>
@@ -249,7 +249,8 @@ const MyResume = () => {
                               }`}
                             />
                           </Button>
-                        </div>
+                        </div> */}
+                        Coming Soon....
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                         <div className="flex items-center space-x-3">

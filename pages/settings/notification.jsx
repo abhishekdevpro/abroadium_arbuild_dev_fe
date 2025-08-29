@@ -104,9 +104,9 @@ import Sidebar from "./Sidebar";
 import Navbar from "../Navbar/Navbar";
 
 export default function Notification() {
-  const [emailNotifications, setEmailNotifications] = useState(false);
-  const [smsNotifications, setSmsNotifications] = useState(false);
-  const [marketingNotifications, setMarketingNotifications] = useState(false);
+  const [emailNotifications, setEmailNotifications] = useState(true);
+  const [smsNotifications, setSmsNotifications] = useState(true);
+  const [marketingNotifications, setMarketingNotifications] = useState(true);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 

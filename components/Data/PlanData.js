@@ -3,9 +3,9 @@ import { features } from "process";
 export const pricingData = {
   planId: 1,
   title: "Pricing Plans",
-  subtitle: "Choose the plan that works best for you",
+  subtitle: "Find the perfect option for your resume journey—",
   intro:
-    "Our pricing plans are designed to accommodate all your resume building needs.",
+    "our packages are tailored to support every step of your professional growth.",
   bestValueLabel: "Best Value",
   freeLabel: "Free",
   freePlan: {
