@@ -128,11 +128,12 @@ export default function Payment() {
         {/* Intro Section */}
         <div className="bg-success/20 p-4 rounded-lg text-center">
           <h2 className="text-lg md:text-xl font-semibold">
-            ✨ Cast a wider net - 10x your job applications
+            ✨ Maximize your impact – 10x your global applications
           </h2>
           <p className="text-gray-600 text-sm md:text-base">
-            Our AI-powered platform scours millions of jobs to continuously find
-            and apply to relevant job openings until you&apos;re hired.
+            Abroadium’s AI-driven resume builder crafts standout resumes and
+            connects you to verified career opportunities worldwide, ensuring
+            your profile lands with the right employers until you&apos;re hired
           </p>
         </div>
         <h2 className="text-xl md:text-2xl font-bold mt-6 text-center">
