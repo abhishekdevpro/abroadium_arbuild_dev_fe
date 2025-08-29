@@ -8,6 +8,11 @@ import {
   XCircle,
   Loader,
   Lock,
+  FileText,
+  Users,
+  Briefcase,
+  MessageSquare,
+  Shield,
 } from "lucide-react";
 
 import { useRouter } from "next/router";
@@ -137,7 +142,7 @@ export default function Payment() {
           </p>
         </div>
         <h2 className="text-xl md:text-2xl font-bold mt-6 text-center">
-          Kudos! You&apos;re one step closer to success 🎉
+          Congratulations! You’re on your way to career success 🎉
         </h2>
 
         {/* Pricing Section Title */}
@@ -210,34 +215,39 @@ export default function Payment() {
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <Feature
-                  icon={<CheckCircle className="text-primary" />}
-                  title="AI-Powered Job Matching"
-                  description="Get real-time job recommendations tailored to your skills and experience."
+                  icon={<FileText className="text-primary" />}
+                  title="AI Resume Builder"
+                  description="Instantly create standout resumes with advanced AI Assist and automatic formatting, tailored for global opportunities."
                 />
                 <Feature
                   icon={<RefreshCw className="text-primary" />}
-                  title="ATS-Optimized Resumes"
-                  description="Professionally crafted resumes designed by experts to pass Applicant Tracking Systems (ATS). "
+                  title="AI Skill Assessment"
+                  description="Validate and showcase professional strengths with intelligent skill tests and real-time feedback. "
                 />
                 <Feature
-                  icon={<Bell className="text-primary" />}
-                  title="Instant Job Alerts "
-                  description="Stay ahead with real-time notifications about new job openings that match your profile."
+                  icon={<Users className="text-primary" />}
+                  title="Engaging Career Community "
+                  description="Connect with peers, mentors, and recruiters, gaining support and valuable insights throughout your journey."
                 />
                 <Feature
-                  icon={<Clock className="text-primary" />}
-                  title="Expert Resume Assistance"
-                  description="Get personalized resume reviews and improvements from industry professionals."
+                  icon={<Briefcase className="text-primary" />}
+                  title="Verified Job Opportunities"
+                  description="Access a curated list of trusted and verified roles from top employers across the globe."
                 />
                 <Feature
-                  icon={<DollarSign className="text-primary" />}
-                  title="Career Community & Networking"
-                  description="Connect with industry peers, mentors, and recruiters to enhance your career opportunities."
+                  icon={<MessageSquare className="text-primary" />}
+                  title="Practice Interviews"
+                  description="Sharpen your skills with AI-powered mock interviews, ensuring readiness for your next career move."
                 />
                 <Feature
-                  icon={<CheckCircle className="text-primary" />}
-                  title="One-Click Applications"
-                  description="Apply faster and more efficiently with seamless, single-click job applications."
+                  icon={<FileText className="text-primary" />}
+                  title="Cover Letter Generator"
+                  description="Craft compelling cover letters automatically, matching the tone and style needed for every application."
+                />
+                <Feature
+                  icon={<Shield className="text-primary" />}
+                  title="ATS-Compliant Documents"
+                  description="Effortlessly produce resumes and cover letters designed to pass Applicant Tracking Systems and impress recruiters."
                 />
               </div>
               <div className=" mt-6">
