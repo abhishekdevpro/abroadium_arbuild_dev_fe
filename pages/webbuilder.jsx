@@ -58,6 +58,8 @@ export default function WebBuilder() {
   const [isDownloading, setisDownloading] = useState(false);
   const { improve } = router.query;
   const [showUpgradeModal, setShowUpgradeModal] = useState(false);
+  const [isPaymentProcessing, setIsPaymentProcessing] = useState(false);
+  const [isPaymentVerified, setIsPaymentVerified] = useState(false);
   const templateRef = useRef(null);
   const {
     resumeData,
@@ -498,6 +500,96 @@ export default function WebBuilder() {
       }
     } catch (error) {
       console.error("Payment Error:", error);
+    }
+  };
+
+  const createPaymentForPlan5 = async () => {
+    if (!resumeId) {
+      toast.error("Resume ID not found");
+      return;
+    }
+
+    setIsPaymentProcessing(true);
+    try {
+      const response = await axios.post(
+        "https://api.abroadium.com/api/jobseeker/payment/create-payment",
+        {
+          resume_id: parseInt(resumeId),
+          plan_id: 5,
+        },
+        {
+          headers: {
+            Authorization: token,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        if (response.data.payment_url) {
+          toast.success("Redirecting to payment...");
+          // Redirect to the payment URL
+          window.location.href = response.data.payment_url;
+        } else {
+          toast.success("Payment created successfully!");
+          // After successful payment, proceed with download
+          downloadAsBackend();
+          setShowUpgradeModal(false);
+        }
+      } else {
+        toast.error(response.data.message || "Failed to create payment");
+      }
+    } catch (error) {
+      console.error("Payment Error:", error);
+      toast.error(error.response?.data?.message || "Failed to create payment");
+    } finally {
+      setIsPaymentProcessing(false);
+    }
+  };
+
+  const verifyPaymentAndDownload = async () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const razorpayPaymentId = urlParams.get("razorpay_payment_id");
+    const razorpayPaymentLinkId = urlParams.get("razorpay_payment_link_id");
+    const razorpaySignature = urlParams.get("razorpay_signature");
+
+    if (!razorpayPaymentId || !razorpaySignature) {
+      toast.error("Payment verification parameters not found");
+      return;
+    }
+
+    setIsPaymentProcessing(true);
+    try {
+      const formData = new FormData();
+      formData.append("razorpay_payment_id", razorpayPaymentId);
+      formData.append("razorpay_payment_link_id", razorpayPaymentLinkId);
+      formData.append("razorpay_signature", razorpaySignature);
+
+      const response = await axios.post(
+        "https://api.abroadium.com/api/jobseeker/payment/payment-callback",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        toast.success("Payment verified successfully!");
+        setIsPaymentVerified(true);
+        // Now proceed with actual download
+        downloadAsBackend();
+      } else {
+        toast.error("Payment verification failed");
+      }
+    } catch (error) {
+      console.error("Payment verification error:", error);
+      toast.error(
+        error.response?.data?.message || "Payment verification failed"
+      );
+    } finally {
+      setIsPaymentProcessing(false);
     }
   };
 
@@ -956,7 +1048,21 @@ transition-transform duration-200 ease-in-out hover:scale-[1.02] hover:bg-primar
                   {loading ? <SaveLoader /> : "Save Resume"}
                 </button>
                 <button
-                  onClick={downloadAsPDF}
+                  onClick={() => {
+                    // Check if Razorpay payment parameters are present
+                    const urlParams = new URLSearchParams(
+                      window.location.search
+                    );
+                    const hasRazorpayParams =
+                      urlParams.get("razorpay_payment_id") &&
+                      urlParams.get("razorpay_signature");
+
+                    if (hasRazorpayParams) {
+                      verifyPaymentAndDownload();
+                    } else {
+                      downloadAsPDF();
+                    }
+                  }}
                   className={`px-6 py-2 rounded-full flex items-center justify-center gap-2 ${
                     loading
                       ? "bg-primary/30 cursor-not-allowed"
@@ -997,19 +1103,42 @@ transition-transform duration-200 ease-in-out hover:scale-[1.02] hover:bg-primar
               You’ve reached your download limit. Please upgrade your plan to
               continue.
             </p>
-            <div className="flex justify-center gap-4">
-              <button
-                onClick={() => setShowUpgradeModal(false)}
-                className="px-4 py-2 border border-gray-400 rounded-md text-gray-700 hover:bg-gray-100"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={() => router.push("/payment")}
-                className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90"
-              >
-                Upgrade Plan
-              </button>
+            <div className="flex flex-col gap-3">
+              <div className="flex justify-center gap-4">
+                <button
+                  onClick={() => setShowUpgradeModal(false)}
+                  className="px-4 py-2 border border-gray-400 rounded-md text-gray-700 hover:bg-gray-100"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={() => router.push("/payment")}
+                  className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90"
+                >
+                  Upgrade Plan
+                </button>
+              </div>
+
+              {/* Pay & Download Button */}
+              <div className="border-t pt-4">
+                <button
+                  onClick={createPaymentForPlan5}
+                  className="w-full px-4 py-2 bg-success text-white rounded-md hover:bg-success/90 disabled:opacity-50 disabled:cursor-not-allowed"
+                  disabled={isPaymentProcessing}
+                >
+                  {isPaymentProcessing ? (
+                    <div className="flex items-center justify-center gap-2">
+                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                      Processing Payment...
+                    </div>
+                  ) : (
+                    "Pay & Download"
+                  )}
+                </button>
+                <p className="text-xs text-gray-500 mt-2 text-center">
+                  Quick payment to download this resume
+                </p>
+              </div>
             </div>
           </div>
         </div>
