@@ -58,6 +58,7 @@ export default function WebBuilder() {
   const [isDownloading, setisDownloading] = useState(false);
   const { improve } = router.query;
   const [showUpgradeModal, setShowUpgradeModal] = useState(false);
+  const [isPaymentProcessing, setIsPaymentProcessing] = useState(false);
   const templateRef = useRef(null);
   const {
     resumeData,
@@ -498,6 +499,50 @@ export default function WebBuilder() {
       }
     } catch (error) {
       console.error("Payment Error:", error);
+    }
+  };
+
+  const createPaymentForPlan5 = async () => {
+    if (!resumeId) {
+      toast.error("Resume ID not found");
+      return;
+    }
+
+    setIsPaymentProcessing(true);
+    try {
+      const response = await axios.post(
+        "https://api.abroadium.com/api/jobseeker/payment/create-payment",
+        {
+          resume_id: parseInt(resumeId),
+          plan_id: 5,
+        },
+        {
+          headers: {
+            Authorization: token,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        if (response.data.payment_url) {
+          toast.success("Redirecting to payment...");
+          // Redirect to the payment URL
+          window.location.href = response.data.payment_url;
+        } else {
+          toast.success("Payment created successfully!");
+          // After successful payment, proceed with download
+          downloadAsBackend();
+          setShowUpgradeModal(false);
+        }
+      } else {
+        toast.error(response.data.message || "Failed to create payment");
+      }
+    } catch (error) {
+      console.error("Payment Error:", error);
+      toast.error(error.response?.data?.message || "Failed to create payment");
+    } finally {
+      setIsPaymentProcessing(false);
     }
   };
 
@@ -997,19 +1042,42 @@ transition-transform duration-200 ease-in-out hover:scale-[1.02] hover:bg-primar
               You’ve reached your download limit. Please upgrade your plan to
               continue.
             </p>
-            <div className="flex justify-center gap-4">
-              <button
-                onClick={() => setShowUpgradeModal(false)}
-                className="px-4 py-2 border border-gray-400 rounded-md text-gray-700 hover:bg-gray-100"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={() => router.push("/payment")}
-                className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90"
-              >
-                Upgrade Plan
-              </button>
+            <div className="flex flex-col gap-3">
+              <div className="flex justify-center gap-4">
+                <button
+                  onClick={() => setShowUpgradeModal(false)}
+                  className="px-4 py-2 border border-gray-400 rounded-md text-gray-700 hover:bg-gray-100"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={() => router.push("/payment")}
+                  className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90"
+                >
+                  Upgrade Plan
+                </button>
+              </div>
+
+              {/* Pay & Download Button */}
+              <div className="border-t pt-4">
+                <button
+                  onClick={createPaymentForPlan5}
+                  className="w-full px-4 py-2 bg-success text-white rounded-md hover:bg-success/90 disabled:opacity-50 disabled:cursor-not-allowed"
+                  disabled={isPaymentProcessing}
+                >
+                  {isPaymentProcessing ? (
+                    <div className="flex items-center justify-center gap-2">
+                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                      Processing Payment...
+                    </div>
+                  ) : (
+                    "Pay & Download"
+                  )}
+                </button>
+                <p className="text-xs text-gray-500 mt-2 text-center">
+                  Quick payment to download this resume
+                </p>
+              </div>
             </div>
           </div>
         </div>
