@@ -47,6 +47,7 @@ export default function MobileBuilder() {
   const [isDownloading, setisDownloading] = useState(false);
   const [showUpgradeModal, setShowUpgradeModal] = useState(false);
   const [isPaymentProcessing, setIsPaymentProcessing] = useState(false);
+  const [isPaymentVerified, setIsPaymentVerified] = useState(false);
   const templateRef = useRef(null);
   const {
     setResumeStrength,
@@ -285,6 +286,53 @@ export default function MobileBuilder() {
       setIsPaymentProcessing(false);
     }
   };
+
+  const verifyPaymentAndDownload = async () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const razorpayPaymentId = urlParams.get("razorpay_payment_id");
+    const razorpayPaymentLinkId = urlParams.get("razorpay_payment_link_id");
+    const razorpaySignature = urlParams.get("razorpay_signature");
+
+    if (!razorpayPaymentId || !razorpaySignature) {
+      toast.error("Payment verification parameters not found");
+      return;
+    }
+
+    setIsPaymentProcessing(true);
+    try {
+      const formData = new FormData();
+      formData.append("razorpay_payment_id", razorpayPaymentId);
+      formData.append("razorpay_payment_link_id", razorpayPaymentLinkId);
+      formData.append("razorpay_signature", razorpaySignature);
+
+      const response = await axios.post(
+        "https://api.abroadium.com/api/jobseeker/payment/payment-callback",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        toast.success("Payment verified successfully!");
+        setIsPaymentVerified(true);
+        // Now proceed with actual download
+        downloadAsBackend();
+      } else {
+        toast.error("Payment verification failed");
+      }
+    } catch (error) {
+      console.error("Payment verification error:", error);
+      toast.error(
+        error.response?.data?.message || "Payment verification failed"
+      );
+    } finally {
+      setIsPaymentProcessing(false);
+    }
+  };
+
   const downloadPDF = async () => {
     try {
       const response = await axios.get(
@@ -642,7 +690,19 @@ export default function MobileBuilder() {
               </button>
 
               <button
-                onClick={downloadAsPDF}
+                onClick={() => {
+                  // Check if Razorpay payment parameters are present
+                  const urlParams = new URLSearchParams(window.location.search);
+                  const hasRazorpayParams =
+                    urlParams.get("razorpay_payment_id") &&
+                    urlParams.get("razorpay_signature");
+
+                  if (hasRazorpayParams) {
+                    verifyPaymentAndDownload();
+                  } else {
+                    downloadAsPDF();
+                  }
+                }}
                 className={`px-6 py-2 rounded-lg flex items-center justify-center gap-2 ${
                   loading
                     ? "bg-success/30 cursor-not-allowed"

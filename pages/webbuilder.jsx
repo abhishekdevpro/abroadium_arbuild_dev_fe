@@ -59,6 +59,7 @@ export default function WebBuilder() {
   const { improve } = router.query;
   const [showUpgradeModal, setShowUpgradeModal] = useState(false);
   const [isPaymentProcessing, setIsPaymentProcessing] = useState(false);
+  const [isPaymentVerified, setIsPaymentVerified] = useState(false);
   const templateRef = useRef(null);
   const {
     resumeData,
@@ -546,6 +547,52 @@ export default function WebBuilder() {
     }
   };
 
+  const verifyPaymentAndDownload = async () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const razorpayPaymentId = urlParams.get("razorpay_payment_id");
+    const razorpayPaymentLinkId = urlParams.get("razorpay_payment_link_id");
+    const razorpaySignature = urlParams.get("razorpay_signature");
+
+    if (!razorpayPaymentId || !razorpaySignature) {
+      toast.error("Payment verification parameters not found");
+      return;
+    }
+
+    setIsPaymentProcessing(true);
+    try {
+      const formData = new FormData();
+      formData.append("razorpay_payment_id", razorpayPaymentId);
+      formData.append("razorpay_payment_link_id", razorpayPaymentLinkId);
+      formData.append("razorpay_signature", razorpaySignature);
+
+      const response = await axios.post(
+        "https://api.abroadium.com/api/jobseeker/payment/payment-callback",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        toast.success("Payment verified successfully!");
+        setIsPaymentVerified(true);
+        // Now proceed with actual download
+        downloadAsBackend();
+      } else {
+        toast.error("Payment verification failed");
+      }
+    } catch (error) {
+      console.error("Payment verification error:", error);
+      toast.error(
+        error.response?.data?.message || "Payment verification failed"
+      );
+    } finally {
+      setIsPaymentProcessing(false);
+    }
+  };
+
   useEffect(() => {
     if (PayerID) {
       verifyPayment();
@@ -1001,7 +1048,21 @@ transition-transform duration-200 ease-in-out hover:scale-[1.02] hover:bg-primar
                   {loading ? <SaveLoader /> : "Save Resume"}
                 </button>
                 <button
-                  onClick={downloadAsPDF}
+                  onClick={() => {
+                    // Check if Razorpay payment parameters are present
+                    const urlParams = new URLSearchParams(
+                      window.location.search
+                    );
+                    const hasRazorpayParams =
+                      urlParams.get("razorpay_payment_id") &&
+                      urlParams.get("razorpay_signature");
+
+                    if (hasRazorpayParams) {
+                      verifyPaymentAndDownload();
+                    } else {
+                      downloadAsPDF();
+                    }
+                  }}
                   className={`px-6 py-2 rounded-full flex items-center justify-center gap-2 ${
                     loading
                       ? "bg-primary/30 cursor-not-allowed"
