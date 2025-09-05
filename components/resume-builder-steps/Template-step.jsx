@@ -562,7 +562,7 @@ const TemplateStep = ({ onNext, onBack, onChange, value }) => {
       templateDetails: {
         templateId: value.template,
         backgroundColor: selectedHexCode || "#2563EB",
-        font: "Ubuntu",
+        font: "Times New Roman",
       },
       no_of_experience: exp,
     };
@@ -709,7 +709,10 @@ const TemplateStep = ({ onNext, onBack, onChange, value }) => {
                     priority={templates.indexOf(template) < 6}
                   />
                   <div className="absolute inset-0 flex items-end justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-gradient-to-t from-black/60 to-transparent p-4">
-                    <span className="bg-gradient-to-r from-[#002a48] via-primary to-success text-white font-semibold px-5 py-2 rounded-full shadow-md hover:shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out">
+                    <span
+                      onClick={handleSaveTemplate}
+                      className="bg-gradient-to-r from-[#002a48] via-primary to-success text-white font-semibold px-5 py-2 rounded-full shadow-md hover:shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out"
+                    >
                       Use This Template
                     </span>
                   </div>

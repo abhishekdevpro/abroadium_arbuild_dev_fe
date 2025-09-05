@@ -19,7 +19,39 @@ export default function DashboardPage() {
   const [loading, setLoading] = useState(true);
   // const [resumes, setResumes] = useState([]);
   const [error, setError] = useState(null);
+  const [user, setUser] = useState(null);
   const router = useRouter();
+
+  const planName = {
+    1: "Free",
+    2: "Pay & Download",
+    3: "AI Pro Month",
+    // 4: "AI Pro Yearly",
+  };
+
+  const currentPlan = user?.plan_id ? planName[user.plan_id] : "Free";
+
+  const fetchUserProfile = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      if (token) {
+        const response = await axios.get(
+          "https://api.abroadium.com/api/jobseeker/user-profile",
+          {
+            headers: {
+              Authorization: token,
+            },
+          }
+        );
+
+        if (response.data.status === "success") {
+          setUser(response.data.data.personal_details);
+        }
+      }
+    } catch (error) {
+      console.error("Error fetching user profile:", error);
+    }
+  };
 
   // useEffect(() => {
   //     const token = localStorage.getItem("token");
@@ -75,6 +107,7 @@ export default function DashboardPage() {
   useEffect(() => {
     // if(resumes.length==0)
     resumeStrength();
+    fetchUserProfile();
 
     // const interval = setInterval(resumeStrength, 300000);
 
@@ -115,6 +148,41 @@ export default function DashboardPage() {
 
           {/* Main Content */}
           <main className="flex-1 p-2 md:p-6 overflow-y-auto">
+            {/* Current Plan Display */}
+            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 mb-6">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-3">
+                  <div className="w-3 h-3 rounded-full bg-primary"></div>
+                  <span className="text-lg font-semibold text-gray-800">
+                    Current Plan
+                  </span>
+                </div>
+                <span
+                  className={`px-3 py-1 rounded-full text-sm font-medium ${
+                    currentPlan === "Free"
+                      ? "bg-red-100 text-red-600"
+                      : "bg-green-100 text-green-600"
+                  }`}
+                >
+                  {currentPlan}
+                </span>
+              </div>
+              {currentPlan === "Free" && (
+                <div className="mt-3 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                  <p className="text-sm text-gray-600">
+                    Upgrade to unlock premium features and unlimited downloads
+                  </p>
+                  <Button
+                    variant="primary"
+                    onClick={() => router.push("/payment")}
+                    className="px-4 py-2 text-sm font-medium rounded-full hover:bg-primary/90 transition-colors duration-200 shadow-sm"
+                  >
+                    Upgrade Plan
+                  </Button>
+                </div>
+              )}
+            </div>
+
             <div className="flex flex-col gap-2 w-full md:flex-row  justify-between items-center mb-8">
               <Button
                 variant="success"

@@ -104,7 +104,8 @@ export default function MobileBuilder() {
                   "template1"
               );
               setSelectedFont(
-                parsedData.templateData.templateDetails.font || "Ubuntu"
+                parsedData.templateData.templateDetails.font ||
+                  "Times New Roman"
               );
             }
           }
@@ -466,7 +467,7 @@ export default function MobileBuilder() {
         templateDetails: {
           templateId: selectedTemplate,
           backgroundColor: backgroundColorss || "",
-          font: selectedFont || "Ubuntu",
+          font: selectedFont || "Times New Roman",
         },
         no_of_experience: exp,
       },

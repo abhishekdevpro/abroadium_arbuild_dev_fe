@@ -32,7 +32,7 @@ import ResumeLoader from "../components/ResumeLoader/Loader";
 import { SaveLoader } from "../components/ResumeLoader/SaveLoader";
 import Button from "../components/buttonUIComponent";
 import Highlightmenubar from "../components/preview/highlightmenu";
-
+import { ArrowLeft, ArrowRight, CheckCircle } from "lucide-react"; // icons
 const Print = dynamic(() => import("../components/utility/WinPrint"), {
   ssr: false,
 });
@@ -116,7 +116,8 @@ export default function WebBuilder() {
                   "template1"
               );
               setSelectedFont(
-                parsedData.templateData.templateDetails.font || "Ubuntu"
+                parsedData.templateData.templateDetails.font ||
+                  "Times New Roman"
               );
             }
           }
@@ -738,7 +739,7 @@ export default function WebBuilder() {
         templateDetails: {
           templateId: selectedTemplate,
           backgroundColor: backgroundColorss || "",
-          font: selectedFont || "Ubuntu",
+          font: selectedFont || "Times New Roman",
         },
         no_of_experience: exp,
       },
@@ -980,6 +981,36 @@ transition-transform duration-200 ease-in-out hover:scale-[1.02] hover:bg-primar
               <div className="w-[40%] bg-primary">
                 <main className="w-full mx-auto md:p-4">
                   <form>{sections[currentSection].component}</form>
+                  <div className="mt-12 left-0 right-0 flex justify-center gap-6">
+                    {/* Previous Button */}
+                    <Button
+                      type="button"
+                      onClick={handlePrevious}
+                      disabled={currentSection === 0}
+                      className="w-12 h-12 rounded-full bg-black flex items-center justify-center text-white font-medium 
+          relative transform transition-all duration-300 ease-in-out 
+          hover:scale-110 hover:bg-black 
+          disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      <ArrowLeft className="h-6 w-6" />
+                    </Button>
+
+                    {/* Next / Finish Button */}
+                    <Button
+                      variant="success"
+                      type="button"
+                      onClick={handleNext}
+                      className="w-12 h-12 rounded-full flex items-center justify-center text-white font-medium 
+          relative transform transition-all duration-300 ease-in-out 
+          hover:scale-110 hover:bg-success/90"
+                    >
+                      {currentSection === sections.length - 1 ? (
+                        <CheckCircle className="h-6 w-6" /> // Finish icon
+                      ) : (
+                        <ArrowRight className="h-6 w-6" /> // Next icon
+                      )}
+                    </Button>
+                  </div>
                 </main>
               </div>
 

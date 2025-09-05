@@ -65,7 +65,7 @@ const Sidebar = ({ score, resumeId }) => {
           if (parsedData?.templateData?.templateDetails) {
             const { backgroundColor, templateId } =
               parsedData.templateData.templateDetails;
-            setBgColor(backgroundColor || "");
+            setBgColor(backgroundColor || "#000");
             setHeaderColor(backgroundColor || "");
             setSelectedTemplate(templateId || "template1");
           }
