@@ -1,6 +1,7 @@
 // components/ComingSoonPopup.js
+import Image from "next/image";
 import React, { useState } from "react";
-
+import logo from "./logo.png";
 const AbroadiumId = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
@@ -31,11 +32,7 @@ const AbroadiumId = ({ isOpen, onClose }) => {
       >
         <div className="hero">
           <div className="flex justify-center items-center mb-2">
-            <img
-              src="https://abroadiumlandingemployee.vercel.app/assets/logo-c5bcd0df.png"
-              alt="logo"
-              className="h-10 w-40"
-            />
+            <Image src={logo} alt="logo" className="h-10 w-40" />
           </div>
           <h1>Abroadium ID</h1>
           <p>Your One-Stop Access to Career Solutions</p>

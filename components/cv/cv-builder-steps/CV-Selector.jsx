@@ -356,7 +356,7 @@ const CVSelector = ({ onNext, onBack, onChange, value }) => {
       templateDetails: {
         templateId: value.template,
         backgroundColor: selectedHexCode || "#2563EB",
-        font: "Ubuntu",
+        font: "Times New Roman",
       },
       personalDetails: {
         name: data.personalDetails?.name || "",

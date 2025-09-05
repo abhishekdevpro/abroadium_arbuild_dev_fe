@@ -8,7 +8,7 @@ export const ResumeProvider = ({ children }) => {
   const [resumeStrength, setResumeStrength] = useState({});
   const [exp, setExp] = useState();
   const [headerColor, setHeaderColor] = useState("");
-  const [backgroundColorss, setBgColor] = useState("");
+  const [backgroundColorss, setBgColor] = useState("#000");
   const [selectedFont, setSelectedFont] = useState("");
 
   // const handleProfilePicture = (e) => {

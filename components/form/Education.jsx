@@ -11,15 +11,16 @@ const Education = () => {
   const { resumeData, setResumeData, resumeStrength } =
     useContext(ResumeContext);
   const [activeTooltip, setActiveTooltip] = useState(null);
-  const [universitySuggestions, setUniversitySuggestions] = useState([]);
-  const [showUniversityDropdown, setShowUniversityDropdown] = useState(false);
-  const [degreeSuggestions, setDegreeSuggestions] = useState([]);
-  const [showDegreeDropdown, setShowDegreeDropdown] = useState(false);
-  const [locationSuggestions, setLocationSuggestions] = useState([]);
-  const [showLocationDropdown, setShowLocationDropdown] = useState(false);
+  const [universitySuggestions, setUniversitySuggestions] = useState({});
+  const [showUniversityDropdown, setShowUniversityDropdown] = useState({});
+  const [degreeSuggestions, setDegreeSuggestions] = useState({});
+  const [showDegreeDropdown, setShowDegreeDropdown] = useState({});
+  const [locationSuggestions, setLocationSuggestions] = useState({});
+  const [showLocationDropdown, setShowLocationDropdown] = useState({});
   const [isLoading, setIsLoading] = useState({
-    university: false,
-    location: false,
+    university: {},
+    location: {},
+    degree: {},
   });
   const router = useRouter();
   const { improve } = router.query;
@@ -37,17 +38,20 @@ const Education = () => {
       fetchDegrees(value, index);
     }
     if (name === "location") {
-      fetchLocations(value);
+      fetchLocations(value, index);
     }
   };
 
   const fetchUniversities = async (keyword, index) => {
     if (!keyword || keyword.length < 1) {
-      setUniversitySuggestions([]);
+      setUniversitySuggestions((prev) => ({ ...prev, [index]: [] }));
       return;
     }
 
-    setIsLoading((prev) => ({ ...prev, university: true }));
+    setIsLoading((prev) => ({
+      ...prev,
+      university: { ...prev.university, [index]: true },
+    }));
     try {
       const response = await fetch(
         `https://api.abroadium.com/api/jobseeker/university-lists?university_keyword=${encodeURIComponent(
@@ -56,22 +60,31 @@ const Education = () => {
       );
       if (response.ok) {
         const data = await response.json();
-        setUniversitySuggestions(data?.data?.map((item) => item.name));
-        setShowUniversityDropdown(true);
+        setUniversitySuggestions((prev) => ({
+          ...prev,
+          [index]: data?.data?.map((item) => item.name) || [],
+        }));
+        setShowUniversityDropdown((prev) => ({ ...prev, [index]: true }));
       }
     } catch (error) {
       console.error("Error fetching universities:", error);
     }
-    setIsLoading((prev) => ({ ...prev, university: false }));
+    setIsLoading((prev) => ({
+      ...prev,
+      university: { ...prev.university, [index]: false },
+    }));
   };
 
   const fetchDegrees = async (keyword, index) => {
     if (!keyword || keyword.length < 1) {
-      setDegreeSuggestions([]);
+      setDegreeSuggestions((prev) => ({ ...prev, [index]: [] }));
       return;
     }
 
-    setIsLoading((prev) => ({ ...prev, degree: true }));
+    setIsLoading((prev) => ({
+      ...prev,
+      degree: { ...prev.degree, [index]: true },
+    }));
     try {
       const response = await fetch(
         `https://api.abroadium.com/api/jobseeker/degree?degree_keyword=${encodeURIComponent(
@@ -80,22 +93,31 @@ const Education = () => {
       );
       if (response.ok) {
         const data = await response.json();
-        setDegreeSuggestions(data.data.map((item) => item.name));
-        setShowDegreeDropdown(true);
+        setDegreeSuggestions((prev) => ({
+          ...prev,
+          [index]: data.data.map((item) => item.name),
+        }));
+        setShowDegreeDropdown((prev) => ({ ...prev, [index]: true }));
       }
     } catch (error) {
       console.error("Error fetching degrees:", error);
     }
-    setIsLoading((prev) => ({ ...prev, degree: false }));
+    setIsLoading((prev) => ({
+      ...prev,
+      degree: { ...prev.degree, [index]: false },
+    }));
   };
 
-  const fetchLocations = async (keyword) => {
+  const fetchLocations = async (keyword, index) => {
     if (!keyword || keyword.length < 1) {
-      setLocationSuggestions([]);
+      setLocationSuggestions((prev) => ({ ...prev, [index]: [] }));
       return;
     }
 
-    setIsLoading((prev) => ({ ...prev, location: true }));
+    setIsLoading((prev) => ({
+      ...prev,
+      location: { ...prev.location, [index]: true },
+    }));
     try {
       const response = await fetch(
         `https://api.abroadium.com/api/jobseeker/locations?locations=${encodeURIComponent(
@@ -105,27 +127,30 @@ const Education = () => {
       if (response.ok) {
         const data = await response.json();
         const locations = data.data.location_names.map((item) => item);
-        setLocationSuggestions(locations);
-        setShowLocationDropdown(true);
+        setLocationSuggestions((prev) => ({ ...prev, [index]: locations }));
+        setShowLocationDropdown((prev) => ({ ...prev, [index]: true }));
       }
     } catch (error) {
       console.error("Error fetching locations:", error);
     }
-    setIsLoading((prev) => ({ ...prev, location: false }));
+    setIsLoading((prev) => ({
+      ...prev,
+      location: { ...prev.location, [index]: false },
+    }));
   };
 
   const selectUniversity = (value, index) => {
     const newEducation = [...resumeData.education];
     newEducation[index].school = value;
     setResumeData({ ...resumeData, education: newEducation });
-    setShowUniversityDropdown(false);
+    setShowUniversityDropdown((prev) => ({ ...prev, [index]: false }));
   };
 
   const selectLocation = (value, index) => {
     const newEducation = [...resumeData.education];
     newEducation[index].location = value;
     setResumeData({ ...resumeData, education: newEducation });
-    setShowLocationDropdown(false);
+    setShowLocationDropdown((prev) => ({ ...prev, [index]: false }));
   };
 
   const months = [
@@ -302,9 +327,9 @@ const Education = () => {
   // Close dropdowns when clicking outside
   React.useEffect(() => {
     const handleClickOutside = () => {
-      setShowUniversityDropdown(false);
-      setShowLocationDropdown(false);
-      setShowDegreeDropdown(false);
+      setShowUniversityDropdown({});
+      setShowLocationDropdown({});
+      setShowDegreeDropdown({});
     };
 
     document.addEventListener("click", handleClickOutside);
@@ -391,7 +416,7 @@ const Education = () => {
               <div className="relative">
                 <input
                   type="text"
-                  placeholder="School"
+                  placeholder="School/University."
                   name="school"
                   className={`w-full other-input border ${
                     hasErrors(index, "school")
@@ -402,7 +427,7 @@ const Education = () => {
                   onChange={(e) => handleEducation(e, index)}
                   onClick={(e) => e.stopPropagation()}
                 />
-                {isLoading.university && (
+                {isLoading.university[index] && (
                   <div className="absolute right-8 top-1/2 -translate-y-1/2">
                     <Loader2 className="w-5 h-5 animate-spin text-gray-400" />
                   </div>
@@ -424,19 +449,20 @@ const Education = () => {
                 )}
               </div>
 
-              {showUniversityDropdown && universitySuggestions?.length > 0 && (
-                <div className="absolute z-50 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-y-auto">
-                  {universitySuggestions.map((university, i) => (
-                    <div
-                      key={i}
-                      className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-black"
-                      onClick={() => selectUniversity(university, index)}
-                    >
-                      {university}
-                    </div>
-                  ))}
-                </div>
-              )}
+              {showUniversityDropdown[index] &&
+                universitySuggestions[index]?.length > 0 && (
+                  <div className="absolute z-50 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-y-auto">
+                    {universitySuggestions[index].map((university, i) => (
+                      <div
+                        key={i}
+                        className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-black"
+                        onClick={() => selectUniversity(university, index)}
+                      >
+                        {university}
+                      </div>
+                    ))}
+                  </div>
+                )}
 
               {renderTooltip(index, "school", "School Suggestions")}
             </div>
@@ -456,9 +482,18 @@ const Education = () => {
                   handleEducation(e, index);
                   fetchDegrees(e.target.value, index);
                 }}
-                onFocus={() => setShowDegreeDropdown(true)}
+                onFocus={() =>
+                  setShowDegreeDropdown((prev) => ({ ...prev, [index]: true }))
+                }
                 onBlur={() =>
-                  setTimeout(() => setShowDegreeDropdown(false), 200)
+                  setTimeout(
+                    () =>
+                      setShowDegreeDropdown((prev) => ({
+                        ...prev,
+                        [index]: false,
+                      })),
+                    200
+                  )
                 }
               />
               {improve && hasErrors(index, "degree") && (
@@ -478,25 +513,29 @@ const Education = () => {
               )}
               {renderTooltip(index, "degree", "Degree Suggestions")}
 
-              {showDegreeDropdown && degreeSuggestions.length > 0 && (
-                <ul className="absolute z-10 w-full bg-white border border-gray-300 rounded-md  shadow-lg">
-                  {degreeSuggestions.map((degree, i) => (
-                    <li
-                      key={i}
-                      className="px-3 py-2 cursor-pointer hover:bg-gray-200"
-                      onMouseDown={() => {
-                        handleEducation(
-                          { target: { name: "degree", value: degree } },
-                          index
-                        );
-                        setShowDegreeDropdown(false);
-                      }}
-                    >
-                      {degree}
-                    </li>
-                  ))}
-                </ul>
-              )}
+              {showDegreeDropdown[index] &&
+                degreeSuggestions[index]?.length > 0 && (
+                  <ul className="absolute z-10 w-full bg-white border border-gray-300 rounded-md  shadow-lg">
+                    {degreeSuggestions[index].map((degree, i) => (
+                      <li
+                        key={i}
+                        className="px-3 py-2 cursor-pointer hover:bg-gray-200"
+                        onMouseDown={() => {
+                          handleEducation(
+                            { target: { name: "degree", value: degree } },
+                            index
+                          );
+                          setShowDegreeDropdown((prev) => ({
+                            ...prev,
+                            [index]: false,
+                          }));
+                        }}
+                      >
+                        {degree}
+                      </li>
+                    ))}
+                  </ul>
+                )}
             </div>
 
             <div className="relative">
@@ -702,7 +741,7 @@ const Education = () => {
                   onChange={(e) => handleEducation(e, index)}
                   onClick={(e) => e.stopPropagation()}
                 />
-                {isLoading.location && (
+                {isLoading.location[index] && (
                   <div className="absolute right-8 top-1/2 -translate-y-1/2">
                     <Loader2 className="w-5 h-5 animate-spin text-gray-400" />
                   </div>
@@ -724,19 +763,20 @@ const Education = () => {
                 )}
               </div>
 
-              {showLocationDropdown && locationSuggestions.length > 0 && (
-                <div className="absolute z-50 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-y-auto">
-                  {locationSuggestions.map((location, i) => (
-                    <div
-                      key={i}
-                      className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-black"
-                      onClick={() => selectLocation(location, index)}
-                    >
-                      {location}
-                    </div>
-                  ))}
-                </div>
-              )}
+              {showLocationDropdown[index] &&
+                locationSuggestions[index]?.length > 0 && (
+                  <div className="absolute z-50 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-y-auto">
+                    {locationSuggestions[index].map((location, i) => (
+                      <div
+                        key={i}
+                        className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-black"
+                        onClick={() => selectLocation(location, index)}
+                      >
+                        {location}
+                      </div>
+                    ))}
+                  </div>
+                )}
 
               {renderTooltip(index, "location", "Location Suggestions")}
             </div>

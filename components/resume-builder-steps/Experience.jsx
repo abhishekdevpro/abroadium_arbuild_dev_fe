@@ -71,14 +71,6 @@ const ExperienceStep = ({ onBack, onNext, onChange, value }) => {
     fetchResumeData();
   }, [router.query.id, token]);
 
-  const formatResumeData = (data) => {
-    // Add the no_of_experience field directly to the data object
-    return {
-      ...data,
-      no_of_experience: value.experience,
-    };
-  };
-
   const handleSaveExperience = async () => {
     if (!resumeData) return;
 
@@ -90,8 +82,12 @@ const ExperienceStep = ({ onBack, onNext, onChange, value }) => {
     // Update exp in context
     setExp(value.experience);
 
-    const templateData = {
-      templateData: formatResumeData(resumeData),
+    const requestData = {
+      templateData: {
+        ...resumeData,
+        no_of_experience: value.experience, // Experience inside templateData
+      },
+      experience: value.experience, // Experience as individual parameter
     };
 
     setIsLoading(true);
@@ -105,7 +101,7 @@ const ExperienceStep = ({ onBack, onNext, onChange, value }) => {
 
       const response = await axios.put(
         `https://api.abroadium.com/api/jobseeker/resume-update/${resumeId}`,
-        templateData,
+        requestData,
         {
           headers: {
             "Content-Type": "application/json",
@@ -231,7 +227,8 @@ const ExperienceStep = ({ onBack, onNext, onChange, value }) => {
           {[
             { id: "fresher", label: "Less than 1 year" },
             { id: "1-3", label: "1 – 3 years" },
-            { id: "4-9", label: "4 – 9 years" },
+            { id: "3-5", label: "3 – 5 years" },
+            { id: "5-10", label: "5 – 10 years" },
             { id: "10+", label: "10+ years" },
           ].map((exp) => (
             <button
