@@ -6,6 +6,7 @@ import Head from "next/head";
 import { ToastContainer } from "react-toastify"; // Import Toastify container
 import { ResumeProvider } from "../components/context/ResumeContext";
 import { CoverLetterProvider } from "../components/context/CoverLetterContext";
+import { ErrorHandlerProvider } from "../components/utility/ErrorHandler";
 import { useRouter } from "next/router"; // Import useRouter
 import Meta from "../components/meta/Meta";
 import PageLoader from "../components/pageloader";
@@ -63,13 +64,19 @@ export default function App({ Component, pageProps }) {
         description="ATSResume is a cutting-edge resume builder that helps job seekers create a professional, ATS-friendly resume in minutes..."
         keywords="ATS-friendly, Resume optimization..."
       />
-      <ResumeProvider>
-        <CoverLetterProvider>
-          <PageLoader />
-          <Component {...pageProps} />
-          <ToastContainer position="top-right" autoClose={3000} pauseOnHover />
-        </CoverLetterProvider>
-      </ResumeProvider>
+      <ErrorHandlerProvider>
+        <ResumeProvider>
+          <CoverLetterProvider>
+            <PageLoader />
+            <Component {...pageProps} />
+            <ToastContainer
+              position="top-right"
+              autoClose={3000}
+              pauseOnHover
+            />
+          </CoverLetterProvider>
+        </ResumeProvider>
+      </ErrorHandlerProvider>
     </>
   );
 }
