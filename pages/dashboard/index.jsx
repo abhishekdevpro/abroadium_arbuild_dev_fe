@@ -10,9 +10,10 @@ import MyResume from "./MyResume";
 import MyJobs from "./MyJobs";
 import FullScreenLoader from "../../components/ResumeLoader/Loader";
 import AbroadiumCommunity from "../../components/dashboard/AbroadiumCommunity";
-import { Download, Edit, Trash, Plus, User } from "lucide-react";
+import { Download, Edit, Trash, Plus, User, Loader2 } from "lucide-react";
 import { toast } from "react-toastify";
 import Button from "../../components/buttonUIComponent";
+import DashboardCards from "../../components/dashboard/DashboardCards";
 export default function DashboardPage() {
   const [strength, setStrength] = useState(null);
   const [resumeId, setResumeId] = useState(null);
@@ -21,7 +22,7 @@ export default function DashboardPage() {
   const [error, setError] = useState(null);
   const [user, setUser] = useState(null);
   const router = useRouter();
-
+  const [scaning, setScaning] = useState(false);
   const planName = {
     1: "Free",
     2: "Pay & Download",
@@ -52,7 +53,31 @@ export default function DashboardPage() {
       console.error("Error fetching user profile:", error);
     }
   };
+  const handleResumeScan = async () => {
+    setScaning(true);
+    try {
+      const res = await axios.post(
+        "https://api.abroadium.com/api/jobseeker/resume-create",
+        {
+          is_resume_analysis: true,
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      );
 
+      if (res.data.code === 200 || res.data.status === "success") {
+        // console.log(res.data.data ," data from scan post")
+        router.push(`/dashboard/resume-scan/${res.data.data?.id}`);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setScaning(false);
+    }
+  };
   // useEffect(() => {
   //     const token = localStorage.getItem("token");
   //     if (token) {
@@ -138,6 +163,42 @@ export default function DashboardPage() {
     <>
       <div className="bg-gradient-to-b from-white to-blue-100 ">
         <Navbar />
+        <div className="flex flex-col gap-2 w-full md:flex-row p-4 justify-between items-center my-8 max-w-7xl mx-auto ">
+          <Button
+            variant="success"
+            onClick={handleCreateResume}
+            className="w-full flex justify-center items-center px-4 py-2  text-white rounded-full hover:bg-success/90 transition-colors duration-200 font-medium shadow-sm"
+          >
+            <Plus className="w-5 h-5 mr-2" /> Create New Resume
+          </Button>
+          <Button
+            variant="primary"
+            onClick={() => handleResumeScan()}
+            className="w-full flex justify-center items-center px-4 py-2  text-white rounded-full hover:bg-primary/90  transition-colors duration-200 font-medium shadow-sm"
+          >
+            <Plus className="w-5 h-5 mr-2" />
+            {scaning ? "Analyzing..." : "Resume Analysis"}
+          </Button>
+          <Button
+            variant="primary"
+            onClick={handleCreateCoverLetter}
+            className="w-full flex justify-center items-center px-4 py-2  text-white rounded-full hover:bg-primary/90  transition-colors duration-200 font-medium shadow-sm"
+          >
+            <Plus className="w-5 h-5 mr-2" /> Create New Cover Letters
+          </Button>
+          <Button
+            variant="success"
+            onClick={handleMyDashboard}
+            className="w-full flex justify-center items-center px-4 py-2  text-white rounded-full hover:bg-success/90  transition-colors duration-200 font-medium shadow-sm "
+          >
+            <User className="w-5 h-5 mr-2" />
+            My Profile Dashboard
+          </Button>
+        </div>
+
+        <div>
+          <DashboardCards strength={strength} />
+        </div>
         <div className="flex flex-col max-w-7xl mx-auto md:flex-row min-h-screen bg-white p-4">
           {/* Sidebar */}
           <Sidebar
@@ -183,30 +244,6 @@ export default function DashboardPage() {
               )}
             </div>
 
-            <div className="flex flex-col gap-2 w-full md:flex-row  justify-between items-center mb-8">
-              <Button
-                variant="success"
-                onClick={handleCreateResume}
-                className="w-full flex justify-center items-center px-4 py-2  text-white rounded-full hover:bg-success/90 transition-colors duration-200 font-medium shadow-sm"
-              >
-                <Plus className="w-5 h-5 mr-2" /> Create New Resume
-              </Button>
-              <Button
-                variant="primary"
-                onClick={handleCreateCoverLetter}
-                className="w-full flex justify-center items-center px-4 py-2  text-white rounded-full hover:bg-primary/90  transition-colors duration-200 font-medium shadow-sm"
-              >
-                <Plus className="w-5 h-5 mr-2" /> Create New Cover Letters
-              </Button>
-              <Button
-                variant="success"
-                onClick={handleMyDashboard}
-                className="w-full flex justify-center items-center px-4 py-2  text-white rounded-full hover:bg-success/90  transition-colors duration-200 font-medium shadow-sm "
-              >
-                <User className="w-5 h-5 mr-2" />
-                My Profile Dashboard
-              </Button>
-            </div>
             <h1 className="text-2xl font-bold mb-6">
               Your Recommended Next Steps
             </h1>
