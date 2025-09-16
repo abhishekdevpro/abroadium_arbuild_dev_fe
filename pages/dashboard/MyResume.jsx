@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { ResumeContext } from "../../components/context/ResumeContext";
-import { Download, Edit, Trash, Plus } from "lucide-react";
+import { Download, Edit, Trash, Plus, Eye } from "lucide-react";
 import Link from "next/link";
 import Button from "../../components/buttonUIComponent";
 
@@ -259,6 +259,14 @@ const MyResume = () => {
                             className="text-primary  transition-colors duration-200"
                           >
                             <Edit className="w-5 h-5" />
+                          </Button>
+                          <Button
+                            className="text-primary hover:text-primary/90 transition-colors duration-200"
+                            onClick={() =>
+                              router.push(`/match-report/${resume.resume_id}`)
+                            }
+                          >
+                            <Eye className="w-5 h-5" />
                           </Button>
                           <Button
                             onClick={() => handleDeleteClick(resume.resume_id)}
