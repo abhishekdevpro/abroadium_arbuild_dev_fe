@@ -25,7 +25,7 @@ export default function ScaningLoader({ isLoading }) {
     <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex flex-col items-center justify-center z-50 text-white">
       {/* Company Logo */}
       <motion.img
-        src="/logo.png"
+        src="/assets/logo.png"
         alt="Company Logo"
         className="w-64 h-20 mb-6"
         initial={{ scale: 0.8, opacity: 0.6 }}
