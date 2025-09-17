@@ -1,21 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import toast from 'react-hot-toast';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const ProfileForm = () => {
   const [formData, setFormData] = useState({
-    first_name: '',
-    last_name: '',
-    professional_title: '',
-    languages: '',
-    age: '',
-    current_salary: '',
-    expected_salary: '',
-    description: '',
-    country_id: '',
-    state_id: '',
-    city_id: '',
-    uploadPhoto: null
+    first_name: "",
+    last_name: "",
+    professional_title: "",
+    languages: "",
+    age: "",
+    current_salary: "",
+    expected_salary: "",
+    description: "",
+    country_id: "",
+    state_id: "",
+    city_id: "",
+    uploadPhoto: null,
   });
 
   const [countries, setCountries] = useState([]);
@@ -27,44 +27,48 @@ const ProfileForm = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      try { 
-        
+      try {
         const token = localStorage.getItem("token");
-        
+
         // Fetch user profile
-        const userProfileResponse = await axios.get('https://api.sentryspot.co.uk/api/user/user-profile', {
-          headers: {
-            Authorization: token,
-          },
-        });
-        
-        if (userProfileResponse.data.status === 'success') {
+        const userProfileResponse = await axios.get(
+          "https://api.abroadium.com/api/jobseeker/user-profile",
+          {
+            headers: {
+              Authorization: token,
+            },
+          }
+        );
+
+        if (userProfileResponse.data.status === "success") {
           const userData = userProfileResponse.data.data;
-          setFormData(prevData => ({
+          setFormData((prevData) => ({
             ...prevData,
-            first_name: userData.first_name || '',
-            last_name: userData.last_name || '',
-            professional_title: userData.professional_title || '',
-            languages: userData.languages || '',
-            age: userData.age || '',
-            current_salary: userData.current_salary || '',
-            expected_salary: userData.expected_salary || '',
-            phone: userData.phone || '',
-            email: userData.email || '',
-            description: userData.description || '',
-            country_id: userData.country_id || '',
-            state_id: userData.state_id || '',
-            city_id: userData.city_id || ''
+            first_name: userData.first_name || "",
+            last_name: userData.last_name || "",
+            professional_title: userData.professional_title || "",
+            languages: userData.languages || "",
+            age: userData.age || "",
+            current_salary: userData.current_salary || "",
+            expected_salary: userData.expected_salary || "",
+            phone: userData.phone || "",
+            email: userData.email || "",
+            description: userData.description || "",
+            country_id: userData.country_id || "",
+            state_id: userData.state_id || "",
+            city_id: userData.city_id || "",
           }));
 
           // Fetch countries
-          const countriesResponse = await axios.get('https://api.sentryspot.co.uk/api/user/countries');
-          if (countriesResponse.data.status === 'success') {
+          const countriesResponse = await axios.get(
+            "https://api.abroadium.com/api/jobseeker/countries"
+          );
+          if (countriesResponse.data.status === "success") {
             setCountries(countriesResponse.data.data);
           }
         }
       } catch (error) {
-        console.error('An error occurred while fetching data:', error);
+        console.error("An error occurred while fetching data:", error);
       } finally {
         setIsLoading(false);
       }
@@ -78,39 +82,40 @@ const ProfileForm = () => {
       if (formData.country_id) {
         try {
           const token = localStorage.getItem("token");
-          const response = await axios.get(`https://api.sentryspot.co.uk/api/user/stats/${formData.country_id}`, {
-            headers: {
-              Authorization: token, // Ensure token is included correctly
-            },
-          });
-          if (response.data.status === 'success') {
+          const response = await axios.get(
+            `https://api.abroadium.com/api/jobseeker/stats/${formData.country_id}`,
+            {
+              headers: {
+                Authorization: token, // Ensure token is included correctly
+              },
+            }
+          );
+          if (response.data.status === "success") {
             setStates(response.data.data);
-           
-          }
-          else if(response.data.message === 'Records not found'){
-              toast.error("state not availabe")
-          }
-          else {
-            console.error('API Error:', response.data.message);
+          } else if (response.data.message === "Records not found") {
+            toast.error("state not availabe");
+          } else {
+            console.error("API Error:", response.data.message);
           }
         } catch (error) {
-          console.error('Request Error:', error);
+          console.error("Request Error:", error);
         }
       }
     };
-  
+
     fetchStates();
   }, [formData.country_id]);
-  
 
   useEffect(() => {
     const fetchCities = async () => {
       if (formData.state_id) {
         setLoading(true); // Set loading state to true
         try {
-          const citiesResponse = await axios.get(`https://api.sentryspot.co.uk/api/user/cities/${formData.state_id}`);
-          
-          if (citiesResponse.data.status === 'success') {
+          const citiesResponse = await axios.get(
+            `https://api.abroadium.com/api/jobseeker/cities/${formData.state_id}`
+          );
+
+          if (citiesResponse.data.status === "success") {
             if (citiesResponse.data.message === "Records not found") {
               setCities([]); // Set cities to an empty array if no records are found
               setError("No cities found for the selected state.");
@@ -120,24 +125,24 @@ const ProfileForm = () => {
             }
           }
         } catch (error) {
-          console.error('Error fetching cities:', error);
+          console.error("Error fetching cities:", error);
           setError("An error occurred while fetching cities."); // Set error message
         } finally {
           setLoading(false); // Set loading to false when done
         }
       }
     };
-  
+
     fetchCities();
   }, [formData.state_id]);
 
   const handleCountryChange = async (e) => {
     const selectedCountryId = e.target.value;
-    setFormData(prevData => ({
+    setFormData((prevData) => ({
       ...prevData,
       country_id: selectedCountryId,
-      state_id: '',
-      city_id: ''
+      state_id: "",
+      city_id: "",
     }));
     setStates([]);
     setCities([]);
@@ -145,26 +150,26 @@ const ProfileForm = () => {
 
   const handleStateChange = (e) => {
     const selectedStateId = e.target.value;
-    setFormData(prevData => ({
+    setFormData((prevData) => ({
       ...prevData,
       state_id: selectedStateId,
-      city_id: ''
+      city_id: "",
     }));
     setCities([]);
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prevData => ({
+    setFormData((prevData) => ({
       ...prevData,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleFileChange = (e) => {
-    setFormData(prevData => ({
+    setFormData((prevData) => ({
       ...prevData,
-      uploadPhoto: e.target.files[0]
+      uploadPhoto: e.target.files[0],
     }));
   };
 
@@ -174,37 +179,41 @@ const ProfileForm = () => {
     const token = localStorage.getItem("token");
     const formDataToSend = new FormData();
 
-    formDataToSend.append('first_name', formData.first_name);
-    formDataToSend.append('last_name', formData.last_name);
-    formDataToSend.append('professional_title', formData.professional_title);
-    formDataToSend.append('languages', formData.languages);
-    formDataToSend.append('age', formData.age);
-    formDataToSend.append('current_salary', formData.current_salary);
-    formDataToSend.append('expected_salary', formData.expected_salary);
-    formDataToSend.append('description', formData.description);
-    formDataToSend.append('country_id', formData.country_id);
-    formDataToSend.append('state_id', formData.state_id);
-    formDataToSend.append('city_id', formData.city_id);
+    formDataToSend.append("first_name", formData.first_name);
+    formDataToSend.append("last_name", formData.last_name);
+    formDataToSend.append("professional_title", formData.professional_title);
+    formDataToSend.append("languages", formData.languages);
+    formDataToSend.append("age", formData.age);
+    formDataToSend.append("current_salary", formData.current_salary);
+    formDataToSend.append("expected_salary", formData.expected_salary);
+    formDataToSend.append("description", formData.description);
+    formDataToSend.append("country_id", formData.country_id);
+    formDataToSend.append("state_id", formData.state_id);
+    formDataToSend.append("city_id", formData.city_id);
 
     if (formData.uploadPhoto) {
-      formDataToSend.append('upload_photo', formData.uploadPhoto);
+      formDataToSend.append("upload_photo", formData.uploadPhoto);
     }
 
     try {
-      const response = await axios.patch('https://api.sentryspot.co.uk/api/user/user-profile', formDataToSend, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: token,
-        },
-      });
+      const response = await axios.patch(
+        "https://api.abroadium.com/api/jobseeker/user-profile",
+        formDataToSend,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: token,
+          },
+        }
+      );
 
-      if (response.data.status === 'success') {
-        toast.success('Profile updated successfully');
+      if (response.data.status === "success") {
+        toast.success("Profile updated successfully");
       } else {
-        toast.error('Failed to update profile:', response.data.message);
+        toast.error("Failed to update profile:", response.data.message);
       }
     } catch (error) {
-      toast.error('An error occurred during profile update:', error);
+      toast.error("An error occurred during profile update:", error);
     }
   };
 
@@ -219,8 +228,10 @@ const ProfileForm = () => {
   return (
     <div className="p-2 md:p-6">
       <div className="w-[15rem] md:w-full mx-auto rounded-lg shadow-lg px-4 py-2 md:p-6">
-        <h1 className="text-2xl font-bold mb-6 text-center md:text-left">BASIC INFORMATION</h1>
-        
+        <h1 className="text-2xl font-bold mb-6 text-center md:text-left">
+          BASIC INFORMATION
+        </h1>
+
         <form onSubmit={handleSubmit}>
           <div className="">
             <label className="block mb-2">Change Your Image:</label>
@@ -332,7 +343,6 @@ const ProfileForm = () => {
                 type="number"
                 name="phone"
                 value={formData.phone}
-                
                 className="w-full border p-2"
                 readOnly
               />
@@ -345,7 +355,7 @@ const ProfileForm = () => {
                 value={formData.email}
                 onChange={handleChange}
                 className="w-full border p-2"
-               readOnly
+                readOnly
               />
             </div>
             <div>
@@ -386,28 +396,38 @@ const ProfileForm = () => {
               <select
                 name="city_id"
                 value={formData.city_id}
-                onChange={(e) => setFormData(prevData => ({ ...prevData, city_id: e.target.value }))}
+                onChange={(e) =>
+                  setFormData((prevData) => ({
+                    ...prevData,
+                    city_id: e.target.value,
+                  }))
+                }
                 className="w-full border p-2"
                 disabled={!formData.state_id}
               >
                 <option value="">Select a city</option>
-               {loading ? (
-      <option disabled>Loading cities...</option>
-    ) : error ? (
-      <option disabled>{error}</option> // Show error if available
-    ) : cities.length > 0 ? (
-      cities.map((city) => (
-        <option key={city.id} value={city.id}>
-          {city.name}
-        </option>
-      ))
-    ) : (
-      <option disabled>No cities available</option> // Show when no cities are found
-    )}
+                {loading ? (
+                  <option disabled>Loading cities...</option>
+                ) : error ? (
+                  <option disabled>{error}</option> // Show error if available
+                ) : cities.length > 0 ? (
+                  cities.map((city) => (
+                    <option key={city.id} value={city.id}>
+                      {city.name}
+                    </option>
+                  ))
+                ) : (
+                  <option disabled>No cities available</option> // Show when no cities are found
+                )}
               </select>
             </div>
           </div>
-          <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded">Update Profile</button>
+          <button
+            type="submit"
+            className="w-full bg-blue-500 text-white p-2 rounded"
+          >
+            Update Profile
+          </button>
         </form>
       </div>
     </div>

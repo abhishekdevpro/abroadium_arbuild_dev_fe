@@ -36,7 +36,7 @@
 
 //       try {
 //         const token = localStorage.getItem("token");
-//         const userProfileResponse = await axios.get('https://api.sentryspot.co.uk/api/user/user-profile', {
+//         const userProfileResponse = await axios.get('https://api.abroadium.com/api/jobseeker/user-profile', {
 //           headers: { Authorization: token },
 //         });
 
@@ -71,7 +71,7 @@
 //   useEffect(() => {
 //     const token = localStorage.getItem('token');
 //     if (token) {
-//       axios.get('https://api.sentryspot.co.uk/api/user/resume-list', {
+//       axios.get('https://api.abroadium.com/api/jobseeker/resume-list', {
 //         headers: { Authorization: token }
 //       })
 //       .then(response => {
@@ -92,7 +92,7 @@
 //     const token = localStorage.getItem('token');
 
 //     if (token) {
-//       axios.post('https://api.sentryspot.co.uk/api/user/file-based-ai', {
+//       axios.post('https://api.abroadium.com/api/jobseeker/file-based-ai', {
 //         keyword: 'Rate this resume content in percentage ? and checklist of scope improvements in manner of content and informations',
 //         file_location: resume.file_path || "/etc/dean_ai_resume/users/resume_uploads/majid[15_0]-1723818329.pdf",
 //       }, {
