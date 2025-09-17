@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { Bell, LayoutDashboard, LogOut, User, Settings } from "lucide-react";
+import {
+  Bell,
+  LayoutDashboard,
+  LogOut,
+  User,
+  Settings,
+  ScanLine,
+} from "lucide-react";
 import axios from "axios";
 import AbroadiumId from "./AbroadiumId";
 import { BsDash } from "react-icons/bs";
@@ -258,7 +265,16 @@ const Navbar = () => {
                         Dashboard
                       </span>
                     </Link>
-
+                    <Link
+                      href="/dashboard/scan-history"
+                      className="flex items-center px-4 py-3 hover:bg-gray-100 transition-colors duration-200 group"
+                      onClick={() => setIsDropdownOpen(false)}
+                    >
+                      <ScanLine className="mr-3 w-5 h-5 text-gray-500 group-hover:text-primary" />
+                      <span className="text-gray-800 group-hover:text-primary">
+                        Analysis History
+                      </span>
+                    </Link>
                     <Link
                       href="/settings"
                       className="flex items-center px-4 py-3 hover:bg-gray-100 transition-colors duration-200 group"
@@ -329,19 +345,19 @@ const Navbar = () => {
                 My Resumes
               </Link>
               <Link
-                href=""
+                href="/dashboard/scan-history"
                 className="text-black block px-3 py-2 rounded-md text-base font-semibold hover:bg-primary"
-                onClick={handleLinkClick}
               >
-                About Us
+                Analysis History
               </Link>
-              <Link
+
+              {/* <Link
                 href=""
                 className="text-black block px-3 py-2 rounded-md text-base font-semibold hover:bg-primary"
                 onClick={handleLinkClick}
               >
                 Blog
-              </Link>
+              </Link> */}
 
               {isLoggedIn ? (
                 <Link
