@@ -61,11 +61,35 @@ export default function UploadResume({ onNext, updateFormData, formData }) {
     return Object.keys(newErrors).length === 0;
   };
 
+  // const handleUpload = () => {
+  //   if (!validateForm()) {
+  //     return;
+  //   }
+
+  //   setIsUploading(true);
+  //   setProgress(0);
+
+  //   let interval = setInterval(() => {
+  //     setProgress((prev) => {
+  //       if (prev >= 100) {
+  //         clearInterval(interval);
+  //         setTimeout(() => onNext(), 600);
+  //         return 100;
+  //       }
+  //       return prev + 10;
+  //     });
+  //   }, 200);
+  // };
   const handleUpload = () => {
     if (!validateForm()) {
+      console.log("Form validation failed:", errors);
       return;
     }
 
+    // ✅ Call onNext immediately to show Add Job step
+    onNext();
+
+    // 🎨 Still show progress animation in background (optional)
     setIsUploading(true);
     setProgress(0);
 
@@ -73,7 +97,6 @@ export default function UploadResume({ onNext, updateFormData, formData }) {
       setProgress((prev) => {
         if (prev >= 100) {
           clearInterval(interval);
-          setTimeout(() => onNext(), 600);
           return 100;
         }
         return prev + 10;
