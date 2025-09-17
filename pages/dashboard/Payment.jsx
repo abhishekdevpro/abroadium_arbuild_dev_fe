@@ -16,7 +16,7 @@ function Payment() {
 
     axios
       .post(
-        "https://api.sentryspot.co.uk/api/user/paypal/create-payment",
+        "https://api.abroadium.com/api/jobseeker/paypal/create-payment",
         payload,
         {
           headers: { "Content-Type": "application/json" }, // Use JSON content type
@@ -49,7 +49,7 @@ function Payment() {
 
     axios
       .post(
-        "https://api.sentryspot.co.uk/api/user/paypal/create-payment",
+        "https://api.abroadium.com/api/jobseeker/paypal/create-payment",
         payload,
         {
           headers: { "Content-Type": "application/json" }, // Use JSON content type

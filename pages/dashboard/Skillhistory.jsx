@@ -8,7 +8,7 @@ function Skillhistory() {
     const token = localStorage.getItem("token");
 
     axios
-      .get("https://api.sentryspot.co.uk/api/user/skill-assessment-history", {
+      .get("https://api.abroadium.com/api/jobseeker/skill-assessment-history", {
         headers: {
           Authorization: token,
         },

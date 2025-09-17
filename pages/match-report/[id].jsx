@@ -74,7 +74,7 @@ const Index = () => {
 
     try {
       const response = await axios.put(
-        `https://api.inspireambitions.com/api/user/resume-jobdescription/${resumeId}`,
+        `https://api.abroadium.com/api/jobseeker/resume-jobdescription/${resumeId}`,
         {
           job_description: editedJobDescription,
         },
