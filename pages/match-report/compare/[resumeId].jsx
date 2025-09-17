@@ -9,7 +9,8 @@ import TipsList from "../../../components/ResumeComparison/TipList";
 import ResumeComparisonModal from "../../../components/ResumeComparison/ResumeComparisonModal";
 import Button from "../../../components/ui/Button";
 import { ArrowLeft, ArrowLeftIcon, Eye } from "lucide-react";
-import Navbar from "../../../components/Navbar/Navbar";
+import Navbar from "../../Navbar/Navbar";
+
 // Import reusable components
 // import CircularGauge from "./components/CircularGauge";
 // import PDFViewer from "./components/PDFViewer";
