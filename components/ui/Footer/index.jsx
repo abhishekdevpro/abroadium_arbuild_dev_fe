@@ -141,9 +141,7 @@ export default function Footer() {
 
       {/* Bottom Bar */}
       <div className="relative mt-10 border-t border-gray-700 pt-6 flex flex-col md:flex-row justify-between items-center max-w-6xl mx-auto px-6 z-10">
-        <p className="text-sm">
-          © 2025 Inspireambitions.In All Rights Reserved
-        </p>
+        <p className="text-sm">© 2025 Abroadium.com All Rights Reserved</p>
 
         {/* Social Icons */}
         {/* <div className="flex gap-3 mt-4 md:mt-0">
