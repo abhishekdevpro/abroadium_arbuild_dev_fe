@@ -3,10 +3,12 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { ResumeContext } from "../../components/context/ResumeContext";
-import { Download, Edit, Trash, Plus, Eye } from "lucide-react";
+import { Download, Edit, Trash, Plus, Eye, Copy } from "lucide-react";
 import Link from "next/link";
 import Button from "../../components/buttonUIComponent";
-
+import ConfirmationModal from "../../components/ui/ConfirmationModal";
+import { useModal } from "../../hooks/useModal";
+import { duplicateResume } from "../../components/services/resumeService";
 const MyResume = () => {
   const { setResumeData } = useContext(ResumeContext);
   const [resumes, setResumes] = useState([]);
@@ -22,7 +24,7 @@ const MyResume = () => {
   const handleToggle = () => {
     setIsChecked(!isChecked);
   };
-
+  const duplicateModal = useModal();
   const handleDeleteClick = (id) => {
     setDeleteResumeId(id); // Store the ID of the item to be deleted
     setIsDeleteModalOpen(true); // Open the modal
@@ -136,6 +138,19 @@ const MyResume = () => {
           console.error("Error updating resume title:", error);
           toast.error("Failed to update resume title.");
         });
+    }
+  };
+  const handleDuplicate = async () => {
+    try {
+      const res = await duplicateResume(currentResume.resume_id);
+      if (res.data.code === 200 || res.data.status === "success") {
+        toast.success("Resume duplicated successfully");
+        router.push(`/dashboard/aibuilder/${res.data.data.id}`);
+      }
+      duplicateModal.closeModal();
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to duplicate resume");
     }
   };
 
@@ -280,6 +295,15 @@ const MyResume = () => {
                           >
                             <Download className="w-5 h-5" />
                           </Button>
+                          <Button
+                            className="text-primary hover:text-primary/90 transition-colors duration-200"
+                            onClick={() => {
+                              setCurrentResume(resume);
+                              duplicateModal.openModal();
+                            }}
+                          >
+                            <Copy className="w-5 h-5" />
+                          </Button>
                         </div>
                       </td>
                     </tr>
@@ -356,6 +380,15 @@ const MyResume = () => {
           </div>
         </div>
       )}
+      <ConfirmationModal
+        isOpen={duplicateModal.isOpen}
+        onClose={duplicateModal.closeModal}
+        onConfirm={handleDuplicate}
+        title="Duplicate Resume"
+        message="Are you sure you want to duplicate this resume?"
+        confirmText="Duplicate"
+        type="info"
+      />
     </div>
   );
 };
