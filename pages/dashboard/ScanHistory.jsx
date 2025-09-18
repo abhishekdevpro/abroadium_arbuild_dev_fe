@@ -41,17 +41,22 @@ export default function ScanHistory() {
           } catch (e) {
             parsed = null;
           }
+
           const score =
             it.resume_strenght ||
             it.resume_strenght_details?.resume_strenght ||
             parsed?.resume_strenght_details?.resume_strenght ||
+            it.resume_analysis_details?.match_score?.percentage || // <-- ADD THIS
             "";
+
           const position =
             parsed?.templateData?.position ||
             parsed?.job_title ||
             it.job_title ||
             "";
+
           const description = it.job_description || "-";
+
           return {
             ...it,
             _parsed: parsed,
