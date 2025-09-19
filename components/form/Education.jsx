@@ -95,7 +95,7 @@ const Education = () => {
         const data = await response.json();
         setDegreeSuggestions((prev) => ({
           ...prev,
-          [index]: data.data.map((item) => item.name),
+          [index]: data?.data?.map((item) => item.name) || [],
         }));
         setShowDegreeDropdown((prev) => ({ ...prev, [index]: true }));
       }
@@ -126,7 +126,7 @@ const Education = () => {
       );
       if (response.ok) {
         const data = await response.json();
-        const locations = data.data.location_names.map((item) => item);
+        const locations = data?.data?.location_names?.map((item) => item) || [];
         setLocationSuggestions((prev) => ({ ...prev, [index]: locations }));
         setShowLocationDropdown((prev) => ({ ...prev, [index]: true }));
       }
@@ -354,7 +354,7 @@ const Education = () => {
         education: cleanedEducation,
       });
     }
-  }, []);
+  }, [resumeData, setResumeData]);
 
   const renderTooltip = (index, field, title) => {
     if (activeTooltip === `${field}-${index}`) {

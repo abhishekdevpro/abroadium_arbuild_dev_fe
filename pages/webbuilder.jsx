@@ -230,89 +230,6 @@ export default function WebBuilder() {
 
   const [showModal, setShowModal] = useState(false);
 
-  const handleCloseModal = () => setShowModal(false);
-  const handleShowModal = () => setShowModal(true);
-
-  // const downloadAsPDF = async () => {
-  //   handleFinish();
-  //   if (!templateRef.current) {
-  //     toast.error("Template reference not found");
-  //     return;
-  //   }
-  // setLoading(true)
-  //   try {
-  //     const htmlContent = templateRef.current.innerHTML;
-
-  //     const fullContent = `
-  //       <style>
-  //         @import url('https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css');
-  //       </style>
-  //       ${htmlContent}
-  //     `;
-
-  //     const response = await axios.post(
-  //       "https://api.abroadium.com/api/jobseeker/generate-pdf-py",
-  //       { html: fullContent, pdf_type: selectedPdfType },
-  //       {
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           Authorization: token,
-  //         },
-  //       }
-  //     );
-
-  //     downloadPDF();
-  //     setLoading(false)
-  //   } catch (error) {
-  //     console.error("PDF generation error:", error);
-  //     toast.error(
-  //       error.response?.data?.message || "Failed to generate and open PDF"
-  //     );
-  //   }
-  //   finally{
-  //     setLoading(false)
-  //   }
-  // };
-  // const downloadAsPDF = async () => {
-  //   handleFinish();
-  //   if (!templateRef.current) {
-  //     toast.error("Template reference not found");
-  //     return;
-  //   }
-
-  //   setisDownloading(true); // Start loading before the async operation
-
-  //   try {
-  //     const htmlContent = templateRef.current.innerHTML;
-
-  //     const fullContent = `
-  //           <style>
-  //               @import url('https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css');
-  //           </style>
-  //           ${htmlContent}
-  //       `;
-
-  //     const response = await axios.post(
-  //       `https://api.abroadium.com/api/jobseeker/download-resume/${resumeId}?pdf_type=${selectedPdfType}`,
-  //       { html: fullContent, pdf_type: selectedPdfType },
-  //       {
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           Authorization: token,
-  //         },
-  //       }
-  //     );
-
-  //     downloadPDF(); // Call this only if the request is successful
-  //   } catch (error) {
-  //     console.error("PDF generation error:", error);
-  //     toast.error(
-  //       error.response?.data?.message || "Failed to generate and open PDF"
-  //     );
-  //   } finally {
-  //     setisDownloading(false); // Ensure loading is stopped after success or failure
-  //   }
-  // };
   const downloadAsBackend = async () => {
     setisDownloading(true);
 
@@ -465,44 +382,6 @@ export default function WebBuilder() {
   //     setisDownloading(false); // Stop loader
   //   }
   // };
-
-  const createPayment = async () => {
-    const amount = 49;
-
-    try {
-      const payload = {
-        amount,
-        ResumeId: resumeId,
-        Token: token || "",
-      };
-
-      const response = await axios.post(
-        "https://api.abroadium.com/api/jobseeker/paypal/create-payment",
-        payload,
-        {
-          headers: {
-            Authorization: token,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      const data = response.data;
-      console.log(data, "data");
-      if (data && data.data) {
-        const orderId = data.order_id;
-        localStorage.setItem("orderid", orderId);
-
-        if (data.data) {
-          window.location.href = data.data;
-        } else {
-          console.error("Payment URL not found");
-        }
-      }
-    } catch (error) {
-      console.error("Payment Error:", error);
-    }
-  };
 
   const createPaymentForPlan5 = async () => {
     if (!resumeId) {
