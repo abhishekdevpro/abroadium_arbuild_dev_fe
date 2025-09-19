@@ -69,25 +69,26 @@ const ExperienceStep = ({ onBack, onNext, onChange, value }) => {
     };
 
     fetchResumeData();
-  }, [router.query.id, token]);
+  }, [router.query.id, token, setResumeData, setExp, onChange, value]);
 
-  const handleSaveExperience = async () => {
+  const handleSaveExperience = async (experienceId = null) => {
     if (!resumeData) return;
 
-    if (!value.experience) {
+    const experienceToSave = experienceId || value.experience;
+    if (!experienceToSave) {
       toast.error("Please select an experience level before proceeding");
       return;
     }
 
     // Update exp in context
-    setExp(value.experience);
+    setExp(experienceToSave);
 
     const requestData = {
       templateData: {
         ...resumeData,
-        no_of_experience: value.experience, // Experience inside templateData
+        no_of_experience: experienceToSave, // Experience inside templateData
       },
-      experience: value.experience, // Experience as individual parameter
+      experience: experienceToSave, // Experience as individual parameter
     };
 
     setIsLoading(true);
@@ -127,7 +128,7 @@ const ExperienceStep = ({ onBack, onNext, onChange, value }) => {
 
   // Helper function to check if Next button should be disabled
   const isNextButtonDisabled = () => {
-    return loading || value.experience === "2" || isLoading;
+    return loading || isLoading;
   };
   console.log(value.experience, "value.experience");
   // return (
@@ -233,14 +234,20 @@ const ExperienceStep = ({ onBack, onNext, onChange, value }) => {
           ].map((exp) => (
             <button
               key={exp.id}
-              onClick={() => onChange({ ...value, experience: exp.id })}
+              onClick={() => {
+                onChange({ ...value, experience: exp.id });
+                // Auto-save and navigate when experience is selected
+                setTimeout(() => {
+                  handleSaveExperience(exp.id);
+                }, 100);
+              }}
               className={`w-full p-5 rounded-2xl shadow-md bg-blue-200 
     hover:bg-primary hover:text-white hover:shadow-xl 
     flex items-center justify-between text-primary font-semibold
     transition-all duration-300 ease-in-out transform hover:scale-105 group
     ${
       value.experience === exp.id
-        ? "bg-primary text-primary border-2 border-primary shadow-xl scale-105 text-white"
+        ? "bg-primary text-white border-2 border-primary shadow-xl scale-105"
         : ""
     }`}
             >
@@ -267,7 +274,7 @@ const ExperienceStep = ({ onBack, onNext, onChange, value }) => {
             Back
           </button>
           <button
-            onClick={handleSaveExperience}
+            onClick={() => handleSaveExperience()}
             disabled={isNextButtonDisabled()}
             className={`px-8 py-3 rounded-lg font-medium transition-all shadow-md 
               ${

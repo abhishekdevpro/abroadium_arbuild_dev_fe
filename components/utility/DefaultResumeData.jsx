@@ -1,26 +1,26 @@
 const DefaultResumeData = {
-  name: "Firstname Lastname",
-  position: "Developer",
-  contactInformation: "+1-555-0100",
-  email: "beddylea@gmail.com",
-  address: "San Francisco, CA",
+  name: "Alisha Raymond",
+  position: "Business Analyst",
+  contactInformation: "5552198",
+  email: "alisha.raymond@example.com",
+  address: "Calgary, Alberta, Canada",
   profilePicture: "",
   socialMedia: [
     {
       socialMedia: "Github",
-      link: "github.com//bedivere-lea",
+      link: "https://github.com/alisha",
     },
     {
       socialMedia: "LinkedIn",
-      link: "linkedin.com/in/bedivere-lea",
+      link: "https://www.linkedin.com/authwall?trk=bf&trkInfo=AQHGXj38H8c5KQAAAZebWkWQrJ0KLt1HkvcKZDv2OW9ijcBmXw44vCmodj64cqpf_1CW-zGBKN0Q3zhx4R34Uow1PI5ApV9qTgSdHnaRFz-IGwLbyTsEScDNnzzFu0bEc3e_2sU=&original_referer=&sessionRedirect=https%3A%2F%2Fwww.linkedin.com%2Fin%2Fayesha",
     },
     {
-      socialMedia: "Website",
-      link: "bedivere-lea.github.io",
+      socialMedia: "Site Web",
+      link: "https://ayesha.com/",
     },
   ],
   summary:
-    "Resourceful Developer with 11 years of experience in designing and developing user interfaces, testing and training employees. Skilled at utilizing a wide variety of tools and programs to provide effective applications.",
+    "Analytical and detail-oriented business analyst with 5+ years of experience in IT and consulting sectors. Skilled in process optimization, stakeholder communication, and data-driven decision-making. Proficient in tools such as Power BI, Excel, and JIRA.",
   education: [
     {
       school: "Bachelor of Computer Science",
@@ -92,9 +92,8 @@ const DefaultResumeData = {
       skills: ["Public Speaking", "Writing", "Research"],
     },
   ],
-  // languages: ["English", "Hindi"],
   languages: [
-    { language: "Hindi", proficiency: "Native Speaker" },
+    { language: "Hindi", proficiency: "Native" },
     { language: "English", proficiency: "Intermediate" },
   ],
 

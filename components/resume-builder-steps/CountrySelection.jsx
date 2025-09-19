@@ -69,19 +69,20 @@ export default function CountrySelection({ onBack, onSelectCountry }) {
     };
 
     fetchResumeData();
-  }, [router.query.id, token]);
+  }, [router.query.id, token, setResumeData]);
 
-  const handleSaveCountry = async () => {
+  const handleSaveCountry = async (countryId = null) => {
     if (!resumeData) return;
 
-    if (!selectedCountry) {
+    const countryToSave = countryId || selectedCountry;
+    if (!countryToSave) {
       toast.error("Please select a country before proceeding");
       return;
     }
 
     const requestData = {
       templateData: resumeData,
-      location: selectedCountry, // Send location as individual parameter
+      location: countryToSave, // Send location as individual parameter
     };
 
     setIsLoading(true);
@@ -103,7 +104,7 @@ export default function CountrySelection({ onBack, onSelectCountry }) {
       if (response.data.code === 200 || response.data.status === "success") {
         setIsSaved(true);
         toast.success(response.data.message || "Country saved successfully");
-        onSelectCountry(selectedCountry);
+        onSelectCountry(countryToSave);
       } else {
         toast.error(response.data.error || "Error while saving the country");
       }
@@ -116,7 +117,7 @@ export default function CountrySelection({ onBack, onSelectCountry }) {
   };
 
   const isNextButtonDisabled = () => {
-    return loading || !selectedCountry || isLoading;
+    return loading || isLoading;
   };
 
   return (
@@ -142,7 +143,13 @@ export default function CountrySelection({ onBack, onSelectCountry }) {
             ].map((country) => (
               <button
                 key={country.id}
-                onClick={() => setSelectedCountry(country.id)}
+                onClick={() => {
+                  setSelectedCountry(country.id);
+                  // Auto-save and navigate when country is selected
+                  setTimeout(() => {
+                    handleSaveCountry(country.id);
+                  }, 100);
+                }}
                 className={`p-5 rounded-2xl shadow-md border border-gray-200 flex flex-col items-center transition-all duration-200 group ${
                   selectedCountry === country.id
                     ? "bg-primary text-white shadow-xl scale-105"
@@ -182,7 +189,7 @@ export default function CountrySelection({ onBack, onSelectCountry }) {
               Back
             </button>
             <button
-              onClick={handleSaveCountry}
+              onClick={() => handleSaveCountry()}
               disabled={isNextButtonDisabled()}
               className={`px-8 py-3 rounded-lg font-medium transition-all shadow-md 
                 ${

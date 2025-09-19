@@ -428,7 +428,7 @@ const TemplateStep = ({ onNext, onBack, onChange, value }) => {
       const defaultColor = colors.find((c) => c.name === "Navy Blue");
       handleColorChange(defaultColor.hexCode, defaultColor.name);
     }
-  }, []);
+  }, [value.hexCode, colors, handleColorChange]);
 
   // Handle color selection with hex code
   const handleColorChange = (hexCode, colorName) => {
@@ -493,7 +493,16 @@ const TemplateStep = ({ onNext, onBack, onChange, value }) => {
     };
 
     fetchResumeData();
-  }, [router.query.id, token]);
+  }, [
+    router.query.id,
+    token,
+    colors,
+    handleColorChange,
+    onChange,
+    setResumeData,
+    templates,
+    value,
+  ]);
 
   const handlePhotoPreferenceChange = (hasPhoto) => {
     // If current template doesn't match new photo preference, clear the selection
@@ -505,7 +514,7 @@ const TemplateStep = ({ onNext, onBack, onChange, value }) => {
     }
   };
 
-  const formatResumeData = (data) => {
+  const formatResumeData = (data, templateId) => {
     return {
       name: data.name || "",
       position: data.position || "",
@@ -560,7 +569,7 @@ const TemplateStep = ({ onNext, onBack, onChange, value }) => {
       languages: data.languages || [],
       certifications: data.certifications || [],
       templateDetails: {
-        templateId: value.template,
+        templateId: templateId,
         backgroundColor: selectedHexCode || "#2563EB",
         font: "Times New Roman",
       },
@@ -568,16 +577,17 @@ const TemplateStep = ({ onNext, onBack, onChange, value }) => {
     };
   };
 
-  const handleSaveTemplate = async () => {
+  const handleSaveTemplate = async (templateId = null) => {
     if (!resumeData) return;
 
-    if (!value.template) {
+    const templateToSave = templateId || value.template;
+    if (!templateToSave) {
       toast.error("Please select a template before proceeding");
       return;
     }
 
     const templateData = {
-      templateData: formatResumeData(resumeData),
+      templateData: formatResumeData(resumeData, templateToSave),
     };
     setIsLoading(true);
     try {
@@ -685,7 +695,13 @@ const TemplateStep = ({ onNext, onBack, onChange, value }) => {
             {templates.map((template) => (
               <button
                 key={template.key}
-                onClick={() => onChange({ ...value, template: template.key })}
+                onClick={() => {
+                  onChange({ ...value, template: template.key });
+                  // Auto-save and navigate when template is selected
+                  setTimeout(() => {
+                    handleSaveTemplate(template.key);
+                  }, 100);
+                }}
                 className={`group relative bg-white rounded-xl shadow-md overflow-hidden border-2 transition-all duration-200 
                   ${
                     value.template === template.key
@@ -709,11 +725,8 @@ const TemplateStep = ({ onNext, onBack, onChange, value }) => {
                     priority={templates.indexOf(template) < 6}
                   />
                   <div className="absolute inset-0 flex items-end justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-gradient-to-t from-black/60 to-transparent p-4">
-                    <span
-                      onClick={handleSaveTemplate}
-                      className="bg-gradient-to-r from-[#002a48] via-primary to-success text-white font-semibold px-5 py-2 rounded-full shadow-md hover:shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out"
-                    >
-                      Use This Template
+                    <span className="bg-gradient-to-r from-[#002a48] via-primary to-success text-white font-semibold px-5 py-2 rounded-full shadow-md">
+                      Click to Select
                     </span>
                   </div>
                 </div>
@@ -730,7 +743,7 @@ const TemplateStep = ({ onNext, onBack, onChange, value }) => {
           Back
         </button>
         <button
-          onClick={handleSaveTemplate}
+          onClick={() => handleSaveTemplate()}
           disabled={loading}
           style={{ backgroundColor: selectedHexCode }}
           className={`px-6 py-2 text-white rounded-xl font-semibold shadow-md transition-all

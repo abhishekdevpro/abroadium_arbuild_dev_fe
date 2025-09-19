@@ -4,7 +4,7 @@ import { compressImage } from "../utility/imageCompressor";
 export const ResumeContext = createContext();
 
 export const ResumeProvider = ({ children }) => {
-  const [resumeData, setResumeData] = useState({});
+  const [resumeData, setResumeData] = useState({ DefaultResumeData });
   const [resumeStrength, setResumeStrength] = useState({});
   const [exp, setExp] = useState();
   const [headerColor, setHeaderColor] = useState("");
