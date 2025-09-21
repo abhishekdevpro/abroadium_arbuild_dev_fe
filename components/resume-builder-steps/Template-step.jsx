@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import axios from "axios";
 import { useRouter } from "next/router";
@@ -45,6 +45,8 @@ const TemplateStep = ({ onNext, onBack, onChange, value }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
   const [selectedHexCode, setSelectedHexCode] = useState("#2563EB");
+  const hasFetchedData = useRef(false);
+  const [lastSavedTemplate, setLastSavedTemplate] = useState(null);
   const token =
     typeof window !== "undefined" ? localStorage.getItem("token") : null;
 
@@ -422,14 +424,6 @@ const TemplateStep = ({ onNext, onBack, onChange, value }) => {
     return template.hasPhoto === value.hasPhoto;
   });
 
-  // Set default color hex code if none selected
-  useEffect(() => {
-    if (!value.hexCode) {
-      const defaultColor = colors.find((c) => c.name === "Navy Blue");
-      handleColorChange(defaultColor.hexCode, defaultColor.name);
-    }
-  }, [value.hexCode, colors, handleColorChange]);
-
   // Handle color selection with hex code
   const handleColorChange = (hexCode, colorName) => {
     setSelectedHexCode(hexCode);
@@ -440,14 +434,31 @@ const TemplateStep = ({ onNext, onBack, onChange, value }) => {
     });
   };
 
+  // Set default color hex code if none selected
+  useEffect(() => {
+    if (!value.hexCode) {
+      const defaultColor = colors.find((c) => c.name === "Navy Blue");
+      handleColorChange(defaultColor.hexCode, defaultColor.name);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value.hexCode, colors, handleColorChange]);
+
   useEffect(() => {
     const fetchResumeData = async () => {
+      // Prevent multiple API calls
+      if (hasFetchedData.current) {
+        setLoading(false);
+        return;
+      }
+
       try {
         const resumeId = router.query.id || localStorage.getItem("resumeId");
         if (!resumeId || !token) {
           toast.error("Resume ID or token not found");
           return;
         }
+
+        hasFetchedData.current = true; // Mark as fetched
 
         const response = await axios.get(
           `https://api.abroadium.com/api/jobseeker/resume-list/${resumeId}`,
@@ -487,22 +498,15 @@ const TemplateStep = ({ onNext, onBack, onChange, value }) => {
       } catch (error) {
         toast.error(error?.message || "Error fetching resume data");
         console.error("Error fetching resume:", error);
+        hasFetchedData.current = false; // Reset on error to allow retry
       } finally {
         setLoading(false);
       }
     };
 
     fetchResumeData();
-  }, [
-    router.query.id,
-    token,
-    colors,
-    handleColorChange,
-    onChange,
-    setResumeData,
-    templates,
-    value,
-  ]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router.query.id, token]); // Intentionally removed dependencies to prevent multiple API calls
 
   const handlePhotoPreferenceChange = (hasPhoto) => {
     // If current template doesn't match new photo preference, clear the selection
@@ -586,6 +590,17 @@ const TemplateStep = ({ onNext, onBack, onChange, value }) => {
       return;
     }
 
+    // Prevent duplicate API calls for the same template
+    if (lastSavedTemplate === templateToSave && isSaved) {
+      onNext();
+      return;
+    }
+
+    // Prevent multiple simultaneous API calls
+    if (isLoading) {
+      return;
+    }
+
     const templateData = {
       templateData: formatResumeData(resumeData, templateToSave),
     };
@@ -610,6 +625,7 @@ const TemplateStep = ({ onNext, onBack, onChange, value }) => {
 
       if (response.data.code === 200 || response.data.status === "success") {
         setIsSaved(true);
+        setLastSavedTemplate(templateToSave);
         localStorage.setItem("isSaved", "true");
         toast.success(response.data.message || "Resume saved Successfully");
         onNext();
@@ -698,16 +714,15 @@ const TemplateStep = ({ onNext, onBack, onChange, value }) => {
                 onClick={() => {
                   onChange({ ...value, template: template.key });
                   // Auto-save and navigate when template is selected
-                  setTimeout(() => {
-                    handleSaveTemplate(template.key);
-                  }, 100);
+                  handleSaveTemplate(template.key);
                 }}
+                disabled={isLoading}
                 className={`group relative bg-white rounded-xl shadow-md overflow-hidden border-2 transition-all duration-200 
                   ${
                     value.template === template.key
                       ? "border-blue-500"
                       : "border-transparent hover:border-gray-300"
-                  }`}
+                  } ${isLoading ? "opacity-50 cursor-not-allowed" : ""}`}
                 style={{
                   borderColor:
                     value.template === template.key

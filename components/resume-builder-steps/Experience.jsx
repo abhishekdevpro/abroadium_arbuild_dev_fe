@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
@@ -13,6 +13,7 @@ const ExperienceStep = ({ onBack, onNext, onChange, value }) => {
   const [loading, setLoading] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
+  const hasFetchedData = useRef(false);
 
   const token =
     typeof window !== "undefined" ? localStorage.getItem("token") : null;
@@ -27,12 +28,20 @@ const ExperienceStep = ({ onBack, onNext, onChange, value }) => {
 
   useEffect(() => {
     const fetchResumeData = async () => {
+      // Prevent multiple API calls
+      if (hasFetchedData.current) {
+        setLoading(false);
+        return;
+      }
+
       try {
         const resumeId = router.query.id || localStorage.getItem("resumeId");
         if (!resumeId || !token) {
           toast.error("Resume ID or token not found");
           return;
         }
+
+        hasFetchedData.current = true; // Mark as fetched
 
         const response = await axios.get(
           `https://api.abroadium.com/api/jobseeker/resume-list/${resumeId}`,
@@ -63,13 +72,15 @@ const ExperienceStep = ({ onBack, onNext, onChange, value }) => {
       } catch (error) {
         toast.error(error?.message || "Error fetching resume data");
         console.error("Error fetching resume:", error);
+        hasFetchedData.current = false; // Reset on error to allow retry
       } finally {
         setLoading(false);
       }
     };
 
     fetchResumeData();
-  }, [router.query.id, token, setResumeData, setExp, onChange, value]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router.query.id, token]); // Intentionally removed dependencies to prevent multiple API calls
 
   const handleSaveExperience = async (experienceId = null) => {
     if (!resumeData) return;
