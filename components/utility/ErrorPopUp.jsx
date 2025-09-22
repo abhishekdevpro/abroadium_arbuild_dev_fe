@@ -1,4 +1,3 @@
-
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { AlertCircle, ArrowUpCircle } from "lucide-react";
@@ -7,20 +6,20 @@ import { SaveLoader } from "../ResumeLoader/SaveLoader";
 
 const ErrorPopup = ({ message, onClose }) => {
   const router = useRouter();
-  
+
   const onUpgrade = (e) => {
     // Prevent default form submission behavior
     e.preventDefault();
     e.stopPropagation();
-    
+
     // Show loader first
-    
+
     // Close the popup
     onClose();
-    
+
     // Use setTimeout to navigate after showing the loader
     // setTimeout(() => {
-      router.push('/payment');
+    router.push("/payment");
     // }, 3000);
   };
 
@@ -48,18 +47,16 @@ const ErrorPopup = ({ message, onClose }) => {
 
   return (
     <>
-      {(
+      {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white rounded-xl p-6 max-w-md mx-4 shadow-xl">
             <h3 className="text-xl font-semibold mb-4 text-red-600 flex items-center">
               <AlertCircle className="mr-2" size={20} />
               Error
             </h3>
-            
-            <p className="text-gray-700 mb-6">
-              {message}
-            </p>
-            
+
+            <p className="text-gray-700 mb-6">{message}</p>
+
             <div className="flex flex-col sm:flex-row sm:justify-end gap-3">
               <button
                 type="button"
@@ -71,7 +68,7 @@ const ErrorPopup = ({ message, onClose }) => {
               <button
                 type="button"
                 onClick={onUpgrade}
-                className="py-2 px-4 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition duration-200 flex items-center justify-center"
+                className="py-2 px-4 bg-primary text-white rounded-lg hover:bg-primary/90 transition duration-200 flex items-center justify-center"
               >
                 <ArrowUpCircle className="mr-2" size={16} />
                 Upgrade Plan
@@ -79,7 +76,7 @@ const ErrorPopup = ({ message, onClose }) => {
             </div>
           </div>
         </div>
-      )}
+      }
     </>
   );
 };
