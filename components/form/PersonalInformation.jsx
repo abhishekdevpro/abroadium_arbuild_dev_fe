@@ -782,43 +782,6 @@ const PersonalInformation = () => {
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlie4MsQ9pJSSKY7DoEpxn3uBAq-rT7in1sA&s";
 
   useEffect(() => {
-    const fetchCountryCodes = async () => {
-      setIsLoading((prev) => ({ ...prev, countryCodes: true }));
-      try {
-        // Use the REST Countries API as requested
-        const response = await fetch("https://restcountries.com/v3.1/all");
-        if (response.ok) {
-          const data = await response.json();
-          // Transform the data to include name, flag, and phone code
-          const formattedCountries = data
-            .filter((country) => country.idd && country.idd.root) // Filter out countries without phone codes
-            .map((country) => ({
-              name: country.name.common,
-              code: country.cca2,
-              flag: country.flags.png,
-              phonecode: `${country.idd.root.replace("+", "")}${
-                country.idd.suffixes ? country.idd.suffixes[0] || "" : ""
-              }`,
-            }))
-            .sort((a, b) => a.name.localeCompare(b.name));
-
-          setCountryCodes(formattedCountries);
-
-          // Set default country (India) if available
-          const india = formattedCountries.find((c) => c.code === "IN");
-          if (india) {
-            setSelectedCountry(india);
-            setSelectedCountryCode(`+${india.phonecode}`);
-          }
-        }
-      } catch (error) {
-        console.error("Error fetching country codes:", error);
-        // Fallback to original API if REST Countries fails
-        fetchOriginalCountryCodes();
-      }
-      setIsLoading((prev) => ({ ...prev, countryCodes: false }));
-    };
-
     const fetchOriginalCountryCodes = async () => {
       try {
         const response = await fetch(
@@ -835,8 +798,7 @@ const PersonalInformation = () => {
         console.error("Error fetching original country codes:", error);
       }
     };
-
-    fetchCountryCodes();
+    fetchOriginalCountryCodes();
   }, []);
 
   const fetchJobTitles = async (keyword) => {
