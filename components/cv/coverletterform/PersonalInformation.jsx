@@ -73,6 +73,7 @@ const PersonalInformation = () => {
             type="text"
             value={coverLetterData.personalDetails.name}
             onChange={(e) => handleChange("name", e.target.value)}
+            maxLength={50}
             className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Enter your name"
           />
@@ -83,6 +84,7 @@ const PersonalInformation = () => {
             type="text"
             value={coverLetterData.personalDetails.position}
             onChange={(e) => handleChange("position", e.target.value)}
+            maxLength={50}
             className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Enter your position"
           />
@@ -95,6 +97,7 @@ const PersonalInformation = () => {
             type="email"
             value={coverLetterData.personalDetails.email}
             onChange={(e) => handleChange("email", e.target.value)}
+            maxLength={100}
             className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Enter your email"
           />
@@ -106,6 +109,7 @@ const PersonalInformation = () => {
           <textarea
             value={coverLetterData.personalDetails.address}
             onChange={(e) => handleChange("address", e.target.value)}
+            maxLength={200}
             className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Enter your address"
             rows="3"
@@ -119,6 +123,7 @@ const PersonalInformation = () => {
             type="tel"
             value={coverLetterData.personalDetails.contact}
             onChange={(e) => handleChange("contact", e.target.value)}
+            maxLength={20}
             className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Enter your contact number"
           />

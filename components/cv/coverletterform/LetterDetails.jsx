@@ -152,6 +152,7 @@ const LetterDetails = () => {
                 },
               }))
             }
+            maxLength={50}
             className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Enter the job title"
           />
@@ -159,7 +160,9 @@ const LetterDetails = () => {
 
         {/* Reference */}
         <div>
-          <label className="block text-white font-medium mb-2">Reference (Optional) </label>
+          <label className="block text-white font-medium mb-2">
+            Reference (Optional){" "}
+          </label>
           <input
             type="text"
             value={coverLetterData.letterDetails.reference}
@@ -172,6 +175,7 @@ const LetterDetails = () => {
                 },
               }))
             }
+            maxLength={30}
             className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Enter the reference (e.g., Ref#123)"
           />
@@ -194,6 +198,7 @@ const LetterDetails = () => {
                 },
               }))
             }
+            maxLength={50}
             className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Enter the company's name"
           />
@@ -216,6 +221,7 @@ const LetterDetails = () => {
                 },
               }))
             }
+            maxLength={30}
             className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Enter the salutation (e.g., Ms. Smith)"
           />

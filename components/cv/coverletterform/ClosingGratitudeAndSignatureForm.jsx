@@ -47,6 +47,7 @@ const ClosingGratitudeAndSignatureForm = () => {
           type="text"
           value={coverLetterData.gratitude}
           onChange={(e) => handleChange("gratitude", e.target.value)}
+          maxLength={30}
           className="w-full p-2 mb-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder="Sincerely"
         />
@@ -55,6 +56,7 @@ const ClosingGratitudeAndSignatureForm = () => {
           type="text"
           value={coverLetterData.signature}
           onChange={(e) => handleChange("signature", e.target.value)}
+          maxLength={50}
           className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder="Enter your signature (e.g. John Doe)"
         />

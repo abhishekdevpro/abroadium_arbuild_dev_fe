@@ -418,6 +418,7 @@ const Education = () => {
                   type="text"
                   placeholder="School/University."
                   name="school"
+                  maxLength={80}
                   className={`w-full other-input border ${
                     hasErrors(index, "school")
                       ? "border-red-500"
@@ -472,6 +473,7 @@ const Education = () => {
                 type="text"
                 placeholder="Degree"
                 name="degree"
+                maxLength={50}
                 className={`w-full other-input border ${
                   improve && hasErrors(index, "degree")
                     ? "border-red-500"
@@ -732,6 +734,7 @@ const Education = () => {
                   type="text"
                   placeholder="Location"
                   name="location"
+                  maxLength={50}
                   className={`w-full other-input border ${
                     improve && hasErrors(index, "location")
                       ? "border-red-500"

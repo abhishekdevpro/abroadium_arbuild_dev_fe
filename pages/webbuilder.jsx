@@ -32,6 +32,7 @@ import ResumeLoader from "../components/ResumeLoader/Loader";
 import { SaveLoader } from "../components/ResumeLoader/SaveLoader";
 import Button from "../components/buttonUIComponent";
 import Highlightmenubar from "../components/preview/highlightmenu";
+import AICredits from "../components/dashboard/AICredits";
 import { ArrowLeft, ArrowRight, CheckCircle } from "lucide-react"; // icons
 const Print = dynamic(() => import("../components/utility/WinPrint"), {
   ssr: false,
@@ -761,6 +762,11 @@ export default function WebBuilder() {
                 </div>
 
                 <div className="hidden lg:flex items-center gap-6">
+                  {/* AI Credits Component */}
+                  <div className="hidden lg:block">
+                    <AICredits />
+                  </div>
+
                   {/* Font Selector */}
                   <select
                     value={selectedFont}
@@ -907,6 +913,11 @@ transition-transform duration-200 ease-in-out hover:scale-[1.02] hover:bg-primar
           <div className="flex flex-col">
             <div className="hidden md:flex w-screen px-8 py-4 justify-between items-center bg-white shadow">
               <div className="hidden lg:flex items-center gap-4">
+                {/* AI Credits Component */}
+                <div className="hidden lg:block">
+                  <AICredits />
+                </div>
+
                 <select
                   value={selectedFont}
                   onChange={handleFontChange}

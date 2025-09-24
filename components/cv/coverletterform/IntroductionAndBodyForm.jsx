@@ -190,11 +190,17 @@ const IntroductionAndBodyForm = () => {
   const [selectedSuggestionIndex, setSelectedSuggestionIndex] = useState(0);
 
   const handleBodyChange = (index, value) => {
-    setCoverLetterData((prevData) => {
-      const updatedBody = [...prevData.body];
-      updatedBody[index] = value;
-      return { ...prevData, body: updatedBody };
-    });
+    // Remove HTML tags to get plain text length
+    const plainText = value.replace(/<[^>]*>/g, "");
+
+    // Limit to 1000 characters per paragraph
+    if (plainText.length <= 1000) {
+      setCoverLetterData((prevData) => {
+        const updatedBody = [...prevData.body];
+        updatedBody[index] = value;
+        return { ...prevData, body: updatedBody };
+      });
+    }
   };
 
   const handleAIAssist = async (index) => {
@@ -317,6 +323,9 @@ const IntroductionAndBodyForm = () => {
             placeholder={`Write paragraph ${index + 1}`}
             className="bg-white"
           />
+          <div className="text-sm text-gray-500 mt-1 text-right">
+            {(paragraph?.replace(/<[^>]*>/g, "") || "").length}/1000
+          </div>
         </div>
       ))}
 

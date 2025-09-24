@@ -617,6 +617,7 @@ const Projects = () => {
                     type="text"
                     placeholder="Project Name"
                     name="name"
+                    maxLength={50}
                     className={`w-full other-input border  ${
                       improve && hasErrors(projectIndex, "name")
                         ? "border-red-500"
@@ -682,6 +683,7 @@ const Projects = () => {
                       type="text"
                       placeholder="Link"
                       name="link"
+                      maxLength={200}
                       className={`w-full other-input border  ${
                         improve && hasErrors(projectIndex, "link")
                           ? "border-red-500"
@@ -1067,6 +1069,7 @@ const Projects = () => {
 
                   <textarea
                     placeholder="Enter key achievements (one per line)"
+                    maxLength={1000}
                     className="w-full other-input border-black border "
                     value={
                       Array.isArray(project?.keyAchievements)

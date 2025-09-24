@@ -25,22 +25,22 @@ import axios from "axios";
 // Pricing data from your JSON
 
 export default function Payment() {
-  const [selectedPlan, setSelectedPlan] = useState("freePlan");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState({});
 
   const router = useRouter();
 
-  const handlePlanSelection = async (planId) => {
-    setSelectedPlan(planId);
+  const handleOneTimePayment = () => {
+    // Navigate to builder page for one-time payment
+    router.push("/dashboard/resume-builder");
+  };
 
-    // If it's not a free plan, automatically proceed to payment
-    if (planId !== "freePlan") {
-      await handlePayment(planId);
-    }
+  const handleSubscribe = async (planId) => {
+    setLoading((prev) => ({ ...prev, [planId]: true }));
+    await handlePayment(planId);
+    setLoading((prev) => ({ ...prev, [planId]: false }));
   };
 
   const handlePayment = async (planId) => {
-    setLoading(true);
     const token = localStorage.getItem("token");
     const plan = pricingData[planId];
 
@@ -88,8 +88,6 @@ export default function Payment() {
       } else {
         toast.error("Error processing payment.");
       }
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -110,9 +108,6 @@ export default function Payment() {
 
     return features;
   };
-
-  // Check if selected plan is free
-  const isFreePlan = selectedPlan === "freePlan";
 
   // Format price with currency
   const formatPrice = (plan) => {
@@ -163,21 +158,10 @@ export default function Payment() {
                 return (
                   <div
                     key={planId}
-                    className={`border rounded-lg p-4 flex flex-col w-full md:w-64 relative ${
-                      selectedPlan === planId
-                        ? "border-success bg-success/20"
-                        : "bg-white"
-                    }`}
-                    onClick={() => handlePlanSelection(planId)}
+                    className="border rounded-lg p-4 flex flex-col w-full md:w-64 relative bg-white"
                   >
-                    <div className="flex items-center justify-between mb-2">
+                    <div className="mb-2">
                       <h3 className="font-bold text-lg">{plan.title}</h3>
-                      <input
-                        type="checkbox"
-                        checked={selectedPlan === planId}
-                        onChange={() => {}}
-                        className="h-5 w-5 text-success/90"
-                      />
                     </div>
 
                     <div className="text-2xl font-bold mb-1">
@@ -201,6 +185,34 @@ export default function Payment() {
                           </li>
                         ))}
                       </ul>
+                    </div>
+
+                    {/* Action Button */}
+                    <div className="mt-4">
+                      {planId === "freePlan" ? (
+                        <div className="text-center py-2">
+                          <span className="text-gray-600 font-medium">
+                            Free Plan
+                          </span>
+                        </div>
+                      ) : planId === "singlePass" ? (
+                        <Button
+                          variant="primary"
+                          onClick={handleOneTimePayment}
+                          className="w-full"
+                        >
+                          One Time
+                        </Button>
+                      ) : (
+                        <Button
+                          variant="success"
+                          onClick={() => handleSubscribe(planId)}
+                          disabled={loading[planId]}
+                          className="w-full"
+                        >
+                          {loading[planId] ? "Processing..." : "Subscribe"}
+                        </Button>
+                      )}
                     </div>
                   </div>
                 );
@@ -252,38 +264,8 @@ export default function Payment() {
                   description="Effortlessly produce resumes and cover letters designed to pass Applicant Tracking Systems and impress recruiters."
                 />
               </div>
-              <div className=" mt-6">
-                {isFreePlan ? (
-                  <div className="text-center">
-                    <div className="bg-gray-100 p-4 rounded-lg">
-                      <p className="text-gray-600 font-medium">
-                        Free Plan Selected
-                      </p>
-                      <p className="text-sm text-gray-500 mt-1">
-                        You can start using the basic features immediately
-                      </p>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="text-center">
-                    {loading ? (
-                      <div className="bg-primary/10 p-4 rounded-lg">
-                        <div className="flex items-center justify-center">
-                          <Loader className="mr-2 animate-spin" size={18} />
-                          <span>Processing payment...</span>
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="bg-success/10 p-4 rounded-lg">
-                        <p className="text-success font-medium">
-                          Plan selected - Payment will be processed
-                          automatically
-                        </p>
-                      </div>
-                    )}
-                  </div>
-                )}
-                <p className="text-gray-600 text-center mt-4">
+              <div className="mt-6">
+                <p className="text-gray-600 text-center">
                   <strong>Got questions?</strong> Contact our customer support.
                 </p>
                 <p className="text-gray-600 text-center">

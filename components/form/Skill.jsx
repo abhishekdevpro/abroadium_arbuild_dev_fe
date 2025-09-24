@@ -340,6 +340,7 @@ const Skill = ({ title, currentSkillIndex }) => {
               type="text"
               placeholder={title}
               name={title}
+              maxLength={50}
               className={`w-full other-input border ${
                 improve && hasErrors(index) ? "border-red-500" : "border-black"
               }`}
