@@ -764,6 +764,7 @@ const WorkExperience = () => {
                     type="text"
                     placeholder="Company"
                     name="company"
+                    maxLength={50}
                     className={`w-full other-input border ${
                       improve && hasErrors(index, "company")
                         ? "border-red-500"
@@ -841,6 +842,7 @@ const WorkExperience = () => {
                     type="text"
                     placeholder="Position"
                     name="position"
+                    maxLength={50}
                     className={`w-full other-input border ${
                       improve && hasErrors(index, "position")
                         ? "border-red-500"
@@ -1108,6 +1110,7 @@ const WorkExperience = () => {
                     type="text"
                     placeholder="Location"
                     name="location"
+                    maxLength={50}
                     className={`w-full other-input border ${
                       improve && hasErrors(index, "location")
                         ? "border-red-500"
@@ -1312,6 +1315,7 @@ const WorkExperience = () => {
 
                   <textarea
                     placeholder="Enter key achievements (one per line)"
+                    maxLength={1000}
                     className="w-full other-input border-black border"
                     // value={experience.keyAchievements}
                     value={

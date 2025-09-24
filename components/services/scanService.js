@@ -26,7 +26,7 @@ export const getScanHistory = async () => {
     }
   );
 
-  return res?.data?.resumelist || [];
+  return res?.data?.data || [];
 };
 
 export const handleDuplicateScan = async (resumeId) => {

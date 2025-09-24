@@ -1,12 +1,13 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { ArrowRight, Calendar, BarChart3 } from "lucide-react";
-import axios from "axios";
 
+import axios from "axios";
+import { BarChart3, ArrowRight, Calendar, Info } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Button from "../ui/Button";
 import CircularGauge from "../ResumeComparison/CircularGauge";
+import ErrorPopup from "../utility/ErrorPopUp";
 
 const StatusDot = ({ status = "pending" }) => {
   const colors = {
@@ -27,7 +28,31 @@ const DashboardCards = ({ strength }) => {
   // console.log(strength,"strength in dashboard card")
   const [resumeData, setResumeData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null);
+  const [showUpgradeModal, setShowUpgradeModal] = useState(false);
   const router = useRouter();
+
+  const fetchUserProfile = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      if (token) {
+        const response = await axios.get(
+          "https://api.abroadium.com/api/jobseeker/user-profile",
+          {
+            headers: {
+              Authorization: token,
+            },
+          }
+        );
+
+        if (response.data.status === "success") {
+          setUser(response.data.data.personal_details);
+        }
+      }
+    } catch (error) {
+      console.error("Error fetching user profile:", error);
+    }
+  };
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -49,7 +74,18 @@ const DashboardCards = ({ strength }) => {
     };
 
     fetchResumeData();
+    fetchUserProfile();
   }, []);
+
+  const handleViewResume = (resumeId) => {
+    // Check if user has plan_id 4 (AI Pro Yearly) for match report
+    if (user?.plan_id !== 4) {
+      setShowUpgradeModal(true);
+      return;
+    }
+
+    router.push(`/match-report/${resumeId}`);
+  };
 
   if (loading) {
     return (
@@ -83,7 +119,7 @@ const DashboardCards = ({ strength }) => {
             variant="outline"
             startIcon={<ArrowRight size={20} />}
             className="rounded-full"
-            onClick={() => router.push(`/match-report/${resumeData?.id}`)}
+            onClick={() => handleViewResume(resumeData?.id)}
           />
         </div>
 
@@ -109,7 +145,37 @@ const DashboardCards = ({ strength }) => {
       </div>
 
       {/* === Job Tracker Card === */}
-      <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+      <div className="bg-gray-100 rounded-xl p-6 shadow-sm border border-gray-200 opacity-60 relative cursor-not-allowed">
+        {/* Info Badge */}
+        <div className="absolute top-3 right-3 flex items-center gap-1 text-gray-500 text-xs">
+          <Info size={14} />
+          <span>Coming Soon</span>
+        </div>
+
+        <div className="flex justify-between items-center mb-4">
+          <div className="flex items-center gap-2">
+            <BarChart3 size={20} className="text-gray-500" />
+            <h3 className="text-lg font-semibold text-gray-500">Job Tracker</h3>
+          </div>
+          <ArrowRight size={20} className="text-gray-400" />
+        </div>
+
+        <div className="mb-4">
+          <h4 className="text-md font-medium text-gray-500 mb-3">
+            Next Interview
+          </h4>
+          <button
+            disabled
+            className="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-md bg-gray-300 text-gray-600 cursor-not-allowed"
+          >
+            <Calendar size={16} />
+            Add interview time
+          </button>
+        </div>
+
+        <div className="text-sm text-gray-500">{jobTitle}</div>
+      </div>
+      {/* <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
         <div className="flex justify-between items-center mb-4">
           <div className="flex items-center gap-2">
             <BarChart3 size={20} className="text-brand-900" />
@@ -130,7 +196,17 @@ const DashboardCards = ({ strength }) => {
         </div>
 
         <div className="text-sm text-brand-900">{jobTitle}</div>
-      </div>
+      </div> */}
+
+      {/* Upgrade Plan Modal */}
+      {showUpgradeModal && (
+        <ErrorPopup
+          onClose={() => setShowUpgradeModal(false)}
+          message="Match Report is only available for AI Pro Yearly plan. Upgrade your plan to access this premium feature."
+          title="Upgrade Required"
+          isUpgrade={true}
+        />
+      )}
     </div>
   );
 };

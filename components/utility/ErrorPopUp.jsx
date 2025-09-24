@@ -1,10 +1,15 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { AlertCircle, ArrowUpCircle } from "lucide-react";
+import { AlertCircle, ArrowUpCircle, Crown } from "lucide-react";
 import FullScreenLoader from "../ResumeLoader/Loader";
 import { SaveLoader } from "../ResumeLoader/SaveLoader";
 
-const ErrorPopup = ({ message, onClose }) => {
+const ErrorPopup = ({
+  message,
+  onClose,
+  title = "Error",
+  isUpgrade = false,
+}) => {
   const router = useRouter();
 
   const onUpgrade = (e) => {
@@ -50,9 +55,17 @@ const ErrorPopup = ({ message, onClose }) => {
       {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white rounded-xl p-6 max-w-md mx-4 shadow-xl">
-            <h3 className="text-xl font-semibold mb-4 text-red-600 flex items-center">
-              <AlertCircle className="mr-2" size={20} />
-              Error
+            <h3
+              className={`text-xl font-semibold mb-4 flex items-center ${
+                isUpgrade ? "text-primary" : "text-red-600"
+              }`}
+            >
+              {isUpgrade ? (
+                <Crown className="mr-2" size={20} />
+              ) : (
+                <AlertCircle className="mr-2" size={20} />
+              )}
+              {title}
             </h3>
 
             <p className="text-gray-700 mb-6">{message}</p>

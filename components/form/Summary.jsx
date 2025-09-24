@@ -166,10 +166,16 @@ const Summary = () => {
   };
 
   const handleQuillChange = (content) => {
-    setResumeData({
-      ...resumeData,
-      summary: content,
-    });
+    // Remove HTML tags to get plain text length
+    const plainText = content.replace(/<[^>]*>/g, "");
+
+    // Limit to 500 characters
+    if (plainText.length <= 500) {
+      setResumeData({
+        ...resumeData,
+        summary: content,
+      });
+    }
   };
 
   return (
@@ -285,7 +291,7 @@ const Summary = () => {
           }}
         />
         <div className="text-sm text-gray-500 mt-1 text-right">
-          {/* {resumeData.summary?.length || 0}/500 */}
+          {(resumeData.summary?.replace(/<[^>]*>/g, "") || "").length}/500
         </div>
       </div>
 
