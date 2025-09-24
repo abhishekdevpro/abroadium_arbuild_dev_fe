@@ -14,6 +14,7 @@ import { Download, Edit, Trash, Plus, User, Loader2 } from "lucide-react";
 import { toast } from "react-toastify";
 import Button from "../../components/buttonUIComponent";
 import DashboardCards from "../../components/dashboard/DashboardCards";
+import ErrorPopup from "../../components/utility/ErrorPopUp";
 export default function DashboardPage() {
   const [strength, setStrength] = useState(null);
   const [resumeId, setResumeId] = useState(null);
@@ -23,11 +24,12 @@ export default function DashboardPage() {
   const [user, setUser] = useState(null);
   const router = useRouter();
   const [scaning, setScaning] = useState(false);
+  const [showUpgradeModal, setShowUpgradeModal] = useState(false);
   const planName = {
     1: "Free",
     2: "Pay & Download",
     3: "AI Pro Month",
-    // 4: "AI Pro Yearly",
+    4: "AI Pro Yearly",
   };
 
   const currentPlan = user?.plan_id ? planName[user.plan_id] : "Free";
@@ -54,6 +56,12 @@ export default function DashboardPage() {
     }
   };
   const handleResumeScan = async () => {
+    // Check if user has plan_id 4 (AI Pro Yearly) for resume analysis
+    if (user?.plan_id !== 4) {
+      setShowUpgradeModal(true);
+      return;
+    }
+
     setScaning(true);
     try {
       const res = await axios.post(
@@ -74,6 +82,10 @@ export default function DashboardPage() {
       }
     } catch (error) {
       console.log(error);
+      // Handle 403 error specifically
+      if (error.response?.status === 403) {
+        setShowUpgradeModal(true);
+      }
     } finally {
       setScaning(false);
     }
@@ -259,6 +271,16 @@ export default function DashboardPage() {
         </div>
         <MyResume />
         <MyJobs />
+
+        {/* Upgrade Plan Modal */}
+        {showUpgradeModal && (
+          <ErrorPopup
+            onClose={() => setShowUpgradeModal(false)}
+            message="Resume Analysis is only available for AI Pro Yearly plan. Upgrade your plan to access this premium feature."
+            title="Upgrade Required"
+            isUpgrade={true}
+          />
+        )}
       </div>
     </>
   );

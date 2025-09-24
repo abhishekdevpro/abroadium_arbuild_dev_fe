@@ -94,7 +94,7 @@ export default function Payment() {
   };
 
   // Extract plans from the pricing data
-  const plans = ["freePlan", "singlePass", "aiProMonth"];
+  const plans = ["freePlan", "singlePass", "aiProMonth", "aiProYearly"];
 
   // Get features for a plan
   const getPlanFeatures = (planId) => {
@@ -122,6 +122,8 @@ export default function Payment() {
         ? "/mo"
         : plan.billingCycle === "One Time"
         ? "/one-time"
+        : plan.billingCycle === "Yearly"
+        ? "/yr"
         : ""
     }`;
   };

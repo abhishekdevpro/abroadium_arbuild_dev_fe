@@ -9,6 +9,7 @@ import Button from "../../components/buttonUIComponent";
 import ConfirmationModal from "../../components/ui/ConfirmationModal";
 import { useModal } from "../../hooks/useModal";
 import { duplicateResume } from "../../components/services/resumeService";
+import ErrorPopup from "../../components/utility/ErrorPopUp";
 const MyResume = () => {
   const { setResumeData } = useContext(ResumeContext);
   const [resumes, setResumes] = useState([]);
@@ -20,11 +21,36 @@ const MyResume = () => {
   const [currentResume, setCurrentResume] = useState(null);
   const router = useRouter();
   const [isChecked, setIsChecked] = useState(false);
+  const [user, setUser] = useState(null);
+  const [showUpgradeModal, setShowUpgradeModal] = useState(false);
 
   const handleToggle = () => {
     setIsChecked(!isChecked);
   };
   const duplicateModal = useModal();
+
+  const fetchUserProfile = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      if (token) {
+        const response = await axios.get(
+          "https://api.abroadium.com/api/jobseeker/user-profile",
+          {
+            headers: {
+              Authorization: token,
+            },
+          }
+        );
+
+        if (response.data.status === "success") {
+          setUser(response.data.data.personal_details);
+        }
+      }
+    } catch (error) {
+      console.error("Error fetching user profile:", error);
+    }
+  };
+
   const handleDeleteClick = (id) => {
     setDeleteResumeId(id); // Store the ID of the item to be deleted
     setIsDeleteModalOpen(true); // Open the modal
@@ -49,11 +75,22 @@ const MyResume = () => {
           toast.error("Failed to fetch resumes.");
         });
     }
+    fetchUserProfile();
   }, []);
 
   const handleEdit = (resumeId) => {
     setResumeId(resumeId);
     router.push(`/dashboard/aibuilder/${resumeId}`);
+  };
+
+  const handleViewResume = (resumeId) => {
+    // Check if user has plan_id 4 (AI Pro Yearly) for match report
+    if (user?.plan_id !== 4) {
+      setShowUpgradeModal(true);
+      return;
+    }
+
+    router.push(`/match-report/${resumeId}`);
   };
 
   const handleDownload = async (resumeId) => {
@@ -277,9 +314,7 @@ const MyResume = () => {
                           </Button>
                           <Button
                             className="text-primary hover:text-primary/90 transition-colors duration-200"
-                            onClick={() =>
-                              router.push(`/match-report/${resume.resume_id}`)
-                            }
+                            onClick={() => handleViewResume(resume.resume_id)}
                           >
                             <Eye className="w-5 h-5" />
                           </Button>
@@ -389,6 +424,16 @@ const MyResume = () => {
         confirmText="Duplicate"
         type="info"
       />
+
+      {/* Upgrade Plan Modal */}
+      {showUpgradeModal && (
+        <ErrorPopup
+          onClose={() => setShowUpgradeModal(false)}
+          message="Match Report is only available for AI Pro Yearly plan. Upgrade your plan to access this premium feature."
+          title="Upgrade Required"
+          isUpgrade={true}
+        />
+      )}
     </div>
   );
 };

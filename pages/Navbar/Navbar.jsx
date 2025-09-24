@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import {
@@ -14,6 +14,7 @@ import AbroadiumId from "./AbroadiumId";
 import { BsDash } from "react-icons/bs";
 import logo from "./logo.png";
 import Image from "next/image";
+import ErrorPopup from "../../components/utility/ErrorPopUp";
 // Create axios instance with interceptor
 const axiosInstance = axios.create();
 
@@ -25,10 +26,11 @@ const Navbar = () => {
   const [isApiSuccess, setIsApiSuccess] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [user, setUser] = useState();
+  const [showUpgradeModal, setShowUpgradeModal] = useState(false);
 
   const router = useRouter();
 
-  const handleLogout = async () => {
+  const handleLogout = useCallback(async () => {
     const token = localStorage.getItem("token");
 
     try {
@@ -53,7 +55,7 @@ const Navbar = () => {
       localStorage.removeItem("token");
       router.push("https://airesume.abroadium.com/login");
     }
-  };
+  }, [router]);
 
   // Setup axios interceptor
   useEffect(() => {
@@ -70,7 +72,7 @@ const Navbar = () => {
     return () => {
       axiosInstance.interceptors.response.eject(interceptor);
     };
-  }, []);
+  }, [handleLogout]);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -116,11 +118,23 @@ const Navbar = () => {
   const handleClosePopup = () => setIsPopupOpen(false);
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 
+  const handleAnalysisHistory = () => {
+    // Check if user has plan_id 4 (AI Pro Yearly) for analysis history
+    if (user?.plan_id !== 4) {
+      setShowUpgradeModal(true);
+      setIsDropdownOpen(false); // Close dropdown
+      return;
+    }
+
+    router.push("/dashboard/scan-history");
+    setIsDropdownOpen(false); // Close dropdown
+  };
+
   const planName = {
     1: "Free",
     2: "Pay & Download",
     3: "AI Pro Month",
-    // 4: "AI Pro Yearly",
+    4: "AI Pro Yearly",
   };
 
   const currentPlan = user?.plan_id ? planName[user.plan_id] : "Free";
@@ -265,16 +279,15 @@ const Navbar = () => {
                         Dashboard
                       </span>
                     </Link>
-                    <Link
-                      href="/dashboard/scan-history"
-                      className="flex items-center px-4 py-3 hover:bg-gray-100 transition-colors duration-200 group"
-                      onClick={() => setIsDropdownOpen(false)}
+                    <button
+                      onClick={handleAnalysisHistory}
+                      className="flex items-center w-full text-left px-4 py-3 hover:bg-gray-100 transition-colors duration-200 group"
                     >
                       <ScanLine className="mr-3 w-5 h-5 text-gray-500 group-hover:text-primary" />
                       <span className="text-gray-800 group-hover:text-primary">
                         Analysis History
                       </span>
-                    </Link>
+                    </button>
                     <Link
                       href="/settings"
                       className="flex items-center px-4 py-3 hover:bg-gray-100 transition-colors duration-200 group"
@@ -344,12 +357,20 @@ const Navbar = () => {
               >
                 My Resumes
               </Link>
-              <Link
-                href="/dashboard/scan-history"
-                className="text-black block px-3 py-2 rounded-md text-base font-semibold hover:bg-primary"
+              <button
+                onClick={() => {
+                  if (user?.plan_id !== 4) {
+                    setShowUpgradeModal(true);
+                    handleLinkClick();
+                    return;
+                  }
+                  router.push("/dashboard/scan-history");
+                  handleLinkClick();
+                }}
+                className="text-black block px-3 py-2 rounded-md text-base font-semibold hover:bg-primary w-full text-left"
               >
                 Analysis History
-              </Link>
+              </button>
 
               {/* <Link
                 href=""
@@ -392,6 +413,16 @@ const Navbar = () => {
           </div>
         )}
       </div>
+
+      {/* Upgrade Plan Modal */}
+      {showUpgradeModal && (
+        <ErrorPopup
+          onClose={() => setShowUpgradeModal(false)}
+          message="Analysis History is only available for AI Pro Yearly plan. Upgrade your plan to access this premium feature."
+          title="Upgrade Required"
+          isUpgrade={true}
+        />
+      )}
     </nav>
   );
 };
