@@ -21,6 +21,8 @@ const Sidebar = ({ score, resumeId }) => {
   const [showLoader, setShowLoader] = useState(false); // Loader state
   const [resumeTitle, setResumeTitle] = useState("");
   const [isDownloading, setIsDownloading] = useState(false);
+  const [showUpgradeModal, setShowUpgradeModal] = useState(false);
+  const [isPaymentProcessing, setIsPaymentProcessing] = useState(false);
 
   const handleEdit = () => {
     setShowLoader(true);
@@ -83,36 +85,163 @@ const Sidebar = ({ score, resumeId }) => {
   }, [resumeId]);
 
   const handleDownload = async () => {
-    const apiUrl = `https://api.abroadium.com/api/jobseeker/download-resume/${resumeId}`;
     setIsDownloading(true);
+
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(apiUrl, {
-        method: "GET",
-        headers: {
-          Authorization: token,
-          "Content-Type": "application/json",
-        },
-      });
 
-      if (!response.ok) {
-        throw new Error("Failed to download file");
+      // First, get the resume data to extract HTML content
+      const resumeResponse = await axios.get(
+        `https://api.abroadium.com/api/jobseeker/resume-list/${resumeId}`,
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+
+      if (resumeResponse.data.status === "success") {
+        const { data } = resumeResponse.data;
+        const parsedData = data.ai_resume_parse_data;
+
+        // Create a temporary div to render the template
+        const tempDiv = document.createElement("div");
+        tempDiv.innerHTML = parsedData.resume_html || "";
+
+        const htmlContent = tempDiv.innerHTML;
+        const fullHtml = `
+          <style>
+            @import url('https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css');
+          </style>
+          ${htmlContent}
+        `;
+
+        // Download with enhanced functionality
+        const response = await axios.post(
+          `https://api.abroadium.com/api/jobseeker/download-resume/${resumeId}?pdf_type=1`,
+          {
+            html: fullHtml,
+            pdf_type: 1,
+          },
+          {
+            headers: {
+              Authorization: token,
+              "Content-Type": "application/json",
+            },
+            responseType: "blob",
+          }
+        );
+
+        const url = window.URL.createObjectURL(
+          new Blob([response.data], { type: "application/pdf" })
+        );
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", `resume_${resumeId}.pdf`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
+
+        // Show success message using toast if available
+        if (typeof window !== "undefined" && window.toast) {
+          window.toast.success("Resume downloaded successfully!");
+        }
       }
-
-      const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
-
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = `resume_${resumeId}.pdf`;
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
     } catch (error) {
-      console.error("Error downloading file:", error);
-      alert("Failed to download the file. Please try again later.");
+      console.error("PDF generation error:", error);
+
+      const apiError = error.response?.data;
+      const statusCode = error.response?.status;
+
+      if (statusCode === 403) {
+        setShowUpgradeModal(true); // Show upgrade popup
+      } else if (apiError?.error) {
+        if (typeof window !== "undefined" && window.toast) {
+          window.toast.error(apiError.error);
+        } else {
+          alert(apiError.error);
+        }
+      } else if (apiError?.message) {
+        if (typeof window !== "undefined" && window.toast) {
+          window.toast.error(apiError.message);
+        } else {
+          alert(apiError.message);
+        }
+      } else {
+        if (typeof window !== "undefined" && window.toast) {
+          window.toast.error("Something went wrong. Please try again.");
+        } else {
+          alert("Something went wrong. Please try again.");
+        }
+      }
     } finally {
       setIsDownloading(false);
+    }
+  };
+
+  const createPaymentForPlan5 = async () => {
+    if (!resumeId) {
+      alert("Resume ID not found");
+      return;
+    }
+
+    setIsPaymentProcessing(true);
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.post(
+        "https://api.abroadium.com/api/jobseeker/payment/create-payment",
+        {
+          resume_id: parseInt(resumeId),
+          plan_id: 5,
+        },
+        {
+          headers: {
+            Authorization: token,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        if (response.data.payment_url) {
+          if (typeof window !== "undefined" && window.toast) {
+            window.toast.success("Redirecting to payment...");
+          } else {
+            alert("Redirecting to payment...");
+          }
+          // Redirect to the payment URL
+          window.location.href = response.data.payment_url;
+        } else {
+          if (typeof window !== "undefined" && window.toast) {
+            window.toast.success("Payment created successfully!");
+          } else {
+            alert("Payment created successfully!");
+          }
+          // After successful payment, proceed with download
+          handleDownload();
+          setShowUpgradeModal(false);
+        }
+      } else {
+        if (typeof window !== "undefined" && window.toast) {
+          window.toast.error(
+            response.data.message || "Failed to create payment"
+          );
+        } else {
+          alert(response.data.message || "Failed to create payment");
+        }
+      }
+    } catch (error) {
+      console.error("Payment Error:", error);
+      if (typeof window !== "undefined" && window.toast) {
+        window.toast.error(
+          error.response?.data?.message || "Failed to create payment"
+        );
+      } else {
+        alert(error.response?.data?.message || "Failed to create payment");
+      }
+    } finally {
+      setIsPaymentProcessing(false);
     }
   };
 
@@ -194,6 +323,57 @@ const Sidebar = ({ score, resumeId }) => {
             Create New Resume
           </Button>
         </>
+      )}
+      {/* Upgrade Plan Modal */}
+      {showUpgradeModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full text-center">
+            <h2 className="text-xl font-semibold mb-4 text-gray-800">
+              Upgrade Required
+            </h2>
+            <p className="text-gray-600 mb-6">
+              You've reached your download limit. Please upgrade your plan to
+              continue.
+            </p>
+            <div className="flex flex-col gap-3">
+              <div className="flex justify-center gap-4">
+                <button
+                  onClick={() => setShowUpgradeModal(false)}
+                  className="px-4 py-2 border border-gray-400 rounded-md text-gray-700 hover:bg-gray-100"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={() => router.push("/payment")}
+                  className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90"
+                >
+                  Upgrade Plan
+                </button>
+              </div>
+
+              {/* Pay & Download Button */}
+              <div className="border-t pt-4">
+                <button
+                  onClick={createPaymentForPlan5}
+                  className="w-full px-4 py-2 bg-success text-white rounded-md hover:bg-success/90 disabled:opacity-50 disabled:cursor-not-allowed"
+                  disabled={isPaymentProcessing}
+                >
+                  {isPaymentProcessing ? (
+                    <div className="flex items-center justify-center gap-2">
+                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                      Processing Payment...
+                    </div>
+                  ) : (
+                    "Pay & Download"
+                  )}
+                </button>
+                <p className="text-xs text-gray-500 mt-2 text-center">
+                  Quick payment to download this resume
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );

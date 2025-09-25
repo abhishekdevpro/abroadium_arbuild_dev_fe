@@ -968,7 +968,7 @@ transition-transform duration-200 ease-in-out hover:scale-[1.02] hover:bg-primar
           </div>
         ) : (
           <div className="flex flex-col">
-            <div className="hidden md:flex w-screen px-8 py-4 justify-between items-center bg-white shadow">
+            <div className="hidden md:flex w-screen px-8 py-4 justify-center items-center bg-white shadow">
               <div className="hidden lg:flex items-center gap-4">
                 {/* AI Credits Component */}
                 <div className="hidden lg:block">
@@ -1013,6 +1013,8 @@ transition-transform duration-200 ease-in-out hover:scale-[1.02] hover:bg-primar
                   />
                 </div>
               </div>
+            </div>
+            <div className="hidden md:flex w-screen px-8 py-4 justify-center items-center bg-white shadow">
               <div className="flex gap-4">
                 <button
                   onClick={handleClick}
@@ -1078,7 +1080,6 @@ transition-transform duration-200 ease-in-out hover:scale-[1.02] hover:bg-primar
                 </button>
               </div>
             </div>
-
             <div className="z-10">
               <Highlightmenubar />
               {!showSampleModal && (
