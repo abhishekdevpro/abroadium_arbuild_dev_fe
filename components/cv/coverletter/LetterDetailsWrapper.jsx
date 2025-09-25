@@ -27,7 +27,6 @@ const LetterDetailsWrapper = ({
         )}
         {/* Job Title and Reference in One Line */}
         <div className="flex space-x-4">
-          {/* Job Title */}
           {letterDetails.jobTitle && (
             <p
               style={{ color: headerColor }}
@@ -43,7 +42,6 @@ const LetterDetailsWrapper = ({
             </p>
           )}
 
-          {/* Reference */}
           {letterDetails.reference && (
             <p
               style={{ color: headerColor }}
