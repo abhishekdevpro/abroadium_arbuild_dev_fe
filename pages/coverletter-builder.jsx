@@ -94,7 +94,7 @@ function CoverLetterBuilder() {
           }
         } catch (error) {
           console.error("Error fetching cover letter  data:", error);
-          toast.error("Failed to fetch cover letter  data");
+          // toast.error("Failed to fetch cover letter  data");
         }
       }
     };
