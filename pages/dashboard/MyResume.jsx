@@ -528,8 +528,8 @@ const MyResume = () => {
               Upgrade Required
             </h2>
             <p className="text-gray-600 mb-6">
-              You've reached your download limit. Please upgrade your plan to
-              continue.
+              You`&apos;`ve reached your download limit. Please upgrade your
+              plan to continue.
             </p>
             <div className="flex flex-col gap-3">
               <div className="flex justify-center gap-4">
