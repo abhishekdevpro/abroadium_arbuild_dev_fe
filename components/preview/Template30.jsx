@@ -1,0 +1,340 @@
+// // import React from "react";
+// import { useContext } from "react";
+// import { ResumeContext } from "../context/ResumeContext";
+// import { HighlightMenu } from "react-highlight-menu";
+// import ContactInfo from "./ContactInfo";
+// import { CgWebsite } from "react-icons/cg";
+// import DateRange from "../utility/DateRange";
+// import Language from "./Language";
+// import Skills from "./Skills";
+// import Certification from "./Certifications2";
+// // import Image from "next/image";
+// import Link from "next/link";
+// import {
+//   FaGithub,
+//   FaLinkedin,
+//   FaTwitter,
+//   FaFacebook,
+//   FaInstagram,
+//   FaYoutube,
+//   FaBold,
+//   FaItalic,
+//   FaPlus,
+//   FaMinus,
+//   FaAlignLeft,
+//   FaAlignCenter,
+//   FaAlignRight,
+//   FaLink,
+//   FaUnderline,
+// } from "react-icons/fa";
+// import { MdEmail, MdLocationOn, MdPhone } from "react-icons/md";
+// import dynamic from "next/dynamic";
+// import { SummaryWrapper, TextWrapper } from "./Common2";
+// import ContactAndSocialMedia from "./ContactAndSocial";
+// import { SkillsWrapper } from "./SkillWrapper";
+// import WorkExperience from "./WorkExperience3";
+// import ProjectsSection from "./ProjectSection";
+// import EducationSection from "./Education";
+// import { title } from "process";
+// // Importing draggable components dynamically
+// const DragDropContext = dynamic(
+//   () => import("react-beautiful-dnd").then((mod) => mod.DragDropContext),
+//   { ssr: false }
+// );
+// const Droppable = dynamic(
+//   () => import("react-beautiful-dnd").then((mod) => mod.Droppable),
+//   { ssr: false }
+// );
+// const Draggable = dynamic(
+//   () => import("react-beautiful-dnd").then((mod) => mod.Draggable),
+//   { ssr: false }
+// );
+// const Template30 = () => {
+//   const {
+//     resumeData,
+//     setResumeData,
+//     headerColor,
+//     backgroundColorss,
+//     selectedFont,
+//   } = useContext(ResumeContext);
+//   // const { resumeData, setResumeData, headerColor } = useContext(ResumeContext);
+//   const icons = [
+//     { name: "github", icon: <FaGithub /> },
+//     { name: "linkedin", icon: <FaLinkedin /> },
+//     { name: "twitter", icon: <FaTwitter /> },
+//     { name: "facebook", icon: <FaFacebook /> },
+//     { name: "instagram", icon: <FaInstagram /> },
+//     { name: "youtube", icon: <FaYoutube /> },
+//     { name: "website", icon: <CgWebsite /> },
+//   ];
+
+//   return (
+//     <div className=" " style={{ fontFamily: `${selectedFont}` }}>
+//       <div className="mb-6 ">
+//         <TextWrapper
+//           name={resumeData.name}
+//           position={resumeData.position}
+//           className="justify-start items-start"
+//           headerColor={backgroundColorss}
+//           orientation="column" // Use "column" for stacked layout
+//         />
+//       </div>
+//       <div className="mb-8">
+//         <SummaryWrapper
+//           summary={resumeData.summary}
+//           headerColor={"black"}
+//           editable={true} // Set to false if editing is not required
+//           className="mt-4"
+//         />
+//       </div>
+//       <div className="mb-9">
+//         {
+//           <h2
+//             className="text-xl text-black font-bold mb-4"
+//             style={{ color: backgroundColorss }}
+//           >
+//             Contact
+//           </h2>
+//         }
+//         <ContactAndSocialMedia
+//           contactData={{
+//             teldata: resumeData.contactInformation,
+//             emaildata: resumeData.email,
+//             addressdata: resumeData.address,
+//           }}
+//           socialMediaData={resumeData.socialMedia}
+//           icons={icons}
+//           layout="row" // or "row"
+//           contactClass=""
+//           socialMediaClass=""
+//           className="items-start justify-start"
+//         />
+//       </div>
+//       <div className="mb-8">
+//         <WorkExperience
+//           itemClassNames={{
+//             title:
+//               "text-lg font-bold mb-1 border-b-2 border-gray-300 editable ",
+//             company: "font-semibold",
+//             position: "",
+//             location: "",
+//           }}
+//           resumeData={resumeData}
+//           headerColor={backgroundColorss}
+//         />
+//       </div>
+//       <div class="mb-5">
+//         <SkillsWrapper
+//           skills={resumeData.skills}
+//           headerColor={"black"}
+//           droppableId="skills-section-1"
+//           className="mt-2 flex flex-row justify-between"
+//           layout="col "
+//           textColor="black"
+//         />
+//         <div>
+//           <div class="mb-5">
+//             <ProjectsSection
+//               resumeData={resumeData}
+//               headerColor={backgroundColorss}
+//             />
+//           </div>
+//         </div>
+//       </div>
+//       <div className="mb-8 ">
+//         <EducationSection
+//           itemClassNames={{
+//             school: "text-gray-600",
+//             degree: "text-xl font-semibold text-gray-800",
+//             location: "text-gray-800",
+//           }}
+//           headerColor={backgroundColorss}
+//           educationData={resumeData?.education}
+//           layout="row"
+//         />
+//       </div>
+//       <div className="mb-8 ">
+//         <Certification
+//           title="Certification"
+//           certifications={resumeData.certifications}
+//           hasBullet={true}
+//           headerColor={"black"}
+//         />
+//       </div>
+//       <div className="mb-8">
+//         <Language
+//           title="Languages"
+//           languages={resumeData.languages}
+//           headerColor={"black"}
+//         />
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default Template30;
+import { useContext, useRef } from "react";
+import { ResumeContext } from "../context/ResumeContext";
+
+import { CgWebsite } from "react-icons/cg";
+
+import Language from "./Language";
+
+import {
+  FaGithub,
+  FaLinkedin,
+  FaTwitter,
+  FaFacebook,
+  FaInstagram,
+  FaYoutube,
+} from "react-icons/fa";
+
+import ContactAndSocialMedia from "./ContactAndSocial";
+import { SummaryWrapper, TextWrapper, ImageWrapper } from "./Common";
+import { SkillsWrapper } from "./SkillWrapper";
+import WorkExperience from "./WorkExperience";
+import ProjectsSection from "./ProjectSection";
+import EducationSection from "./Education";
+import EducationSection1 from "./Education1";
+import Certification from "./Certification";
+
+const Template30 = () => {
+  const templateRef = useRef(null);
+
+  const extractHtml = () => {
+    const htmlContent = templateRef.current?.outerHTML;
+    console.log(htmlContent);
+    return htmlContent;
+  };
+
+  const {
+    resumeData,
+    setResumeData,
+    headerColor,
+    backgroundColorss,
+    selectedFont,
+  } = useContext(ResumeContext);
+
+  const icons = [
+    { name: "github", icon: <FaGithub /> },
+    { name: "linkedin", icon: <FaLinkedin /> },
+    { name: "twitter", icon: <FaTwitter /> },
+    { name: "facebook", icon: <FaFacebook /> },
+    { name: "instagram", icon: <FaInstagram /> },
+    { name: "youtube", icon: <FaYoutube /> },
+    { name: "website", icon: <CgWebsite /> },
+  ];
+
+  return (
+    <div ref={templateRef} style={{ fontFamily: `${selectedFont}` }}>
+      <div
+        className="p-4 flex justify-between"
+        style={{ borderBottom: `2px solid ${backgroundColorss}` }}
+      >
+        <div className={`  `}>
+          <div className={`mt-4  `}>
+            <TextWrapper
+              name={resumeData?.name}
+              position={resumeData?.position}
+              className={
+                resumeData?.profilePicture
+                  ? "justify-start items-start"
+                  : "text-center"
+              }
+              headerColor={backgroundColorss}
+              orientation="column"
+            />
+          </div>
+        </div>
+        <div className=" pt-4 ">
+          {/* <h2 className="text-xl text-black font-bold mb-2" style={{ color: headerColor }}>CONTACT</h2> */}
+          <ContactAndSocialMedia
+            contactData={{
+              teldata: resumeData.contactInformation,
+              emaildata: resumeData.email,
+              addressdata: resumeData.address,
+            }}
+            socialMediaData={resumeData.socialMedia}
+            icons={icons}
+            layout="col" // or "row"
+            contactClass=""
+            socialMediaClass=""
+            className="items-start justify-start"
+          />
+        </div>
+      </div>
+
+      <div className="p-4 pt-0">
+        <div className="mb-5">
+          <SummaryWrapper
+            summary={resumeData.summary}
+            headerColor={"black"}
+            editable={true} // Set to false if editing is not required
+            className="mt-4"
+          />
+        </div>
+
+        <div class="mb-5">
+          <WorkExperience
+            itemClassNames={{
+              title:
+                "text-lg font-bold mb-1 border-b-2 border-gray-300 editable",
+              company: "font-semibold",
+              position: "",
+              location: "",
+            }}
+            resumeData={resumeData}
+            headerColor={backgroundColorss}
+          />
+          <div>
+            <div class="mb-5">
+              <ProjectsSection
+                resumeData={resumeData}
+                headerColor={backgroundColorss}
+              />
+            </div>
+          </div>
+        </div>
+        <div className="mb-8 ">
+          <EducationSection
+            itemClassNames={{
+              school: "text-gray-600",
+              degree: "text-xl font-semibold text-gray-800",
+              location: "text-gray-800",
+            }}
+            headerColor={backgroundColorss}
+            educationData={resumeData?.education}
+            layout="row"
+          />
+        </div>
+        <div className="mb-8 ">
+          <Certification
+            title="Certifications"
+            certifications={resumeData.certifications}
+            hasBullet={true}
+            headerColor={"black"}
+          />
+        </div>
+        <div className="mb-8">
+          <SkillsWrapper
+            skills={resumeData.skills}
+            headerColor={"black"}
+            droppableId="skills-section-1"
+            className="mt-2 flex flex-row justify-between"
+            layout="col "
+            textColor="black"
+          />
+        </div>
+        <div className="mb-8">
+          <Language
+            title="Languages"
+            languages={resumeData.languages}
+            headerColor={"black"}
+          />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Template30;
