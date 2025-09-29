@@ -283,7 +283,7 @@ const CVSelector = ({ onNext, onBack, onChange, value }) => {
       key: "template9",
       imageUrl: cvletter9,
       name: "template 9",
-      hasPhoto: false,
+      hasPhoto: true,
     },
     {
       key: "template10",
@@ -295,7 +295,7 @@ const CVSelector = ({ onNext, onBack, onChange, value }) => {
       key: "template11",
       imageUrl: cvletter11,
       name: "template 11",
-      hasPhoto: false,
+      hasPhoto: true,
     },
   ];
 
