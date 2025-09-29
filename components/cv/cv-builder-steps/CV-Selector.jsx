@@ -9,6 +9,12 @@ import cvletter2 from "../coverletter/cvimgs/cvletter2.png";
 import cvletter3 from "../coverletter/cvimgs/cvletter3.png";
 import cvletter4 from "../coverletter/cvimgs/cvletter4.png";
 import cvletter5 from "../coverletter/cvimgs/cvletter5.png";
+import cvletter6 from "../coverletter/cvimgs/cvletter6.png";
+import cvletter7 from "../coverletter/cvimgs/cvletter7.png";
+import cvletter8 from "../coverletter/cvimgs/cvletter8.png";
+import cvletter9 from "../coverletter/cvimgs/cvletter9.png";
+import cvletter10 from "../coverletter/cvimgs/cvletter10.png";
+import cvletter11 from "../coverletter/cvimgs/cvletter11.png";
 import { CoverLetterContext } from "../../context/CoverLetterContext";
 import { SaveLoader } from "../../ResumeLoader/SaveLoader";
 const CVSelector = ({ onNext, onBack, onChange, value }) => {
@@ -253,6 +259,42 @@ const CVSelector = ({ onNext, onBack, onChange, value }) => {
       key: "template5",
       imageUrl: cvletter5,
       name: "Technical CV",
+      hasPhoto: true,
+    },
+    {
+      key: "template6",
+      imageUrl: cvletter6,
+      name: "template6",
+      hasPhoto: false,
+    },
+    {
+      key: "template7",
+      imageUrl: cvletter7,
+      name: "template7",
+      hasPhoto: true,
+    },
+    {
+      key: "template8",
+      imageUrl: cvletter8,
+      name: "template8",
+      hasPhoto: false,
+    },
+    {
+      key: "template9",
+      imageUrl: cvletter9,
+      name: "template 9",
+      hasPhoto: true,
+    },
+    {
+      key: "template10",
+      imageUrl: cvletter10,
+      name: "template 10",
+      hasPhoto: false,
+    },
+    {
+      key: "template11",
+      imageUrl: cvletter11,
+      name: "template 11",
       hasPhoto: true,
     },
   ];
