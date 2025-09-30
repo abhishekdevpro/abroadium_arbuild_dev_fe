@@ -271,10 +271,10 @@ export default function Payment() {
                 <p className="text-gray-600 text-center">
                   You may cancel via email at{" "}
                   <a
-                    href="mailto:support@Abroadium.com"
+                    href="mailto:support@abroadium.com"
                     className="text-primary underline"
                   >
-                    support@Abroadium.com
+                    support@abroadium.com
                   </a>
                   .
                 </p>

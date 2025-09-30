@@ -21,19 +21,19 @@ const CoverLetter9 = ({}) => {
 
   return (
     <div
-      className="relative bg-white max-w-2xl mx-auto shadow-lg rounded-lg overflow-hidden"
+      className="relative bg-white mx-auto shadow-lg rounded-lg overflow-hidden"
       style={{ fontFamily: `${selectedFont}` }}
     >
       {/* <div className="`2px solid ${backgroundColor}`"></div> */}
       <div
-        className=" mx-auto p-4 mt-[70px] "
+        className="p-4 mt-20 flex justify-between"
         // style={{ backgroundColor: backgroundColorss || "white" }}
       >
         <div className="absolute top-0 left-0 w-full">
           <svg
             viewBox="0 0 500 150"
             preserveAspectRatio="none"
-            className="w-full h-[120px]"
+            className="w-full h-28"
           >
             <path
               d="M0.00,49.98 C149.99,150.00 349.03,-50.00 500.00,49.98 L500.00,0.00 L0.00,0.00 Z"
@@ -105,7 +105,7 @@ const CoverLetter9 = ({}) => {
         signature={coverLetterData.signature}
         editable={true}
         headerColor={backgroundColorss ? "white" : "black"}
-        className="px-8 mt-2 mb-[50px]"
+        className="px-8 mt-2 mb-28"
       />
 
       {/* Bottom Wave */}
@@ -113,7 +113,7 @@ const CoverLetter9 = ({}) => {
         <svg
           viewBox="0 0 500 150"
           preserveAspectRatio="none"
-          className="w-full h-[120px]"
+          className="w-full h-28"
         >
           <path
             d="M0.00,49.98 C149.99,150.00 349.03,-50.00 500.00,49.98 L500.00,0.00 L0.00,0.00 Z"
