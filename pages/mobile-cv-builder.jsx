@@ -18,7 +18,7 @@ const MobileCoverLetterBuilder = ({
   templateRef,
 }) => {
   const [isPreviewMode, setIsPreviewMode] = useState(false);
-
+  const [selectedPdfType, setSelectedPdfType] = useState("1");
   const togglePreviewMode = () => {
     setIsPreviewMode(!isPreviewMode);
   };
@@ -88,6 +88,7 @@ const MobileCoverLetterBuilder = ({
               <TemplateSelector
                 selectedTemplate={selectedTemplate}
                 setSelectedTemplate={setSelectedTemplate}
+                setSelectedPdfType={setSelectedPdfType}
               />
             </div>
           </div>
