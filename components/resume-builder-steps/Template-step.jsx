@@ -34,7 +34,14 @@ import template24 from "../preview/template/template24.png";
 import template25 from "../preview/template/template25.png";
 import template26 from "../preview/template/template26.png";
 import template27 from "../preview/template/template27.png";
-
+import template28 from "../preview/template/template28.png";
+import template29 from "../preview/template/template29.png";
+import template30 from "../preview/template/template30.png";
+import template31 from "../preview/template/template31.png";
+import template32 from "../preview/template/template32.png";
+import template33 from "../preview/template/template33.png";
+import template34 from "../preview/template/template34.png";
+import template35 from "../preview/template/template35.png";
 import { SaveLoader } from "../ResumeLoader/SaveLoader";
 import { ResumeContext } from "../context/ResumeContext";
 
@@ -413,6 +420,54 @@ const TemplateStep = ({ onNext, onBack, onChange, value }) => {
     {
       key: "template27",
       imageUrl: template27,
+      name: "Contemporary",
+      // hasPhoto: false,
+    },
+    {
+      key: "template28",
+      imageUrl: template28,
+      name: "Creative",
+      // hasPhoto: true,
+    },
+    {
+      key: "template29",
+      imageUrl: template29,
+      name: "Executive",
+      // hasPhoto: true,
+    },
+    {
+      key: "template30",
+      imageUrl: template30,
+      name: "Minimal",
+      // hasPhoto: true
+    },
+    {
+      key: "template31",
+      imageUrl: template31,
+      name: "Classic",
+      // hasPhoto: false,
+    },
+    {
+      key: "template32",
+      imageUrl: template32,
+      name: "Contemporary",
+      // hasPhoto: false,
+    },
+    {
+      key: "template33",
+      imageUrl: template33,
+      name: "Minimal",
+      // hasPhoto: true
+    },
+    {
+      key: "template34",
+      imageUrl: template34,
+      name: "Classic",
+      // hasPhoto: false,
+    },
+    {
+      key: "template35",
+      imageUrl: template35,
       name: "Contemporary",
       // hasPhoto: false,
     },
