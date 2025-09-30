@@ -86,7 +86,7 @@ function CoverLetterBuilder() {
                   "template1"
               );
               setSelectedFont(
-                parsedData.templateData.templateDetails.font ||
+                parsedData.coverletterInfo.templateDetails.font ||
                   "Times New Roman"
               );
               // setPhoto(data.photo);
@@ -269,6 +269,8 @@ function CoverLetterBuilder() {
           setBgColor={setBgColor}
           selectedTemplate={selectedTemplate}
           setSelectedTemplate={setSelectedTemplate}
+          selectedPdfType={selectedPdfType}
+          setSelectedPdfType={setSelectedPdfType}
           handleFinish={handleFinish}
           downloadAsPDF={downloadAsPDF}
           templateRef={templateRef}
