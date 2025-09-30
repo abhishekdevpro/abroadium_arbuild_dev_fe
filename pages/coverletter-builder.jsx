@@ -254,7 +254,8 @@ function CoverLetterBuilder() {
       toast.success("PDF downloaded successfully!");
     } catch (error) {
       console.error("PDF Download Error:", error);
-      toast.error("Failed to download the PDF. Please try again.");
+      toast.error("Limit exhausted, please upgrade to download.");
+      
     }
   };
 
@@ -336,7 +337,7 @@ function CoverLetterBuilder() {
                     onClick={downloadAsPDF}
                     className="bg-success text-white px-6 py-2 rounded-full"
                   >
-                    Pay & Download
+                    Download
                   </button>
                 </div>
               </div>

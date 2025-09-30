@@ -293,6 +293,11 @@ const IntroductionAndBodyForm = () => {
     .split("\n\n")
     .filter((s) => s.trim() !== "");
 
+  const sectionTitles = [
+        "Introduction: Stating Intent Clearly",
+        "Hook: Why You’re a Fit",
+        "Proof & Sign-Off: Show Value and Close Strong",
+      ];
   return (
     // <div className="p-4 md:p-8 rounded-lg shadow-md">
     //   <h2 className="text-2xl font-bold mb-6 text-white">
@@ -374,11 +379,7 @@ const IntroductionAndBodyForm = () => {
       </h2>
 
       {coverLetterData.body.map((paragraph, index) => {
-        const sectionTitles = [
-          "Introduction: Stating Intent Clearly",
-          "Hook: Why You’re a Fit",
-          "Proof & Sign-Off: Show Value and Close Strong",
-        ];
+        
 
         return (
           <div key={index} className="mb-6">
