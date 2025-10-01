@@ -27,6 +27,9 @@ const MobileCoverLetterBuilder = ({
   const [showSampleModal, setShowSampleModal] = useState(false);
   const [previewImage, setPreviewImage] = useState(null);
   const [isLoadingSample, setIsLoadingSample] = useState(false);
+  const [showUpgradeModal, setShowUpgradeModal] = useState(false);
+  const [isPaymentProcessing, setIsPaymentProcessing] = useState(false);
+  const [isDownloading, setIsDownloading] = useState(false);
   const router = useRouter();
   const togglePreviewMode = () => {
     setIsPreviewMode(!isPreviewMode);
@@ -82,6 +85,120 @@ const MobileCoverLetterBuilder = ({
       toast.error("Error loading sample cover letter");
     } finally {
       setIsLoadingSample(false);
+    }
+  };
+
+  const downloadPDF = async () => {
+    try {
+      const { id } = router.query;
+      const token = localStorage.getItem("token");
+
+      if (!id) {
+        toast.error("Cover Letter ID not found");
+        return;
+      }
+
+      if (!token) {
+        toast.error("Authentication token not found");
+        return;
+      }
+
+      const response = await axios.get(
+        `https://api.abroadium.com/api/jobseeker/download-coverletter/${id}?pdf_type=${selectedPdfType}`,
+        {
+          headers: {
+            Authorization: token,
+          },
+          responseType: "blob",
+        }
+      );
+
+      const url = window.URL.createObjectURL(
+        new Blob([response.data], { type: "application/pdf" })
+      );
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", `coverletter.pdf`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+
+      toast.success("PDF downloaded successfully!");
+    } catch (error) {
+      console.error("PDF Download Error:", error);
+
+      const apiError = error.response?.data;
+      const statusCode = error.response?.status;
+
+      if (statusCode === 403) {
+        setShowUpgradeModal(true); // Show upgrade popup
+      } else if (apiError?.error) {
+        toast.error(apiError.error);
+      } else if (apiError?.message) {
+        toast.error(apiError.message);
+      } else {
+        toast.error("Failed to download the PDF. Please try again.");
+      }
+    }
+  };
+
+  const handleDownloadAsPDF = async () => {
+    setIsDownloading(true);
+    try {
+      await handleFinish();
+      await downloadPDF();
+    } catch (error) {
+      console.error("Download error:", error);
+    } finally {
+      setIsDownloading(false);
+    }
+  };
+
+  const createPaymentForPlan5 = async () => {
+    const { id } = router.query;
+    const token = localStorage.getItem("token");
+
+    if (!id) {
+      toast.error("Cover Letter ID not found");
+      return;
+    }
+
+    setIsPaymentProcessing(true);
+    try {
+      const response = await axios.post(
+        "https://api.abroadium.com/api/jobseeker/payment/create-payment",
+        {
+          coverletter_id: parseInt(id),
+          plan_id: 5,
+        },
+        {
+          headers: {
+            Authorization: token,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        if (response.data.payment_url) {
+          toast.success("Redirecting to payment...");
+          // Redirect to the payment URL
+          window.location.href = response.data.payment_url;
+        } else {
+          toast.success("Payment created successfully!");
+          // After successful payment, proceed with download
+          downloadPDF();
+          setShowUpgradeModal(false);
+        }
+      } else {
+        toast.error(response.data.message || "Failed to create payment");
+      }
+    } catch (error) {
+      console.error("Payment Error:", error);
+      toast.error(error.response?.data?.message || "Failed to create payment");
+    } finally {
+      setIsPaymentProcessing(false);
     }
   };
 
@@ -200,11 +317,22 @@ const MobileCoverLetterBuilder = ({
               )}
             </button>
             <button
-              onClick={downloadAsPDF}
-              className="flex items-center justify-center gap-2 bg-yellow-500 text-white px-4 py-3 rounded-lg text-sm"
+              onClick={handleDownloadAsPDF}
+              disabled={isDownloading}
+              className={`flex items-center justify-center gap-2 px-4 py-3 rounded-lg text-sm ${
+                isDownloading
+                  ? "bg-yellow-300 cursor-not-allowed"
+                  : "bg-yellow-500 hover:bg-yellow-600"
+              } text-white`}
             >
-              <Download size={16} />
-              Download
+              {isDownloading ? (
+                <SaveLoader loadingText="Downloading" />
+              ) : (
+                <>
+                  <Download size={16} />
+                  Download
+                </>
+              )}
             </button>
           </div>
         </div>
@@ -265,6 +393,58 @@ const MobileCoverLetterBuilder = ({
                 This is a sample preview with watermark. Download the full
                 version without watermark.
               </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Upgrade Modal */}
+      {showUpgradeModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full text-center">
+            <h2 className="text-xl font-semibold mb-4 text-gray-800">
+              Upgrade Required
+            </h2>
+            <p className="text-gray-600 mb-6">
+              You&apos;ve reached your download limit. Please upgrade your plan
+              to continue.
+            </p>
+            <div className="flex flex-col gap-3">
+              <div className="flex justify-center gap-4">
+                <button
+                  onClick={() => setShowUpgradeModal(false)}
+                  className="px-4 py-2 border border-gray-400 rounded-md text-gray-700 hover:bg-gray-100"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={() => router.push("/payment")}
+                  className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+                >
+                  Upgrade Plan
+                </button>
+              </div>
+
+              {/* Pay & Download Button */}
+              {/* <div className="border-t pt-4">
+                <button
+                  onClick={createPaymentForPlan5}
+                  className="w-full px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                  disabled={isPaymentProcessing}
+                >
+                  {isPaymentProcessing ? (
+                    <div className="flex items-center justify-center gap-2">
+                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                      Processing Payment...
+                    </div>
+                  ) : (
+                    "Pay & Download"
+                  )}
+                </button>
+                <p className="text-xs text-gray-500 mt-2 text-center">
+                  Quick payment to download this cover letter
+                </p>
+              </div> */}
             </div>
           </div>
         </div>

@@ -342,7 +342,19 @@ function CoverLetterBuilder() {
       toast.success("PDF downloaded successfully!");
     } catch (error) {
       console.error("PDF Download Error:", error);
-      toast.error("pdf error");
+
+      const apiError = error.response?.data;
+      const statusCode = error.response?.status;
+
+      if (statusCode === 403) {
+        setShowUpgradeModal(true); // Show upgrade popup
+      } else if (apiError?.error) {
+        toast.error(apiError.error);
+      } else if (apiError?.message) {
+        toast.error(apiError.message);
+      } else {
+        toast.error("Failed to download the PDF. Please try again.");
+      }
     }
   };
 
@@ -783,7 +795,7 @@ transition-transform duration-200 ease-in-out hover:scale-[1.02] hover:bg-primar
               </div>
 
               {/* Pay & Download Button */}
-              <div className="border-t pt-4">
+              {/* <div className="border-t pt-4">
                 <button
                   onClick={createPaymentForPlan5}
                   className="w-full px-4 py-2 bg-success text-white rounded-md hover:bg-success/90 disabled:opacity-50 disabled:cursor-not-allowed"
@@ -801,7 +813,7 @@ transition-transform duration-200 ease-in-out hover:scale-[1.02] hover:bg-primar
                 <p className="text-xs text-gray-500 mt-2 text-center">
                   Quick payment to download this cover letter
                 </p>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
