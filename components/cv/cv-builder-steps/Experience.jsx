@@ -2,11 +2,11 @@ import { SaveLoader } from "../../ResumeLoader/SaveLoader";
 import React, { useState } from "react";
 export default function ExperienceStep({ onNext, onBack, onChange, value }) {
   const experiences = [
-    { id: "none", label: "No Experience" },
-    { id: "less-3", label: "Less Than 3 Years" },
-    { id: "3-5", label: "3-5 Years" },
-    { id: "5-10", label: "5-10 Years" },
-    { id: "10-plus", label: "10+ Years" },
+    { id: "fresher", label: "No Experience" },
+    { id: "Less Than 3 Years", label: "Less Than 3 Years" },
+    { id: "3-5 Years", label: "3-5 Years" },
+    { id: "5-10 Years", label: "5-10 Years" },
+    { id: "10+ Years", label: "10+ Years" },
   ];
   const [isLoading, setIsLoading] = useState(false);
   return (
@@ -57,12 +57,16 @@ export default function ExperienceStep({ onNext, onBack, onChange, value }) {
           {[
             { id: "fresher", label: "Less than 1 year" },
             { id: "1-3", label: "1 – 3 years" },
-            { id: "4-9", label: "4 – 9 years" },
+            { id: "3-5", label: "3 – 5 years" },
+            { id: "5-10", label: "5 – 10 years" },
             { id: "10+", label: "10+ years" },
           ].map((exp) => (
             <button
               key={exp.id}
-              onClick={() => onChange({ ...value, experience: exp.id })}
+              onClick={() => {
+                onChange({ ...value, experience: exp.id });
+                onNext();
+              }}
               className={`w-full p-6 text-left rounded-xl border-2 flex items-center justify-between text-primary font-semibold transition-all 
                     ${
                       value.experience === exp.id

@@ -404,7 +404,7 @@ const ColorPicker = ({ selectedColor, onChange }) => {
         onClick={handleToggleDropdown}
         className="rounded-full border-2 border-primary px-4 py-2 bg-white text-primary font-medium hover:bg-primary/20
     transition-transform duration-200 ease-in-out hover:scale-[1.02]  hover:text-primary flex items-center gap-2"
-        style={{ backgroundColor: selectedColor }}
+        // style={{ backgroundColor: selectedColor }}
       >
         <Palette size={18} />
         <span className="hidden md:inline">Color Theme</span>

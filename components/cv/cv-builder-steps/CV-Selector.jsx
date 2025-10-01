@@ -322,6 +322,7 @@ const CVSelector = ({ onNext, onBack, onChange, value }) => {
       // category: template.category,
       style: template.style,
     });
+    onNext();
   };
   useEffect(() => {
     const fetchResumeData = async () => {
@@ -513,7 +514,7 @@ const CVSelector = ({ onNext, onBack, onChange, value }) => {
                 <button
                   key={template.key}
                   onClick={() => handleTemplateSelect(template)}
-                  className="group bg-white rounded-xl shadow-md overflow-hidden border-2"
+                  className="group bg-white rounded-xl shadow-md overflow-hidden border-2 "
                   style={getHoverStyle(template.key)}
                 >
                   <div className="">
@@ -521,15 +522,14 @@ const CVSelector = ({ onNext, onBack, onChange, value }) => {
                       <Image
                         src={template.imageUrl}
                         alt={template.name}
-                        layout="fill"
-                        objectFit="contain"
+                        objectFit=""
                         className=""
                       />
                       <div className="absolute inset-0 flex items-end justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-gradient-to-t from-black/60 to-transparent p-4">
-                    <span className="bg-gradient-to-r from-[#002a48] via-primary to-success text-white font-semibold px-5 py-2 rounded-full shadow-md">
-                      Click to Select
-                    </span>
-                  </div>
+                        <span className="bg-gradient-to-r from-[#002a48] via-primary to-success text-white font-semibold px-5 py-2 rounded-full shadow-md">
+                          Click to Select
+                        </span>
+                      </div>
                     </div>
                     {/* <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
                         <p className="text-white font-medium text-lg">
