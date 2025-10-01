@@ -857,17 +857,15 @@ export default function MobileBuilder() {
 
       {showSampleModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-2">
-          <div className="bg-white rounded-lg shadow-lg w-[500px] max-h-[80vh] overflow-hidden flex flex-col">
+          <div className="bg-white rounded-lg shadow-lg w-full max-w-[500px] max-h-[80vh] flex flex-col overflow-hidden">
             {/* Header */}
             <div className="flex justify-between items-center p-3 border-b bg-white relative z-20">
               <h2 className="text-lg font-semibold text-gray-800">
-                Sample Resume Preview
+                Sample Cover Letter Preview
               </h2>
               <button
                 onClick={() => {
                   setShowSampleModal(false);
-                  setSampleResumeData(null);
-                  // Clean up the image URL to free memory
                   if (previewImage) {
                     URL.revokeObjectURL(previewImage);
                     setPreviewImage(null);
@@ -880,61 +878,34 @@ export default function MobileBuilder() {
             </div>
 
             {/* Preview Area */}
-            <div className="flex-1 flex justify-center p-2 relative overflow-hidden">
-              <div className="relative flex justify-center">
-                {/* Scale wrapper with larger scale */}
-                <div
-                  className="relative"
-                  style={{
-                    transform: "scale(0.6)",
-                    transformOrigin: "top center",
-                    width: "794px",
-                    height: "1123px", // A4 height
-                  }}
-                >
-                  {/* Watermark Background */}
-                  <div
-                    className="absolute inset-0 pointer-events-none z-10"
-                    // style={{
-                    //   backgroundImage: `repeating-linear-gradient(
-                    //     45deg,
-                    //     transparent,
-                    //     transparent 60px,
-                    //     rgba(255, 0, 0, 0.08) 60px,
-                    //     rgba(255, 0, 0, 0.08) 120px
-                    //   )`,
-                    // }}
-                  ></div>
-
-                  {/* Resume Preview */}
-                  <div className="relative z-0 ">
-                    {previewImage ? (
-                      <img
-                        src={previewImage}
-                        alt="Sample Resume Preview"
-                        className="max-w-full h-auto"
-                        style={{
-                          transform: "scale(0.6)",
-                          transformOrigin: "top center",
-                          width: "794px",
-                          height: "1123px",
-                        }}
-                      />
-                    ) : (
-                      <div className="flex items-center justify-center h-64">
-                        <div className="text-gray-500">
-                          Loading sample resume...
-                        </div>
-                      </div>
-                    )}
+            <div className="flex-1 flex justify-center items-center p-2">
+              {previewImage ? (
+                <div className="w-[400px] h-[400px] flex items-center justify-center border border-gray-200 rounded-lg overflow-hidden bg-gray-50">
+                  <Image
+                    src={previewImage}
+                    alt="Sample Cover Letter Preview"
+                    width={794}
+                    height={1200}
+                    className="w-full h-full"
+                    style={{
+                      objectFit: "contain",
+                      width: "100%",
+                      height: "100%",
+                    }}
+                  />
+                </div>
+              ) : (
+                <div className="flex items-center justify-center h-64">
+                  <div className="text-gray-500">
+                    Loading sample cover letter...
                   </div>
                 </div>
-              </div>
+              )}
             </div>
 
             {/* Footer */}
-            <div className="p-3 border-t bg-gray-50 relative z-20">
-              <p className="text-xs text-gray-600 text-center">
+            <div className="p-3 border-t bg-gray-50 relative z-20 text-center">
+              <p className="text-xs text-gray-600">
                 This is a sample preview with watermark. Download the full
                 version without watermark.
               </p>
