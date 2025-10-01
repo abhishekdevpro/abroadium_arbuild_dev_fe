@@ -44,15 +44,20 @@ const TemplateSelector = ({
       setCurrentIndex(selectedIndex);
     }
     setTemplateId(selectedTemplate);
-  }, [selectedTemplate]);
+  }, [selectedTemplate, setSelectedPdfType, templates]);
 
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
 
   const handleTemplateClick = (templateKey) => {
+    const selectedTemplate = templates.find(
+      (template) => template.key === templateKey
+    );
     setSelectedTemplate(templateKey);
     setTemplateId(templateKey);
-    setSelectedPdfType(templateKey.pdfType);
+    if (selectedTemplate) {
+      setSelectedPdfType(selectedTemplate.pdfType);
+    }
     closeModal();
   };
 
@@ -90,9 +95,9 @@ const TemplateSelector = ({
       </button>
 
       {isOpen && (
-        <div className="fixed inset-0 flex items-center justify-center z-50 p-4 bg-gradient-to-b from-white to-blue-100">
-          <div className="bg-white rounded-xl p-6 w-full max-w-5xl relative shadow-2xl max-h-[90vh] overflow-y-auto">
-            <div className="text-lg font-bold mb-6 text-center border rounded-3xl py-2 text-white bg-gray-800">
+        <div className="fixed inset-0 flex items-center justify-center z-50  bg-black/75 p-4 ">
+          <div className="bg-gradient-to-b from-white to-blue-100 rounded-xl p-6 w-full max-w-5xl relative shadow-2xl ">
+            <div className="text-lg font-bold mb-4 text-center border rounded-3xl py-2 text-white bg-primary">
               Select a Template
             </div>
 
@@ -138,12 +143,12 @@ const TemplateSelector = ({
             </div>
 
             {/* Close Button */}
-            {/* <button
+            <button
               onClick={closeModal}
-              className="mt-6 w-full sm:w-auto px-6 py-2.5 bg-gray-800 text-white font-semibold rounded-lg hover:bg-gray-700 transition-colors duration-200 flex items-center justify-center mx-auto"
+              className="w-full sm:w-auto px-6 py-2.5 my-4 bg-gray-800 text-white font-semibold rounded-lg hover:bg-gray-700 transition-colors duration-200 flex items-center justify-center mx-auto"
             >
               Close
-            </button> */}
+            </button>
           </div>
         </div>
       )}

@@ -177,6 +177,7 @@ import dynamic from "next/dynamic";
 import "react-quill/dist/quill.snow.css";
 import { Plus, X } from "lucide-react";
 import axios from "axios";
+import { useRouter } from "next/router";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
@@ -188,6 +189,8 @@ const IntroductionAndBodyForm = () => {
   const [popupContent, setPopupContent] = useState("");
   const [activeIndex, setActiveIndex] = useState(null);
   const [selectedSuggestionIndex, setSelectedSuggestionIndex] = useState(0);
+  const [showUpgradePopup, setShowUpgradePopup] = useState(false);
+  const router = useRouter();
 
   const handleBodyChange = (index, value) => {
     // Remove HTML tags to get plain text length
@@ -264,12 +267,17 @@ const IntroductionAndBodyForm = () => {
 
       setPopupVisible(true);
     } catch (error) {
-      const message =
-        error.response?.data?.message ||
-        error.message ||
-        "Something went wrong.";
-      setPopupContent(message);
-      setPopupVisible(true);
+      // Check if it's a 403 error (API limit exceeded)
+      if (error.response?.status === 403) {
+        setShowUpgradePopup(true);
+      } else {
+        const message =
+          error.response?.data?.message ||
+          error.message ||
+          "Something went wrong.";
+        setPopupContent(message);
+        setPopupVisible(true);
+      }
       console.error(error);
     } finally {
       setLoadingIndex(null);
@@ -294,10 +302,10 @@ const IntroductionAndBodyForm = () => {
     .filter((s) => s.trim() !== "");
 
   const sectionTitles = [
-        "Introduction: Stating Intent Clearly",
-        "Hook: Why You’re a Fit",
-        "Proof & Sign-Off: Show Value and Close Strong",
-      ];
+    "Introduction: Stating Intent Clearly",
+    "Hook: Why You’re a Fit",
+    "Proof & Sign-Off: Show Value and Close Strong",
+  ];
   return (
     // <div className="p-4 md:p-8 rounded-lg shadow-md">
     //   <h2 className="text-2xl font-bold mb-6 text-white">
@@ -379,8 +387,6 @@ const IntroductionAndBodyForm = () => {
       </h2>
 
       {coverLetterData.body.map((paragraph, index) => {
-        
-
         return (
           <div key={index} className="mb-6">
             <div className="flex justify-between items-center">
@@ -451,6 +457,51 @@ const IntroductionAndBodyForm = () => {
                 Insert to{" "}
                 {sectionTitles[activeIndex] || `Paragraph ${activeIndex + 1}`}
               </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Upgrade Plan Popup */}
+      {showUpgradePopup && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60">
+          <div className="bg-white w-full max-w-md rounded-lg p-6 relative">
+            <button
+              onClick={() => setShowUpgradePopup(false)}
+              className="absolute top-2 right-2 text-black hover:text-red-600"
+            >
+              <X className="w-5 h-5" />
+            </button>
+            <div className="text-center">
+              <div className="mb-4">
+                <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-white text-2xl font-bold">⚡</span>
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">
+                  API Limit Exceeded
+                </h3>
+                <p className="text-gray-600 mb-6">
+                  You`&apos;`ve reached your AI assistance limit. Upgrade your
+                  plan to continue using AI features and unlock unlimited
+                  assistance.
+                </p>
+              </div>
+
+              <div className="flex flex-col gap-3">
+                <button
+                  onClick={() => router.push("/pricing")}
+                  className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg"
+                >
+                  Upgrade Plan
+                </button>
+
+                <button
+                  onClick={() => setShowUpgradePopup(false)}
+                  className="w-full bg-gray-200 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-300 transition-colors"
+                >
+                  Continue Without AI
+                </button>
+              </div>
             </div>
           </div>
         </div>
