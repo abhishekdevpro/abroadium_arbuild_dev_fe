@@ -284,12 +284,6 @@ const IntroductionAndBodyForm = () => {
     }
   };
 
-  // const insertToParagraph = () => {
-  //   if (activeIndex !== null) {
-  //     handleBodyChange(activeIndex, popupContent);
-  //     setPopupVisible(false);
-  //   }
-  // };
   const insertToParagraph = () => {
     if (activeIndex !== null && Array.isArray(splitContent)) {
       const selectedText = splitContent[selectedSuggestionIndex];
@@ -307,80 +301,6 @@ const IntroductionAndBodyForm = () => {
     "Proof & Sign-Off: Show Value and Close Strong",
   ];
   return (
-    // <div className="p-4 md:p-8 rounded-lg shadow-md">
-    //   <h2 className="text-2xl font-bold mb-6 text-white">
-    //     Cover Letter Sections
-    //   </h2>
-
-    //   {coverLetterData.body.map((paragraph, index) => (
-    //     <div key={index} className="mb-6">
-    //       <div className="flex justify-between items-center">
-    //         <label className="block text-white font-medium mb-2">
-    //           Paragraph {index + 1}
-    //         </label>
-    //         <button
-    //           onClick={() => handleAIAssist(index)}
-    //           type="button"
-    //           className="flex items-center gap-2 p-2 px-4 bg-black text-white rounded-lg text-sm mb-2 hover:bg-gray-800 transition-all duration-300"
-    //           disabled={loadingIndex === index}
-    //         >
-    //           <Plus className="w-5 h-5" />
-    //           <span>{loadingIndex === index ? "Loading..." : "AI Assist"}</span>
-    //         </button>
-    //       </div>
-
-    //       <ReactQuill
-    //         value={paragraph}
-    //         onChange={(value) => handleBodyChange(index, value)}
-    //         theme="snow"
-    //         placeholder={`Write paragraph ${index + 1}`}
-    //         className="bg-white"
-    //       />
-    //       <div className="text-sm text-gray-500 mt-1 text-right">
-    //         {(paragraph?.replace(/<[^>]*>/g, "") || "").length}/1000
-    //       </div>
-    //     </div>
-    //   ))}
-
-    //   {/* Popup Modal */}
-    //   {popupVisible && (
-    //     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60">
-    //       <div className="bg-white w-full max-w-lg rounded-lg p-6 relative">
-    //         <button
-    //           onClick={() => setPopupVisible(false)}
-    //           className="absolute top-2 right-2 text-black hover:text-red-600"
-    //         >
-    //           <X className="w-5 h-5" />
-    //         </button>
-    //         <h3 className="text-lg font-semibold mb-4">AI Suggested Content</h3>
-    //         {splitContent.map((text, idx) => (
-    //           <label
-    //             key={idx}
-    //             className="flex items-start gap-2 cursor-pointer"
-    //           >
-    //             <input
-    //               type="radio"
-    //               name="ai-suggestion"
-    //               value={idx}
-    //               checked={selectedSuggestionIndex === idx}
-    //               onChange={() => setSelectedSuggestionIndex(idx)}
-    //               className="mt-1"
-    //             />
-    //             <span className="whitespace-pre-line">{text}</span>
-    //           </label>
-    //         ))}
-    //         <div className="mt-4 flex justify-end">
-    //           <button
-    //             onClick={insertToParagraph}
-    //             className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-    //           >
-    //             Insert to Paragraph {activeIndex + 1}
-    //           </button>
-    //         </div>
-    //       </div>
-    //     </div>
-    //   )}
-    // </div>
     <div className="p-4 md:p-8 rounded-lg shadow-md">
       <h2 className="text-2xl font-bold mb-6 text-white">
         Cover Letter Sections
@@ -489,7 +409,7 @@ const IntroductionAndBodyForm = () => {
 
               <div className="flex flex-col gap-3">
                 <button
-                  onClick={() => router.push("/pricing")}
+                  onClick={() => router.push("/payment")}
                   className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg"
                 >
                   Upgrade Plan
