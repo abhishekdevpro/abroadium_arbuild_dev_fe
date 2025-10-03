@@ -229,7 +229,7 @@ const Language = () => {
           </div>
         ))
       ) : (
-        <p className="text-black my-2">
+        <p className="text-white my-2">
           No languages added. Add a new language to get started.
         </p>
       )}

@@ -178,6 +178,7 @@ import "react-quill/dist/quill.snow.css";
 import { Plus, X } from "lucide-react";
 import axios from "axios";
 import { useRouter } from "next/router";
+import { toast } from "react-toastify";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
@@ -196,8 +197,24 @@ const IntroductionAndBodyForm = () => {
     // Remove HTML tags to get plain text length
     const plainText = value.replace(/<[^>]*>/g, "");
 
-    // Limit to 1000 characters per paragraph
-    if (plainText.length <= 1000) {
+    // If content exceeds 1000 characters, truncate it
+    if (plainText.length > 1000) {
+      // Show warning message
+      toast.warning(
+        "Character limit exceeded! Content has been truncated to 1000 characters."
+      );
+
+      // Truncate the plain text to 1000 characters
+      const truncatedText = plainText.substring(0, 1000);
+
+      // Update with truncated content
+      setCoverLetterData((prevData) => {
+        const updatedBody = [...prevData.body];
+        updatedBody[index] = truncatedText;
+        return { ...prevData, body: updatedBody };
+      });
+    } else {
+      // Update normally if within limit
       setCoverLetterData((prevData) => {
         const updatedBody = [...prevData.body];
         updatedBody[index] = value;
@@ -335,8 +352,21 @@ const IntroductionAndBodyForm = () => {
               }`}
               className="bg-white"
             />
-            <div className="text-sm text-gray-500 mt-1 text-right">
+            <div
+              className={`text-sm mt-1 text-right ${
+                (paragraph?.replace(/<[^>]*>/g, "") || "").length > 1000
+                  ? "text-red-500"
+                  : (paragraph?.replace(/<[^>]*>/g, "") || "").length > 900
+                  ? "text-yellow-500"
+                  : "text-gray-500"
+              }`}
+            >
               {(paragraph?.replace(/<[^>]*>/g, "") || "").length}/1000
+              {(paragraph?.replace(/<[^>]*>/g, "") || "").length > 1000 && (
+                <span className="ml-2 text-red-500">
+                  (Character limit exceeded)
+                </span>
+              )}
             </div>
           </div>
         );

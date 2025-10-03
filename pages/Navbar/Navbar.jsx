@@ -418,7 +418,7 @@ const Navbar = () => {
       {showUpgradeModal && (
         <ErrorPopup
           onClose={() => setShowUpgradeModal(false)}
-          message="Analysis History is only available for AI Pro Yearly plan. Upgrade your plan to access this premium feature."
+          message="Analysis History is only available for Resume Analysis plan. Upgrade your plan to access this premium feature."
           title="Upgrade Required"
           isUpgrade={true}
         />

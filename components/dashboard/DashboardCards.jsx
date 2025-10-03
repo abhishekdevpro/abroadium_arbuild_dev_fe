@@ -202,7 +202,7 @@ const DashboardCards = ({ strength }) => {
       {showUpgradeModal && (
         <ErrorPopup
           onClose={() => setShowUpgradeModal(false)}
-          message="Match Report is only available for AI Pro Yearly plan. Upgrade your plan to access this premium feature."
+          message="Match Report is only available for Resume Analysis plan. Upgrade your plan to access this premium feature."
           title="Upgrade Required"
           isUpgrade={true}
         />
