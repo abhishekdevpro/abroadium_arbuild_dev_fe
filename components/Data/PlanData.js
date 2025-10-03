@@ -105,7 +105,7 @@ export const pricingData = {
 
   aiProYearly: {
     planId: 4,
-    title: "AI Pro Yearly",
+    title: "Resume Analysis",
     price: "499",
     billingCycle: "year",
     bestValue: "true",

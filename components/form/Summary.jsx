@@ -169,8 +169,23 @@ const Summary = () => {
     // Remove HTML tags to get plain text length
     const plainText = content.replace(/<[^>]*>/g, "");
 
-    // Limit to 500 characters
-    if (plainText.length <= 500) {
+    // If content exceeds 500 characters, truncate it
+    if (plainText.length > 500) {
+      // Show warning message
+      toast.warning(
+        "Character limit exceeded! Text has been truncated to 500 characters."
+      );
+
+      // Truncate the plain text to 500 characters
+      const truncatedText = plainText.substring(0, 500);
+
+      // Update with truncated content
+      setResumeData({
+        ...resumeData,
+        summary: truncatedText,
+      });
+    } else {
+      // Update normally if within limit
       setResumeData({
         ...resumeData,
         summary: content,
@@ -289,9 +304,53 @@ const Summary = () => {
           modules={{
             toolbar: [["bold", "italic", "underline"], ["clean"]],
           }}
+          onPaste={(e) => {
+            // Get the pasted text
+            const pastedText = (
+              e.clipboardData || window.clipboardData
+            ).getData("text");
+            const currentText =
+              resumeData.summary?.replace(/<[^>]*>/g, "") || "";
+
+            // Check if pasting would exceed the limit
+            if (currentText.length + pastedText.length > 500) {
+              e.preventDefault();
+
+              // Calculate how much we can paste
+              const remainingChars = 500 - currentText.length;
+              if (remainingChars > 0) {
+                const truncatedPaste = pastedText.substring(0, remainingChars);
+                const newContent = currentText + truncatedPaste;
+                setResumeData({
+                  ...resumeData,
+                  summary: newContent,
+                });
+                toast.warning(
+                  `Character limit reached! Only ${remainingChars} characters were pasted.`
+                );
+              } else {
+                toast.warning(
+                  "Character limit reached! Cannot paste any more text."
+                );
+              }
+            }
+          }}
         />
-        <div className="text-sm text-gray-500 mt-1 text-right">
+        <div
+          className={`text-sm mt-1 text-right ${
+            (resumeData.summary?.replace(/<[^>]*>/g, "") || "").length > 500
+              ? "text-red-500"
+              : (resumeData.summary?.replace(/<[^>]*>/g, "") || "").length > 450
+              ? "text-yellow-500"
+              : "text-gray-500"
+          }`}
+        >
           {(resumeData.summary?.replace(/<[^>]*>/g, "") || "").length}/500
+          {(resumeData.summary?.replace(/<[^>]*>/g, "") || "").length > 500 && (
+            <span className="ml-2 text-red-500">
+              (Character limit exceeded)
+            </span>
+          )}
         </div>
       </div>
 

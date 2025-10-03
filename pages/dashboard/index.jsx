@@ -29,7 +29,7 @@ export default function DashboardPage() {
     1: "Free",
     2: "Pay & Download",
     3: "AI Pro Month",
-    4: "AI Pro Yearly",
+    4: "Resume Analysis",
   };
 
   const currentPlan = user?.plan_id ? planName[user.plan_id] : "Free";
@@ -56,7 +56,7 @@ export default function DashboardPage() {
     }
   };
   const handleResumeScan = async () => {
-    // Check if user has plan_id 4 (AI Pro Yearly) for resume analysis
+    // Check if user has plan_id 4 (Resume Analysis) for resume analysis
     if (user?.plan_id !== 4) {
       setShowUpgradeModal(true);
       return;
@@ -276,7 +276,7 @@ export default function DashboardPage() {
         {showUpgradeModal && (
           <ErrorPopup
             onClose={() => setShowUpgradeModal(false)}
-            message="Resume Analysis is only available for AI Pro Yearly plan. Upgrade your plan to access this premium feature."
+            message="Resume Analysis is only available for Resume Analysis plan. Upgrade your plan to access this premium feature."
             title="Upgrade Required"
             isUpgrade={true}
           />

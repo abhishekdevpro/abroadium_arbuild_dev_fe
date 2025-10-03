@@ -119,7 +119,7 @@ const Navbar = () => {
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 
   const handleAnalysisHistory = () => {
-    // Check if user has plan_id 4 (AI Pro Yearly) for analysis history
+    // Check if user has plan_id 4 (Resume Analysis) for analysis history
     if (user?.plan_id !== 4) {
       setShowUpgradeModal(true);
       setIsDropdownOpen(false); // Close dropdown
@@ -134,7 +134,7 @@ const Navbar = () => {
     1: "Free",
     2: "Pay & Download",
     3: "AI Pro Month",
-    4: "AI Pro Yearly",
+    4: "Resume Analysis",
   };
 
   const currentPlan = user?.plan_id ? planName[user.plan_id] : "Free";
@@ -418,7 +418,7 @@ const Navbar = () => {
       {showUpgradeModal && (
         <ErrorPopup
           onClose={() => setShowUpgradeModal(false)}
-          message="Analysis History is only available for AI Pro Yearly plan. Upgrade your plan to access this premium feature."
+          message="Analysis History is only available for Resume Analysis plan. Upgrade your plan to access this premium feature."
           title="Upgrade Required"
           isUpgrade={true}
         />

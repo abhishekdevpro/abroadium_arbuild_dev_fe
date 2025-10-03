@@ -78,7 +78,7 @@ const DashboardCards = ({ strength }) => {
   }, []);
 
   const handleViewResume = (resumeId) => {
-    // Check if user has plan_id 4 (AI Pro Yearly) for match report
+    // Check if user has plan_id 4 (Resume Analysis) for match report
     if (user?.plan_id !== 4) {
       setShowUpgradeModal(true);
       return;
@@ -202,7 +202,7 @@ const DashboardCards = ({ strength }) => {
       {showUpgradeModal && (
         <ErrorPopup
           onClose={() => setShowUpgradeModal(false)}
-          message="Match Report is only available for AI Pro Yearly plan. Upgrade your plan to access this premium feature."
+          message="Match Report is only available for Resume Analysis plan. Upgrade your plan to access this premium feature."
           title="Upgrade Required"
           isUpgrade={true}
         />

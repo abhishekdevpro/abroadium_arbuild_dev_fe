@@ -73,7 +73,7 @@ const PersonalInformation = () => {
             type="text"
             value={coverLetterData.personalDetails.name}
             onChange={(e) => handleChange("name", e.target.value)}
-            maxLength={50}
+            maxLength={30}
             className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Enter your name"
           />
@@ -97,7 +97,7 @@ const PersonalInformation = () => {
             type="email"
             value={coverLetterData.personalDetails.email}
             onChange={(e) => handleChange("email", e.target.value)}
-            maxLength={100}
+            maxLength={50}
             className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Enter your email"
           />
@@ -109,7 +109,7 @@ const PersonalInformation = () => {
           <textarea
             value={coverLetterData.personalDetails.address}
             onChange={(e) => handleChange("address", e.target.value)}
-            maxLength={200}
+            maxLength={100}
             className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Enter your address"
             rows="3"

@@ -100,14 +100,29 @@ const Projects = () => {
   // };
   const handleKeyAchievement = (e, projectIndex) => {
     const newProjects = [...resumeData.projects];
-    const achievements = e.target.value.split("\n");
+    const value = e.target.value;
 
-    newProjects[projectIndex].keyAchievements = achievements;
+    // Check character limit (1000 characters)
+    if (value.length > 1000) {
+      // Show warning message
+      toast.warning(
+        "Character limit exceeded! Key achievements have been truncated to 1000 characters."
+      );
+
+      // Truncate to 1000 characters
+      const truncatedValue = value.substring(0, 1000);
+      const achievements = truncatedValue.split("\n");
+      newProjects[projectIndex].keyAchievements = achievements;
+    } else {
+      // Don't filter out empty strings - this is the key change
+      const achievements = value.split("\n");
+      newProjects[projectIndex].keyAchievements = achievements;
+    }
 
     // Optional: Track user-modified achievements separately if needed
-    setSelectedKeyAchievements(achievements); // sync with popup logic
+    setSelectedKeyAchievements(newProjects[projectIndex].keyAchievements); // sync with popup logic
 
-    // setResumeData({ ...resumeData, projects: newProjects });
+    setResumeData({ ...resumeData, projects: newProjects });
   };
 
   const addProjects = () => {
@@ -683,7 +698,7 @@ const Projects = () => {
                       type="text"
                       placeholder="Link"
                       name="link"
-                      maxLength={200}
+                      maxLength={100}
                       className={`w-full other-input border  ${
                         improve && hasErrors(projectIndex, "link")
                           ? "border-red-500"
@@ -959,17 +974,43 @@ const Projects = () => {
                   <ReactQuill
                     placeholder="Description"
                     value={project.description}
-                    onChange={(value) =>
-                      handleProjects(
-                        {
-                          target: {
-                            name: "description",
-                            value: value,
+                    onChange={(value) => {
+                      // Remove HTML tags to get plain text length
+                      const plainText = value.replace(/<[^>]*>/g, "");
+
+                      // If content exceeds 1000 characters, truncate it
+                      if (plainText.length > 1000) {
+                        // Show warning message
+                        toast.warning(
+                          "Character limit exceeded! Description has been truncated to 1000 characters."
+                        );
+
+                        // Truncate the plain text to 1000 characters
+                        const truncatedText = plainText.substring(0, 1000);
+
+                        // Update with truncated content
+                        handleProjects(
+                          {
+                            target: {
+                              name: "description",
+                              value: truncatedText,
+                            },
                           },
-                        },
-                        projectIndex
-                      )
-                    }
+                          projectIndex
+                        );
+                      } else {
+                        // Update normally if within limit
+                        handleProjects(
+                          {
+                            target: {
+                              name: "description",
+                              value: value,
+                            },
+                          },
+                          projectIndex
+                        );
+                      }
+                    }}
                     className={`bg-white rounded-md ${
                       improve && hasErrors(projectIndex, "description")
                         ? "border-red-500"
@@ -980,6 +1021,29 @@ const Projects = () => {
                       toolbar: [["bold", "italic", "underline"], ["clean"]],
                     }}
                   />
+                  <div
+                    className={`text-sm mt-1 text-right ${
+                      (project.description?.replace(/<[^>]*>/g, "") || "")
+                        .length > 1000
+                        ? "text-red-500"
+                        : (project.description?.replace(/<[^>]*>/g, "") || "")
+                            .length > 900
+                        ? "text-yellow-500"
+                        : "text-gray-500"
+                    }`}
+                  >
+                    {
+                      (project.description?.replace(/<[^>]*>/g, "") || "")
+                        .length
+                    }
+                    /1000
+                    {(project.description?.replace(/<[^>]*>/g, "") || "")
+                      .length > 1000 && (
+                      <span className="ml-2 text-red-500">
+                        (Character limit exceeded)
+                      </span>
+                    )}
+                  </div>
 
                   {improve && hasErrors(projectIndex, "description") && (
                     <Button
@@ -1069,7 +1133,6 @@ const Projects = () => {
 
                   <textarea
                     placeholder="Enter key achievements (one per line)"
-                    maxLength={1000}
                     className="w-full other-input border-black border "
                     value={
                       Array.isArray(project?.keyAchievements)
@@ -1078,6 +1141,37 @@ const Projects = () => {
                     }
                     onChange={(e) => handleKeyAchievement(e, projectIndex)}
                   />
+                  <div
+                    className={`text-sm mt-1 text-right ${
+                      (Array.isArray(project?.keyAchievements)
+                        ? project.keyAchievements.join("\n")
+                        : project?.keyAchievements || ""
+                      ).length > 1000
+                        ? "text-red-500"
+                        : (Array.isArray(project?.keyAchievements)
+                            ? project.keyAchievements.join("\n")
+                            : project?.keyAchievements || ""
+                          ).length > 900
+                        ? "text-yellow-500"
+                        : "text-gray-500"
+                    }`}
+                  >
+                    {
+                      (Array.isArray(project?.keyAchievements)
+                        ? project.keyAchievements.join("\n")
+                        : project?.keyAchievements || ""
+                      ).length
+                    }
+                    /1000
+                    {(Array.isArray(project?.keyAchievements)
+                      ? project.keyAchievements.join("\n")
+                      : project?.keyAchievements || ""
+                    ).length > 1000 && (
+                      <span className="ml-2 text-red-500">
+                        (Character limit exceeded)
+                      </span>
+                    )}
+                  </div>
 
                   {improve && hasErrors(projectIndex, "keyAchievements") && (
                     <Button

@@ -242,7 +242,28 @@ const WorkExperience = () => {
   };
 
   const handleDescriptionChange = (value, index) => {
-    handleWorkExperience({ target: { name: "description", value } }, index);
+    // Remove HTML tags to get plain text length
+    const plainText = value.replace(/<[^>]*>/g, "");
+
+    // If content exceeds 1000 characters, truncate it
+    if (plainText.length > 1000) {
+      // Show warning message
+      toast.warning(
+        "Character limit exceeded! Description has been truncated to 1000 characters."
+      );
+
+      // Truncate the plain text to 1000 characters
+      const truncatedText = plainText.substring(0, 1000);
+
+      // Update with truncated content
+      handleWorkExperience(
+        { target: { name: "description", value: truncatedText } },
+        index
+      );
+    } else {
+      // Update normally if within limit
+      handleWorkExperience({ target: { name: "description", value } }, index);
+    }
   };
 
   const handleAIAssistDescription = async (index) => {
@@ -360,14 +381,27 @@ const WorkExperience = () => {
   };
   const handleKeyAchievement = (e, index) => {
     const newWorkExperience = [...resumeData.workExperience];
+    const value = e.target.value;
 
-    // Don't filter out empty strings - this is the key change
-    const achievements = e.target.value.split("\n");
+    // Check character limit (1000 characters)
+    if (value.length > 1000) {
+      // Show warning message
+      toast.warning(
+        "Character limit exceeded! Key achievements have been truncated to 1000 characters."
+      );
 
-    newWorkExperience[index].keyAchievements = achievements;
+      // Truncate to 1000 characters
+      const truncatedValue = value.substring(0, 1000);
+      const achievements = truncatedValue.split("\n");
+      newWorkExperience[index].keyAchievements = achievements;
+    } else {
+      // Don't filter out empty strings - this is the key change
+      const achievements = value.split("\n");
+      newWorkExperience[index].keyAchievements = achievements;
+    }
 
     // Optional: Track user-modified achievements separately if needed
-    setSelectedKeyAchievements(achievements); // sync with popup logic
+    setSelectedKeyAchievements(newWorkExperience[index].keyAchievements); // sync with popup logic
 
     setResumeData({ ...resumeData, workExperience: newWorkExperience });
   };
@@ -735,20 +769,23 @@ const WorkExperience = () => {
               className="flex justify-between items-center p-4 cursor-pointer bg-white"
               onClick={() => toggleExperience(index)}
             >
-              <h3 className="text-black text-xl font-semibold">
+              <h3 className="text-black text-xl font-semibold flex-1 pr-2 break-words max-w-[calc(100%-80px)]">
                 {experience.position ||
                   experience.company ||
                   `Work Experience ${index + 1}`}
               </h3>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 flex-shrink-0 min-w-[80px]">
                 {expandedExperiences[index] ? (
                   <ChevronUp className="w-6 h-6 text-black" />
                 ) : (
                   <ChevronDown className="w-6 h-6 text-black" />
                 )}
                 <Button
-                  onClick={() => removeWork(index)}
-                  className="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded bg-red-500 text-white hover:bg-red-600 transition-colors md:ml-2"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    removeWork(index);
+                  }}
+                  className="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded bg-red-500 text-white hover:bg-red-600 transition-colors"
                   type="button"
                 >
                   <Trash className="w-5 h-5" />
@@ -1220,6 +1257,31 @@ const WorkExperience = () => {
                       toolbar: [["bold", "italic", "underline"], ["clean"]],
                     }}
                   />
+                  <div
+                    className={`text-sm mt-1 text-right ${
+                      (experience.description?.replace(/<[^>]*>/g, "") || "")
+                        .length > 1000
+                        ? "text-red-500"
+                        : (
+                            experience.description?.replace(/<[^>]*>/g, "") ||
+                            ""
+                          ).length > 900
+                        ? "text-yellow-500"
+                        : "text-gray-500"
+                    }`}
+                  >
+                    {
+                      (experience.description?.replace(/<[^>]*>/g, "") || "")
+                        .length
+                    }
+                    /1000
+                    {(experience.description?.replace(/<[^>]*>/g, "") || "")
+                      .length > 1000 && (
+                      <span className="ml-2 text-red-500">
+                        (Character limit exceeded)
+                      </span>
+                    )}
+                  </div>
                   {improve && hasErrors(index, "descriptionDetails") && (
                     <Button
                       type="button"
@@ -1315,7 +1377,6 @@ const WorkExperience = () => {
 
                   <textarea
                     placeholder="Enter key achievements (one per line)"
-                    maxLength={1000}
                     className="w-full other-input border-black border"
                     // value={experience.keyAchievements}
                     value={
@@ -1325,6 +1386,37 @@ const WorkExperience = () => {
                     }
                     onChange={(e) => handleKeyAchievement(e, index)}
                   />
+                  <div
+                    className={`text-sm mt-1 text-right ${
+                      (Array.isArray(experience?.keyAchievements)
+                        ? experience.keyAchievements.join("\n")
+                        : experience?.keyAchievements || ""
+                      ).length > 1000
+                        ? "text-red-500"
+                        : (Array.isArray(experience?.keyAchievements)
+                            ? experience.keyAchievements.join("\n")
+                            : experience?.keyAchievements || ""
+                          ).length > 900
+                        ? "text-yellow-500"
+                        : "text-gray-500"
+                    }`}
+                  >
+                    {
+                      (Array.isArray(experience?.keyAchievements)
+                        ? experience.keyAchievements.join("\n")
+                        : experience?.keyAchievements || ""
+                      ).length
+                    }
+                    /1000
+                    {(Array.isArray(experience?.keyAchievements)
+                      ? experience.keyAchievements.join("\n")
+                      : experience?.keyAchievements || ""
+                    ).length > 1000 && (
+                      <span className="ml-2 text-red-500">
+                        (Character limit exceeded)
+                      </span>
+                    )}
+                  </div>
                   {improve && hasErrors(index, "keyAchievements") && (
                     <Button
                       type="button"
