@@ -78,7 +78,7 @@ const DashboardCards = ({ strength }) => {
   }, []);
 
   const handleViewResume = (resumeId) => {
-    // Check if user has plan_id 4 (AI Pro Yearly) for match report
+    // Check if user has plan_id 4 (Resume Analysis) for match report
     if (user?.plan_id !== 4) {
       setShowUpgradeModal(true);
       return;

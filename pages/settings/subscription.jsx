@@ -89,7 +89,7 @@
 //     1: "Free",
 //     2: "Pay & Download",
 //     3: "AI Pro Month",
-//     // 4: "AI Pro Yearly",
+//     // 4: "Resume Analysis",
 //   };
 
 //   const currentPlan = userData?.plan_id
@@ -328,7 +328,7 @@ export default function Subscription() {
     1: "Free",
     2: "Pay & Download",
     3: "AI Pro Month",
-    4: "AI Pro Yearly",
+    4: "Resume Analysis",
   };
 
   const currentPlan = userData?.plan_id
