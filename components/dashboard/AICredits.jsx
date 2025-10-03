@@ -7,6 +7,13 @@ const AICredits = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Check if we're in cover letter context by looking at the URL
+  const isCoverLetterContext =
+    typeof window !== "undefined" &&
+    (window.location.pathname.includes("coverletter") ||
+      window.location.pathname.includes("cover-letter") ||
+      window.location.pathname.includes("cvaibuilder"));
+
   const fetchCredits = async () => {
     try {
       setLoading(true);
@@ -54,7 +61,7 @@ const AICredits = () => {
         <div className="flex items-center space-x-2">
           <Zap className="w-4 h-4 text-primary animate-pulse" />
           <span className="text-sm font-semibold text-gray-800">
-            AI Credits
+            {isCoverLetterContext ? "Cover Letter Credits" : "AI Credits"}
           </span>
           <span className="text-sm text-gray-500">Loading...</span>
         </div>
@@ -69,7 +76,7 @@ const AICredits = () => {
         <div className="flex items-center space-x-2">
           <Zap className="w-4 h-4 text-red-500" />
           <span className="text-sm font-semibold text-gray-800">
-            AI Credits
+            {isCoverLetterContext ? "Cover Letter Credits" : "AI Credits"}
           </span>
           <span className="text-xs text-red-500">Error</span>
         </div>
@@ -84,7 +91,20 @@ const AICredits = () => {
   }
 
   // Extract credits information from the API response
-  const remainingCredits = credits?.ai_limits_left || 0;
+  const remainingCredits = isCoverLetterContext
+    ? credits?.cover_letter_ai_limits_left || 0
+    : credits?.ai_limits_left || 0;
+
+  // Debug logging
+  console.log("AICredits Debug:", {
+    isCoverLetterContext,
+    pathname: typeof window !== "undefined" ? window.location.pathname : "N/A",
+    credits,
+    remainingCredits,
+    cover_letter_ai_limits_left: credits?.cover_letter_ai_limits_left,
+    ai_limits_left: credits?.ai_limits_left,
+  });
+
   // If API provides total credits, use it; otherwise use a reasonable default
   const totalCredits =
     credits?.ai_credits_total || credits?.total_credits || 100;
@@ -112,7 +132,9 @@ const AICredits = () => {
       {/* Credits Display */}
       <div className="flex items-center space-x-2">
         <Zap className="w-4 h-4 text-primary" />
-        <span className="text-sm font-semibold text-gray-800">AI Credits</span>
+        <span className="text-sm font-semibold text-gray-800">
+          {isCoverLetterContext ? "Cover Letter Credits" : "AI Credits"}
+        </span>
         <span className="text-sm font-bold text-gray-900">
           {remainingCredits}
         </span>

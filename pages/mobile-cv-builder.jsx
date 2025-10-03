@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import Image from "next/image";
 import { SaveLoader } from "../components/ResumeLoader/SaveLoader";
+import AICredits from "../components/dashboard/AICredits";
 
 const MobileCoverLetterBuilder = ({
   selectedFont,
@@ -234,6 +235,7 @@ const MobileCoverLetterBuilder = ({
           <div className="sticky top-[64px] z-40 bg-gray-200 p-4 shadow-sm">
             <div className="flex flex-row flex-wrap justify-center items-center ">
               {/* Font Selector */}
+              <AICredits />
               <select
                 value={selectedFont}
                 onChange={handleFontChange}

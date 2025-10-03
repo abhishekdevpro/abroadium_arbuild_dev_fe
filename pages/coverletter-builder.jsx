@@ -23,6 +23,7 @@ import LetterDetails from "../components/cv/coverletterform/LetterDetails";
 import IntroductionAndBodyForm from "../components/cv/coverletterform/IntroductionAndBodyForm";
 import ClosingGratitudeAndSignatureForm from "../components/cv/coverletterform/ClosingGratitudeAndSignatureForm";
 import { SaveLoader } from "../components/ResumeLoader/SaveLoader";
+import AICredits from "../components/dashboard/AICredits";
 function CoverLetterBuilder() {
   const {
     coverLetterData,
@@ -518,6 +519,11 @@ function CoverLetterBuilder() {
                   </div>
 
                   <div className="hidden lg:flex items-center gap-6">
+                    {/* AI Credits Component */}
+                    <div className="hidden lg:block">
+                      <AICredits />
+                    </div>
+
                     {/* Font Selector */}
                     <select
                       value={selectedFont}
@@ -663,6 +669,11 @@ transition-transform duration-200 ease-in-out hover:scale-[1.02] hover:bg-primar
 
               <div className="hidden md:flex w-screen px-8 py-4 justify-center items-center bg-white shadow">
                 <div className="hidden lg:flex items-center gap-4">
+                  {/* AI Credits Component */}
+                  <div className="hidden lg:block">
+                    <AICredits />
+                  </div>
+
                   <select
                     value={selectedFont}
                     onChange={handleFontChange}
