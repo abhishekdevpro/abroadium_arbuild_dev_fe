@@ -24,6 +24,7 @@ import Image from "next/image";
 import { ResumeContext } from "../components/context/ResumeContext";
 import { SaveLoader } from "../components/ResumeLoader/SaveLoader";
 import Highlightmenubar from "../components/preview/highlightmenu";
+import AICredits from "../components/dashboard/AICredits";
 
 const Print = dynamic(() => import("../components/utility/WinPrint"), {
   ssr: false,
@@ -697,6 +698,9 @@ export default function MobileBuilder() {
                 selectmultiplecolor={backgroundColorss}
                 onChange={setBgColor}
               />
+              <div>
+                <AICredits />
+              </div>
               <select
                 value={selectedFont}
                 onChange={handleFontChange}
