@@ -341,8 +341,8 @@ const Navbar = () => {
           </div>
         </div>
         {isMenuOpen && (
-          <div className="md:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1">
+          <div className="md:hidden absolute top-16 left-0 right-0 bg-white shadow-lg z-50">
+            <div className="px-2 pt-2 pb-3 space-y-1 ">
               <Link
                 href="/dashboard/aibuilder"
                 className="text-black block px-3 py-2 rounded-md text-base font-semibold hover:bg-primary"
@@ -356,6 +356,13 @@ const Navbar = () => {
                 onClick={handleLinkClick}
               >
                 My Resumes
+              </Link>
+              <Link
+                href="/dashboard/cvletterlist"
+                className="text-black block px-3 py-2 rounded-md text-base font-semibold hover:bg-primary"
+                onClick={handleLinkClick}
+              >
+                Cover Letter
               </Link>
               <button
                 onClick={() => {
